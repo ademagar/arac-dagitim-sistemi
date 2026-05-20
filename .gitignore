@@ -222,3 +222,63 @@ data/*.db
 outputs/distribution_*.xlsx
 .ipynb_checkpoints/
 *.log.streamlit/secrets.toml
+
+
+# ============================================
+# Proje ozel ignore kurallari
+# ============================================
+
+# Ortam degiskenleri (secrets, API keys)
+.env
+.env.local
+.env.*.local
+
+# Streamlit secrets (Streamlit Cloud'a ayri yuklenir)
+.streamlit/secrets.toml
+
+# SQLite veritabanlari (uretilen, ham veriden olusturulur)
+data/*.db
+data/*.sqlite
+data/*.sqlite3
+
+# Islenmis veri (uretilen, raw'dan olusturulur)
+data/processed/*.parquet
+data/processed/*.csv
+data/processed/*.feather
+
+# Sistem ciktilari (uretilen raporlar)
+outputs/distribution_*.xlsx
+outputs/distribution_*.csv
+outputs/grafikler/*.png
+outputs/rapor_pdf/*.pdf
+
+# Jupyter notebook checkpoint'leri
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+
+# Pytest cache
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Ruff linter cache
+.ruff_cache/
+
+# VS Code / IDE
+.vscode/
+.idea/
+*.swp
+
+# Log dosyalari
+*.log
+logs/
+
+# OS dosyalari
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Kisisel notlar (hocan ile paylasilmayacak)
+NOTES.md
+TODO.md
+notes/
