@@ -215,4 +215,10 @@ marimo/_lsp/
 __marimo__/
 
 # Streamlit
+# Proje özel
+.env
 .streamlit/secrets.toml
+data/*.db
+outputs/distribution_*.xlsx
+.ipynb_checkpoints/
+*.log.streamlit/secrets.toml
