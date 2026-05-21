@@ -8,6 +8,7 @@ from __future__ import annotations
 from pathlib import Path
 
 import matplotlib
+
 matplotlib.use("Agg")  # GUI olmayan ortamlar için
 
 import matplotlib.pyplot as plt

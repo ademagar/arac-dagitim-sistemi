@@ -165,13 +165,14 @@ def _compute_si(source: str) -> pd.Series:
 
     # Importlari burada yap (calisma dizininden bagimsiz)
     sys.path.insert(0, str(_REPO_ROOT))
+    from src.analysis.data_loader import load_competitors, load_sales
     from src.analysis.seasonality import (
-        compute_odd_si,
-        compute_segment_si,
-        compute_northstar_si,
         compute_final_si,
+        compute_northstar_si,
+        compute_odd_si,
+        compute_optimal_weights,
+        compute_segment_si,
     )
-    from src.analysis.data_loader import load_sales, load_competitors
 
     if source == "odd":
         return compute_odd_si(_DATA_DIR)
@@ -188,7 +189,8 @@ def _compute_si(source: str) -> pd.Series:
     odd_si  = compute_odd_si(_DATA_DIR)
     seg_si  = compute_segment_si(df_comp)
     ns_si   = compute_northstar_si(df_sales)
-    return compute_final_si(odd_si, seg_si, ns_si)
+    w_odd, w_seg, w_ns = compute_optimal_weights(_DATA_DIR, df_comp, df_sales)
+    return compute_final_si(odd_si, seg_si, ns_si, w_odd, w_seg, w_ns)
 
 
 def _get_si(source: str, si_file: str | None) -> pd.Series:

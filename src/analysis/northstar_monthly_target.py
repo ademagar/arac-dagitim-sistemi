@@ -72,18 +72,22 @@ def _load_final_si() -> pd.Series:
     # Canli hesaplama
     print("  Nihai SI hesaplaniyor (veri dosyalarindan)...")
     sys.path.insert(0, str(_REPO_ROOT))
+    from src.analysis.data_loader import load_competitors, load_sales
     from src.analysis.seasonality import (
-        compute_odd_si,
-        compute_segment_si,
-        compute_northstar_si,
         compute_final_si,
+        compute_northstar_si,
+        compute_odd_si,
+        compute_optimal_weights,
+        compute_segment_si,
     )
-    from src.analysis.data_loader import load_sales, load_competitors
 
-    odd_si  = compute_odd_si(_DATA_DIR)
-    seg_si  = compute_segment_si(load_competitors(_DATA_DIR))
-    ns_si   = compute_northstar_si(load_sales(_DATA_DIR))
-    return compute_final_si(odd_si, seg_si, ns_si)
+    df_comp  = load_competitors(_DATA_DIR)
+    df_sales = load_sales(_DATA_DIR)
+    odd_si   = compute_odd_si(_DATA_DIR)
+    seg_si   = compute_segment_si(df_comp)
+    ns_si    = compute_northstar_si(df_sales)
+    w_odd, w_seg, w_ns = compute_optimal_weights(_DATA_DIR, df_comp, df_sales)
+    return compute_final_si(odd_si, seg_si, ns_si, w_odd, w_seg, w_ns)
 
 
 def _load_granular_si(breakdown: str) -> pd.DataFrame:
@@ -118,9 +122,9 @@ def _load_granular_si(breakdown: str) -> pd.DataFrame:
     sys.path.insert(0, str(_REPO_ROOT))
     from src.analysis.data_loader import load_sales
     from src.analysis.seasonality import (
+        compute_color_si,
         compute_dealer_si,
         compute_model_si,
-        compute_color_si,
     )
 
     df_sales = load_sales(_DATA_DIR)
@@ -194,7 +198,6 @@ def _print_brand_plan(plan: pd.DataFrame, annual_target: int) -> None:
     print(f"\n  {'Ay':<10} {'SI':>7} {'Plan':>8} {'Pay%':>7} {'Kumulatif':>12} {'Kumul%':>8}  Bar")
     print("  " + "-" * 68)
 
-    max_qty = plan["planned_qty"].max()
     for _, row in plan.iterrows():
         bar_len = int(row["share_pct"] / 1.5)
         bar = "█" * bar_len
@@ -362,7 +365,7 @@ def run(annual_target: int = 3_600, breakdown: str = "none") -> None:
     """
     _OUTPUTS_DIR.mkdir(parents=True, exist_ok=True)
 
-    print(f"\nNORTHSTAR Aylik Hedef Planlayicisi")
+    print("\nNORTHSTAR Aylik Hedef Planlayicisi")
     print(f"Yillik Hedef: {annual_target:,} araç | Breakdown: {breakdown}")
     print("-" * 50)
 
@@ -405,7 +408,7 @@ def run(annual_target: int = 3_600, breakdown: str = "none") -> None:
         )
 
     # 5) Sonuclari kaydet
-    print(f"\n[4] Sonuclar kaydediliyor...")
+    print("\n[4] Sonuclar kaydediliyor...")
     for bd in (breakdown_list if breakdown_list else ["none"]):
         g_si = granular_si_map.get(bd)
         shares = shares_map.get(bd)

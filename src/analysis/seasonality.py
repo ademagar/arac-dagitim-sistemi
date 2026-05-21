@@ -40,6 +40,7 @@ import textwrap
 from pathlib import Path
 
 import matplotlib
+
 matplotlib.use("Agg")
 
 import matplotlib.pyplot as plt
@@ -48,7 +49,7 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 
-from src.analysis.data_loader import load_competitors, load_sales, MONTH_TR_MAP
+from src.analysis.data_loader import MONTH_TR_MAP, load_competitors, load_sales
 
 # ---------------------------------------------------------------------------
 # Sabitler
@@ -1364,7 +1365,7 @@ def run(annual_target: int = 3_600) -> None:
 
     w_odd, w_seg, w_ns = compute_optimal_weights(DATA_DIR, df_comp, df_sales)
     weights = (w_odd, w_seg, w_ns)
-    print(f"\n  → Hesaplanan ağırlıklar:")
+    print("\n  → Hesaplanan ağırlıklar:")
     print(f"    ODD={w_odd:.4f}  Segment={w_seg:.4f}  NORTHSTAR={w_ns:.4f}")
 
     final_si = compute_final_si(odd_si, seg_si, ns_si, w_odd, w_seg, w_ns)

@@ -175,7 +175,7 @@ def load_target_achievement(year: int, data_dir: Path = DATA_DIR) -> dict[str, p
 
     # Ay başlıklarını içeren satırı bul (JAN veya FEB içeren)
     header_idx = next(
-        i for i, l in enumerate(lines) if f"JAN'{str(year)[2:]}" in l
+        i for i, line in enumerate(lines) if f"JAN'{str(year)[2:]}" in line
     )
     yr_short = str(year)[2:]
     month_labels = [
@@ -257,7 +257,6 @@ def load_competitors(data_dir: Path = DATA_DIR) -> pd.DataFrame:
     raw = pd.read_csv(path, sep=";", encoding="utf-8-sig", header=None)
 
     # İlk satır boş, ikinci satır marka isimleri
-    brand_col = raw.iloc[:, 0]
     month_cols = raw.iloc[0, 1:].tolist()
 
     records: list[dict] = []
