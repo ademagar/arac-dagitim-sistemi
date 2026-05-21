@@ -144,6 +144,91 @@ def load_monthly_performance(data_dir: Path = DATA_DIR) -> pd.DataFrame:
     return perf
 
 
+def load_target_achievement(year: int, data_dir: Path = DATA_DIR) -> dict[str, pd.DataFrame]:
+    """Yıllık hedef-gerçekleşme dosyasını iki formatta döndürür.
+
+    Args:
+        year: 2024 veya 2025
+
+    Returns:
+        {
+          "wide":  metrik × ay pivot (ham tabloya yakın),
+          "long":  uzun format: month, channel, metric, value
+        }
+    """
+    path = data_dir / f"{year}-TARGET-vs-ACHIEVEMENT.csv"
+    lines = path.read_text(encoding="utf-8-sig").splitlines()
+
+    # Ay başlıklarını içeren satırı bul (JAN veya FEB içeren)
+    header_idx = next(
+        i for i, l in enumerate(lines) if f"JAN'{str(year)[2:]}" in l
+    )
+    month_labels = [c.strip() for c in lines[header_idx].split(";") if c.strip()]
+
+    # Virgülü ondalık ayırıcı olarak normalize et
+    def parse_val(s: str) -> float | None:
+        s = s.strip().replace("%", "").replace(",", ".")
+        try:
+            return float(s)
+        except ValueError:
+            return None
+
+    # Metrik satırlarını oku (header_idx+1'den sonuna kadar boş olmayan satırlar)
+    rows_wide: list[dict] = []
+    rows_long: list[dict] = []
+
+    for line in lines[header_idx + 1 :]:
+        if not line.strip():
+            continue
+        parts = line.split(";")
+        metric = parts[0].strip()
+        if not metric:
+            continue
+
+        values = parts[2:]  # ilk iki sütun boş veya tekrar başlık
+        row: dict = {"metric": metric}
+        for i, lbl in enumerate(month_labels):
+            val = parse_val(values[i]) if i < len(values) else None
+            row[lbl] = val
+
+            # Kanal ve tip çıkar (long format için)
+            if "B2C" in metric and "B2B" not in metric:
+                channel = "B2C"
+            elif "B2B+B2C" in metric or "B2B+B2C" in metric:
+                channel = "B2B+B2C"
+            elif "B2B" in metric:
+                channel = "B2B"
+            else:
+                channel = "ALL"
+
+            if "TARGET" in metric and "ACHIEVEMENT" not in metric and "%" not in metric:
+                mtype = "target"
+            elif "ACHIEVEMENT" in metric and "%" not in metric:
+                mtype = "achievement"
+            elif "%" in metric or "Achievement" in metric:
+                mtype = "achievement_pct"
+            elif "Fark" in metric:
+                mtype = "difference"
+            else:
+                mtype = metric.lower().replace(" ", "_")
+
+            if val is not None and lbl != "TOTAL":
+                rows_long.append(
+                    {
+                        "year": year,
+                        "month": lbl,
+                        "channel": channel,
+                        "metric_type": mtype,
+                        "value": val,
+                    }
+                )
+        rows_wide.append(row)
+
+    wide = pd.DataFrame(rows_wide).set_index("metric")
+    long = pd.DataFrame(rows_long) if rows_long else pd.DataFrame()
+    return {"wide": wide, "long": long}
+
+
 def load_competitors(data_dir: Path = DATA_DIR) -> pd.DataFrame:
     """Rakip marka aylık satış verilerini yükler.
 

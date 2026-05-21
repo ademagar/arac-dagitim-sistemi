@@ -12,7 +12,12 @@ from pathlib import Path
 
 import pandas as pd
 
-from src.analysis.data_loader import load_competitors, load_monthly_performance, load_sales
+from src.analysis.data_loader import (
+    load_competitors,
+    load_monthly_performance,
+    load_sales,
+    load_target_achievement,
+)
 from src.analysis.sales_analysis import (
     channel_breakdown,
     color_ranking,
@@ -71,10 +76,16 @@ def main() -> None:
     # ------------------------------------------------------------------ 2024
     print("\n[2/5] 2024 analizleri...")
     run_core_analyses(df_2024, OUTPUT_DIR / "2024")
+    ta_2024 = load_target_achievement(2024)
+    save_csv(ta_2024["wide"], OUTPUT_DIR / "2024", "11_hedef_gerceklestirme_wide")
+    save_csv(ta_2024["long"], OUTPUT_DIR / "2024", "12_hedef_gerceklestirme_long")
 
     # ------------------------------------------------------------------ 2025
     print("\n[3/5] 2025 analizleri...")
     run_core_analyses(df_2025, OUTPUT_DIR / "2025")
+    ta_2025 = load_target_achievement(2025)
+    save_csv(ta_2025["wide"], OUTPUT_DIR / "2025", "11_hedef_gerceklestirme_wide")
+    save_csv(ta_2025["long"], OUTPUT_DIR / "2025", "12_hedef_gerceklestirme_long")
 
     # ------------------------------------------------------------------ ALL
     print("\n[4/5] Tüm dönem (all) analizleri...")
