@@ -24,6 +24,20 @@ MONTH_TR_MAP = {
     "Eyl": "Sep", "Eki": "Oct", "Kas": "Nov", "Ara": "Dec",
 }
 
+# Rakip marka anonimleştirme — CSV'deki sıraya göre numaralandırılmıştır
+COMPETITOR_ALIAS_MAP: dict[str, str] = {
+    "CITROEN":    "Competitor 1",
+    "KIA":        "Competitor 2",
+    "NISSAN":     "Competitor 3",
+    "OPEL":       "Competitor 4",
+    "PEUGEOT":    "Competitor 5",
+    "RENAULT":    "Competitor 6",
+    "SKODA":      "Competitor 7",
+    "TOYOTA":     "Competitor 8",
+    "VOLKSWAGEN": "Competitor 9",
+}
+# TOPLAM: satırı rakip değil, toplam row — yükleme sırasında atlanır
+
 
 def load_sales(data_dir: Path = DATA_DIR) -> pd.DataFrame:
     """Ana satış dosyasını yükler ve temizler.
@@ -248,9 +262,14 @@ def load_competitors(data_dir: Path = DATA_DIR) -> pd.DataFrame:
 
     records: list[dict] = []
     for _, row in raw.iterrows():
-        brand = str(row.iloc[0]).strip()
-        if brand in ("", "nan", "NaN") or brand.startswith("Unnamed"):
+        brand_raw = str(row.iloc[0]).strip()
+        # Toplam ve boş satırları atla
+        if brand_raw in ("", "nan", "NaN") or brand_raw.startswith("Unnamed"):
             continue
+        if brand_raw not in COMPETITOR_ALIAS_MAP:
+            continue  # TOPLAM: gibi rakip olmayan satırları atla
+        brand = COMPETITOR_ALIAS_MAP[brand_raw]
+
         for col_idx, month_label in enumerate(month_cols, start=1):
             month_str = str(month_label).strip()
             if month_str in ("", "nan"):

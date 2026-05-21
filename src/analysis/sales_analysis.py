@@ -354,12 +354,11 @@ def generate_text_report(
 
     # ---- Rakip karşılaştırma ----
     if comp is not None and not comp.empty:
-        h("RAKİP MARKA SATIŞ KARŞILAŞTIRMASI (2024-2025 Aylık Toplam)")
+        h("RAKİP SATIŞ KARŞILAŞTIRMASI (2024-2025 Aylık Toplam)")
         brand_totals = (
             comp.groupby("brand")["sales_qty"]
             .sum()
             .sort_values(ascending=False)
-            .head(10)
         )
         northstar_total = len(df)
         lines.append(f"  {'Marka':<20} {'Toplam Satış':>14}")

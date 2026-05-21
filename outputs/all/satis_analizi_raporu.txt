@@ -156,21 +156,20 @@ Farklı versiyon sayısı  : 14
   DECEMBER          0      0        0
 
 ============================================================
-  RAKİP MARKA SATIŞ KARŞILAŞTIRMASI (2024-2025 Aylık Toplam)
+  RAKİP SATIŞ KARŞILAŞTIRMASI (2024-2025 Aylık Toplam)
 ============================================================
   Marka                  Toplam Satış
   ------------------------------------
   NORTHSTAR                     6,439  ← Bizim marka
-  TOPLAM:                     720,805
-  VOLKSWAGEN                  163,215
-  PEUGEOT                     113,684
-  OPEL                         93,228
-  CITROEN                      91,037
-  SKODA                        89,293
-  NISSAN                       55,195
-  RENAULT                      46,264
-  KIA                          43,387
-  TOYOTA                       25,502
+  Competitor 9                163,215
+  Competitor 5                113,684
+  Competitor 4                 93,228
+  Competitor 1                 91,037
+  Competitor 7                 89,293
+  Competitor 3                 55,195
+  Competitor 6                 46,264
+  Competitor 2                 43,387
+  Competitor 8                 25,502
 
 ============================================================
   YÖNETİCİ ÖZET VE YORUMLAR
