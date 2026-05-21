@@ -160,6 +160,9 @@ def compute_lp_affinity(
         fill_value=0.0,
     )
 
+    # Satış geçmişinde hiç görülmemiş yeni renkler
+    known_colors = set(color_pivot.columns) if not color_pivot.empty else set()
+
     # --- Araç tipi bazında affinity ---
     affinity: dict[str, dict[str, float]] = {d: {} for d in dealer_names}
 
@@ -170,6 +173,7 @@ def compute_lp_affinity(
                 affinity[d][vt] = 0.0
             continue
         model, version, color = parts
+        color_is_new = color not in known_colors
 
         for dealer in dealer_names:
             # Model/versiyon payı
@@ -183,14 +187,18 @@ def compute_lp_affinity(
                     model_cols = [(c[0], c[1]) for c in mv_pivot.columns if c[0] == model]
                     mv_share = float(sum(row[c] for c in model_cols if c in mv_pivot.columns))
 
-            # Renk payı
+            # Renk payı — yeni renk (geçmişte hiç satılmamış) ise sadece mv_share kullan
+            if color_is_new:
+                affinity[dealer][vt] = mv_share
+                continue
+
             c_share = 0.0
             if dealer in color_pivot.index:
                 row_c = color_pivot.loc[dealer]
                 if color in color_pivot.columns:
                     c_share = float(row_c[color])
 
-            # Kombinasyon skoru: geometrik ortalama (her ikisi de önemli)
+            # Bilinen renk: geometrik ortalama (model/versiyon + renk uyumu)
             affinity[dealer][vt] = float(np.sqrt(mv_share * c_share))
 
     df_affinity = pd.DataFrame(affinity).T  # satır=dealer, sütun=vehicle_type
