@@ -291,3 +291,67 @@ def load_competitors(data_dir: Path = DATA_DIR) -> pd.DataFrame:
             records.append({"brand": brand, "year_month": year_month, "sales_qty": qty})
 
     return pd.DataFrame(records)
+
+
+def load_odd_market(data_dir: Path = DATA_DIR) -> pd.DataFrame:
+    """ODD Türkiye ithal otomobil pazarı aylık satışlarını yükler.
+
+    Dosya: 2024-2025-ODD-Otomobil-Satışlar-İthal).csv
+    Format: marka × ay, nokta=bin ayırıcı, virgül=ondalık
+
+    Returns:
+        Uzun formatlı DataFrame: brand, year_month (YYYY-MM), sales_qty
+        "TOTAL SALES" ve sıfır satırları çıkarılmış.
+    """
+    import glob
+    matches = glob.glob(str(data_dir / "*ODD*"))
+    if not matches:
+        raise FileNotFoundError("ODD dosyası data/raw/ içinde bulunamadı.")
+    path = Path(matches[0])
+
+    lines = path.read_text(encoding="utf-8-sig").splitlines()
+
+    # Ay başlıklarını ilk satırdan çek
+    header_parts = lines[0].split(";")
+    month_labels = [c.strip() for c in header_parts[1:] if c.strip()]
+
+    skip_brands = {"TOTAL SALES", "TOPLAM", ""}
+    records: list[dict] = []
+
+    for line in lines[1:]:
+        if not line.strip() or line.startswith(";"):
+            continue
+        parts = line.split(";")
+        brand = parts[0].strip()
+        if brand in skip_brands or not brand:
+            continue
+
+        values = parts[1:]
+        monthly_total = 0.0
+        row_records: list[dict] = []
+
+        for i, lbl in enumerate(month_labels):
+            if i >= len(values):
+                break
+            # "Oca.24" → YYYY-MM
+            lbl_parts = lbl.split(".")
+            if len(lbl_parts) != 2:
+                continue
+            tr_abbr, yr_short = lbl_parts[0].strip(), lbl_parts[1].strip()
+            en_abbr = MONTH_TR_MAP.get(tr_abbr, tr_abbr)
+            year = int("20" + yr_short)
+            month_num = pd.to_datetime(f"{en_abbr} {year}", format="%b %Y").month
+            year_month = f"{year}-{month_num:02d}"
+
+            raw_val = values[i].strip().replace(".", "").replace(",", ".")
+            qty = pd.to_numeric(raw_val, errors="coerce")
+            if pd.isna(qty):
+                qty = 0.0
+            monthly_total += qty
+            row_records.append({"brand": brand, "year_month": year_month, "sales_qty": qty})
+
+        # Tüm ayları sıfır olan markaları atla (TOGG, SMART vb.)
+        if monthly_total > 0:
+            records.extend(row_records)
+
+    return pd.DataFrame(records)
