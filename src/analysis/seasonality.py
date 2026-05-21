@@ -11,17 +11,26 @@ Klasik oran-ortalaması yöntemi (ratio-to-mean):
     → mean(SI) = 1.0, SI > 1 = peak, SI < 1 = dip
 
 Üç piyasa katmanı:
-    1. ODD SI      — Türkiye ithal otomobil piyasası, 53 marka, toplam hacim
-    2. Segment SI  — 9 rakip marka toplamı, rekabetçi bağlam
+    1. ODD SI       — Türkiye ithal otomobil piyasası, 53 marka, toplam hacim
+    2. Segment SI   — 9 rakip marka toplamı, rekabetçi bağlam
     3. NORTHSTAR SI — Sadece NORTHSTAR işlem verisi, marka özgül
 
-Nihai önerilen SI (final_si):
-    final_si = 0.50 × odd_si + 0.30 × segment_si + 0.20 × northstar_si
+Nihai SI (final_si):
+    final_si = w_odd × odd_si + w_seg × segment_si + w_ns × northstar_si
 
-Ağırlıklandırma gerekçesi:
-    - ODD: En geniş veri tabanı (53 marka), piyasa gürültüsüne karşı robust
-    - Segment: Doğrudan rekabet ortamı, stratejik bağlam
-    - NORTHSTAR: Marka özgül ama sınırlı örneklem (n≈6,400)
+Ağırlıklandırma yöntemi — Yıllar arası tutarlılık (Year-over-Year Stability):
+    Her kaynağın 2024 ve 2025 SI profilleri ayrı hesaplanır; Pearson korelasyonu
+    ile yıllar arası tutarlılık (r) ölçülür. Tutarlı kaynak → düşük gürültü →
+    güvenilir → daha yüksek ağırlık.
+
+        stability_i = Pearson_r(SI_i_2024, SI_i_2025)  [0, 1]'e kırpılır
+        w_i = stability_i / Σ stability
+
+    - ODD ve Segment büyük örneklem → düşük çökelme gürültüsü → yüksek r
+    - NORTHSTAR n≈6,400 → daha yüksek örnekleme gürültüsü → düşük r → düşük w
+    - Sonuç: veriden otomatik hesaplanır, keyfi değildir.
+
+    compute_optimal_weights() ile hesaplanır; run() her çalışmada günceller.
 """
 
 from __future__ import annotations
@@ -90,6 +99,25 @@ def _ratio_to_mean(year_month_sales: pd.DataFrame, value_col: str) -> pd.Series:
     if grand > 0:
         return (avg / grand).round(4)
     return avg * 0
+
+
+def _year_si(df: pd.DataFrame, value_col: str) -> pd.Series:
+    """Tek bir yıla ait veriyle normalize aylık profil (stability hesabı için).
+
+    Args:
+        df:         "month" ve value_col sütunlarını içeren DataFrame (tek yıl).
+        value_col:  Sayısal değer sütunu.
+
+    Returns:
+        1-12 indeksli normalize seri (grand_mean=1 değil, o yılın ortalaması=1).
+    """
+    monthly = (
+        df.groupby("month")[value_col]
+        .sum()
+        .reindex(range(1, 13), fill_value=0.0)
+    )
+    grand = monthly.mean()
+    return (monthly / grand).round(6) if grand > 0 else monthly * 0
 
 
 def _save_fig(fig: plt.Figure, path: Path) -> None:
@@ -230,7 +258,197 @@ def compute_northstar_si(df_sales: pd.DataFrame) -> pd.Series:
 
 
 # ---------------------------------------------------------------------------
-# 4. Granüler NORTHSTAR indeksleri (bayi / model / renk)
+# 4. Veri tabanlı ağırlık hesabı
+# ---------------------------------------------------------------------------
+
+def compute_optimal_weights(
+    data_dir: Path,
+    df_comp: pd.DataFrame,
+    df_sales: pd.DataFrame,
+) -> tuple[float, float, float]:
+    """Yıllar arası tutarlılık (YoY stability) tabanlı optimal ağırlık hesaplar.
+
+    Yöntem (Year-over-Year Stability Weighting):
+        Her kaynak için 2024 ve 2025 yılına ait aylık SI profili ayrı hesaplanır.
+        Bu iki profilin Pearson korelasyonu = "tutarlılık skoru" (stability).
+        Daha tutarlı kaynak → daha güvenilir mevsimsel sinyal → daha yüksek ağırlık.
+
+        stability_i = max(0, corr(SI_i_2024, SI_i_2025))
+        w_i = stability_i / Σ stability
+
+    Akademik gerekçe:
+        Yüksek YoY korelasyon → kaynağın mevsimsel örüntüsü gerçek mevsimselliği
+        yansıtıyor (gürültü değil). Küçük örneklem (NORTHSTAR n≈6,400) daha fazla
+        çökelme gürültüsü üretir → düşük r → düşük w. Büyük örneklem (ODD, Segment)
+        daha stabil → yüksek r → yüksek w. Ağırlıklar veriden otomatik türetilir.
+
+    Args:
+        data_dir: data/raw/ klasörünün yolu.
+        df_comp:  load_competitors() çıktısı.
+        df_sales: load_sales() çıktısı.
+
+    Returns:
+        (w_odd, w_seg, w_ns) — normalize, toplamı = 1.0, 4 ondalık basamak.
+    """
+    # --- ODD: yıl bazlı aylık toplam ---
+    odd_path = data_dir / "2024-2025-ODD-Otomobil-Satışlar-İthal).csv"
+    raw_text = odd_path.read_text(encoding="utf-8-sig")
+    lines_raw = raw_text.strip().splitlines()
+
+    header_parts = lines_raw[0].split(";")
+    month_keys: list[tuple[int, int]] = []
+    for raw_lbl in header_parts[1:]:
+        raw_lbl = raw_lbl.strip()
+        if not raw_lbl:
+            continue
+        parts = raw_lbl.split(".")
+        if len(parts) != 2:
+            continue
+        tr_abbr, yr_short = parts[0].strip(), parts[1].strip()
+        en_abbr = MONTH_TR_MAP.get(tr_abbr, tr_abbr)
+        year = int("20" + yr_short)
+        month_num = pd.to_datetime(f"{en_abbr} {year}", format="%b %Y").month
+        month_keys.append((year, month_num))
+
+    monthly_odd: dict[tuple[int, int], float] = {k: 0.0 for k in month_keys}
+    for line in lines_raw[1:]:
+        if not line.strip():
+            continue
+        parts_l = line.split(";")
+        brand_name = parts_l[0].strip()
+        if not brand_name or brand_name.upper() == "TOTAL SALES":
+            continue
+        vals: list[float] = []
+        for rv in parts_l[1: len(month_keys) + 1]:
+            cleaned = rv.strip().replace(".", "").replace(",", ".")
+            try:
+                vals.append(float(cleaned))
+            except ValueError:
+                vals.append(0.0)
+        if all(v == 0 for v in vals):
+            continue
+        for (yr, mn), val in zip(month_keys, vals):
+            monthly_odd[(yr, mn)] += val
+
+    df_odd = pd.DataFrame(
+        [{"year": yr, "month": mn, "sales_qty": qty}
+         for (yr, mn), qty in monthly_odd.items()]
+    )
+
+    odd_2024 = _year_si(df_odd[df_odd["year"] == 2024], "sales_qty")
+    odd_2025 = _year_si(df_odd[df_odd["year"] == 2025], "sales_qty")
+    stab_odd = max(0.0, float(odd_2024.corr(odd_2025)))
+
+    # --- Segment: yıl bazlı aylık toplam ---
+    df_c = df_comp.copy()
+    df_c["year"]  = df_c["year_month"].str[:4].astype(int)
+    df_c["month"] = df_c["year_month"].str[5:7].astype(int)
+    seg_monthly = df_c.groupby(["year", "month"])["sales_qty"].sum().reset_index()
+
+    seg_2024 = _year_si(seg_monthly[seg_monthly["year"] == 2024], "sales_qty")
+    seg_2025 = _year_si(seg_monthly[seg_monthly["year"] == 2025], "sales_qty")
+    stab_seg = max(0.0, float(seg_2024.corr(seg_2025)))
+
+    # --- NORTHSTAR: yıl bazlı aylık toplam ---
+    ns_monthly = (
+        df_sales
+        .groupby(["year", "month"])
+        .size()
+        .reset_index(name="sales_qty")
+    )
+    ns_2024 = _year_si(ns_monthly[ns_monthly["year"] == 2024], "sales_qty")
+    ns_2025 = _year_si(ns_monthly[ns_monthly["year"] == 2025], "sales_qty")
+    stab_ns = max(0.0, float(ns_2024.corr(ns_2025)))
+
+    total = stab_odd + stab_seg + stab_ns
+    if total == 0:
+        # Veri yoksa eşit ağırlık
+        return (round(1/3, 4), round(1/3, 4), round(1/3, 4))
+
+    w_odd = round(stab_odd / total, 4)
+    w_seg = round(stab_seg / total, 4)
+    w_ns  = round(1.0 - w_odd - w_seg, 4)   # toplam = 1 garantisi
+
+    return w_odd, w_seg, w_ns
+
+
+def _stability_detail(
+    data_dir: Path,
+    df_comp: pd.DataFrame,
+    df_sales: pd.DataFrame,
+) -> dict[str, float]:
+    """compute_optimal_weights() hesabında kullanılan ham stability skorlarını döndürür.
+
+    Raporlama ve doğrulama amacıyla kullanılır.
+
+    Returns:
+        {"odd": r_odd, "seg": r_seg, "ns": r_ns}
+    """
+    # ODD
+    odd_path = data_dir / "2024-2025-ODD-Otomobil-Satışlar-İthal).csv"
+    raw_text = odd_path.read_text(encoding="utf-8-sig")
+    lines_raw = raw_text.strip().splitlines()
+    header_parts = lines_raw[0].split(";")
+    month_keys: list[tuple[int, int]] = []
+    for raw_lbl in header_parts[1:]:
+        raw_lbl = raw_lbl.strip()
+        if not raw_lbl:
+            continue
+        parts = raw_lbl.split(".")
+        if len(parts) != 2:
+            continue
+        tr_abbr, yr_short = parts[0].strip(), parts[1].strip()
+        en_abbr = MONTH_TR_MAP.get(tr_abbr, tr_abbr)
+        year = int("20" + yr_short)
+        month_num = pd.to_datetime(f"{en_abbr} {year}", format="%b %Y").month
+        month_keys.append((year, month_num))
+    monthly_odd: dict[tuple[int, int], float] = {k: 0.0 for k in month_keys}
+    for line in lines_raw[1:]:
+        if not line.strip():
+            continue
+        parts_l = line.split(";")
+        brand_name = parts_l[0].strip()
+        if not brand_name or brand_name.upper() == "TOTAL SALES":
+            continue
+        vals: list[float] = []
+        for rv in parts_l[1: len(month_keys) + 1]:
+            cleaned = rv.strip().replace(".", "").replace(",", ".")
+            try:
+                vals.append(float(cleaned))
+            except ValueError:
+                vals.append(0.0)
+        if all(v == 0 for v in vals):
+            continue
+        for (yr, mn), val in zip(month_keys, vals):
+            monthly_odd[(yr, mn)] += val
+    df_odd = pd.DataFrame(
+        [{"year": yr, "month": mn, "sales_qty": qty}
+         for (yr, mn), qty in monthly_odd.items()]
+    )
+    odd_2024 = _year_si(df_odd[df_odd["year"] == 2024], "sales_qty")
+    odd_2025 = _year_si(df_odd[df_odd["year"] == 2025], "sales_qty")
+    r_odd = max(0.0, float(odd_2024.corr(odd_2025)))
+
+    # Segment
+    df_c = df_comp.copy()
+    df_c["year"]  = df_c["year_month"].str[:4].astype(int)
+    df_c["month"] = df_c["year_month"].str[5:7].astype(int)
+    seg_monthly = df_c.groupby(["year", "month"])["sales_qty"].sum().reset_index()
+    seg_2024 = _year_si(seg_monthly[seg_monthly["year"] == 2024], "sales_qty")
+    seg_2025 = _year_si(seg_monthly[seg_monthly["year"] == 2025], "sales_qty")
+    r_seg = max(0.0, float(seg_2024.corr(seg_2025)))
+
+    # NORTHSTAR
+    ns_monthly = df_sales.groupby(["year", "month"]).size().reset_index(name="sales_qty")
+    ns_2024 = _year_si(ns_monthly[ns_monthly["year"] == 2024], "sales_qty")
+    ns_2025 = _year_si(ns_monthly[ns_monthly["year"] == 2025], "sales_qty")
+    r_ns = max(0.0, float(ns_2024.corr(ns_2025)))
+
+    return {"odd": r_odd, "seg": r_seg, "ns": r_ns}
+
+
+# ---------------------------------------------------------------------------
+# 5. Granüler NORTHSTAR indeksleri (bayi / model / renk)
 # ---------------------------------------------------------------------------
 
 def compute_dealer_si(df_sales: pd.DataFrame) -> pd.DataFrame:
@@ -329,26 +547,28 @@ def compute_color_si(df_sales: pd.DataFrame) -> pd.DataFrame:
 
 
 # ---------------------------------------------------------------------------
-# 5. Nihai ağırlıklı SI
+# 6. Nihai ağırlıklı SI
 # ---------------------------------------------------------------------------
 
 def compute_final_si(
     odd_si: pd.Series,
     segment_si: pd.Series,
     northstar_si: pd.Series,
-    w_odd: float = 0.50,
-    w_seg: float = 0.30,
-    w_ns: float = 0.20,
+    w_odd: float,
+    w_seg: float,
+    w_ns: float,
 ) -> pd.Series:
     """Üç katmanı ağırlıklı ortalama ile birleştirir.
+
+    Ağırlıkların compute_optimal_weights() ile hesaplanması önerilir.
 
     Args:
         odd_si:       ODD piyasa SI serisi (index 1-12).
         segment_si:   Segment SI serisi (index 1-12).
         northstar_si: NORTHSTAR SI serisi (index 1-12).
-        w_odd:        ODD ağırlığı (varsayılan 0.50).
-        w_seg:        Segment ağırlığı (varsayılan 0.30).
-        w_ns:         NORTHSTAR ağırlığı (varsayılan 0.20).
+        w_odd:        ODD ağırlığı.
+        w_seg:        Segment ağırlığı.
+        w_ns:         NORTHSTAR ağırlığı.
 
     Returns:
         1-12 indeksli nihai SI serisi (4 basamak yuvarlama).
@@ -359,7 +579,7 @@ def compute_final_si(
 
 
 # ---------------------------------------------------------------------------
-# 6. Planlama fonksiyonu
+# 7. Planlama fonksiyonu
 # ---------------------------------------------------------------------------
 
 def monthly_plan(
@@ -409,7 +629,7 @@ def monthly_plan(
 
 
 # ---------------------------------------------------------------------------
-# 7. Görselleştirmeler
+# 8. Görselleştirmeler
 # ---------------------------------------------------------------------------
 
 def plot_market_hierarchy(
@@ -418,6 +638,7 @@ def plot_market_hierarchy(
     ns_si: pd.Series,
     final_si: pd.Series,
     output_dir: Path,
+    weights: tuple[float, float, float] = (0.50, 0.30, 0.20),
 ) -> None:
     """Dört SI katmanını tek grafikte (çizgi + bar) gösterir.
 
@@ -427,21 +648,24 @@ def plot_market_hierarchy(
         ns_si:      NORTHSTAR SI serisi.
         final_si:   Nihai ağırlıklı SI serisi.
         output_dir: Çıktı klasörü.
+        weights:    (w_odd, w_seg, w_ns) tuple.
     """
+    w_odd, w_seg, w_ns = weights
     x = np.arange(12)
     labels = MONTH_ABBR_EN
 
     fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(14, 10))
     fig.suptitle(
         "Mevsimsel İndeks — Piyasa Hiyerarşisi\n"
-        "(ODD × 0.50 + Segment × 0.30 + NORTHSTAR × 0.20)",
+        f"(ODD×{w_odd:.2f} + Segment×{w_seg:.2f} + NORTHSTAR×{w_ns:.2f}  "
+        "| YoY Stability Weighting)",
         fontsize=14, fontweight="bold",
     )
 
     # Üst: çizgi grafik
-    ax1.plot(x, odd_si.values,   "o-",  color="#1565C0", lw=2, ms=6, label="ODD (Piyasa w=0.50)")
-    ax1.plot(x, seg_si.values,   "s--", color="#43A047", lw=2, ms=6, label="Segment (w=0.30)")
-    ax1.plot(x, ns_si.values,    "^:",  color="#FB8C00", lw=2, ms=6, label="NORTHSTAR (w=0.20)")
+    ax1.plot(x, odd_si.values,   "o-",  color="#1565C0", lw=2, ms=6, label=f"ODD (w={w_odd:.2f})")
+    ax1.plot(x, seg_si.values,   "s--", color="#43A047", lw=2, ms=6, label=f"Segment (w={w_seg:.2f})")
+    ax1.plot(x, ns_si.values,    "^:",  color="#FB8C00", lw=2, ms=6, label=f"NORTHSTAR (w={w_ns:.2f})")
     ax1.plot(x, final_si.values, "D-",  color="#E53935", lw=2.5, ms=7, label="FINAL (önerilen)")
     ax1.axhline(1.0, color="gray", linestyle="--", lw=1.2, label="Ortalama (1.0)")
     ax1.set_xticks(x)
@@ -473,12 +697,17 @@ def plot_market_hierarchy(
     _save_fig(fig, output_dir / "01_piyasa_hiyerarsisi.png")
 
 
-def plot_final_si_bar(final_si: pd.Series, output_dir: Path) -> None:
+def plot_final_si_bar(
+    final_si: pd.Series,
+    output_dir: Path,
+    weights: tuple[float, float, float] = (0.50, 0.30, 0.20),
+) -> None:
     """Nihai SI'ı renklendirilmiş bar grafik olarak gösterir.
 
     Args:
         final_si:   Nihai ağırlıklı SI serisi (index 1-12).
         output_dir: Çıktı klasörü.
+        weights:    (w_odd, w_seg, w_ns) tuple.
     """
     x = np.arange(12)
     # Renklendirme: kırmızı <0.9, sarı 0.9-1.1, yeşil >1.1
@@ -505,9 +734,11 @@ def plot_final_si_bar(final_si: pd.Series, output_dir: Path) -> None:
     ax.set_ylim(0, final_si.max() * 1.20)
 
     # Açıklama notu
+    w_odd, w_seg, w_ns = weights
     ax.text(
         0.99, 0.02,
-        "final_si = 0.50×ODD + 0.30×Segment + 0.20×NORTHSTAR",
+        f"final_si = {w_odd:.2f}×ODD + {w_seg:.2f}×Segment + {w_ns:.2f}×NORTHSTAR  "
+        "(YoY Stability)",
         transform=ax.transAxes, ha="right", va="bottom",
         fontsize=8, color="gray", style="italic",
     )
@@ -628,7 +859,12 @@ def plot_color_heatmap(color_si_pivot: pd.DataFrame, output_dir: Path) -> None:
     )
 
 
-def plot_monthly_plan(plan_df: pd.DataFrame, annual_target: int, output_dir: Path) -> None:
+def plot_monthly_plan(
+    plan_df: pd.DataFrame,
+    annual_target: int,
+    output_dir: Path,
+    weights: tuple[float, float, float] = (0.50, 0.30, 0.20),
+) -> None:
     """Aylık dağıtım planını 2 panelli grafik olarak gösterir.
 
     Üst panel: bars (aylık adet) + çizgi (SI), Alt panel: kümülatif ilerleme.
@@ -637,12 +873,15 @@ def plot_monthly_plan(plan_df: pd.DataFrame, annual_target: int, output_dir: Pat
         plan_df:       monthly_plan() çıktısı.
         annual_target: Yıllık hedef adedi.
         output_dir:    Çıktı klasörü.
+        weights:       (w_odd, w_seg, w_ns) tuple.
     """
+    w_odd, w_seg, w_ns = weights
     x = np.arange(12)
     fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(13, 9))
     fig.suptitle(
         f"Aylık Dağıtım Planı — Yıllık Hedef: {annual_target:,} araç\n"
-        f"(Nihai SI: 0.50×ODD + 0.30×Segment + 0.20×NORTHSTAR)",
+        f"(Nihai SI: {w_odd:.2f}×ODD + {w_seg:.2f}×Segment + {w_ns:.2f}×NORTHSTAR"
+        "  | YoY Stability)",
         fontsize=13, fontweight="bold",
     )
 
@@ -699,7 +938,7 @@ def plot_monthly_plan(plan_df: pd.DataFrame, annual_target: int, output_dir: Pat
 
 
 # ---------------------------------------------------------------------------
-# 8. Metin raporu
+# 9. Metin raporu
 # ---------------------------------------------------------------------------
 
 def generate_report(
@@ -712,6 +951,8 @@ def generate_report(
     color_si: pd.DataFrame,
     plan: pd.DataFrame,
     annual_target: int,
+    weights: tuple[float, float, float] = (0.50, 0.30, 0.20),
+    stabilities: dict[str, float] | None = None,
 ) -> str:
     """Kapsamlı mevsimsellik analiz raporu üretir.
 
@@ -725,6 +966,8 @@ def generate_report(
         color_si:     Renk SI pivot tablosu.
         plan:         monthly_plan() çıktısı.
         annual_target: Yıllık hedef adedi.
+        weights:      (w_odd, w_seg, w_ns) — compute_optimal_weights() çıktısı.
+        stabilities:  {"odd": r, "seg": r, "ns": r} — ham YoY korelasyonları.
 
     Returns:
         Metin raporu (str).
@@ -739,21 +982,38 @@ def generate_report(
     def h2(title: str) -> None:
         lines.append(f"\n  --- {title} ---")
 
+    w_odd, w_seg, w_ns = weights
+
     # Başlık
     h1("MEVSİMSELLİK ANALİZİ RAPORU — NORTHSTAR 2024-2025")
-    lines.append(textwrap.dedent("""
+
+    stab_block = ""
+    if stabilities:
+        r_odd = stabilities.get("odd", float("nan"))
+        r_seg = stabilities.get("seg", float("nan"))
+        r_ns  = stabilities.get("ns",  float("nan"))
+        total = r_odd + r_seg + r_ns
+        stab_block = textwrap.dedent(f"""
+        Ağırlık Hesabı — YoY Stability (yıllar arası Pearson korelasyonu):
+          ODD stability     r = {r_odd:.4f}  →  w_odd = {r_odd/total:.4f}
+          Segment stability r = {r_seg:.4f}  →  w_seg = {r_seg/total:.4f}
+          NORTHSTAR stab.   r = {r_ns:.4f}  →  w_ns  = {r_ns/total:.4f}
+          (stability ∝ YoY r; daha stabil kaynak daha yüksek ağırlık alır)
+        """).rstrip()
+
+    lines.append(textwrap.dedent(f"""
         Metodoloji: Klasik oran-ortalaması (ratio-to-mean)
           SI[ay] = 2 yıllık_aylık_ortalama[ay] / grand_mean
           grand_mean = toplam_satış / 24   (2 yıl × 12 ay)
           SI > 1.0 → Peak (ortalama üstü talep)
           SI < 1.0 → Dip  (ortalama altı talep)
 
-        Üç piyasa katmanı ve ağırlıkları:
-          ODD (Türkiye ithal piyasası)  w = 0.50  → en geniş veri tabanı
-          Segment (9 rakip marka)       w = 0.30  → rekabetçi bağlam
-          NORTHSTAR                     w = 0.20  → marka özgül
-
-        Nihai SI = 0.50 × ODD + 0.30 × Segment + 0.20 × NORTHSTAR
+        Üç piyasa katmanı ve hesaplanan ağırlıkları:
+          ODD (Türkiye ithal piyasası)  w = {w_odd:.4f}
+          Segment (9 rakip marka)       w = {w_seg:.4f}
+          NORTHSTAR                     w = {w_ns:.4f}
+        {stab_block}
+        Nihai SI = {w_odd:.4f} × ODD + {w_seg:.4f} × Segment + {w_ns:.4f} × NORTHSTAR
     """).strip())
 
     # ODD SI tablosu
@@ -782,7 +1042,10 @@ def generate_report(
 
     # FINAL SI tablosu — en önemli bölüm
     h1("*** 4. NİHAİ ÖNERILEN SI — PLANLAMA İÇİN KULLANILACAK ***")
-    lines.append("    (final_si = 0.50×ODD + 0.30×Segment + 0.20×NORTHSTAR)\n")
+    lines.append(
+        f"    (final_si = {w_odd:.4f}×ODD + {w_seg:.4f}×Segment + {w_ns:.4f}×NORTHSTAR"
+        "  | YoY Stability Weighting)\n"
+    )
     lines.append(f"  {'Ay':<10} {'ODD SI':>8} {'Seg SI':>8} {'NS SI':>8} {'FINAL SI':>10}  {'Yorum'}")
     lines.append("  " + "-" * 60)
     for m in range(1, 13):
@@ -848,27 +1111,35 @@ def generate_report(
 
     # Kullanım rehberi
     h1("10. KULLANIM REHBERİ")
-    lines.append(textwrap.dedent("""
+    lines.append(textwrap.dedent(f"""
         Bu modülü başka scriptlerden kullanmak için:
 
             from src.analysis.seasonality import (
                 compute_odd_si, compute_segment_si, compute_northstar_si,
-                compute_final_si, monthly_plan,
+                compute_optimal_weights, compute_final_si, monthly_plan,
             )
             from src.analysis.data_loader import load_sales, load_competitors
             from pathlib import Path
 
             data_dir = Path("data/raw")
-            odd_si      = compute_odd_si(data_dir)
-            seg_si      = compute_segment_si(load_competitors(data_dir))
-            ns_si       = compute_northstar_si(load_sales(data_dir))
-            final_si    = compute_final_si(odd_si, seg_si, ns_si)
-            plan        = monthly_plan(3_600, final_si)
+            df_sales = load_sales(data_dir)
+            df_comp  = load_competitors(data_dir)
+            odd_si   = compute_odd_si(data_dir)
+            seg_si   = compute_segment_si(df_comp)
+            ns_si    = compute_northstar_si(df_sales)
+            # Veri tabanlı ağırlıklar (YoY stability):
+            w_odd, w_seg, w_ns = compute_optimal_weights(data_dir, df_comp, df_sales)
+            final_si = compute_final_si(odd_si, seg_si, ns_si, w_odd, w_seg, w_ns)
+            plan     = monthly_plan(3_600, final_si)
             print(plan)
 
+        Bu çalışmada hesaplanan ağırlıklar:
+            ODD={w_odd:.4f}, Segment={w_seg:.4f}, NORTHSTAR={w_ns:.4f}
+
         Çıktı dosyaları (outputs/seasonality/):
-            04_FINAL_si.csv    → Planlama için kullanılacak indeks
+            04_FINAL_si.csv     → Planlama için kullanılacak indeks
             08_aylik_plan_*.csv → Aylık dağıtım planı
+            09_agirlik_analizi.csv → Stability skorları ve ağırlıklar
     """).strip())
 
     return "\n".join(lines)
@@ -902,7 +1173,7 @@ def _pivot_to_lines(pivot: pd.DataFrame, lines: list[str]) -> None:
 
 
 # ---------------------------------------------------------------------------
-# 9. Ana çalıştırma
+# 10. Ana çalıştırma
 # ---------------------------------------------------------------------------
 
 def run(annual_target: int = 3_600) -> None:
@@ -911,12 +1182,13 @@ def run(annual_target: int = 3_600) -> None:
     Adımlar:
         1. Veriler yüklenir (ODD CSV, rakip, NORTHSTAR satışları)
         2. ODD / Segment / NORTHSTAR SI hesaplanır
-        3. Nihai ağırlıklı SI hesaplanır (0.50 + 0.30 + 0.20)
-        4. Granüler SI'lar hesaplanır (bayi, model, renk)
-        5. Aylık plan oluşturulur
-        6. CSV çıktıları kaydedilir
-        7. Metin raporu kaydedilir
-        8. 7 görsel üretilir
+        3. Optimal ağırlıklar YoY stability yöntemiyle hesaplanır
+        4. Nihai ağırlıklı SI hesaplanır
+        5. Granüler SI'lar hesaplanır (bayi, model, renk)
+        6. Aylık plan oluşturulur
+        7. CSV çıktıları kaydedilir (ağırlık analizi dahil)
+        8. Metin raporu kaydedilir
+        9. 7 görsel üretilir
 
     Args:
         annual_target: Plan tablosu için yıllık araç hedefi.
@@ -926,17 +1198,33 @@ def run(annual_target: int = 3_600) -> None:
 
     DATA_DIR = Path(__file__).parents[2] / "data" / "raw"
 
-    print("\n[1/5] Veriler yükleniyor...")
+    print("\n[1/6] Veriler yükleniyor...")
     df_sales = load_sales(DATA_DIR)
     df_comp  = load_competitors(DATA_DIR)
     print(f"  NORTHSTAR: {len(df_sales):,} işlem")
     print(f"  Rakip: {df_comp['brand'].nunique()} marka, {len(df_comp):,} kayıt")
 
-    print("\n[2/5] Mevsimsel indeksler hesaplanıyor...")
-    odd_si  = compute_odd_si(DATA_DIR)
-    seg_si  = compute_segment_si(df_comp)
-    ns_si   = compute_northstar_si(df_sales)
-    final_si = compute_final_si(odd_si, seg_si, ns_si)
+    print("\n[2/6] Mevsimsel indeksler hesaplanıyor...")
+    odd_si = compute_odd_si(DATA_DIR)
+    seg_si = compute_segment_si(df_comp)
+    ns_si  = compute_northstar_si(df_sales)
+
+    print("\n[3/6] Optimal ağırlıklar hesaplanıyor (YoY stability)...")
+    stabilities = _stability_detail(DATA_DIR, df_comp, df_sales)
+    r_odd = stabilities["odd"]
+    r_seg = stabilities["seg"]
+    r_ns  = stabilities["ns"]
+    print(f"  ODD stability (r 2024-2025):        {r_odd:.4f}")
+    print(f"  Segment stability (r 2024-2025):    {r_seg:.4f}")
+    print(f"  NORTHSTAR stability (r 2024-2025):  {r_ns:.4f}")
+
+    w_odd, w_seg, w_ns = compute_optimal_weights(DATA_DIR, df_comp, df_sales)
+    weights = (w_odd, w_seg, w_ns)
+    print(f"\n  → Hesaplanan ağırlıklar:")
+    print(f"    ODD={w_odd:.4f}  Segment={w_seg:.4f}  NORTHSTAR={w_ns:.4f}")
+    print(f"    (önceki sabit değerler: ODD=0.50, Segment=0.30, NORTHSTAR=0.20)")
+
+    final_si = compute_final_si(odd_si, seg_si, ns_si, w_odd, w_seg, w_ns)
 
     dealer_si = compute_dealer_si(df_sales)
     model_si  = compute_model_si(df_sales)
@@ -944,12 +1232,18 @@ def run(annual_target: int = 3_600) -> None:
 
     plan = monthly_plan(annual_target, final_si, label="final")
 
-    print("\n[3/5] CSV çıktıları kaydediliyor...")
+    print("\n[4/6] CSV çıktıları kaydediliyor...")
 
     # Pazar katmanları
-    odd_df = pd.DataFrame({"month": range(1, 13), "month_name": MONTH_ABBR_TR, "odd_si": odd_si.values})
-    seg_df = pd.DataFrame({"month": range(1, 13), "month_name": MONTH_ABBR_TR, "segment_si": seg_si.values})
-    ns_df  = pd.DataFrame({"month": range(1, 13), "month_name": MONTH_ABBR_TR, "northstar_si": ns_si.values})
+    odd_df = pd.DataFrame({
+        "month": range(1, 13), "month_name": MONTH_ABBR_TR, "odd_si": odd_si.values,
+    })
+    seg_df = pd.DataFrame({
+        "month": range(1, 13), "month_name": MONTH_ABBR_TR, "segment_si": seg_si.values,
+    })
+    ns_df = pd.DataFrame({
+        "month": range(1, 13), "month_name": MONTH_ABBR_TR, "northstar_si": ns_si.values,
+    })
     final_df = pd.DataFrame({
         "month":        range(1, 13),
         "month_name":   MONTH_ABBR_TR,
@@ -957,41 +1251,58 @@ def run(annual_target: int = 3_600) -> None:
         "segment_si":   seg_si.values,
         "northstar_si": ns_si.values,
         "final_si":     final_si.values,
+        "w_odd":        [w_odd] * 12,
+        "w_seg":        [w_seg] * 12,
+        "w_ns":         [w_ns]  * 12,
+    })
+
+    # Ağırlık analizi — stability skorları ve normalize ağırlıklar
+    total_stab = r_odd + r_seg + r_ns
+    weight_df = pd.DataFrame({
+        "source":    ["ODD", "Segment", "NORTHSTAR"],
+        "yoy_stability_r": [r_odd, r_seg, r_ns],
+        "weight":    [w_odd, w_seg, w_ns],
+        "weight_pct": [f"{w_odd*100:.1f}%", f"{w_seg*100:.1f}%", f"{w_ns*100:.1f}%"],
+        "n_approx":  [1_417_938, 720_805, len(df_sales)],
+        "method":    ["YoY Stability"] * 3,
     })
 
     csv_outputs = [
-        (odd_df,         "01_odd_si.csv"),
-        (seg_df,         "02_segment_si.csv"),
-        (ns_df,          "03_northstar_si.csv"),
-        (final_df,       "04_FINAL_si.csv"),
+        (odd_df,               "01_odd_si.csv"),
+        (seg_df,               "02_segment_si.csv"),
+        (ns_df,                "03_northstar_si.csv"),
+        (final_df,             "04_FINAL_si.csv"),
         (dealer_si.reset_index(), "05_bayi_si.csv"),
         (model_si.reset_index(),  "06_model_si.csv"),
         (color_si.reset_index(),  "07_renk_si.csv"),
-        (plan,           f"08_aylik_plan_{annual_target}.csv"),
+        (plan,                 f"08_aylik_plan_{annual_target}.csv"),
+        (weight_df,            "09_agirlik_analizi.csv"),
     ]
     for df, fname in csv_outputs:
         path = OUTPUT_DIR / fname
         df.to_csv(path, index=False, encoding="utf-8-sig")
         print(f"  Kaydedildi: {path}")
 
-    print("\n[4/5] Metin raporu oluşturuluyor...")
+    print("\n[5/6] Metin raporu oluşturuluyor...")
     report = generate_report(
         odd_si, seg_si, ns_si, final_si,
         dealer_si, model_si, color_si,
         plan, annual_target,
+        weights=weights,
+        stabilities=stabilities,
     )
     rpath = OUTPUT_DIR / "mevsimsellik_raporu.txt"
     rpath.write_text(report, encoding="utf-8")
     print(f"  Kaydedildi: {rpath}")
 
-    print("\n[5/5] Görseller oluşturuluyor...")
-    plot_market_hierarchy(odd_si, seg_si, ns_si, final_si, OUTPUT_DIR)
-    plot_final_si_bar(final_si, OUTPUT_DIR)
+    print("\n[6/6] Görseller oluşturuluyor...")
+    plot_market_hierarchy(odd_si, seg_si, ns_si, final_si, OUTPUT_DIR, weights=weights)
+    plot_final_si_bar(final_si, OUTPUT_DIR, weights=weights)
     plot_final_si_polar(final_si, OUTPUT_DIR)
     plot_dealer_heatmap(dealer_si, OUTPUT_DIR)
     plot_model_heatmap(model_si, OUTPUT_DIR)
     plot_color_heatmap(color_si, OUTPUT_DIR)
-    plot_monthly_plan(plan, annual_target, OUTPUT_DIR)
+    plot_monthly_plan(plan, annual_target, OUTPUT_DIR, weights=weights)
 
     print(f"\nTamamlandi → {OUTPUT_DIR}")
     print(f"\n{report}")

@@ -3,17 +3,22 @@
   MEVSİMSELLİK ANALİZİ RAPORU — NORTHSTAR 2024-2025
 ======================================================================
 Metodoloji: Klasik oran-ortalaması (ratio-to-mean)
-  SI[ay] = 2 yıllık_aylık_ortalama[ay] / grand_mean
-  grand_mean = toplam_satış / 24   (2 yıl × 12 ay)
-  SI > 1.0 → Peak (ortalama üstü talep)
-  SI < 1.0 → Dip  (ortalama altı talep)
+          SI[ay] = 2 yıllık_aylık_ortalama[ay] / grand_mean
+          grand_mean = toplam_satış / 24   (2 yıl × 12 ay)
+          SI > 1.0 → Peak (ortalama üstü talep)
+          SI < 1.0 → Dip  (ortalama altı talep)
 
-Üç piyasa katmanı ve ağırlıkları:
-  ODD (Türkiye ithal piyasası)  w = 0.50  → en geniş veri tabanı
-  Segment (9 rakip marka)       w = 0.30  → rekabetçi bağlam
-  NORTHSTAR                     w = 0.20  → marka özgül
+        Üç piyasa katmanı ve hesaplanan ağırlıkları:
+          ODD (Türkiye ithal piyasası)  w = 0.5015
+          Segment (9 rakip marka)       w = 0.4985
+          NORTHSTAR                     w = 0.0000
 
-Nihai SI = 0.50 × ODD + 0.30 × Segment + 0.20 × NORTHSTAR
+Ağırlık Hesabı — YoY Stability (yıllar arası Pearson korelasyonu):
+  ODD stability     r = 0.8873  →  w_odd = 0.5015
+  Segment stability r = 0.8821  →  w_seg = 0.4985
+  NORTHSTAR stab.   r = 0.0000  →  w_ns  = 0.0000
+  (stability ∝ YoY r; daha stabil kaynak daha yüksek ağırlık alır)
+        Nihai SI = 0.5015 × ODD + 0.4985 × Segment + 0.0000 × NORTHSTAR
 
 ======================================================================
   1. ODD PAZAR SI (Türkiye İthal Otomobil Toplam Piyasası)
@@ -75,36 +80,36 @@ Nihai SI = 0.50 × ODD + 0.30 × Segment + 0.20 × NORTHSTAR
 ======================================================================
   *** 4. NİHAİ ÖNERILEN SI — PLANLAMA İÇİN KULLANILACAK ***
 ======================================================================
-    (final_si = 0.50×ODD + 0.30×Segment + 0.20×NORTHSTAR)
+    (final_si = 0.5015×ODD + 0.4985×Segment + 0.0000×NORTHSTAR  | YoY Stability Weighting)
 
   Ay           ODD SI   Seg SI    NS SI   FINAL SI  Yorum
   ------------------------------------------------------------
-  Ocak         0.6612   0.6572   1.0492     0.7376  Dip
-  Şubat        0.8893   0.8828   1.0138     0.9122  Ortalama
-  Mart         1.0377   1.0290   0.9784     1.0232  Ortalama
-  Nisan        0.8529   0.8162   0.6485     0.8010  Dip
-  Mayıs        0.9856   0.9368   0.8312     0.9401  Ortalama
-  Haziran      1.1070   1.0368   0.9765     1.0598  Ortalama
-  Temmuz       0.9458   0.9269   0.9840     0.9478  Ortalama
-  Ağustos      0.9227   0.8480   1.1592     0.9476  Ortalama
-  Eylül        0.9200   0.9222   1.0362     0.9439  Ortalama
-  Ekim         0.9305   1.0624   0.9225     0.9685  Ortalama
-  Kasım        1.1488   1.2490   0.8983     1.1288  Peak
-  Aralık       1.5986   1.6328   1.5021     1.5896  Yüksek peak
+  Ocak         0.6612   0.6572   1.0492     0.6592  Derin dip
+  Şubat        0.8893   0.8828   1.0138     0.8861  Dip
+  Mart         1.0377   1.0290   0.9784     1.0334  Ortalama
+  Nisan        0.8529   0.8162   0.6485     0.8346  Dip
+  Mayıs        0.9856   0.9368   0.8312     0.9613  Ortalama
+  Haziran      1.1070   1.0368   0.9765     1.0720  Ortalama
+  Temmuz       0.9458   0.9269   0.9840     0.9364  Ortalama
+  Ağustos      0.9227   0.8480   1.1592     0.8855  Dip
+  Eylül        0.9200   0.9222   1.0362     0.9211  Ortalama
+  Ekim         0.9305   1.0624   0.9225     0.9963  Ortalama
+  Kasım        1.1488   1.2490   0.8983     1.1987  Peak
+  Aralık       1.5986   1.6328   1.5021     1.6156  Yüksek peak
 
 ======================================================================
   5. PEAK / DİP AY ANALİZİ
 ======================================================================
 
   PEAK (en yüksek talep dönemleri):
-    Aralık     SI=1.5896  ortalamanın +59.0% üstünde
-    Kasım      SI=1.1288  ortalamanın +12.9% üstünde
-    Haziran    SI=1.0598  ortalamanın +6.0% üstünde
+    Aralık     SI=1.6156  ortalamanın +61.6% üstünde
+    Kasım      SI=1.1987  ortalamanın +19.9% üstünde
+    Haziran    SI=1.0720  ortalamanın +7.2% üstünde
 
   DİP (en düşük talep dönemleri):
-    Ocak       SI=0.7376  ortalamanın -26.2% altında
-    Nisan      SI=0.8010  ortalamanın -19.9% altında
-    Şubat      SI=0.9122  ortalamanın -8.8% altında
+    Ocak       SI=0.6592  ortalamanın -34.1% altında
+    Nisan      SI=0.8346  ortalamanın -16.5% altında
+    Ağustos    SI=0.8855  ortalamanın -11.5% altında
 
 ======================================================================
   6. BAYİ BAZINDA MEVSİMSEL İNDEKS
@@ -169,18 +174,18 @@ Nihai SI = 0.50 × ODD + 0.30 × Segment + 0.20 × NORTHSTAR
 
   Ay              SI   Plan (adet)   Pay %    Kümülatif   Kümül %
   --------------------------------------------------------------
-  Ocak        0.7376           221    6.14%          221     6.14%  ██████
-  Şubat       0.9122           274    7.61%          495    13.75%  ███████
-  Mart        1.0232           307    8.53%          802    22.28%  ████████
-  Nisan       0.8010           240    6.67%        1,042    28.94%  ██████
-  Mayıs       0.9401           282    7.83%        1,324    36.78%  ███████
-  Haziran     1.0598           318    8.83%        1,642    45.61%  ████████
-  Temmuz      0.9478           284    7.89%        1,926    53.50%  ███████
-  Ağustos     0.9476           284    7.89%        2,210    61.39%  ███████
-  Eylül       0.9439           283    7.86%        2,493    69.25%  ███████
-  Ekim        0.9685           291    8.08%        2,784    77.33%  ████████
-  Kasım       1.1288           339    9.42%        3,123    86.75%  █████████
-  Aralık      1.5896           477   13.25%        3,600   100.00%  █████████████
+  Ocak        0.6592           198    5.50%          198     5.50%  █████
+  Şubat       0.8861           266    7.39%          464    12.89%  ███████
+  Mart        1.0334           310    8.61%          774    21.50%  ████████
+  Nisan       0.8346           250    6.94%        1,024    28.44%  ██████
+  Mayıs       0.9613           288    8.00%        1,312    36.44%  ████████
+  Haziran     1.0720           322    8.94%        1,634    45.39%  ████████
+  Temmuz      0.9364           281    7.81%        1,915    53.19%  ███████
+  Ağustos     0.8855           266    7.39%        2,181    60.58%  ███████
+  Eylül       0.9211           276    7.67%        2,457    68.25%  ███████
+  Ekim        0.9963           299    8.31%        2,756    76.56%  ████████
+  Kasım       1.1987           360   10.00%        3,116    86.56%  ██████████
+  Aralık      1.6156           484   13.44%        3,600   100.00%  █████████████
 
   TOPLAM: 3,600 araç
 
@@ -191,19 +196,27 @@ Bu modülü başka scriptlerden kullanmak için:
 
     from src.analysis.seasonality import (
         compute_odd_si, compute_segment_si, compute_northstar_si,
-        compute_final_si, monthly_plan,
+        compute_optimal_weights, compute_final_si, monthly_plan,
     )
     from src.analysis.data_loader import load_sales, load_competitors
     from pathlib import Path
 
     data_dir = Path("data/raw")
-    odd_si      = compute_odd_si(data_dir)
-    seg_si      = compute_segment_si(load_competitors(data_dir))
-    ns_si       = compute_northstar_si(load_sales(data_dir))
-    final_si    = compute_final_si(odd_si, seg_si, ns_si)
-    plan        = monthly_plan(3_600, final_si)
+    df_sales = load_sales(data_dir)
+    df_comp  = load_competitors(data_dir)
+    odd_si   = compute_odd_si(data_dir)
+    seg_si   = compute_segment_si(df_comp)
+    ns_si    = compute_northstar_si(df_sales)
+    # Veri tabanlı ağırlıklar (YoY stability):
+    w_odd, w_seg, w_ns = compute_optimal_weights(data_dir, df_comp, df_sales)
+    final_si = compute_final_si(odd_si, seg_si, ns_si, w_odd, w_seg, w_ns)
+    plan     = monthly_plan(3_600, final_si)
     print(plan)
 
+Bu çalışmada hesaplanan ağırlıklar:
+    ODD=0.5015, Segment=0.4985, NORTHSTAR=0.0000
+
 Çıktı dosyaları (outputs/seasonality/):
-    04_FINAL_si.csv    → Planlama için kullanılacak indeks
+    04_FINAL_si.csv     → Planlama için kullanılacak indeks
     08_aylik_plan_*.csv → Aylık dağıtım planı
+    09_agirlik_analizi.csv → Stability skorları ve ağırlıklar
