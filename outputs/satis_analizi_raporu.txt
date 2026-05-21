@@ -1,0 +1,197 @@
+
+============================================================
+  GENEL BAKIŞ (2024-2025 Satış Verisi)
+============================================================
+Toplam satış adedi      : 6,439
+  2024                  : 3,021
+  2025                  : 3,418
+  YoY büyüme            : %+13.1
+Toplam bayi sayısı      : 22
+Farklı model sayısı     : 7
+Farklı versiyon sayısı  : 14
+
+============================================================
+  MODEL BAZINDA SATIŞLAR
+============================================================
+  A2       2,517 adet  % 39.1  ███████████████████
+  B1       1,629 adet  % 25.3  ████████████
+  A3       1,300 adet  % 20.2  ██████████
+  C1         847 adet  % 13.2  ██████
+  A1         108 adet  %  1.7  
+  D1          22 adet  %  0.3  
+  B2          16 adet  %  0.2  
+
+============================================================
+  VERSİYON BAZINDA SATIŞLAR (Top 10)
+============================================================
+  A2/A2V02      1,794 adet  % 27.9  █████████████
+  A3/A3V02      1,197 adet  % 18.6  █████████
+  B1/B1V01        760 adet  % 11.8  █████
+  A2/A2V01        723 adet  % 11.2  █████
+  C1/C1V01        675 adet  % 10.5  █████
+  B1/B1V02        557 adet  %  8.7  ████
+  B1/B1V01a       214 adet  %  3.3  █
+  C1/C1V03        172 adet  %  2.7  █
+  A1/A1V01        107 adet  %  1.7  
+  A3/A3V01        103 adet  %  1.6  
+
+============================================================
+  RENK BAZINDA SATIŞLAR (Top 8)
+============================================================
+  Grey3             913 adet  % 14.2  ███████
+  Grey2             758 adet  % 11.8  █████
+  Black1            739 adet  % 11.5  █████
+  Black2            709 adet  % 11.0  █████
+  Beige             677 adet  % 10.5  █████
+  White2            671 adet  % 10.4  █████
+  Blue              448 adet  %  7.0  ███
+  White1            412 adet  %  6.4  ███
+
+============================================================
+  SATIŞ KANALI (B2C vs B2B)
+============================================================
+  2024  B2B SALES         307 adet  % 10.2
+  2025  B2B SALES         357 adet  % 10.4
+  2024  B2C SALES       2,714 adet  % 89.8
+  2025  B2C SALES       3,061 adet  % 89.6
+
+============================================================
+  BAYİ BAZINDA TOPLAM SATIŞLAR
+============================================================
+  DEALER 17      838 adet  ███████████████████████████
+  DEALER 1       582 adet  ███████████████████
+  DEALER 7       529 adet  █████████████████
+  DEALER 16      421 adet  ██████████████
+  DEALER 15      407 adet  █████████████
+  DEALER 13      380 adet  ████████████
+  DEALER 6       380 adet  ████████████
+  DEALER 18      356 adet  ███████████
+  DEALER 14      347 adet  ███████████
+  DEALER 3       266 adet  ████████
+  DEALER 4       240 adet  ████████
+  DEALER 8       208 adet  ██████
+  DEALER 2       202 adet  ██████
+  DEALER 5       196 adet  ██████
+  DEALER 12      194 adet  ██████
+  DEALER 19      176 adet  █████
+  DEALER 21      169 adet  █████
+  DEALER 10      166 adet  █████
+  DEALER 22      148 adet  ████
+  DEALER 11       85 adet  ██
+  DEALER 20       80 adet  ██
+  DEALER 9        69 adet  ██
+
+============================================================
+  BAYİ BAZINDA EN ÇOK SATAN MODEL / VERSİYON
+============================================================
+  Bayi         Top Model  Top Versiyon Top Renk      Toplam
+  --------------------------------------------------------
+  DEALER 17    A2         A3V02        Grey3            838
+  DEALER 1     A2         A2V02        Grey3            582
+  DEALER 7     A2         A2V02        Black2           529
+  DEALER 16    A2         A2V02        Black1           421
+  DEALER 15    A2         A2V02        Grey3            407
+  DEALER 13    A2         A2V02        Grey2            380
+  DEALER 6     A2         A2V02        Beige            380
+  DEALER 18    A2         A2V02        Grey2            356
+  DEALER 14    A2         A2V02        Grey3            347
+  DEALER 3     A2         A2V02        Black1           266
+  DEALER 4     A2         A2V02        Black1           240
+  DEALER 8     A2         A2V02        Black1           208
+  DEALER 2     A2         A2V02        White2           202
+  DEALER 5     A2         A2V02        Black1           196
+  DEALER 12    A2         A2V02        Grey3            194
+  DEALER 19    A2         C1V01        Black1           176
+  DEALER 21    A2         A2V02        Grey3            169
+  DEALER 10    A2         A2V02        Beige            166
+  DEALER 22    A2         A2V02        Grey3            148
+  DEALER 11    A2         A2V02        Grey3             85
+  DEALER 20    A2         A2V02        Black2            80
+  DEALER 9     A2         A2V02        Black2            69
+
+============================================================
+  AYLIK SATIŞ TRENDİ
+============================================================
+  2024-01    397 adet  ██████████████████████████
+  2024-02    365 adet  ████████████████████████
+  2024-03    271 adet  ██████████████████
+  2024-04    113 adet  ███████
+  2024-05    196 adet  █████████████
+  2024-06    286 adet  ███████████████████
+  2024-07    226 adet  ███████████████
+  2024-08    305 adet  ████████████████████
+  2024-09    208 adet  █████████████
+  2024-10    185 adet  ████████████
+  2024-11    162 adet  ██████████
+  2024-12    307 adet  ████████████████████
+  2025-01    166 adet  ███████████
+  2025-02    179 adet  ███████████
+  2025-03    254 adet  ████████████████
+  2025-04    235 adet  ███████████████
+  2025-05    250 adet  ████████████████
+  2025-06    238 adet  ███████████████
+  2025-07    302 adet  ████████████████████
+  2025-08    317 adet  █████████████████████
+  2025-09    348 adet  ███████████████████████
+  2025-10    310 adet  ████████████████████
+  2025-11    320 adet  █████████████████████
+  2025-12    499 adet  █████████████████████████████████
+
+============================================================
+  2025 AYLIK HEDEF PERFORMANSI (Gerçekleşen Satış)
+============================================================
+  Ay              B2C    B2B   TOPLAM
+  ------------------------------------
+  JANUARY           0      9        9
+  FEBRUARY        180      6      186
+  MARCH           248     10      258
+  APRIL           231     10      241
+  MAY             183     70      253
+  JUNE            237      1      238
+  JULY            259     44      303
+  AUGUST            0      0        0
+  SEPTEMBER       307     42      349
+  OCTOBER           0     40       40
+  NOVEMBER        295     25      320
+  DECEMBER          0      0        0
+
+============================================================
+  RAKİP MARKA SATIŞ KARŞILAŞTIRMASI (2024-2025 Aylık Toplam)
+============================================================
+  Marka                  Toplam Satış
+  ------------------------------------
+  NORTHSTAR                     6,439  ← Bizim marka
+  TOPLAM:                     720,805
+  VOLKSWAGEN                  163,215
+  PEUGEOT                     113,684
+  OPEL                         93,228
+  CITROEN                      91,037
+  SKODA                        89,293
+  NISSAN                       55,195
+  RENAULT                      46,264
+  KIA                          43,387
+  TOYOTA                       25,502
+
+============================================================
+  YÖNETİCİ ÖZET VE YORUMLAR
+============================================================
+1. EN POPÜLER MODEL:
+   A2 modeli tüm satışların %39.1'ini oluşturuyor
+   (2,517 adet). Dağıtım planlamasında bu modele öncelik verilmeli.
+
+2. EN POPÜLER VERSİYON:
+   A2/A2V02 versiyonu 1,794 adet ile
+   en çok satan paket. Envanter planı bu versiyona yönelik yapılmalı.
+
+3. BAYİ PERFORMANSI:
+   En yüksek satış: DEALER 17 (838 adet)
+   En düşük satış:  DEALER 9 (69 adet)
+   Bayiler arası kapasite farkı optimizasyon modelinde kısıt olarak kullanılmalı.
+
+4. BÜYÜME TRENDI:
+   2024'ten 2025'e YoY büyüme: %+13.1
+   Pozitif büyüme, dağıtım hacmi artacak demektir.
+
+5. KANAL STRATEJİSİ:
+   B2C satışlar baskın. B2B kanalı nispeten düşük ama istikrarlı.
+   Optimizasyon modelinde kanal bazlı kısıtlar gözetilmeli.
