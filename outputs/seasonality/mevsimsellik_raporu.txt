@@ -1,0 +1,224 @@
+
+======================================================================
+  MEVSİMSELLİK ANALİZİ RAPORU — NORTHSTAR 2024-2025
+======================================================================
+Metodoloji: Klasik oran-ortalaması (ratio-to-mean)
+          SI[ay] = 2 yıllık_aylık_ortalama[ay] / grand_mean
+          grand_mean = toplam_satış / 24   (2 yıl × 12 ay)
+          SI > 1.0 → Peak (ortalama üstü talep)
+          SI < 1.0 → Dip  (ortalama altı talep)
+
+        Üç piyasa katmanı ve hesaplanan ağırlıkları:
+          ODD (Türkiye ithal piyasası)  w = 0.5015
+          Segment (9 rakip marka)       w = 0.4985
+          NORTHSTAR                     w = 0.0000
+
+Ağırlık Hesabı — YoY Stability (yıllar arası Pearson korelasyonu):
+  ODD stability     r = 0.8873  →  w_odd = 0.5015
+  Segment stability r = 0.8821  →  w_seg = 0.4985
+  NORTHSTAR stab.   r = 0.0000  →  w_ns  = 0.0000
+  (stability ∝ YoY r; daha stabil kaynak daha yüksek ağırlık alır)
+        Nihai SI = 0.5015 × ODD + 0.4985 × Segment + 0.0000 × NORTHSTAR
+
+======================================================================
+  1. ODD PAZAR SI (Türkiye İthal Otomobil Toplam Piyasası)
+======================================================================
+
+  Ay           ODD SI  Yorum
+  --------------------------------------
+  Ocak         0.6612  Derin dip
+  Şubat        0.8893  Dip
+  Mart         1.0377  Ortalama
+  Nisan        0.8529  Dip
+  Mayıs        0.9856  Ortalama
+  Haziran      1.1070  Peak
+  Temmuz       0.9458  Ortalama
+  Ağustos      0.9227  Ortalama
+  Eylül        0.9200  Ortalama
+  Ekim         0.9305  Ortalama
+  Kasım        1.1488  Peak
+  Aralık       1.5986  Yüksek peak
+
+======================================================================
+  2. SEGMENT SI (9 Rakip Marka Toplamı)
+======================================================================
+
+  Ay           Seg SI  Yorum
+  --------------------------------------
+  Ocak         0.6572  Derin dip
+  Şubat        0.8828  Dip
+  Mart         1.0290  Ortalama
+  Nisan        0.8162  Dip
+  Mayıs        0.9368  Ortalama
+  Haziran      1.0368  Ortalama
+  Temmuz       0.9269  Ortalama
+  Ağustos      0.8480  Dip
+  Eylül        0.9222  Ortalama
+  Ekim         1.0624  Ortalama
+  Kasım        1.2490  Peak
+  Aralık       1.6328  Yüksek peak
+
+======================================================================
+  3. NORTHSTAR SI (Marka Satış İşlemleri)
+======================================================================
+
+  Ay            NS SI  Yorum
+  --------------------------------------
+  Ocak         1.0492  Ortalama
+  Şubat        1.0138  Ortalama
+  Mart         0.9784  Ortalama
+  Nisan        0.6485  Derin dip
+  Mayıs        0.8312  Dip
+  Haziran      0.9765  Ortalama
+  Temmuz       0.9840  Ortalama
+  Ağustos      1.1592  Peak
+  Eylül        1.0362  Ortalama
+  Ekim         0.9225  Ortalama
+  Kasım        0.8983  Dip
+  Aralık       1.5021  Yüksek peak
+
+======================================================================
+  *** 4. NİHAİ ÖNERILEN SI — PLANLAMA İÇİN KULLANILACAK ***
+======================================================================
+    (final_si = 0.5015×ODD + 0.4985×Segment + 0.0000×NORTHSTAR  | YoY Stability Weighting)
+
+  Ay           ODD SI   Seg SI    NS SI   FINAL SI  Yorum
+  ------------------------------------------------------------
+  Ocak         0.6612   0.6572   1.0492     0.6592  Derin dip
+  Şubat        0.8893   0.8828   1.0138     0.8861  Dip
+  Mart         1.0377   1.0290   0.9784     1.0334  Ortalama
+  Nisan        0.8529   0.8162   0.6485     0.8346  Dip
+  Mayıs        0.9856   0.9368   0.8312     0.9613  Ortalama
+  Haziran      1.1070   1.0368   0.9765     1.0720  Ortalama
+  Temmuz       0.9458   0.9269   0.9840     0.9364  Ortalama
+  Ağustos      0.9227   0.8480   1.1592     0.8855  Dip
+  Eylül        0.9200   0.9222   1.0362     0.9211  Ortalama
+  Ekim         0.9305   1.0624   0.9225     0.9963  Ortalama
+  Kasım        1.1488   1.2490   0.8983     1.1987  Peak
+  Aralık       1.5986   1.6328   1.5021     1.6156  Yüksek peak
+
+======================================================================
+  5. PEAK / DİP AY ANALİZİ
+======================================================================
+
+  PEAK (en yüksek talep dönemleri):
+    Aralık     SI=1.6156  ortalamanın +61.6% üstünde
+    Kasım      SI=1.1987  ortalamanın +19.9% üstünde
+    Haziran    SI=1.0720  ortalamanın +7.2% üstünde
+
+  DİP (en düşük talep dönemleri):
+    Ocak       SI=0.6592  ortalamanın -34.1% altında
+    Nisan      SI=0.8346  ortalamanın -16.5% altında
+    Ağustos    SI=0.8855  ortalamanın -11.5% altında
+
+======================================================================
+  6. BAYİ BAZINDA MEVSİMSEL İNDEKS
+======================================================================
+
+  Ay        DEALER 1 DEALER 10 DEALER 11 DEALER 12 DEALER 13 DEALER 14 DEALER 15 DEALER 16 DEALER 17 DEALER 18 DEALER 19  DEALER 2 DEALER 20 DEALER 21 DEALER 22  DEALER 3  DEALER 4  DEALER 5  DEALER 6  DEALER 7  DEALER 8  DEALER 9
+  --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  Ocak          0.99      1.23      1.55      1.42      1.07      1.31      1.06      1.17      1.05      1.15      1.02      0.83      1.17      1.07      0.77      1.31      0.90      0.73      1.11      0.82      0.98      1.54
+  Şubat         1.07      0.87      1.41      0.87      1.01      0.76      1.00      1.20      1.58      0.64      0.89      1.04      1.46      0.85      0.54      1.04      0.95      0.86      1.01      0.75      1.15      1.23
+  Mart          1.03      1.08      0.85      0.93      0.76      0.97      1.06      1.20      0.62      1.45      1.09      1.04      0.59      1.21      1.15      1.08      0.95      0.49      1.11      1.13      1.04      1.08
+  Nisan         0.70      0.65      0.85      0.62      0.73      0.45      0.77      0.77      0.50      0.71      0.41      0.78      0.44      0.71      0.62      0.54      0.60      0.67      0.76      0.59      0.75      0.62
+  Mayıs         0.78      0.58      0.99      0.74      0.66      0.59      0.74      0.71      1.39      0.37      1.36      0.63      0.59      0.57      0.54      0.59      0.70      0.98      0.73      1.04      0.92      1.23
+  Haziran       0.78      0.94      0.99      1.24      0.95      1.25      0.97      1.08      1.03      0.94      0.89      0.99      0.73      0.99      0.92      0.95      1.05      0.98      0.82      0.84      1.10      0.92
+  Temmuz        0.97      0.65      0.71      1.18      1.04      0.73      1.15      0.97      1.30      0.84      0.34      0.94      0.88      0.99      0.85      1.04      1.10      1.35      1.07      0.77      0.63      0.77
+  Ağustos       1.20      1.16      0.99      1.36      1.01      0.80      1.12      1.17      0.99      1.31      1.43      0.83      1.02      1.49      1.31      1.17      1.50      1.41      1.04      1.11      1.44      1.38
+  Eylül         1.03      0.65      0.56      1.24      1.14      1.35      0.97      0.86      1.20      1.04      1.23      1.20      1.32      0.57      1.23      0.99      0.85      1.16      1.11      0.86      0.63      0.62
+  Ekim          0.97      1.23      0.42      0.87      0.95      1.07      0.88      1.11      0.86      0.64      0.82      0.94      1.17      1.07      1.23      0.86      0.95      1.04      0.76      0.84      0.69      1.23
+  Kasım         0.93      1.30      0.28      0.49      1.11      0.97      1.03      0.71      0.49      1.18      1.16      1.15      0.88      0.99      1.23      0.99      1.00      0.67      0.76      1.02      1.33      0.77
+  Aralık        1.55      1.66      2.40      1.05      1.58      1.76      1.24      1.05      1.00      1.72      1.36      1.62      1.76      1.49      1.62      1.44      1.45      1.65      1.74      2.22      1.33      0.62
+
+======================================================================
+  7. MODEL BAZINDA MEVSİMSEL İNDEKS
+======================================================================
+
+  Ay              A1        A2        A3        B1        C1
+  ------------------------------------------------------------
+  Ocak          0.00      0.74      1.23      0.57      2.74
+  Şubat         0.00      0.59      1.38      1.14      1.72
+  Mart          0.00      0.71      1.33      1.92      0.52
+  Nisan         0.00      0.92      0.86      0.77      0.37
+  Mayıs         0.00      1.09      0.75      0.95      0.95
+  Haziran       0.00      0.70      1.63      0.85      0.57
+  Temmuz        0.00      0.98      0.93      1.06      0.76
+  Ağustos       0.00      0.99      0.68      1.95      0.67
+  Eylül         4.11      1.17      0.54      0.84      1.08
+  Ekim          1.22      1.13      0.53      0.70      0.98
+  Kasım         3.33      0.91      0.97      0.49      1.06
+  Aralık        3.33      2.06      1.17      0.75      0.56
+
+======================================================================
+  8. RENK BAZINDA MEVSİMSEL İNDEKS (Top 10)
+======================================================================
+
+  Ay           Grey3     Grey2    Black1    Black2     Beige    White2      Blue    White1     Grey1    Green1
+  --------------------------------------------------------------------------------------------------------------
+  Ocak          1.08      2.01      1.51      0.63      0.66      0.52      1.58      1.08      0.00      0.32
+  Şubat         1.00      1.60      1.58      0.55      0.37      0.54      1.34      1.31      0.00      1.65
+  Mart          0.93      1.25      1.85      0.26      0.46      0.89      1.34      0.96      0.00      2.13
+  Nisan         0.68      0.51      0.71      0.32      0.66      0.61      0.80      0.50      0.10      1.92
+  Mayıs         0.80      1.30      0.99      1.25      0.34      0.43      0.99      0.87      0.93      1.01
+  Haziran       0.92      0.82      0.84      1.16      1.08      0.54      0.72      0.70      0.93      1.87
+  Temmuz        1.34      0.76      0.88      0.99      1.24      0.79      0.83      1.02      0.77      1.17
+  Ağustos       0.59      1.11      1.56      1.22      0.82      1.56      1.37      2.10      1.00      0.85
+  Eylül         1.06      0.82      0.65      1.35      1.10      1.41      0.96      0.87      1.93      0.00
+  Ekim          0.67      0.55      0.50      1.20      1.31      1.25      0.51      1.17      1.96      0.21
+  Kasım         1.05      0.57      0.55      0.85      1.60      1.11      0.59      0.73      1.74      0.43
+  Aralık        1.87      0.70      0.37      2.23      2.38      2.36      0.96      0.70      2.64      0.43
+
+======================================================================
+  9. AYLIK DAĞITIM PLANI — 3,600 ARAÇ YILLIK HEDEF
+======================================================================
+
+  Ay              SI   Plan (adet)   Pay %    Kümülatif   Kümül %
+  --------------------------------------------------------------
+  Ocak        0.6592           198    5.50%          198     5.50%  █████
+  Şubat       0.8861           266    7.39%          464    12.89%  ███████
+  Mart        1.0334           310    8.61%          774    21.50%  ████████
+  Nisan       0.8346           250    6.94%        1,024    28.44%  ██████
+  Mayıs       0.9613           288    8.00%        1,312    36.44%  ████████
+  Haziran     1.0720           322    8.94%        1,634    45.39%  ████████
+  Temmuz      0.9364           281    7.81%        1,915    53.19%  ███████
+  Ağustos     0.8855           266    7.39%        2,181    60.58%  ███████
+  Eylül       0.9211           276    7.67%        2,457    68.25%  ███████
+  Ekim        0.9963           299    8.31%        2,756    76.56%  ████████
+  Kasım       1.1987           360   10.00%        3,116    86.56%  ██████████
+  Aralık      1.6156           484   13.44%        3,600   100.00%  █████████████
+
+  TOPLAM: 3,600 araç
+
+======================================================================
+  10. KULLANIM REHBERİ
+======================================================================
+Bu modülü başka scriptlerden kullanmak için:
+
+    from src.analysis.seasonality import (
+        compute_odd_si, compute_segment_si, compute_northstar_si,
+        compute_optimal_weights, compute_final_si, monthly_plan,
+    )
+    from src.analysis.data_loader import load_sales, load_competitors
+    from pathlib import Path
+
+    data_dir = Path("data/raw")
+    df_sales = load_sales(data_dir)
+    df_comp  = load_competitors(data_dir)
+    odd_si   = compute_odd_si(data_dir)
+    seg_si   = compute_segment_si(df_comp)
+    ns_si    = compute_northstar_si(df_sales)
+    # Veri tabanlı ağırlıklar (YoY stability):
+    w_odd, w_seg, w_ns = compute_optimal_weights(data_dir, df_comp, df_sales)
+    final_si = compute_final_si(odd_si, seg_si, ns_si, w_odd, w_seg, w_ns)
+    plan     = monthly_plan(3_600, final_si)
+    print(plan)
+
+Bu çalışmada hesaplanan ağırlıklar:
+    ODD=0.5015, Segment=0.4985, NORTHSTAR=0.0000
+
+Çıktı dosyaları (outputs/seasonality/):
+    01_mevsimsel_indeksler.csv      → Tüm katmanlar + plan özeti
+    02_rakip_mevsimsel_indeksler.csv → Rakip marka bazında SI
+    04_FINAL_si.csv                → Planlama için kullanılacak indeks
+    05_bayi_si.csv                 → Bayi bazında SI pivot
+    09_agirlik_analizi.csv         → YoY stability skorları ve ağırlıklar
