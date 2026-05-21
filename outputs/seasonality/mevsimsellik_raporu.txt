@@ -1,0 +1,103 @@
+
+==============================================================
+  MEVSİMSELLİK ANALİZİ RAPORU — NORTHSTAR 2024-2025
+==============================================================
+Metodoloji: Klasik oran-ortalaması (ratio-to-mean)
+  SI[ay] = 2 yıllık_aylık_ortalama[ay] / grand_mean
+  grand_mean = toplam_satış / 24 (2 yıl × 12 ay)
+  SI > 1.0 → Peak (ortalama üstü talep)
+  SI < 1.0 → Dip  (ortalama altı talep)
+  SI = 1.0 → Ortalama ay
+
+Kaynaklar:
+  - NORTHSTAR: 6,439 araç (2024-2025)
+  - Piyasa: 9 rakip marka, aylık toplam (2024-2025)
+  - Birleşik: hacme göre ağırlıklı (Piyasa ağırlığı baskın)
+
+==============================================================
+  AYLIK MEVSİMSEL İNDEKSLER
+==============================================================
+
+  Ay       NS İndeks    Piyasa   Birleşik  Yorum
+  ----------------------------------------------------------
+  Jan         1.0492    0.6572     0.6607  ⬇⬇ Derin dip
+  Feb         1.0138    0.8828     0.8839  ⬇  Hafif dip
+  Mar         0.9784    1.0290     1.0286  →  Ortalama
+  Apr         0.6485    0.8162     0.8147  ⬇  Hafif dip
+  May         0.8312    0.9368     0.9359  ⬇  Hafif dip
+  Jun         0.9765    1.0368     1.0362  →  Ortalama
+  Jul         0.9840    0.9269     0.9274  ⬇  Hafif dip
+  Aug         1.1592    0.8480     0.8507  ⬇  Hafif dip
+  Sep         1.0362    0.9222     0.9232  ⬇  Hafif dip
+  Oct         0.9225    1.0624     1.0612  ⬆  Hafif peak
+  Nov         0.8983    1.2490     1.2459  ⬆⬆ Yüksek peak
+  Dec         1.5021    1.6328     1.6316  ⬆⬆ Yüksek peak
+
+==============================================================
+  PEAK / DİP AYLAR
+==============================================================
+
+  PEAK (en yüksek talep):
+    Dec: SI=1.632 → ortalamanın %+63.2 üstünde
+    Nov: SI=1.246 → ortalamanın %+24.6 üstünde
+    Oct: SI=1.061 → ortalamanın %+6.1 üstünde
+
+  DİP (en düşük talep):
+    Jan: SI=0.661 → ortalamanın %-33.9 altında
+    Apr: SI=0.815 → ortalamanın %-18.5 altında
+    Aug: SI=0.851 → ortalamanın %-14.9 altında
+
+==============================================================
+  AYLIK DAĞITIM PLANI — 3,600 ARAÇ YILLIK HEDEF
+==============================================================
+
+  Ay      Plan (adet)   Pay %    Kümülatif  Kümül %
+  --------------------------------------------------
+  Jan             198     5.5%          198     5.5%  ████
+  Feb             265     7.4%          463    12.9%  ██████
+  Mar             309     8.6%          772    21.4%  ███████
+  Apr             244     6.8%        1,016    28.2%  █████
+  May             281     7.8%        1,297    36.0%  ██████
+  Jun             311     8.6%        1,608    44.7%  ███████
+  Jul             278     7.7%        1,886    52.4%  ██████
+  Aug             255     7.1%        2,141    59.5%  █████
+  Sep             277     7.7%        2,418    67.2%  ██████
+  Oct             318     8.8%        2,736    76.0%  ███████
+  Nov             374    10.4%        3,110    86.4%  ████████
+  Dec             490    13.6%        3,600   100.0%  ███████████
+
+==============================================================
+  NORTHSTAR vs PİYASA SAPMA ANALİZİ
+==============================================================
+
+  Ay       NS SI  Piyasa SI    Fark  Yorum
+  ----------------------------------------------------
+  Jan      1.049      0.657  +0.392  NS piyasanın üstünde
+  Feb      1.014      0.883  +0.131  NS piyasanın üstünde
+  Mar      0.978      1.029  -0.051  NS piyasanın altında
+  Apr      0.648      0.816  -0.168  NS piyasanın altında
+  May      0.831      0.937  -0.106  NS piyasanın altında
+  Jun      0.977      1.037  -0.060  NS piyasanın altında
+  Jul      0.984      0.927  +0.057  NS piyasanın üstünde
+  Aug      1.159      0.848  +0.311  NS piyasanın üstünde
+  Sep      1.036      0.922  +0.114  NS piyasanın üstünde
+  Oct      0.922      1.062  -0.140  NS piyasanın altında
+  Nov      0.898      1.249  -0.351  NS piyasanın altında
+  Dec      1.502      1.633  -0.131  NS piyasanın altında
+
+==============================================================
+  KULLANIM REHBERİ
+==============================================================
+Hedef senaryoları için annual_to_monthly_plan() fonksiyonunu kullanın:
+
+  from src.analysis.seasonality import compute_seasonal_indices, annual_to_monthly_plan
+  from src.analysis.data_loader import load_sales, load_competitors
+
+  si = compute_seasonal_indices(load_sales(), load_competitors())
+  plan = annual_to_monthly_plan(annual_target=3_600, si=si)
+  print(plan)
+
+Farklı indeks tercihleri:
+  si_col="northstar_si"  → Sadece kendi geçmiş verinize dayalı
+  si_col="market_si"     → Piyasa mevsimselliği (daha güçlü veri)
+  si_col="combined_si"   → Ağırlıklı birleşik (önerilen)
