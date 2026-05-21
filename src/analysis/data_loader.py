@@ -163,7 +163,11 @@ def load_target_achievement(year: int, data_dir: Path = DATA_DIR) -> dict[str, p
     header_idx = next(
         i for i, l in enumerate(lines) if f"JAN'{str(year)[2:]}" in l
     )
-    month_labels = [c.strip() for c in lines[header_idx].split(";") if c.strip()]
+    yr_short = str(year)[2:]
+    month_labels = [
+        c.strip().replace("AUG'", f"AUG'{yr_short}")  # 2024 dosyasındaki yazım hatasını düzelt
+        for c in lines[header_idx].split(";") if c.strip()
+    ]
 
     # Virgülü ondalık ayırıcı olarak normalize et
     def parse_val(s: str) -> float | None:

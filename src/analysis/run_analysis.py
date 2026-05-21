@@ -3,7 +3,13 @@
 Kullanım:
     python -m src.analysis.run_analysis
 
-Çıktılar outputs/2024/, outputs/2025/, outputs/all/ klasörlerine kaydedilir.
+Çıktılar:
+    outputs/2024/      — CSV analizleri (2024)
+    outputs/2025/      — CSV analizleri (2025)
+    outputs/all/       — CSV analizleri (tüm dönem)
+    outputs/images/2024/  — Görseller (2024)
+    outputs/images/2025/  — Görseller (2025)
+    outputs/images/all/   — Görseller (tüm dönem)
 """
 
 from __future__ import annotations
@@ -35,6 +41,20 @@ from src.analysis.sales_analysis import (
     monthly_sales_trend,
     yoy_comparison,
 )
+from src.analysis.visualizations import (
+    plot_channel_breakdown,
+    plot_color_distribution,
+    plot_competitor_comparison,
+    plot_dealer_model_heatmap,
+    plot_dealer_sales,
+    plot_model_monthly_trend,
+    plot_model_sales,
+    plot_model_month_heatmap,
+    plot_monthly_trend,
+    plot_target_achievement,
+    plot_version_sales,
+    plot_yoy_monthly,
+)
 
 OUTPUT_DIR = Path(__file__).parents[2] / "outputs"
 
@@ -47,7 +67,7 @@ def save_csv(df: pd.DataFrame, folder: Path, name: str) -> None:
 
 
 def run_core_analyses(df: pd.DataFrame, folder: Path) -> None:
-    """Verilen DataFrame için tüm temel analizleri çalıştırır ve kaydeder."""
+    """Verilen DataFrame için tüm temel CSV analizleri."""
     save_csv(model_only_ranking(df),    folder, "01_model_satislari")
     save_csv(model_version_ranking(df), folder, "02_versiyon_satislari")
     save_csv(color_ranking(df),         folder, "03_renk_satislari")
@@ -60,58 +80,86 @@ def run_core_analyses(df: pd.DataFrame, folder: Path) -> None:
     save_csv(channel_breakdown(df),     folder, "10_kanal_dagilimi")
 
 
+def run_core_visuals(df: pd.DataFrame, folder: Path, label: str) -> None:
+    """Verilen DataFrame için tüm temel görseller."""
+    plot_model_sales(df, folder, label)
+    plot_version_sales(df, folder, label)
+    plot_color_distribution(df, folder, label)
+    plot_dealer_sales(df, folder, label)
+    plot_monthly_trend(df, folder, label)
+    plot_dealer_model_heatmap(df, folder, label)
+    plot_channel_breakdown(df, folder, label)
+
+
 def main() -> None:
-    print("\n[1/5] Veriler yükleniyor...")
+    print("\n[1/6] Veriler yükleniyor...")
     df_all = load_sales()
-    perf = load_monthly_performance()
-    comp = load_competitors()
+    perf   = load_monthly_performance()
+    comp   = load_competitors()
+    ta_24  = load_target_achievement(2024)
+    ta_25  = load_target_achievement(2025)
     print(f"  Ana satış (tümü): {len(df_all):,} kayıt")
 
     df_2024 = df_all[df_all["year"] == 2024].copy()
     df_2025 = df_all[df_all["year"] == 2025].copy()
-    print(f"  2024: {len(df_2024):,} kayıt | 2025: {len(df_2025):,} kayıt")
-    print(f"  Aylık performans: {len(perf):,} kayıt" if not perf.empty else "  Aylık performans: yüklenemedi")
-    print(f"  Rakip verisi: {comp['brand'].nunique()} marka" if not comp.empty else "  Rakip verisi: yüklenemedi")
+    print(f"  2024: {len(df_2024):,} | 2025: {len(df_2025):,}")
+
+    img_2024 = OUTPUT_DIR / "images" / "2024"
+    img_2025 = OUTPUT_DIR / "images" / "2025"
+    img_all  = OUTPUT_DIR / "images" / "all"
 
     # ------------------------------------------------------------------ 2024
-    print("\n[2/5] 2024 analizleri...")
+    print("\n[2/6] 2024 CSV analizleri...")
     run_core_analyses(df_2024, OUTPUT_DIR / "2024")
-    ta_2024 = load_target_achievement(2024)
-    save_csv(ta_2024["wide"], OUTPUT_DIR / "2024", "11_hedef_gerceklestirme_wide")
-    save_csv(ta_2024["long"], OUTPUT_DIR / "2024", "12_hedef_gerceklestirme_long")
+    save_csv(ta_24["wide"], OUTPUT_DIR / "2024", "11_hedef_gerceklestirme_wide")
+    save_csv(ta_24["long"], OUTPUT_DIR / "2024", "12_hedef_gerceklestirme_long")
+
+    print("\n[3/6] 2024 görselleri...")
+    run_core_visuals(df_2024, img_2024, "2024")
+    plot_target_achievement(ta_24["wide"], img_2024, "2024")
 
     # ------------------------------------------------------------------ 2025
-    print("\n[3/5] 2025 analizleri...")
+    print("\n[4/6] 2025 CSV analizleri...")
     run_core_analyses(df_2025, OUTPUT_DIR / "2025")
-    ta_2025 = load_target_achievement(2025)
-    save_csv(ta_2025["wide"], OUTPUT_DIR / "2025", "11_hedef_gerceklestirme_wide")
-    save_csv(ta_2025["long"], OUTPUT_DIR / "2025", "12_hedef_gerceklestirme_long")
+    save_csv(ta_25["wide"], OUTPUT_DIR / "2025", "11_hedef_gerceklestirme_wide")
+    save_csv(ta_25["long"], OUTPUT_DIR / "2025", "12_hedef_gerceklestirme_long")
+
+    print("\n[5/6] 2025 görselleri...")
+    run_core_visuals(df_2025, img_2025, "2025")
+    plot_target_achievement(ta_25["wide"], img_2025, "2025")
+    if not perf.empty:
+        plot_model_month_heatmap(perf, img_2025, "2025")
 
     # ------------------------------------------------------------------ ALL
-    print("\n[4/5] Tüm dönem (all) analizleri...")
+    print("\n[6/6] Tüm dönem CSV + görseller...")
     folder_all = OUTPUT_DIR / "all"
     run_core_analyses(df_all, folder_all)
     save_csv(yoy_comparison(df_all), folder_all, "11_yillik_karsilastirma")
-
     if not perf.empty:
         save_csv(monthly_performance_summary(perf),  folder_all, "12_aylik_hedef_performansi")
         save_csv(dealer_annual_performance(perf),    folder_all, "13_bayi_2025_performansi")
         save_csv(model_monthly_heatmap_data(perf),   folder_all, "14_model_ay_heatmap")
-
     if not comp.empty:
         save_csv(comp, folder_all, "15_rakip_satislar")
 
-    # ------------------------------------------------------------------ Rapor
-    print("\n[5/5] Metin raporu oluşturuluyor...")
     report = generate_text_report(df_all, perf, comp if not comp.empty else None)
-    report_path = folder_all / "satis_analizi_raporu.txt"
-    report_path.write_text(report, encoding="utf-8")
-    print(f"  Kaydedildi: {report_path.relative_to(Path.cwd())}")
+    (folder_all / "satis_analizi_raporu.txt").write_text(report, encoding="utf-8")
 
-    print("\n✓ Tamamlandı. Çıktı klasörleri:")
-    print(f"   outputs/2024/  ({len(df_2024):,} satış kaydı)")
-    print(f"   outputs/2025/  ({len(df_2025):,} satış kaydı)")
-    print(f"   outputs/all/   ({len(df_all):,} satış kaydı)")
+    run_core_visuals(df_all, img_all, "2024-2025")
+    plot_model_monthly_trend(df_all, img_all, "2024-2025")
+    plot_yoy_monthly(df_all, img_all)
+    if not comp.empty:
+        plot_competitor_comparison(comp, len(df_all), img_all)
+    if not perf.empty:
+        plot_model_month_heatmap(perf, img_all, "2025 Performans")
+
+    print("\n✓ Tamamlandı.")
+    print(f"   outputs/2024/        — {len(list((OUTPUT_DIR/'2024').glob('*.csv')))} CSV")
+    print(f"   outputs/2025/        — {len(list((OUTPUT_DIR/'2025').glob('*.csv')))} CSV")
+    print(f"   outputs/all/         — {len(list(folder_all.glob('*.csv')))} CSV + rapor")
+    print(f"   outputs/images/2024/ — {len(list(img_2024.glob('*.png')))} görsel")
+    print(f"   outputs/images/2025/ — {len(list(img_2025.glob('*.png')))} görsel")
+    print(f"   outputs/images/all/  — {len(list(img_all.glob('*.png')))} görsel")
 
 
 if __name__ == "__main__":

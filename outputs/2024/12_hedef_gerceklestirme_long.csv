@@ -6,7 +6,7 @@
 4,2024,MAY'24,ALL,achievement_pct,78.61
 5,2024,JUN'24,ALL,achievement_pct,107.69
 6,2024,JUL'24,ALL,achievement_pct,89.59
-7,2024,AUG',ALL,achievement_pct,99.69
+7,2024,AUG'24,ALL,achievement_pct,99.69
 8,2024,SEP'24,ALL,achievement_pct,85.5
 9,2024,OCT'24,ALL,achievement_pct,93.55
 10,2024,NOV'24,ALL,achievement_pct,86.22
@@ -18,7 +18,7 @@
 16,2024,MAY'24,B2B+B2C,target,253.0
 17,2024,JUN'24,B2B+B2C,target,269.0
 18,2024,JUL'24,B2B+B2C,target,281.0
-19,2024,AUG',B2B+B2C,target,348.0
+19,2024,AUG'24,B2B+B2C,target,348.0
 20,2024,SEP'24,B2B+B2C,target,281.0
 21,2024,OCT'24,B2B+B2C,target,249.0
 22,2024,NOV'24,B2B+B2C,target,262.0
@@ -30,7 +30,7 @@
 28,2024,MAY'24,B2B,target,63.0
 29,2024,JUN'24,B2B,target,59.0
 30,2024,JUL'24,B2B,target,9.0
-31,2024,AUG',B2B,target,28.0
+31,2024,AUG'24,B2B,target,28.0
 32,2024,SEP'24,B2B,target,15.0
 33,2024,OCT'24,B2B,target,0.0
 34,2024,NOV'24,B2B,target,12.0
@@ -42,7 +42,7 @@
 40,2024,MAY'24,B2C,target,190.0
 41,2024,JUN'24,B2C,target,210.0
 42,2024,JUL'24,B2C,target,272.0
-43,2024,AUG',B2C,target,320.0
+43,2024,AUG'24,B2C,target,320.0
 44,2024,SEP'24,B2C,target,266.0
 45,2024,OCT'24,B2C,target,249.0
 46,2024,NOV'24,B2C,target,250.0
@@ -54,7 +54,7 @@
 52,2024,MAY'24,B2B,achievement,49.0
 53,2024,JUN'24,B2B,achievement,63.0
 54,2024,JUL'24,B2B,achievement,8.0
-55,2024,AUG',B2B,achievement,27.0
+55,2024,AUG'24,B2B,achievement,27.0
 56,2024,SEP'24,B2B,achievement,13.0
 57,2024,OCT'24,B2B,achievement,0.0
 58,2024,NOV'24,B2B,achievement,10.0
@@ -66,7 +66,7 @@
 64,2024,MAY'24,B2C,achievement,147.0
 65,2024,JUN'24,B2C,achievement,223.0
 66,2024,JUL'24,B2C,achievement,240.0
-67,2024,AUG',B2C,achievement,315.0
+67,2024,AUG'24,B2C,achievement,315.0
 68,2024,SEP'24,B2C,achievement,224.0
 69,2024,OCT'24,B2C,achievement,230.0
 70,2024,NOV'24,B2C,achievement,213.0
@@ -78,7 +78,7 @@
 76,2024,MAY'24,B2B+B2C,achievement,196.0
 77,2024,JUN'24,B2B+B2C,achievement,286.0
 78,2024,JUL'24,B2B+B2C,achievement,248.0
-79,2024,AUG',B2B+B2C,achievement,342.0
+79,2024,AUG'24,B2B+B2C,achievement,342.0
 80,2024,SEP'24,B2B+B2C,achievement,237.0
 81,2024,OCT'24,B2B+B2C,achievement,230.0
 82,2024,NOV'24,B2B+B2C,achievement,223.0
