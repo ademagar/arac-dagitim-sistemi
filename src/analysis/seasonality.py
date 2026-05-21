@@ -234,6 +234,38 @@ def compute_segment_si(df_comp: pd.DataFrame) -> pd.Series:
     return _ratio_to_mean(seg_monthly, "sales_qty")
 
 
+def compute_per_brand_si(df_comp: pd.DataFrame) -> pd.DataFrame:
+    """Her rakip marka için ayrı mevsimsel indeks pivot tablosu.
+
+    Args:
+        df_comp: load_competitors() çıktısı.
+            Sütunlar: brand, year_month (YYYY-MM), sales_qty
+
+    Returns:
+        Pivot DataFrame: satırlar = ay (1-12), sütunlar = marka isimleri.
+        Alfabetik sıralı, indeks adı "month".
+    """
+    df = df_comp.copy()
+    df["year"]  = df["year_month"].str[:4].astype(int)
+    df["month"] = df["year_month"].str[5:7].astype(int)
+
+    pivot_data: dict[str, list[float]] = {}
+    for brand, grp in df.groupby("brand"):
+        monthly = (
+            grp.groupby(["year", "month"])["sales_qty"]
+            .sum()
+            .reset_index()
+        )
+        si = _ratio_to_mean(monthly, "sales_qty")
+        pivot_data[str(brand)] = si.tolist()
+
+    pivot = pd.DataFrame(pivot_data, index=range(1, 13))
+    pivot.index.name = "month"
+    # Alfabetik sırala
+    pivot = pivot.reindex(sorted(pivot.columns), axis=1)
+    return pivot
+
+
 # ---------------------------------------------------------------------------
 # 3. NORTHSTAR marka mevsimsel indeksi
 # ---------------------------------------------------------------------------
@@ -937,6 +969,88 @@ def plot_monthly_plan(
     _save_fig(fig, output_dir / "07_aylik_plan.png")
 
 
+def plot_northstar_vs_market(
+    ns_si: pd.Series,
+    final_si: pd.Series,
+    output_dir: Path,
+    weights: tuple[float, float, float] = (0.50, 0.30, 0.20),
+) -> None:
+    """NORTHSTAR SI ile nihai piyasa SI'ını karşılaştıran grafik.
+
+    İki SI serisini yan yana çubuk + fark çizgisiyle gösterir. Her ay için
+    NORTHSTAR'ın piyasadan ne kadar saptığı görsel olarak vurgulanır.
+
+    Args:
+        ns_si:      NORTHSTAR SI serisi (index 1-12).
+        final_si:   Nihai piyasa SI serisi (index 1-12).
+        output_dir: Çıktı klasörü.
+        weights:    (w_odd, w_seg, w_ns) tuple — başlıkta gösterilir.
+    """
+    w_odd, w_seg, w_ns = weights
+    x = np.arange(12)
+    width = 0.38
+
+    # Fark: NORTHSTAR - piyasa
+    diff = ns_si.values - final_si.values
+
+    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(14, 10))
+    fig.suptitle(
+        "NORTHSTAR SI vs Piyasa SI Karşılaştırması\n"
+        f"(Piyasa = {w_odd:.2f}×ODD + {w_seg:.2f}×Segment | YoY Stability Weighting)",
+        fontsize=14, fontweight="bold",
+    )
+
+    # --- Üst panel: yan yana bar ---
+    bars_ns = ax1.bar(x - width / 2, ns_si.values, width,
+                      color="#FB8C00", alpha=0.82, label="NORTHSTAR SI", edgecolor="white")
+    bars_mkt = ax1.bar(x + width / 2, final_si.values, width,
+                       color="#1565C0", alpha=0.82, label="Piyasa SI (FINAL)", edgecolor="white")
+
+    for bar, val in zip(bars_ns, ns_si.values):
+        ax1.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 0.012,
+                 f"{val:.2f}", ha="center", va="bottom", fontsize=7.5,
+                 color="#FB8C00", fontweight="bold")
+    for bar, val in zip(bars_mkt, final_si.values):
+        ax1.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 0.012,
+                 f"{val:.2f}", ha="center", va="bottom", fontsize=7.5,
+                 color="#1565C0", fontweight="bold")
+
+    ax1.axhline(1.0, color="gray", linestyle="--", lw=1.2, label="Ortalama (1.0)")
+    ax1.set_xticks(x)
+    ax1.set_xticklabels(MONTH_ABBR_EN, fontsize=9)
+    ax1.set_ylabel("Mevsimsel İndeks")
+    ax1.set_title("NORTHSTAR vs Piyasa — Aylık SI")
+    ax1.legend(fontsize=9)
+    ax1.set_ylim(0, max(ns_si.max(), final_si.max()) * 1.22)
+
+    # --- Alt panel: fark ---
+    diff_colors = ["#43A047" if d >= 0 else "#E53935" for d in diff]
+    diff_bars = ax2.bar(x, diff, color=diff_colors, alpha=0.85, edgecolor="white")
+    for bar, val in zip(diff_bars, diff):
+        va = "bottom" if val >= 0 else "top"
+        offset = 0.005 if val >= 0 else -0.005
+        ax2.text(bar.get_x() + bar.get_width() / 2, val + offset,
+                 f"{val:+.3f}", ha="center", va=va, fontsize=8, fontweight="bold")
+    ax2.axhline(0, color="gray", linestyle="--", lw=1.2)
+    ax2.set_xticks(x)
+    ax2.set_xticklabels(MONTH_ABBR_EN, fontsize=9)
+    ax2.set_ylabel("Fark (NORTHSTAR − Piyasa)")
+    ax2.set_title(
+        "Sapma: yeşil = NORTHSTAR peak > piyasa, kırmızı = NORTHSTAR dip < piyasa"
+    )
+
+    # Sapmayı açıklayan not
+    ax2.text(
+        0.01, 0.97,
+        f"Not: NORTHSTAR YoY stability r≈{w_ns:.4f} → piyasa ağırlığı daha yüksek",
+        transform=ax2.transAxes, ha="left", va="top",
+        fontsize=8, color="gray", style="italic",
+    )
+
+    fig.tight_layout()
+    _save_fig(fig, output_dir / "05_northstar_vs_piyasa.png")
+
+
 # ---------------------------------------------------------------------------
 # 9. Metin raporu
 # ---------------------------------------------------------------------------
@@ -1137,9 +1251,11 @@ def generate_report(
             ODD={w_odd:.4f}, Segment={w_seg:.4f}, NORTHSTAR={w_ns:.4f}
 
         Çıktı dosyaları (outputs/seasonality/):
-            04_FINAL_si.csv     → Planlama için kullanılacak indeks
-            08_aylik_plan_*.csv → Aylık dağıtım planı
-            09_agirlik_analizi.csv → Stability skorları ve ağırlıklar
+            01_mevsimsel_indeksler.csv      → Tüm katmanlar + plan özeti
+            02_rakip_mevsimsel_indeksler.csv → Rakip marka bazında SI
+            04_FINAL_si.csv                → Planlama için kullanılacak indeks
+            05_bayi_si.csv                 → Bayi bazında SI pivot
+            09_agirlik_analizi.csv         → YoY stability skorları ve ağırlıklar
     """).strip())
 
     return "\n".join(lines)
@@ -1181,14 +1297,38 @@ def run(annual_target: int = 3_600) -> None:
 
     Adımlar:
         1. Veriler yüklenir (ODD CSV, rakip, NORTHSTAR satışları)
-        2. ODD / Segment / NORTHSTAR SI hesaplanır
+        2. ODD / Segment / NORTHSTAR SI hesaplanır; marka bazlı rakip SI'ı da üretilir
         3. Optimal ağırlıklar YoY stability yöntemiyle hesaplanır
         4. Nihai ağırlıklı SI hesaplanır
         5. Granüler SI'lar hesaplanır (bayi, model, renk)
         6. Aylık plan oluşturulur
-        7. CSV çıktıları kaydedilir (ağırlık analizi dahil)
-        8. Metin raporu kaydedilir
-        9. 7 görsel üretilir
+        7. Eski/geçersiz dosyalar temizlenir
+        8. CSV çıktıları kaydedilir
+        9. Metin raporu kaydedilir
+       10. 8 görsel üretilir
+
+    Çıktı dosyaları (outputs/seasonality/):
+        CSVler:
+            01_odd_si.csv                  — ODD pazar aylık SI
+            01_mevsimsel_indeksler.csv      — Tüm katmanlar + plan özeti
+            02_rakip_mevsimsel_indeksler.csv — Rakip marka bazında SI (geniş)
+            03_northstar_si.csv            — NORTHSTAR marka SI
+            04_FINAL_si.csv                — Nihai ağırlıklı SI + ağırlıklar
+            05_bayi_si.csv                 — Bayi bazında SI pivot
+            06_model_si.csv                — Model bazında SI pivot
+            07_renk_si.csv                 — Renk bazında SI pivot (top 10)
+            09_agirlik_analizi.csv         — YoY stability skorları ve ağırlıklar
+        Görseller:
+            01_piyasa_hiyerarsisi.png      — 4 katman çizgi + nihai bar
+            02_final_indeks_bar.png        — Nihai SI renkli bar
+            03_final_indeks_polar.png      — Yıl döngüsü polar
+            04_bayi_heatmap.png            — Bayi × ay ısı haritası
+            05_northstar_vs_piyasa.png     — NORTHSTAR vs piyasa karşılaştırması
+            05_model_heatmap.png           — Model × ay ısı haritası
+            06_renk_heatmap.png            — Renk × ay ısı haritası
+            07_aylik_plan.png              — Aylık dağıtım planı
+        Rapor:
+            mevsimsellik_raporu.txt
 
     Args:
         annual_target: Plan tablosu için yıllık araç hedefi.
@@ -1198,18 +1338,22 @@ def run(annual_target: int = 3_600) -> None:
 
     DATA_DIR = Path(__file__).parents[2] / "data" / "raw"
 
-    print("\n[1/6] Veriler yükleniyor...")
+    print("\n[1/7] Veriler yükleniyor...")
     df_sales = load_sales(DATA_DIR)
     df_comp  = load_competitors(DATA_DIR)
     print(f"  NORTHSTAR: {len(df_sales):,} işlem")
     print(f"  Rakip: {df_comp['brand'].nunique()} marka, {len(df_comp):,} kayıt")
 
-    print("\n[2/6] Mevsimsel indeksler hesaplanıyor...")
-    odd_si = compute_odd_si(DATA_DIR)
-    seg_si = compute_segment_si(df_comp)
-    ns_si  = compute_northstar_si(df_sales)
+    print("\n[2/7] Mevsimsel indeksler hesaplanıyor...")
+    odd_si      = compute_odd_si(DATA_DIR)
+    seg_si      = compute_segment_si(df_comp)
+    ns_si       = compute_northstar_si(df_sales)
+    per_brand   = compute_per_brand_si(df_comp)
+    dealer_si   = compute_dealer_si(df_sales)
+    model_si    = compute_model_si(df_sales)
+    color_si    = compute_color_si(df_sales)
 
-    print("\n[3/6] Optimal ağırlıklar hesaplanıyor (YoY stability)...")
+    print("\n[3/7] Optimal ağırlıklar hesaplanıyor (YoY stability)...")
     stabilities = _stability_detail(DATA_DIR, df_comp, df_sales)
     r_odd = stabilities["odd"]
     r_seg = stabilities["seg"]
@@ -1222,28 +1366,66 @@ def run(annual_target: int = 3_600) -> None:
     weights = (w_odd, w_seg, w_ns)
     print(f"\n  → Hesaplanan ağırlıklar:")
     print(f"    ODD={w_odd:.4f}  Segment={w_seg:.4f}  NORTHSTAR={w_ns:.4f}")
-    print(f"    (önceki sabit değerler: ODD=0.50, Segment=0.30, NORTHSTAR=0.20)")
 
     final_si = compute_final_si(odd_si, seg_si, ns_si, w_odd, w_seg, w_ns)
-
-    dealer_si = compute_dealer_si(df_sales)
-    model_si  = compute_model_si(df_sales)
-    color_si  = compute_color_si(df_sales)
-
     plan = monthly_plan(annual_target, final_si, label="final")
 
-    print("\n[4/6] CSV çıktıları kaydediliyor...")
+    # ------------------------------------------------------------------
+    # Eski / geçersiz dosyaları temizle
+    # ------------------------------------------------------------------
+    print("\n[4/7] Eski dosyalar temizleniyor...")
+    obsolete = [
+        "02_segment_si.csv",
+        "08_aylik_plan_3600.csv",
+        "03_aylik_plan_3600.csv",
+        "04_aylik_hedef_plani.png",
+        "01_mevsimsel_indeks_karsilastirma.png",
+        "02_mevsimsel_indeks_polar.png",
+        "03_rakip_mevsimsel_heatmap.png",
+    ]
+    for fname in obsolete:
+        p = OUTPUT_DIR / fname
+        if p.exists():
+            p.unlink()
+            print(f"  Silindi: {p.name}")
 
-    # Pazar katmanları
+    # ------------------------------------------------------------------
+    # CSV çıktıları
+    # ------------------------------------------------------------------
+    print("\n[5/7] CSV çıktıları kaydediliyor...")
+
+    # 01 — ODD pazar SI
     odd_df = pd.DataFrame({
-        "month": range(1, 13), "month_name": MONTH_ABBR_TR, "odd_si": odd_si.values,
+        "month": range(1, 13), "month_name": MONTH_ABBR_TR,
+        "odd_si": odd_si.values,
     })
-    seg_df = pd.DataFrame({
-        "month": range(1, 13), "month_name": MONTH_ABBR_TR, "segment_si": seg_si.values,
+
+    # 01 — Tüm katmanlar + plan özeti (combined)
+    combined_df = pd.DataFrame({
+        "month":         range(1, 13),
+        "month_name":    MONTH_ABBR_TR,
+        "odd_si":        odd_si.values,
+        "segment_si":    seg_si.values,
+        "northstar_si":  ns_si.values,
+        "final_si":      final_si.values,
+        "planned_qty":   plan["planned_qty"].values,
+        "share_pct":     plan["share_pct"].values,
+        "cumulative_qty": plan["cumulative_qty"].values,
+        "cumulative_pct": plan["cumulative_pct"].values,
     })
+
+    # 02 — Rakip marka bazında SI (per-brand pivot, long-friendly with month_name)
+    per_brand_out = per_brand.copy()
+    per_brand_out.index.name = "month"
+    per_brand_out.insert(0, "month_name", MONTH_ABBR_TR)
+
+    # 03 — NORTHSTAR SI
     ns_df = pd.DataFrame({
-        "month": range(1, 13), "month_name": MONTH_ABBR_TR, "northstar_si": ns_si.values,
+        "month": range(1, 13), "month_name": MONTH_ABBR_TR,
+        "northstar_si": ns_si.values,
     })
+
+    # 04 — FINAL SI + ağırlıklar
     final_df = pd.DataFrame({
         "month":        range(1, 13),
         "month_name":   MONTH_ABBR_TR,
@@ -1256,34 +1438,36 @@ def run(annual_target: int = 3_600) -> None:
         "w_ns":         [w_ns]  * 12,
     })
 
-    # Ağırlık analizi — stability skorları ve normalize ağırlıklar
-    total_stab = r_odd + r_seg + r_ns
+    # 09 — Ağırlık analizi
     weight_df = pd.DataFrame({
-        "source":    ["ODD", "Segment", "NORTHSTAR"],
+        "source":          ["ODD", "Segment", "NORTHSTAR"],
         "yoy_stability_r": [r_odd, r_seg, r_ns],
-        "weight":    [w_odd, w_seg, w_ns],
-        "weight_pct": [f"{w_odd*100:.1f}%", f"{w_seg*100:.1f}%", f"{w_ns*100:.1f}%"],
-        "n_approx":  [1_417_938, 720_805, len(df_sales)],
-        "method":    ["YoY Stability"] * 3,
+        "weight":          [w_odd, w_seg, w_ns],
+        "weight_pct":      [f"{w_odd*100:.1f}%", f"{w_seg*100:.1f}%", f"{w_ns*100:.1f}%"],
+        "n_approx":        [1_417_938, 720_805, len(df_sales)],
+        "method":          ["YoY Stability"] * 3,
     })
 
-    csv_outputs = [
-        (odd_df,               "01_odd_si.csv"),
-        (seg_df,               "02_segment_si.csv"),
-        (ns_df,                "03_northstar_si.csv"),
-        (final_df,             "04_FINAL_si.csv"),
-        (dealer_si.reset_index(), "05_bayi_si.csv"),
-        (model_si.reset_index(),  "06_model_si.csv"),
-        (color_si.reset_index(),  "07_renk_si.csv"),
-        (plan,                 f"08_aylik_plan_{annual_target}.csv"),
-        (weight_df,            "09_agirlik_analizi.csv"),
+    csv_outputs: list[tuple] = [
+        (odd_df,                       "01_odd_si.csv"),
+        (combined_df,                  "01_mevsimsel_indeksler.csv"),
+        (per_brand_out.reset_index(),  "02_rakip_mevsimsel_indeksler.csv"),
+        (ns_df,                        "03_northstar_si.csv"),
+        (final_df,                     "04_FINAL_si.csv"),
+        (dealer_si.reset_index(),      "05_bayi_si.csv"),
+        (model_si.reset_index(),       "06_model_si.csv"),
+        (color_si.reset_index(),       "07_renk_si.csv"),
+        (weight_df,                    "09_agirlik_analizi.csv"),
     ]
-    for df, fname in csv_outputs:
+    for df_out, fname in csv_outputs:
         path = OUTPUT_DIR / fname
-        df.to_csv(path, index=False, encoding="utf-8-sig")
-        print(f"  Kaydedildi: {path}")
+        df_out.to_csv(path, index=False, encoding="utf-8-sig")
+        print(f"  Kaydedildi: {path.name}")
 
-    print("\n[5/6] Metin raporu oluşturuluyor...")
+    # ------------------------------------------------------------------
+    # Metin raporu
+    # ------------------------------------------------------------------
+    print("\n[6/7] Metin raporu oluşturuluyor...")
     report = generate_report(
         odd_si, seg_si, ns_si, final_si,
         dealer_si, model_si, color_si,
@@ -1293,18 +1477,25 @@ def run(annual_target: int = 3_600) -> None:
     )
     rpath = OUTPUT_DIR / "mevsimsellik_raporu.txt"
     rpath.write_text(report, encoding="utf-8")
-    print(f"  Kaydedildi: {rpath}")
+    print(f"  Kaydedildi: {rpath.name}")
 
-    print("\n[6/6] Görseller oluşturuluyor...")
+    # ------------------------------------------------------------------
+    # Görseller
+    # ------------------------------------------------------------------
+    print("\n[7/7] Görseller oluşturuluyor...")
     plot_market_hierarchy(odd_si, seg_si, ns_si, final_si, OUTPUT_DIR, weights=weights)
     plot_final_si_bar(final_si, OUTPUT_DIR, weights=weights)
     plot_final_si_polar(final_si, OUTPUT_DIR)
     plot_dealer_heatmap(dealer_si, OUTPUT_DIR)
+    plot_northstar_vs_market(ns_si, final_si, OUTPUT_DIR, weights=weights)
     plot_model_heatmap(model_si, OUTPUT_DIR)
     plot_color_heatmap(color_si, OUTPUT_DIR)
     plot_monthly_plan(plan, annual_target, OUTPUT_DIR, weights=weights)
 
     print(f"\nTamamlandi → {OUTPUT_DIR}")
+    png_count = len(list(OUTPUT_DIR.glob("*.png")))
+    csv_count = len(list(OUTPUT_DIR.glob("*.csv")))
+    print(f"  {csv_count} CSV  |  {png_count} PNG  |  mevsimsellik_raporu.txt")
     print(f"\n{report}")
 
 

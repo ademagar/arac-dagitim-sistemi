@@ -217,6 +217,8 @@ Bu çalışmada hesaplanan ağırlıklar:
     ODD=0.5015, Segment=0.4985, NORTHSTAR=0.0000
 
 Çıktı dosyaları (outputs/seasonality/):
-    04_FINAL_si.csv     → Planlama için kullanılacak indeks
-    08_aylik_plan_*.csv → Aylık dağıtım planı
-    09_agirlik_analizi.csv → Stability skorları ve ağırlıklar
+    01_mevsimsel_indeksler.csv      → Tüm katmanlar + plan özeti
+    02_rakip_mevsimsel_indeksler.csv → Rakip marka bazında SI
+    04_FINAL_si.csv                → Planlama için kullanılacak indeks
+    05_bayi_si.csv                 → Bayi bazında SI pivot
+    09_agirlik_analizi.csv         → YoY stability skorları ve ağırlıklar
