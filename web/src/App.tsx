@@ -3,6 +3,7 @@ import Sidebar from './components/Sidebar'
 import GecmisAnaliz from './pages/GecmisAnaliz'
 import Mevsimsellik from './pages/Mevsimsellik'
 import BayiHarita from './pages/BayiHarita'
+import Dagitim from './pages/Dagitim'
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
           <Route path="/gecmis-analiz" element={<GecmisAnaliz />} />
           <Route path="/mevsimsellik" element={<Mevsimsellik />} />
           <Route path="/bayi-harita" element={<BayiHarita />} />
+          <Route path="/dagitim"    element={<Dagitim />} />
         </Routes>
       </main>
     </div>
