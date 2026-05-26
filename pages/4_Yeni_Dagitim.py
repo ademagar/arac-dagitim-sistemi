@@ -192,82 +192,145 @@ with st.expander("**Adım 1 — Envanter Dosyası Yükle**", expanded=not has_in
 if has_inventory:
     with st.expander("**Adım 2 — Aylık Bayi Hedeflerini Girin**", expanded=not has_targets):
 
-        st.markdown("Her bayi için **Hedef** sütununa o ay dağıtılacak araç adedini girin.")
-
-        # Şablon: mevcut bayi listesi, hedefler sıfır
+        # Bayi listesini yükle
         template_path = ROOT / "data" / "raw" / "dealer_target_january26.csv"
-        if "editor_df" not in st.session_state:
-            if template_path.exists():
-                tmpl = pd.read_csv(template_path, sep=";", encoding="utf-8-sig")
-                tmpl.columns = tmpl.columns.str.strip()
-                tmpl = tmpl.rename(columns={
-                    "Dealer Name": "Bayi Adı",
-                    "Dealer Code": "Bayi Kodu",
-                    "Target": "Hedef",
-                })
-                tmpl["Hedef"] = 0
-            else:
-                tmpl = pd.DataFrame({
-                    "Bayi Adı":  [f"DEALER {i}" for i in range(1, 6)],
-                    "Bayi Kodu": [f"BA-0-XXX-{i:02d}" for i in range(1, 6)],
-                    "Hedef":     [0] * 5,
-                })
-            st.session_state["editor_df"] = tmpl
+        if template_path.exists():
+            _tmpl = pd.read_csv(template_path, sep=";", encoding="utf-8-sig")
+            _tmpl.columns = _tmpl.columns.str.strip()
+            _tmpl = _tmpl.rename(columns={"Dealer Name": "name", "Dealer Code": "code", "Target": "target"})
+            dealers = _tmpl[["name", "code"]].to_dict("records")
+        else:
+            dealers = [{"name": f"DEALER {i}", "code": f"BA-0-XXX-{i:02d}"} for i in range(1, 6)]
 
-        edited = st.data_editor(
-            st.session_state["editor_df"],
-            use_container_width=True,
-            hide_index=True,
-            column_config={
-                "Bayi Adı":  st.column_config.TextColumn("Bayi Adı", disabled=True),
-                "Bayi Kodu": st.column_config.TextColumn("Bayi Kodu", disabled=True),
-                "Hedef":     st.column_config.NumberColumn(
-                    "Hedef (araç)",
-                    min_value=0,
-                    max_value=500,
-                    step=1,
-                    help="Bu bayi için dağıtılacak araç adedi",
-                ),
-            },
-            key="target_editor",
-        )
+        supply = len(st.session_state["inv_pool"])
 
-        total_demand = int(edited["Hedef"].sum())
-        total_supply = len(st.session_state["inv_pool"])
-        supply_ok    = total_demand <= total_supply
+        # Session state başlat (ilk açılışta)
+        for d in dealers:
+            k = f"inp_{d['code']}"
+            if k not in st.session_state:
+                st.session_state[k] = 0
 
-        col_info, col_btn = st.columns([3, 1])
-        with col_info:
-            st.markdown(
-                f"Toplam talep: **{total_demand} araç** &nbsp;|&nbsp; "
-                f"Mevcut arz: **{total_supply} araç** &nbsp;|&nbsp; "
-                + (f"✅ Arz yeterli" if supply_ok else f"⚠️ Talep arzi aşıyor!"),
-                unsafe_allow_html=True,
+        # Mevcut toplam (önceki rerun'dan)
+        total = sum(st.session_state.get(f"inp_{d['code']}", 0) for d in dealers)
+        pct   = min(total / supply, 1.0) if supply > 0 else 0
+        over  = total > supply
+
+        # ── Canlı özet kutusu ──────────────────────────────────────
+        s_color = "#EF4444" if over else ("#22C55E" if total > 0 else "#94A3B8")
+        s_label = "⚠️ Arz aşıldı!" if over else ("✅ Arz yeterli" if total > 0 else "Henüz girilmedi")
+        st.markdown(f"""
+        <div style="background:#F0F4F8;border-radius:12px;padding:16px 20px;margin-bottom:16px;
+                    border:1px solid #E2E8F0;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+            <div>
+              <span style="font-size:28px;font-weight:800;color:#1565C0;">{total}</span>
+              <span style="color:#64748B;font-size:14px;margin-left:6px;">/ {supply} araç</span>
+            </div>
+            <div style="background:{s_color};color:white;padding:6px 14px;border-radius:20px;
+                        font-size:13px;font-weight:600;">{s_label}</div>
+          </div>
+          <div style="background:#E2E8F0;border-radius:99px;height:8px;overflow:hidden;">
+            <div style="background:{s_color};width:{pct*100:.1f}%;height:100%;
+                        border-radius:99px;transition:width 0.3s;"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;margin-top:6px;
+                      font-size:12px;color:#94A3B8;">
+            <span>Toplam Talep</span>
+            <span>Kalan Arz: {max(supply - total, 0)} araç</span>
+          </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+        # ── Hızlı aksiyonlar ──────────────────────────────────────
+        qa1, qa2, qa3 = st.columns([1, 1, 2])
+        with qa1:
+            if st.button("⚖️  Eşit Dağıt", use_container_width=True,
+                         help=f"Toplam arzı {len(dealers)} bayiye eşit böler"):
+                per_d = supply // len(dealers)
+                for d in dealers:
+                    st.session_state[f"inp_{d['code']}"] = per_d
+                st.rerun()
+        with qa2:
+            if st.button("🗑️  Tümünü Sıfırla", use_container_width=True):
+                for d in dealers:
+                    st.session_state[f"inp_{d['code']}"] = 0
+                st.rerun()
+        with qa3:
+            n_filled = sum(1 for d in dealers if st.session_state.get(f"inp_{d['code']}", 0) > 0)
+            st.caption(f"Toplam **{len(dealers)}** bayi · Hedef girilen: **{n_filled}**")
+
+        st.markdown("<div style='margin-top:4px'></div>", unsafe_allow_html=True)
+
+        # ── Bayi kartları (3 sütun) ────────────────────────────────
+        st.markdown("""
+        <style>
+        .dealer-label {
+            font-weight: 700; font-size: 13px; color: #1A1A2E;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .dealer-code {
+            font-size: 11px; color: #94A3B8; margin-bottom: 4px;
+        }
+        </style>
+        """, unsafe_allow_html=True)
+
+        n_cols = 3
+        grid = st.columns(n_cols)
+        for i, d in enumerate(dealers):
+            key = f"inp_{d['code']}"
+            val = st.session_state.get(key, 0)
+            border_color = "#1565C0" if val > 0 else "#E2E8F0"
+            bg_color     = "#EFF6FF" if val > 0 else "#FAFAFA"
+
+            with grid[i % n_cols]:
+                st.markdown(f"""
+                <div style="border:1px solid {border_color};border-left:4px solid {border_color};
+                            border-radius:8px;padding:10px 12px 4px 12px;
+                            background:{bg_color};margin-bottom:2px;">
+                  <div class="dealer-label">{d['name']}</div>
+                  <div class="dealer-code">{d['code']}</div>
+                </div>
+                """, unsafe_allow_html=True)
+                st.number_input(
+                    "araç/ay", min_value=0, max_value=500, step=1,
+                    key=key, label_visibility="collapsed",
+                )
+
+        # ── Onayla butonu ──────────────────────────────────────────
+        st.divider()
+        btn_col, msg_col = st.columns([2, 3])
+        with btn_col:
+            confirm = st.button(
+                "✓  Hedefleri Onayla — Adım 3'e Geç →",
+                type="primary",
+                use_container_width=True,
+                disabled=(total == 0 or over),
             )
-        with col_btn:
-            if st.button("Hedefleri Kaydet →", type="primary", use_container_width=True):
-                if total_demand == 0:
-                    st.warning("En az bir bayi için hedef girin.")
-                elif not supply_ok:
-                    st.error(f"Toplam hedef ({total_demand}) envanterdeki araç sayısını ({total_supply}) aşıyor.")
-                else:
-                    targets_df = edited.rename(columns={
-                        "Bayi Adı": "dealer_name",
-                        "Bayi Kodu": "dealer_code",
-                        "Hedef": "target",
-                    })
-                    targets_df["target"] = targets_df["target"].astype(int)
-                    st.session_state["target_df"]      = targets_df
-                    st.session_state["editor_df"]      = edited
-                    st.session_state["total_demand"]   = total_demand
-                    st.rerun()
+        with msg_col:
+            if total == 0:
+                st.warning("Devam etmek için en az bir bayi hedefi girin.")
+            elif over:
+                st.error(f"Toplam hedef ({total}) mevcut arzı ({supply}) aşıyor.")
+            else:
+                n_active = sum(1 for d in dealers if st.session_state.get(f"inp_{d['code']}", 0) > 0)
+                st.success(f"Hazır — {total} araç, {n_active} bayi")
+
+        if confirm:
+            targets_df = pd.DataFrame({
+                "dealer_name": [d["name"] for d in dealers],
+                "dealer_code": [d["code"] for d in dealers],
+                "target":      [int(st.session_state.get(f"inp_{d['code']}", 0)) for d in dealers],
+            })
+            st.session_state["target_df"]    = targets_df
+            st.session_state["total_demand"] = total
+            st.rerun()
 
     if has_targets:
         demand = st.session_state["total_demand"]
         supply = len(st.session_state["inv_pool"])
-        st.info(
-            f"✓ Hedefler kaydedildi — Toplam talep: **{demand}** araç / "
-            f"Arz: **{supply}** araç. Değiştirmek için yukarıyı açın.",
+        st.success(
+            f"✓ Hedefler onaylandı — **{demand}** araç talep · **{supply}** araç arz. "
+            "Değiştirmek için yukarıyı açın.",
             icon="✅",
         )
 
