@@ -40,14 +40,50 @@ REGION_ICONS: dict[str, str] = {
     "Doğu Anadolu":        "mountain",
 }
 
-# _classify() fonksiyonundaki kurallarla birebir örtüşen yaklaşık bölge poligonları
+# Türkiye bölge sınırlarını gerçek coğrafyaya yakın koordinatlarla tanımlar.
+# İç seam'lar _classify() kurallarını izler; dış sınırlar Türkiye kıyı/sınır
+# hatlarına yaklaşık olarak uydurulmuştur.
 REGION_POLYGONS: dict[str, list[tuple[float, float]]] = {
-    "Marmara":            [(40.0, 26.0), (42.5, 26.0), (42.5, 32.0), (40.0, 32.0)],
-    "Karadeniz":          [(40.0, 32.0), (42.5, 32.0), (42.5, 45.0), (40.0, 45.0)],
-    "Ege":                [(35.5, 26.0), (40.0, 26.0), (40.0, 30.5), (35.5, 30.5)],
-    "Akdeniz":            [(35.5, 30.5), (37.5, 30.5), (37.5, 37.0), (35.5, 37.0)],
-    "Güneydoğu Anadolu":  [(35.5, 37.0), (37.5, 37.0), (37.5, 45.0), (35.5, 45.0)],
-    "İç Anadolu":         [(37.5, 30.5), (40.0, 30.5), (40.0, 45.0), (37.5, 45.0)],
+    # Kuzeybatı: Edirne–Karadeniz kıyısı–Bolu–Bursa–Çanakkale
+    "Marmara": [
+        (40.0, 26.2), (40.6, 26.3), (41.7, 26.6),
+        (41.9, 27.5), (41.8, 28.5), (41.4, 29.1),
+        (41.1, 30.2), (41.5, 32.0),
+        (40.0, 32.0),
+    ],
+    # Kuzey: Zonguldak'tan Artvin'e Karadeniz kıyısı
+    "Karadeniz": [
+        (40.0, 32.0), (41.5, 32.0),
+        (41.7, 33.5), (41.5, 35.0), (41.3, 36.5),
+        (41.1, 38.0), (41.3, 40.5), (41.5, 41.5),
+        (41.5, 43.5), (40.3, 44.5),
+        (40.0, 44.5),
+    ],
+    # Batı: Çanakkale'den Fethiye'ye Ege kıyısı
+    "Ege": [
+        (40.0, 26.2), (40.0, 30.5),
+        (37.5, 30.5), (36.4, 30.5),
+        (36.5, 29.5), (36.8, 27.5), (37.0, 27.0),
+        (37.8, 27.0), (38.3, 26.5), (39.0, 26.3), (39.5, 26.2),
+    ],
+    # İç: Ankara–Konya–Kayseri–Doğu Anadolu dahil
+    "İç Anadolu": [
+        (40.0, 30.5), (40.0, 44.5),
+        (38.5, 44.5), (37.5, 43.5),
+        (37.5, 30.5),
+    ],
+    # Güney: Antalya'dan Hatay'a Akdeniz kıyısı
+    "Akdeniz": [
+        (37.5, 30.5), (37.5, 37.0),
+        (36.7, 37.0), (36.5, 36.5), (36.5, 35.5),
+        (36.2, 33.5), (36.0, 32.5), (36.1, 31.0), (36.4, 30.5),
+    ],
+    # Güneydoğu: Gaziantep–Diyarbakır–Mardin–Hakkari
+    "Güneydoğu Anadolu": [
+        (37.5, 37.0), (37.5, 43.5),
+        (37.2, 43.5), (37.0, 42.5), (36.8, 41.5),
+        (36.7, 40.0), (36.6, 38.5), (36.7, 37.0),
+    ],
 }
 
 
@@ -159,29 +195,29 @@ df_filtered = df_active[df_active["region"].isin(selected_regions)].copy()
 # Harita oluştur
 # ---------------------------------------------------------------------------
 with left:
+    # tiles=None → TileLayer'ı control=False ile ekle → LayerControl'de görünmez
     m = folium.Map(
         location=[39.2, 34.0],
         zoom_start=6,
-        tiles="CartoDB positron",
+        tiles=None,
         prefer_canvas=True,
     )
+    folium.TileLayer("CartoDB positron", control=False).add_to(m)
 
-    # Bölge arka plan renklendirmesi (dealer markerlarından önce ekle → altta kalır)
-    fg_regions = folium.FeatureGroup(name="Bölge Renklendirmesi", show=True)
+    # Bölge arka plan poligonları — doğrudan haritaya ekle (LayerControl dışı)
     for _region, _coords in REGION_POLYGONS.items():
         _color = REGION_COLORS.get(_region, "#999999")
         folium.Polygon(
             locations=_coords,
             color=_color,
             weight=2,
-            opacity=0.55,
+            opacity=0.6,
             fill=True,
             fill_color=_color,
-            fill_opacity=0.13,
-            dash_array="6 4",
+            fill_opacity=0.14,
+            dash_array="5 4",
             tooltip=folium.Tooltip(_region),
-        ).add_to(fg_regions)
-    m.add_child(fg_regions)
+        ).add_to(m)
 
     # Bölge bazında katmanlar
     feature_groups: dict[str, folium.FeatureGroup] = {}
