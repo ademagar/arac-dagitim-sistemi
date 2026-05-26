@@ -40,98 +40,6 @@ REGION_ICONS: dict[str, str] = {
     "Doğu Anadolu":        "mountain",
 }
 
-# Türkiye'nin 7 coğrafi bölgesi — temiz, örtüşmesiz poligonlar.
-# Paylaşılan iç sınır noktaları (lat, lon):
-#   A=(40.5,32)  B=(40.0,30.5)  C=(37.5,30.5)  D=(40.5,38)
-#   E=(37.5,38)  F=(37.5,37)    G=(37.5,44)
-REGION_POLYGONS: dict[str, list[tuple[float, float]]] = {
-    # 1. Marmara: Trakya + Kuzey Marmara (Edirne–İstanbul–Bursa–Bolu)
-    "Marmara": [
-        (41.9, 26.0),  # KB Bulgaristan sınırı
-        (42.0, 27.5),  # K Trakya
-        (41.8, 28.5),
-        (41.4, 29.1),  # İstanbul
-        (41.2, 30.5),  # Bolu kıyısı
-        (41.5, 32.0),  # A1: Karadeniz sınırı
-        (40.5, 32.0),  # A: Marmara/Karadeniz/İç Anadolu
-        (40.0, 30.5),  # B: Marmara/Ege/İç Anadolu
-        (39.5, 28.0),  # Balıkesir hattı
-        (39.5, 26.5),  # Çanakkale GB kıyısı
-        (40.0, 26.2),  # Batı kıyı
-    ],
-    # 2. Karadeniz: Zonguldak'tan Artvin'e kuzey sahil şeridi
-    "Karadeniz": [
-        (41.5, 32.0),  # A1: Batı
-        (41.7, 33.5), (41.5, 35.0), (41.3, 36.5),
-        (41.1, 38.0), (41.3, 40.5), (41.5, 41.5),
-        (41.5, 43.5),  # KD kıyı
-        (40.3, 44.5),  # Gürcistan sınırı
-        (40.5, 44.0), (40.5, 40.5),
-        (40.5, 38.0),  # D: Karadeniz/İç Anadolu/Doğu Anadolu
-        (40.5, 32.0),  # A: Batı iç
-    ],
-    # 3. Ege: Çanakkale'den Fethiye'ye batı kıyı bölgesi
-    "Ege": [
-        (39.5, 26.5),  # K kıyı (Çanakkale)
-        (39.5, 28.0),  # K iç (Marmara ile ortak)
-        (40.0, 30.5),  # B: KD köşe
-        (37.5, 30.5),  # C: GD köşe
-        (36.4, 30.5),  # Güney Ege/Akdeniz ortak noktası
-        (36.2, 29.0),  # GB sahil
-        (36.5, 28.0),
-        (36.8, 27.5),
-        (37.0, 27.2),
-        (37.5, 27.0),
-        (38.3, 26.5),
-        (39.0, 26.3),
-    ],
-    # 4. İç Anadolu: Ankara–Konya–Kayseri–Sivas merkezi platosu
-    # Güney sınırı: lat 37.5 boyunca düz çizgi (Toroslar hattı)
-    "İç Anadolu": [
-        (40.5, 32.0),  # A: KB
-        (40.5, 38.0),  # D: KD
-        (37.5, 38.0),  # E: GD
-        (37.5, 30.5),  # C: GB
-        (40.0, 30.5),  # B: K iç
-    ],
-    # 5. Akdeniz: Antalya–Mersin–Adana–Hatay güney sahil bölgesi
-    "Akdeniz": [
-        (37.5, 30.5),  # C: KB köşe
-        (37.5, 37.0),  # F: KD köşe (Akdeniz/Güneydoğu sınırı)
-        (36.7, 37.0),  # Suriye sınırı başlangıcı
-        (36.5, 36.5),
-        (36.4, 36.0),
-        (36.2, 35.0),
-        (36.0, 34.0),
-        (36.0, 33.0),
-        (36.2, 31.5),
-        (36.4, 30.5),  # Ege ile ortak nokta
-    ],
-    # 6. Doğu Anadolu: Erzurum–Van–Ağrı–Kars yüksek platosu
-    "Doğu Anadolu": [
-        (40.5, 38.0),  # D: KB
-        (40.5, 44.0),  # KD iç
-        (40.3, 44.5),  # Gürcistan/Ermenistan sınırı
-        (39.5, 44.5),
-        (38.5, 44.5),  # İran sınırı
-        (37.5, 44.0),  # G: GD köşe
-        (37.5, 38.0),  # E: GB
-    ],
-    # 7. Güneydoğu Anadolu: Gaziantep–Şanlıurfa–Diyarbakır–Hakkari
-    "Güneydoğu Anadolu": [
-        (37.5, 37.0),  # F: KB (Akdeniz/İç Anadolu ile)
-        (37.5, 38.0),  # E: K iç
-        (37.5, 44.0),  # G: KD (Doğu Anadolu ile)
-        (37.2, 44.3),  # İran/Irak sınırı
-        (37.0, 43.5),
-        (36.8, 42.5),
-        (36.8, 41.5),  # Irak sınırı
-        (37.1, 40.5),  # Suriye sınırı
-        (36.7, 38.5),
-        (36.7, 37.0),  # GB (Akdeniz ile)
-    ],
-}
-
 
 # ---------------------------------------------------------------------------
 # Veri yükleme
@@ -173,12 +81,11 @@ def load_locations() -> pd.DataFrame:
 
 
 def _classify(lat: float, lon: float) -> str:
-    if lat >= 40.0 and lon < 32.0:   return "Marmara"
-    if lat >= 40.5 and lon >= 32.0:  return "Karadeniz"
-    if lon < 30.5 and lat < 40.0:    return "Ege"
-    if lat < 37.5 and lon >= 37.0:   return "Güneydoğu Anadolu"
-    if lat < 37.5:                    return "Akdeniz"
-    if lon >= 38.0 and lat < 40.5:   return "Doğu Anadolu"
+    if lat >= 40.0 and lon < 32.0:  return "Marmara"
+    if lat >= 40.0 and lon >= 32.0: return "Karadeniz"
+    if lon < 30.5 and lat < 40:     return "Ege"
+    if lat < 37.5 and lon >= 37.0:  return "Güneydoğu Anadolu"
+    if lat < 37.5:                  return "Akdeniz"
     return "İç Anadolu"
 
 
@@ -242,29 +149,12 @@ df_filtered = df_active[df_active["region"].isin(selected_regions)].copy()
 # Harita oluştur
 # ---------------------------------------------------------------------------
 with left:
-    # tiles=None → TileLayer'ı control=False ile ekle → LayerControl'de görünmez
     m = folium.Map(
         location=[39.2, 34.0],
         zoom_start=6,
-        tiles=None,
+        tiles="CartoDB positron",
         prefer_canvas=True,
     )
-    folium.TileLayer("CartoDB positron", control=False).add_to(m)
-
-    # Bölge arka plan poligonları — doğrudan haritaya ekle (LayerControl dışı)
-    for _region, _coords in REGION_POLYGONS.items():
-        _color = REGION_COLORS.get(_region, "#999999")
-        folium.Polygon(
-            locations=_coords,
-            color=_color,
-            weight=2,
-            opacity=0.6,
-            fill=True,
-            fill_color=_color,
-            fill_opacity=0.14,
-            dash_array="5 4",
-            tooltip=folium.Tooltip(_region),
-        ).add_to(m)
 
     # Bölge bazında katmanlar
     feature_groups: dict[str, folium.FeatureGroup] = {}

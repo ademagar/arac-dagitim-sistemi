@@ -1,0 +1,1298 @@
+[
+  {
+    "marka": "Competitor 1",
+    "year_month": "2024-01",
+    "period": "2024 Oca",
+    "satis": 1948
+  },
+  {
+    "marka": "Competitor 1",
+    "year_month": "2024-02",
+    "period": "2024 Şub",
+    "satis": 5664
+  },
+  {
+    "marka": "Competitor 1",
+    "year_month": "2024-03",
+    "period": "2024 Mar",
+    "satis": 4990
+  },
+  {
+    "marka": "Competitor 1",
+    "year_month": "2024-04",
+    "period": "2024 Nis",
+    "satis": 2360
+  },
+  {
+    "marka": "Competitor 1",
+    "year_month": "2024-05",
+    "period": "2024 May",
+    "satis": 2911
+  },
+  {
+    "marka": "Competitor 1",
+    "year_month": "2024-06",
+    "period": "2024 Haz",
+    "satis": 5505
+  },
+  {
+    "marka": "Competitor 1",
+    "year_month": "2024-07",
+    "period": "2024 Tem",
+    "satis": 3117
+  },
+  {
+    "marka": "Competitor 1",
+    "year_month": "2024-08",
+    "period": "2024 Ağu",
+    "satis": 2515
+  },
+  {
+    "marka": "Competitor 1",
+    "year_month": "2024-09",
+    "period": "2024 Eyl",
+    "satis": 2125
+  },
+  {
+    "marka": "Competitor 1",
+    "year_month": "2024-10",
+    "period": "2024 Eki",
+    "satis": 2606
+  },
+  {
+    "marka": "Competitor 1",
+    "year_month": "2024-11",
+    "period": "2024 Kas",
+    "satis": 3425
+  },
+  {
+    "marka": "Competitor 1",
+    "year_month": "2024-12",
+    "period": "2024 Ara",
+    "satis": 6053
+  },
+  {
+    "marka": "Competitor 1",
+    "year_month": "2025-01",
+    "period": "2025 Oca",
+    "satis": 2126
+  },
+  {
+    "marka": "Competitor 1",
+    "year_month": "2025-02",
+    "period": "2025 Şub",
+    "satis": 1752
+  },
+  {
+    "marka": "Competitor 1",
+    "year_month": "2025-03",
+    "period": "2025 Mar",
+    "satis": 3542
+  },
+  {
+    "marka": "Competitor 1",
+    "year_month": "2025-04",
+    "period": "2025 Nis",
+    "satis": 2731
+  },
+  {
+    "marka": "Competitor 1",
+    "year_month": "2025-05",
+    "period": "2025 May",
+    "satis": 3941
+  },
+  {
+    "marka": "Competitor 1",
+    "year_month": "2025-06",
+    "period": "2025 Haz",
+    "satis": 4509
+  },
+  {
+    "marka": "Competitor 1",
+    "year_month": "2025-07",
+    "period": "2025 Tem",
+    "satis": 3932
+  },
+  {
+    "marka": "Competitor 1",
+    "year_month": "2025-08",
+    "period": "2025 Ağu",
+    "satis": 3650
+  },
+  {
+    "marka": "Competitor 1",
+    "year_month": "2025-09",
+    "period": "2025 Eyl",
+    "satis": 4660
+  },
+  {
+    "marka": "Competitor 1",
+    "year_month": "2025-10",
+    "period": "2025 Eki",
+    "satis": 4451
+  },
+  {
+    "marka": "Competitor 1",
+    "year_month": "2025-11",
+    "period": "2025 Kas",
+    "satis": 4996
+  },
+  {
+    "marka": "Competitor 1",
+    "year_month": "2025-12",
+    "period": "2025 Ara",
+    "satis": 7528
+  },
+  {
+    "marka": "Competitor 2",
+    "year_month": "2024-01",
+    "period": "2024 Oca",
+    "satis": 820
+  },
+  {
+    "marka": "Competitor 2",
+    "year_month": "2024-02",
+    "period": "2024 Şub",
+    "satis": 1378
+  },
+  {
+    "marka": "Competitor 2",
+    "year_month": "2024-03",
+    "period": "2024 Mar",
+    "satis": 1717
+  },
+  {
+    "marka": "Competitor 2",
+    "year_month": "2024-04",
+    "period": "2024 Nis",
+    "satis": 688
+  },
+  {
+    "marka": "Competitor 2",
+    "year_month": "2024-05",
+    "period": "2024 May",
+    "satis": 1079
+  },
+  {
+    "marka": "Competitor 2",
+    "year_month": "2024-06",
+    "period": "2024 Haz",
+    "satis": 1047
+  },
+  {
+    "marka": "Competitor 2",
+    "year_month": "2024-07",
+    "period": "2024 Tem",
+    "satis": 1327
+  },
+  {
+    "marka": "Competitor 2",
+    "year_month": "2024-08",
+    "period": "2024 Ağu",
+    "satis": 2094
+  },
+  {
+    "marka": "Competitor 2",
+    "year_month": "2024-09",
+    "period": "2024 Eyl",
+    "satis": 1597
+  },
+  {
+    "marka": "Competitor 2",
+    "year_month": "2024-10",
+    "period": "2024 Eki",
+    "satis": 1854
+  },
+  {
+    "marka": "Competitor 2",
+    "year_month": "2024-11",
+    "period": "2024 Kas",
+    "satis": 1963
+  },
+  {
+    "marka": "Competitor 2",
+    "year_month": "2024-12",
+    "period": "2024 Ara",
+    "satis": 2403
+  },
+  {
+    "marka": "Competitor 2",
+    "year_month": "2025-01",
+    "period": "2025 Oca",
+    "satis": 1564
+  },
+  {
+    "marka": "Competitor 2",
+    "year_month": "2025-02",
+    "period": "2025 Şub",
+    "satis": 2091
+  },
+  {
+    "marka": "Competitor 2",
+    "year_month": "2025-03",
+    "period": "2025 Mar",
+    "satis": 2882
+  },
+  {
+    "marka": "Competitor 2",
+    "year_month": "2025-04",
+    "period": "2025 Nis",
+    "satis": 2152
+  },
+  {
+    "marka": "Competitor 2",
+    "year_month": "2025-05",
+    "period": "2025 May",
+    "satis": 2200
+  },
+  {
+    "marka": "Competitor 2",
+    "year_month": "2025-06",
+    "period": "2025 Haz",
+    "satis": 2025
+  },
+  {
+    "marka": "Competitor 2",
+    "year_month": "2025-07",
+    "period": "2025 Tem",
+    "satis": 2342
+  },
+  {
+    "marka": "Competitor 2",
+    "year_month": "2025-08",
+    "period": "2025 Ağu",
+    "satis": 1366
+  },
+  {
+    "marka": "Competitor 2",
+    "year_month": "2025-09",
+    "period": "2025 Eyl",
+    "satis": 2366
+  },
+  {
+    "marka": "Competitor 2",
+    "year_month": "2025-10",
+    "period": "2025 Eki",
+    "satis": 1965
+  },
+  {
+    "marka": "Competitor 2",
+    "year_month": "2025-11",
+    "period": "2025 Kas",
+    "satis": 1925
+  },
+  {
+    "marka": "Competitor 2",
+    "year_month": "2025-12",
+    "period": "2025 Ara",
+    "satis": 2542
+  },
+  {
+    "marka": "Competitor 3",
+    "year_month": "2024-01",
+    "period": "2024 Oca",
+    "satis": 2057
+  },
+  {
+    "marka": "Competitor 3",
+    "year_month": "2024-02",
+    "period": "2024 Şub",
+    "satis": 1670
+  },
+  {
+    "marka": "Competitor 3",
+    "year_month": "2024-03",
+    "period": "2024 Mar",
+    "satis": 1300
+  },
+  {
+    "marka": "Competitor 3",
+    "year_month": "2024-04",
+    "period": "2024 Nis",
+    "satis": 1733
+  },
+  {
+    "marka": "Competitor 3",
+    "year_month": "2024-05",
+    "period": "2024 May",
+    "satis": 1779
+  },
+  {
+    "marka": "Competitor 3",
+    "year_month": "2024-06",
+    "period": "2024 Haz",
+    "satis": 1817
+  },
+  {
+    "marka": "Competitor 3",
+    "year_month": "2024-07",
+    "period": "2024 Tem",
+    "satis": 2544
+  },
+  {
+    "marka": "Competitor 3",
+    "year_month": "2024-08",
+    "period": "2024 Ağu",
+    "satis": 2138
+  },
+  {
+    "marka": "Competitor 3",
+    "year_month": "2024-09",
+    "period": "2024 Eyl",
+    "satis": 2984
+  },
+  {
+    "marka": "Competitor 3",
+    "year_month": "2024-10",
+    "period": "2024 Eki",
+    "satis": 2038
+  },
+  {
+    "marka": "Competitor 3",
+    "year_month": "2024-11",
+    "period": "2024 Kas",
+    "satis": 2764
+  },
+  {
+    "marka": "Competitor 3",
+    "year_month": "2024-12",
+    "period": "2024 Ara",
+    "satis": 4264
+  },
+  {
+    "marka": "Competitor 3",
+    "year_month": "2025-01",
+    "period": "2025 Oca",
+    "satis": 1440
+  },
+  {
+    "marka": "Competitor 3",
+    "year_month": "2025-02",
+    "period": "2025 Şub",
+    "satis": 2015
+  },
+  {
+    "marka": "Competitor 3",
+    "year_month": "2025-03",
+    "period": "2025 Mar",
+    "satis": 2753
+  },
+  {
+    "marka": "Competitor 3",
+    "year_month": "2025-04",
+    "period": "2025 Nis",
+    "satis": 759
+  },
+  {
+    "marka": "Competitor 3",
+    "year_month": "2025-05",
+    "period": "2025 May",
+    "satis": 2508
+  },
+  {
+    "marka": "Competitor 3",
+    "year_month": "2025-06",
+    "period": "2025 Haz",
+    "satis": 2286
+  },
+  {
+    "marka": "Competitor 3",
+    "year_month": "2025-07",
+    "period": "2025 Tem",
+    "satis": 1670
+  },
+  {
+    "marka": "Competitor 3",
+    "year_month": "2025-08",
+    "period": "2025 Ağu",
+    "satis": 1520
+  },
+  {
+    "marka": "Competitor 3",
+    "year_month": "2025-09",
+    "period": "2025 Eyl",
+    "satis": 4501
+  },
+  {
+    "marka": "Competitor 3",
+    "year_month": "2025-10",
+    "period": "2025 Eki",
+    "satis": 2594
+  },
+  {
+    "marka": "Competitor 3",
+    "year_month": "2025-11",
+    "period": "2025 Kas",
+    "satis": 4404
+  },
+  {
+    "marka": "Competitor 3",
+    "year_month": "2025-12",
+    "period": "2025 Ara",
+    "satis": 1657
+  },
+  {
+    "marka": "Competitor 4",
+    "year_month": "2024-01",
+    "period": "2024 Oca",
+    "satis": 1731
+  },
+  {
+    "marka": "Competitor 4",
+    "year_month": "2024-02",
+    "period": "2024 Şub",
+    "satis": 4919
+  },
+  {
+    "marka": "Competitor 4",
+    "year_month": "2024-03",
+    "period": "2024 Mar",
+    "satis": 4579
+  },
+  {
+    "marka": "Competitor 4",
+    "year_month": "2024-04",
+    "period": "2024 Nis",
+    "satis": 3341
+  },
+  {
+    "marka": "Competitor 4",
+    "year_month": "2024-05",
+    "period": "2024 May",
+    "satis": 3078
+  },
+  {
+    "marka": "Competitor 4",
+    "year_month": "2024-06",
+    "period": "2024 Haz",
+    "satis": 3547
+  },
+  {
+    "marka": "Competitor 4",
+    "year_month": "2024-07",
+    "period": "2024 Tem",
+    "satis": 3567
+  },
+  {
+    "marka": "Competitor 4",
+    "year_month": "2024-08",
+    "period": "2024 Ağu",
+    "satis": 3595
+  },
+  {
+    "marka": "Competitor 4",
+    "year_month": "2024-09",
+    "period": "2024 Eyl",
+    "satis": 3459
+  },
+  {
+    "marka": "Competitor 4",
+    "year_month": "2024-10",
+    "period": "2024 Eki",
+    "satis": 3266
+  },
+  {
+    "marka": "Competitor 4",
+    "year_month": "2024-11",
+    "period": "2024 Kas",
+    "satis": 4258
+  },
+  {
+    "marka": "Competitor 4",
+    "year_month": "2024-12",
+    "period": "2024 Ara",
+    "satis": 5872
+  },
+  {
+    "marka": "Competitor 4",
+    "year_month": "2025-01",
+    "period": "2025 Oca",
+    "satis": 2416
+  },
+  {
+    "marka": "Competitor 4",
+    "year_month": "2025-02",
+    "period": "2025 Şub",
+    "satis": 3502
+  },
+  {
+    "marka": "Competitor 4",
+    "year_month": "2025-03",
+    "period": "2025 Mar",
+    "satis": 3698
+  },
+  {
+    "marka": "Competitor 4",
+    "year_month": "2025-04",
+    "period": "2025 Nis",
+    "satis": 3860
+  },
+  {
+    "marka": "Competitor 4",
+    "year_month": "2025-05",
+    "period": "2025 May",
+    "satis": 3667
+  },
+  {
+    "marka": "Competitor 4",
+    "year_month": "2025-06",
+    "period": "2025 Haz",
+    "satis": 3386
+  },
+  {
+    "marka": "Competitor 4",
+    "year_month": "2025-07",
+    "period": "2025 Tem",
+    "satis": 4268
+  },
+  {
+    "marka": "Competitor 4",
+    "year_month": "2025-08",
+    "period": "2025 Ağu",
+    "satis": 3973
+  },
+  {
+    "marka": "Competitor 4",
+    "year_month": "2025-09",
+    "period": "2025 Eyl",
+    "satis": 3884
+  },
+  {
+    "marka": "Competitor 4",
+    "year_month": "2025-10",
+    "period": "2025 Eki",
+    "satis": 4478
+  },
+  {
+    "marka": "Competitor 4",
+    "year_month": "2025-11",
+    "period": "2025 Kas",
+    "satis": 4445
+  },
+  {
+    "marka": "Competitor 4",
+    "year_month": "2025-12",
+    "period": "2025 Ara",
+    "satis": 6439
+  },
+  {
+    "marka": "Competitor 5",
+    "year_month": "2024-01",
+    "period": "2024 Oca",
+    "satis": 3020
+  },
+  {
+    "marka": "Competitor 5",
+    "year_month": "2024-02",
+    "period": "2024 Şub",
+    "satis": 4333
+  },
+  {
+    "marka": "Competitor 5",
+    "year_month": "2024-03",
+    "period": "2024 Mar",
+    "satis": 5627
+  },
+  {
+    "marka": "Competitor 5",
+    "year_month": "2024-04",
+    "period": "2024 Nis",
+    "satis": 3777
+  },
+  {
+    "marka": "Competitor 5",
+    "year_month": "2024-05",
+    "period": "2024 May",
+    "satis": 4025
+  },
+  {
+    "marka": "Competitor 5",
+    "year_month": "2024-06",
+    "period": "2024 Haz",
+    "satis": 5118
+  },
+  {
+    "marka": "Competitor 5",
+    "year_month": "2024-07",
+    "period": "2024 Tem",
+    "satis": 3645
+  },
+  {
+    "marka": "Competitor 5",
+    "year_month": "2024-08",
+    "period": "2024 Ağu",
+    "satis": 2840
+  },
+  {
+    "marka": "Competitor 5",
+    "year_month": "2024-09",
+    "period": "2024 Eyl",
+    "satis": 3354
+  },
+  {
+    "marka": "Competitor 5",
+    "year_month": "2024-10",
+    "period": "2024 Eki",
+    "satis": 4191
+  },
+  {
+    "marka": "Competitor 5",
+    "year_month": "2024-11",
+    "period": "2024 Kas",
+    "satis": 6250
+  },
+  {
+    "marka": "Competitor 5",
+    "year_month": "2024-12",
+    "period": "2024 Ara",
+    "satis": 7706
+  },
+  {
+    "marka": "Competitor 5",
+    "year_month": "2025-01",
+    "period": "2025 Oca",
+    "satis": 2425
+  },
+  {
+    "marka": "Competitor 5",
+    "year_month": "2025-02",
+    "period": "2025 Şub",
+    "satis": 4032
+  },
+  {
+    "marka": "Competitor 5",
+    "year_month": "2025-03",
+    "period": "2025 Mar",
+    "satis": 7980
+  },
+  {
+    "marka": "Competitor 5",
+    "year_month": "2025-04",
+    "period": "2025 Nis",
+    "satis": 5984
+  },
+  {
+    "marka": "Competitor 5",
+    "year_month": "2025-05",
+    "period": "2025 May",
+    "satis": 4381
+  },
+  {
+    "marka": "Competitor 5",
+    "year_month": "2025-06",
+    "period": "2025 Haz",
+    "satis": 5053
+  },
+  {
+    "marka": "Competitor 5",
+    "year_month": "2025-07",
+    "period": "2025 Tem",
+    "satis": 4211
+  },
+  {
+    "marka": "Competitor 5",
+    "year_month": "2025-08",
+    "period": "2025 Ağu",
+    "satis": 3409
+  },
+  {
+    "marka": "Competitor 5",
+    "year_month": "2025-09",
+    "period": "2025 Eyl",
+    "satis": 4199
+  },
+  {
+    "marka": "Competitor 5",
+    "year_month": "2025-10",
+    "period": "2025 Eki",
+    "satis": 4498
+  },
+  {
+    "marka": "Competitor 5",
+    "year_month": "2025-11",
+    "period": "2025 Kas",
+    "satis": 5694
+  },
+  {
+    "marka": "Competitor 5",
+    "year_month": "2025-12",
+    "period": "2025 Ara",
+    "satis": 7932
+  },
+  {
+    "marka": "Competitor 6",
+    "year_month": "2024-01",
+    "period": "2024 Oca",
+    "satis": 1512
+  },
+  {
+    "marka": "Competitor 6",
+    "year_month": "2024-02",
+    "period": "2024 Şub",
+    "satis": 1736
+  },
+  {
+    "marka": "Competitor 6",
+    "year_month": "2024-03",
+    "period": "2024 Mar",
+    "satis": 2808
+  },
+  {
+    "marka": "Competitor 6",
+    "year_month": "2024-04",
+    "period": "2024 Nis",
+    "satis": 1268
+  },
+  {
+    "marka": "Competitor 6",
+    "year_month": "2024-05",
+    "period": "2024 May",
+    "satis": 1679
+  },
+  {
+    "marka": "Competitor 6",
+    "year_month": "2024-06",
+    "period": "2024 Haz",
+    "satis": 1665
+  },
+  {
+    "marka": "Competitor 6",
+    "year_month": "2024-07",
+    "period": "2024 Tem",
+    "satis": 1645
+  },
+  {
+    "marka": "Competitor 6",
+    "year_month": "2024-08",
+    "period": "2024 Ağu",
+    "satis": 2521
+  },
+  {
+    "marka": "Competitor 6",
+    "year_month": "2024-09",
+    "period": "2024 Eyl",
+    "satis": 1988
+  },
+  {
+    "marka": "Competitor 6",
+    "year_month": "2024-10",
+    "period": "2024 Eki",
+    "satis": 2802
+  },
+  {
+    "marka": "Competitor 6",
+    "year_month": "2024-11",
+    "period": "2024 Kas",
+    "satis": 3012
+  },
+  {
+    "marka": "Competitor 6",
+    "year_month": "2024-12",
+    "period": "2024 Ara",
+    "satis": 3801
+  },
+  {
+    "marka": "Competitor 6",
+    "year_month": "2025-01",
+    "period": "2025 Oca",
+    "satis": 1846
+  },
+  {
+    "marka": "Competitor 6",
+    "year_month": "2025-02",
+    "period": "2025 Şub",
+    "satis": 2183
+  },
+  {
+    "marka": "Competitor 6",
+    "year_month": "2025-03",
+    "period": "2025 Mar",
+    "satis": 1817
+  },
+  {
+    "marka": "Competitor 6",
+    "year_month": "2025-04",
+    "period": "2025 Nis",
+    "satis": 1604
+  },
+  {
+    "marka": "Competitor 6",
+    "year_month": "2025-05",
+    "period": "2025 May",
+    "satis": 997
+  },
+  {
+    "marka": "Competitor 6",
+    "year_month": "2025-06",
+    "period": "2025 Haz",
+    "satis": 1769
+  },
+  {
+    "marka": "Competitor 6",
+    "year_month": "2025-07",
+    "period": "2025 Tem",
+    "satis": 1364
+  },
+  {
+    "marka": "Competitor 6",
+    "year_month": "2025-08",
+    "period": "2025 Ağu",
+    "satis": 1437
+  },
+  {
+    "marka": "Competitor 6",
+    "year_month": "2025-09",
+    "period": "2025 Eyl",
+    "satis": 827
+  },
+  {
+    "marka": "Competitor 6",
+    "year_month": "2025-10",
+    "period": "2025 Eki",
+    "satis": 1323
+  },
+  {
+    "marka": "Competitor 6",
+    "year_month": "2025-11",
+    "period": "2025 Kas",
+    "satis": 2412
+  },
+  {
+    "marka": "Competitor 6",
+    "year_month": "2025-12",
+    "period": "2025 Ara",
+    "satis": 2248
+  },
+  {
+    "marka": "Competitor 7",
+    "year_month": "2024-01",
+    "period": "2024 Oca",
+    "satis": 2718
+  },
+  {
+    "marka": "Competitor 7",
+    "year_month": "2024-02",
+    "period": "2024 Şub",
+    "satis": 4065
+  },
+  {
+    "marka": "Competitor 7",
+    "year_month": "2024-03",
+    "period": "2024 Mar",
+    "satis": 2797
+  },
+  {
+    "marka": "Competitor 7",
+    "year_month": "2024-04",
+    "period": "2024 Nis",
+    "satis": 2125
+  },
+  {
+    "marka": "Competitor 7",
+    "year_month": "2024-05",
+    "period": "2024 May",
+    "satis": 4162
+  },
+  {
+    "marka": "Competitor 7",
+    "year_month": "2024-06",
+    "period": "2024 Haz",
+    "satis": 4352
+  },
+  {
+    "marka": "Competitor 7",
+    "year_month": "2024-07",
+    "period": "2024 Tem",
+    "satis": 3459
+  },
+  {
+    "marka": "Competitor 7",
+    "year_month": "2024-08",
+    "period": "2024 Ağu",
+    "satis": 3230
+  },
+  {
+    "marka": "Competitor 7",
+    "year_month": "2024-09",
+    "period": "2024 Eyl",
+    "satis": 3414
+  },
+  {
+    "marka": "Competitor 7",
+    "year_month": "2024-10",
+    "period": "2024 Eki",
+    "satis": 3766
+  },
+  {
+    "marka": "Competitor 7",
+    "year_month": "2024-11",
+    "period": "2024 Kas",
+    "satis": 3674
+  },
+  {
+    "marka": "Competitor 7",
+    "year_month": "2024-12",
+    "period": "2024 Ara",
+    "satis": 6210
+  },
+  {
+    "marka": "Competitor 7",
+    "year_month": "2025-01",
+    "period": "2025 Oca",
+    "satis": 2359
+  },
+  {
+    "marka": "Competitor 7",
+    "year_month": "2025-02",
+    "period": "2025 Şub",
+    "satis": 2262
+  },
+  {
+    "marka": "Competitor 7",
+    "year_month": "2025-03",
+    "period": "2025 Mar",
+    "satis": 3767
+  },
+  {
+    "marka": "Competitor 7",
+    "year_month": "2025-04",
+    "period": "2025 Nis",
+    "satis": 3489
+  },
+  {
+    "marka": "Competitor 7",
+    "year_month": "2025-05",
+    "period": "2025 May",
+    "satis": 3792
+  },
+  {
+    "marka": "Competitor 7",
+    "year_month": "2025-06",
+    "period": "2025 Haz",
+    "satis": 4512
+  },
+  {
+    "marka": "Competitor 7",
+    "year_month": "2025-07",
+    "period": "2025 Tem",
+    "satis": 3178
+  },
+  {
+    "marka": "Competitor 7",
+    "year_month": "2025-08",
+    "period": "2025 Ağu",
+    "satis": 3096
+  },
+  {
+    "marka": "Competitor 7",
+    "year_month": "2025-09",
+    "period": "2025 Eyl",
+    "satis": 3548
+  },
+  {
+    "marka": "Competitor 7",
+    "year_month": "2025-10",
+    "period": "2025 Eki",
+    "satis": 3530
+  },
+  {
+    "marka": "Competitor 7",
+    "year_month": "2025-11",
+    "period": "2025 Kas",
+    "satis": 6056
+  },
+  {
+    "marka": "Competitor 7",
+    "year_month": "2025-12",
+    "period": "2025 Ara",
+    "satis": 5732
+  },
+  {
+    "marka": "Competitor 8",
+    "year_month": "2024-01",
+    "period": "2024 Oca",
+    "satis": 1636
+  },
+  {
+    "marka": "Competitor 8",
+    "year_month": "2024-02",
+    "period": "2024 Şub",
+    "satis": 638
+  },
+  {
+    "marka": "Competitor 8",
+    "year_month": "2024-03",
+    "period": "2024 Mar",
+    "satis": 531
+  },
+  {
+    "marka": "Competitor 8",
+    "year_month": "2024-04",
+    "period": "2024 Nis",
+    "satis": 514
+  },
+  {
+    "marka": "Competitor 8",
+    "year_month": "2024-05",
+    "period": "2024 May",
+    "satis": 435
+  },
+  {
+    "marka": "Competitor 8",
+    "year_month": "2024-06",
+    "period": "2024 Haz",
+    "satis": 1051
+  },
+  {
+    "marka": "Competitor 8",
+    "year_month": "2024-07",
+    "period": "2024 Tem",
+    "satis": 1261
+  },
+  {
+    "marka": "Competitor 8",
+    "year_month": "2024-08",
+    "period": "2024 Ağu",
+    "satis": 1086
+  },
+  {
+    "marka": "Competitor 8",
+    "year_month": "2024-09",
+    "period": "2024 Eyl",
+    "satis": 495
+  },
+  {
+    "marka": "Competitor 8",
+    "year_month": "2024-10",
+    "period": "2024 Eki",
+    "satis": 420
+  },
+  {
+    "marka": "Competitor 8",
+    "year_month": "2024-11",
+    "period": "2024 Kas",
+    "satis": 766
+  },
+  {
+    "marka": "Competitor 8",
+    "year_month": "2024-12",
+    "period": "2024 Ara",
+    "satis": 1171
+  },
+  {
+    "marka": "Competitor 8",
+    "year_month": "2025-01",
+    "period": "2025 Oca",
+    "satis": 987
+  },
+  {
+    "marka": "Competitor 8",
+    "year_month": "2025-02",
+    "period": "2025 Şub",
+    "satis": 1652
+  },
+  {
+    "marka": "Competitor 8",
+    "year_month": "2025-03",
+    "period": "2025 Mar",
+    "satis": 1268
+  },
+  {
+    "marka": "Competitor 8",
+    "year_month": "2025-04",
+    "period": "2025 Nis",
+    "satis": 1555
+  },
+  {
+    "marka": "Competitor 8",
+    "year_month": "2025-05",
+    "period": "2025 May",
+    "satis": 929
+  },
+  {
+    "marka": "Competitor 8",
+    "year_month": "2025-06",
+    "period": "2025 Haz",
+    "satis": 1172
+  },
+  {
+    "marka": "Competitor 8",
+    "year_month": "2025-07",
+    "period": "2025 Tem",
+    "satis": 1284
+  },
+  {
+    "marka": "Competitor 8",
+    "year_month": "2025-08",
+    "period": "2025 Ağu",
+    "satis": 1578
+  },
+  {
+    "marka": "Competitor 8",
+    "year_month": "2025-09",
+    "period": "2025 Eyl",
+    "satis": 1168
+  },
+  {
+    "marka": "Competitor 8",
+    "year_month": "2025-10",
+    "period": "2025 Eki",
+    "satis": 1303
+  },
+  {
+    "marka": "Competitor 8",
+    "year_month": "2025-11",
+    "period": "2025 Kas",
+    "satis": 1284
+  },
+  {
+    "marka": "Competitor 8",
+    "year_month": "2025-12",
+    "period": "2025 Ara",
+    "satis": 1318
+  },
+  {
+    "marka": "Competitor 9",
+    "year_month": "2024-01",
+    "period": "2024 Oca",
+    "satis": 4580
+  },
+  {
+    "marka": "Competitor 9",
+    "year_month": "2024-02",
+    "period": "2024 Şub",
+    "satis": 4188
+  },
+  {
+    "marka": "Competitor 9",
+    "year_month": "2024-03",
+    "period": "2024 Mar",
+    "satis": 3561
+  },
+  {
+    "marka": "Competitor 9",
+    "year_month": "2024-04",
+    "period": "2024 Nis",
+    "satis": 5272
+  },
+  {
+    "marka": "Competitor 9",
+    "year_month": "2024-05",
+    "period": "2024 May",
+    "satis": 8036
+  },
+  {
+    "marka": "Competitor 9",
+    "year_month": "2024-06",
+    "period": "2024 Haz",
+    "satis": 5043
+  },
+  {
+    "marka": "Competitor 9",
+    "year_month": "2024-07",
+    "period": "2024 Tem",
+    "satis": 7152
+  },
+  {
+    "marka": "Competitor 9",
+    "year_month": "2024-08",
+    "period": "2024 Ağu",
+    "satis": 5284
+  },
+  {
+    "marka": "Competitor 9",
+    "year_month": "2024-09",
+    "period": "2024 Eyl",
+    "satis": 4363
+  },
+  {
+    "marka": "Competitor 9",
+    "year_month": "2024-10",
+    "period": "2024 Eki",
+    "satis": 7732
+  },
+  {
+    "marka": "Competitor 9",
+    "year_month": "2024-11",
+    "period": "2024 Kas",
+    "satis": 8258
+  },
+  {
+    "marka": "Competitor 9",
+    "year_month": "2024-12",
+    "period": "2024 Ara",
+    "satis": 11064
+  },
+  {
+    "marka": "Competitor 9",
+    "year_month": "2025-01",
+    "period": "2025 Oca",
+    "satis": 4293
+  },
+  {
+    "marka": "Competitor 9",
+    "year_month": "2025-02",
+    "period": "2025 Şub",
+    "satis": 4946
+  },
+  {
+    "marka": "Competitor 9",
+    "year_month": "2025-03",
+    "period": "2025 Mar",
+    "satis": 6193
+  },
+  {
+    "marka": "Competitor 9",
+    "year_month": "2025-04",
+    "period": "2025 Nis",
+    "satis": 5813
+  },
+  {
+    "marka": "Competitor 9",
+    "year_month": "2025-05",
+    "period": "2025 May",
+    "satis": 6671
+  },
+  {
+    "marka": "Competitor 9",
+    "year_month": "2025-06",
+    "period": "2025 Haz",
+    "satis": 8418
+  },
+  {
+    "marka": "Competitor 9",
+    "year_month": "2025-07",
+    "period": "2025 Tem",
+    "satis": 5709
+  },
+  {
+    "marka": "Competitor 9",
+    "year_month": "2025-08",
+    "period": "2025 Ağu",
+    "satis": 5602
+  },
+  {
+    "marka": "Competitor 9",
+    "year_month": "2025-09",
+    "period": "2025 Eyl",
+    "satis": 6464
+  },
+  {
+    "marka": "Competitor 9",
+    "year_month": "2025-10",
+    "period": "2025 Eki",
+    "satis": 11001
+  },
+  {
+    "marka": "Competitor 9",
+    "year_month": "2025-11",
+    "period": "2025 Kas",
+    "satis": 9437
+  },
+  {
+    "marka": "Competitor 9",
+    "year_month": "2025-12",
+    "period": "2025 Ara",
+    "satis": 14135
+  }
+]
