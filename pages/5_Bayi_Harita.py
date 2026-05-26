@@ -40,6 +40,16 @@ REGION_ICONS: dict[str, str] = {
     "Doğu Anadolu":        "mountain",
 }
 
+# _classify() fonksiyonundaki kurallarla birebir örtüşen yaklaşık bölge poligonları
+REGION_POLYGONS: dict[str, list[tuple[float, float]]] = {
+    "Marmara":            [(40.0, 26.0), (42.5, 26.0), (42.5, 32.0), (40.0, 32.0)],
+    "Karadeniz":          [(40.0, 32.0), (42.5, 32.0), (42.5, 45.0), (40.0, 45.0)],
+    "Ege":                [(35.5, 26.0), (40.0, 26.0), (40.0, 30.5), (35.5, 30.5)],
+    "Akdeniz":            [(35.5, 30.5), (37.5, 30.5), (37.5, 37.0), (35.5, 37.0)],
+    "Güneydoğu Anadolu":  [(35.5, 37.0), (37.5, 37.0), (37.5, 45.0), (35.5, 45.0)],
+    "İç Anadolu":         [(37.5, 30.5), (40.0, 30.5), (40.0, 45.0), (37.5, 45.0)],
+}
+
 
 # ---------------------------------------------------------------------------
 # Veri yükleme
@@ -155,6 +165,23 @@ with left:
         tiles="CartoDB positron",
         prefer_canvas=True,
     )
+
+    # Bölge arka plan renklendirmesi (dealer markerlarından önce ekle → altta kalır)
+    fg_regions = folium.FeatureGroup(name="Bölge Renklendirmesi", show=True)
+    for _region, _coords in REGION_POLYGONS.items():
+        _color = REGION_COLORS.get(_region, "#999999")
+        folium.Polygon(
+            locations=_coords,
+            color=_color,
+            weight=2,
+            opacity=0.55,
+            fill=True,
+            fill_color=_color,
+            fill_opacity=0.13,
+            dash_array="6 4",
+            tooltip=folium.Tooltip(_region),
+        ).add_to(fg_regions)
+    m.add_child(fg_regions)
 
     # Bölge bazında katmanlar
     feature_groups: dict[str, folium.FeatureGroup] = {}
