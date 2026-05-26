@@ -44,6 +44,10 @@ REGION_ICONS: dict[str, str] = {
 # ---------------------------------------------------------------------------
 # Veri yükleme
 # ---------------------------------------------------------------------------
+# DEALER 23 ve sonrası aktif değil
+INACTIVE_FROM = 23
+
+
 @st.cache_data
 def load_locations() -> pd.DataFrame:
     path = ROOT / "data" / "raw" / "Dealer-Location.csv"
@@ -64,7 +68,13 @@ def load_locations() -> pd.DataFrame:
             lon = float(lat_lon[1])
         except (ValueError, IndexError):
             continue
-        records.append({"name": name, "lat": lat, "lon": lon})
+        # Aktif / pasif belirle (DEALER N → N'i ayıkla)
+        try:
+            num = int(name.split()[-1])
+            active = num < INACTIVE_FROM
+        except ValueError:
+            active = True
+        records.append({"name": name, "lat": lat, "lon": lon, "active": active})
     df = pd.DataFrame(records)
     df["region"] = df.apply(lambda r: _classify(r["lat"], r["lon"]), axis=1)
     return df
@@ -80,6 +90,8 @@ def _classify(lat: float, lon: float) -> str:
 
 
 df_loc = load_locations()
+df_active   = df_loc[df_loc["active"]].copy()
+df_inactive = df_loc[~df_loc["active"]].copy()
 
 # Dağıtım sonuçları varsa birleştir (opsiyonel)
 alloc_path = ROOT / "outputs" / "allocation" / "2026_01" / "dealer_summary.csv"
@@ -91,13 +103,16 @@ if alloc_path.exists():
 # Başlık
 # ---------------------------------------------------------------------------
 st.title("🗺️ Bayi Bölge Haritası")
-st.caption("Türkiye genelindeki bayilerin coğrafi bölge bazında dağılımı")
+st.caption(
+    f"Türkiye genelindeki bayilerin coğrafi bölge bazında dağılımı · "
+    f"**{len(df_active)} aktif**, {len(df_inactive)} pasif bayi"
+)
 
 # ---------------------------------------------------------------------------
-# Üst özet metrikler
+# Üst özet metrikler (sadece aktif bayiler)
 # ---------------------------------------------------------------------------
-region_counts = df_loc["region"].value_counts()
-total_dealers = len(df_loc)
+region_counts = df_active["region"].value_counts()
+total_dealers = len(df_active)
 
 st.markdown("#### Bölge Özeti")
 cols = st.columns(len(region_counts))
@@ -121,13 +136,14 @@ left, right = st.columns([3, 1])
 with right:
     selected_regions = st.multiselect(
         "Bölge filtrele",
-        options=sorted(df_loc["region"].unique()),
-        default=sorted(df_loc["region"].unique()),
+        options=sorted(df_active["region"].unique()),
+        default=sorted(df_active["region"].unique()),
         key="region_filter",
     )
-    show_labels = st.toggle("Bayi isimlerini göster", value=True)
+    show_labels  = st.toggle("Bayi isimlerini göster", value=True)
+    show_passive = st.toggle("Pasif bayileri göster", value=False)
 
-df_filtered = df_loc[df_loc["region"].isin(selected_regions)].copy()
+df_filtered = df_active[df_active["region"].isin(selected_regions)].copy()
 
 # ---------------------------------------------------------------------------
 # Harita oluştur
@@ -140,21 +156,21 @@ with left:
         prefer_canvas=True,
     )
 
-    # Bölge bazında katmanlar (legend için)
+    # Bölge bazında katmanlar
     feature_groups: dict[str, folium.FeatureGroup] = {}
     for region in sorted(df_filtered["region"].unique()):
         fg = folium.FeatureGroup(name=region, show=True)
         feature_groups[region] = fg
         m.add_child(fg)
 
-    for _, row in df_filtered.iterrows():
-        region  = row["region"]
-        color   = REGION_COLORS.get(region, "#666666")
-        fg      = feature_groups[region]
+    # Pasif bayi katmanı
+    fg_passive = folium.FeatureGroup(name="Pasif Bayiler", show=show_passive)
+    m.add_child(fg_passive)
 
-        # Ek bilgi varsa popup'a ekle
+    def _add_dealer_marker(row: pd.Series, fg: folium.FeatureGroup,
+                           color: str, is_active: bool) -> None:
         extra = ""
-        if df_alloc is not None:
+        if is_active and df_alloc is not None:
             match = df_alloc[df_alloc["dealer_name"] == row["name"]]
             if not match.empty:
                 r = match.iloc[0]
@@ -164,6 +180,7 @@ with left:
                     f"<br><b>Doluluk:</b> %{r['fill_rate']}"
                 )
 
+        status_tag = "" if is_active else "<br><i style='color:#999'>Pasif bayi</i>"
         popup_html = f"""
         <div style="font-family:sans-serif;min-width:160px;">
           <div style="background:{color};color:white;padding:8px 12px;
@@ -172,49 +189,59 @@ with left:
           </div>
           <div style="padding:8px 12px;border:1px solid #eee;border-top:none;
                border-radius:0 0 6px 6px;font-size:13px;">
-            <b>Bölge:</b> {region}
+            <b>Bölge:</b> {row['region']}
             <br><b>Konum:</b> {row['lat']:.4f}, {row['lon']:.4f}
-            {extra}
+            {extra}{status_tag}
           </div>
-        </div>
-        """
+        </div>"""
 
-        # Büyük daire + iç nokta (pin efekti)
+        r_outer = 14 if is_active else 10
+        r_inner = 6  if is_active else 4
+        opacity = 0.18 if is_active else 0.08
+
         folium.CircleMarker(
             location=[row["lat"], row["lon"]],
-            radius=14,
-            color=color,
-            fill=True,
-            fill_color=color,
-            fill_opacity=0.18,
-            weight=2,
+            radius=r_outer, color=color, fill=True,
+            fill_color=color, fill_opacity=opacity, weight=2,
             popup=folium.Popup(popup_html, max_width=220),
             tooltip=row["name"],
         ).add_to(fg)
 
         folium.CircleMarker(
             location=[row["lat"], row["lon"]],
-            radius=6,
-            color="white",
-            fill=True,
-            fill_color=color,
-            fill_opacity=1.0,
-            weight=2,
+            radius=r_inner, color="white", fill=True,
+            fill_color=color, fill_opacity=1.0, weight=2,
         ).add_to(fg)
 
-        # Bayi ismi etiketi
-        if show_labels:
+        # Etiket: aynı koordinat, pixel offset ile işaretçinin üstüne konumlandır
+        # icon_anchor=(w/2, h+r_outer+4) → metnin alt-ortası, dairenin tam üstünde
+        if show_labels and is_active:
+            label_w = 100
+            label_h = 18
             folium.Marker(
-                location=[row["lat"] + 0.18, row["lon"]],
+                location=[row["lat"], row["lon"]],
                 icon=folium.DivIcon(
                     html=f"""<div style="font-size:10px;font-weight:700;
-                        color:{color};white-space:nowrap;
+                        color:{color};white-space:nowrap;text-align:center;
                         text-shadow:1px 1px 0 white,-1px -1px 0 white,
-                        1px -1px 0 white,-1px 1px 0 white;">{row['name']}</div>""",
-                    icon_size=(90, 20),
-                    icon_anchor=(45, 0),
+                                    1px -1px 0 white,-1px  1px 0 white;">
+                        {row['name']}</div>""",
+                    icon_size=(label_w, label_h),
+                    # merkezle yatayda, dairenin üstüne otur
+                    icon_anchor=(label_w // 2, label_h + r_outer + 4),
                 ),
             ).add_to(fg)
+
+    # Aktif bayiler
+    for _, row in df_filtered.iterrows():
+        region = row["region"]
+        color  = REGION_COLORS.get(region, "#666666")
+        _add_dealer_marker(row, feature_groups[region], color, is_active=True)
+
+    # Pasif bayiler (opsiyonel)
+    if show_passive:
+        for _, row in df_inactive.iterrows():
+            _add_dealer_marker(row, fg_passive, "#9E9E9E", is_active=False)
 
     # Renk göstergesi (custom legend)
     legend_items = "".join(
@@ -251,6 +278,7 @@ for tab, region in zip(tab_cols, sorted(df_filtered["region"].unique())):
     with tab:
         sub = df_filtered[df_filtered["region"] == region][["name", "lat", "lon"]].copy()
         sub.columns = ["Bayi", "Enlem", "Boylam"]
+        sub["Durum"] = "Aktif"
 
         if df_alloc is not None:
             sub = sub.merge(
