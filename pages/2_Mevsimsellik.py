@@ -72,7 +72,20 @@ with tab1:
 
 with tab2:
     show_image(SEA / "04_bayi_heatmap.png", "Bayi × Ay Mevsimsellik Isı Haritası")
-    show_csv(SEA / "05_bayi_si.csv", "Bayi Bazında Mevsimsel İndeks")
+    _si_path = SEA / "05_bayi_si.csv"
+    if _si_path.exists():
+        _df_si = pd.read_csv(_si_path, encoding="utf-8-sig")
+        _df_si = _df_si.loc[:, ~_df_si.columns.str.startswith("Unnamed")]
+        _non_d = [c for c in _df_si.columns if not c.startswith("DEALER")]
+        _dealer_cols = sorted(
+            [c for c in _df_si.columns if c.startswith("DEALER")],
+            key=lambda x: int(x.split()[-1]),
+        )
+        _df_si = _df_si[_non_d + _dealer_cols]
+        st.markdown("**Bayi Bazında Mevsimsel İndeks**")
+        st.dataframe(_df_si, use_container_width=True, hide_index=True)
+    else:
+        st.info("Veri bulunamadı: 05_bayi_si.csv")
 
 with tab3:
     c1, c2 = st.columns(2)
