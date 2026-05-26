@@ -282,3 +282,8 @@ desktop.ini
 NOTES.md
 TODO.md
 notes/
+
+# Next.js / React frontend
+web/node_modules/
+web/.next/
+web/out/
