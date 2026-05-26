@@ -10,6 +10,19 @@ st.set_page_config(page_title="Ocak 2026 Dağıtımı", page_icon="🎯", layout
 ROOT = Path(__file__).parents[1]
 ALLOC = ROOT / "outputs" / "allocation" / "2026_01"
 
+# Henüz dağıtım yapılmadıysa yönlendir
+alloc_csv = ALLOC / "allocation_january2026.csv"
+if not alloc_csv.exists():
+    st.title("🎯 Ocak 2026 Dağıtımı")
+    st.info(
+        "Ocak 2026 dağıtımı henüz yapılmadı.\n\n"
+        "**⚡ Yeni Dağıtım** sayfasına giderek envanter dosyasını yükleyin "
+        "ve bayi hedeflerini girerek dağıtımı oluşturun.",
+        icon="ℹ️",
+    )
+    st.page_link("pages/4_Yeni_Dagitim.py", label="Yeni Dağıtım sayfasına git →", icon="⚡")
+    st.stop()
+
 
 def show_image(path: Path, caption: str = "") -> None:
     if path.exists():
