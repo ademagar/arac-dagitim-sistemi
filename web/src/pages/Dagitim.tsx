@@ -7,7 +7,7 @@ import {
 import { Upload, CheckCircle, ChevronRight, RotateCcw } from 'lucide-react'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
-interface Vehicle    { model: string; version: string; color: string; vehicle_type: string }
+interface Vehicle    { chassis: string; model: string; version: string; color: string; vehicle_type: string }
 interface Dealer     { name: string; code: string; active: boolean; activity: Record<string,string> }
 interface BayiHedefRow { dealer: string; code: string; target: number | null }
 interface AllocVehicle extends Vehicle { dealer: string }
@@ -39,30 +39,33 @@ function allocate(
 
   const active = targets.filter(t => t.target > 0)
   const totalTarget = active.reduce((s, t) => s + t.target, 0)
-  const scale = vehicles.length < totalTarget ? vehicles.length / totalTarget : 1.0
 
-  // Shuffle vehicles for fair distribution (keep order stable with index)
+  // Hiçbir zaman bayi hedefinin üzerine çıkılmaz
+  // Supply < demand: orantılı küçültme  |  supply >= demand: tam hedef
+  const scale = vehicles.length < totalTarget ? vehicles.length / totalTarget : 1.0
+  const toDistribute = Math.min(vehicles.length, totalTarget)
+
   const pool = [...vehicles]
 
-  // Calculate how many vehicles each dealer gets (scaled to available supply)
   const quotas = active.map(t => ({
     dealer: t.dealer,
     target: t.target,
-    quota:  Math.round(t.target * scale),
+    quota:  Math.min(t.target, Math.round(t.target * scale)),
     assigned: [] as Vehicle[],
   }))
 
-  // Adjust to match total exactly
-  let totalQuota = quotas.reduce((s, q) => s + q.quota, 0)
-  let diff = vehicles.length - totalQuota
-  // Add/remove from largest dealers first
-  quotas.sort((a,b) => b.quota - a.quota)
-  for (let i = 0; diff !== 0; i = (i + 1) % quotas.length) {
-    if (diff > 0) { quotas[i].quota++; diff-- }
-    else          { quotas[i].quota--; diff++ }
+  // Yalnızca supply < demand durumunda yuvarlama hatasını düzelt
+  if (vehicles.length < totalTarget) {
+    let totalQuota = quotas.reduce((s, q) => s + q.quota, 0)
+    let diff = toDistribute - totalQuota
+    quotas.sort((a,b) => b.quota - a.quota)
+    let guard = quotas.length * 4
+    for (let i = 0; diff !== 0 && guard-- > 0; i = (i + 1) % quotas.length) {
+      if (diff > 0 && quotas[i].quota < quotas[i].target) { quotas[i].quota++; diff-- }
+      else if (diff < 0 && quotas[i].quota > 0)           { quotas[i].quota--; diff++ }
+    }
+    quotas.sort((a,b) => numSort(a.dealer, b.dealer))
   }
-  // Sort back by dealer name
-  quotas.sort((a,b) => numSort(a.dealer, b.dealer))
 
   // Distribute vehicles proportionally across types per dealer
   // Group pool by vehicle_type
@@ -215,7 +218,9 @@ export default function Dagitim() {
           const model   = r['Model Description'] ?? ''
           const version = r['Vehicle Version']   ?? ''
           const color   = r['Exterior Color']    ?? ''
-          return { model, version, color, vehicle_type: `${model} / ${version} / ${color}` }
+          // Şasi numarası — farklı Excel şablonlarında sütun adı değişebilir
+          const chassis = r['Long Chassis No'] ?? r['Long Chassis'] ?? r['Chassis No'] ?? r['Chassis Number'] ?? r['VIN'] ?? r['VIN No'] ?? ''
+          return { chassis, model, version, color, vehicle_type: `${model} / ${version} / ${color}` }
         })
         setRawPool(vehicles)
         setFileName(file.name)
@@ -303,7 +308,7 @@ export default function Dagitim() {
         <div>
           <label className="text-sm font-medium text-slate-700 block mb-2">Envanter Dosyası</label>
           <p className="text-xs text-slate-500 mb-3">
-            Excel (.xlsx) veya CSV — Gerekli sütunlar: <code className="bg-slate-100 px-1 rounded text-xs">Dealer Code Processing</code> · <code className="bg-slate-100 px-1 rounded text-xs">Dispatchable</code> · <code className="bg-slate-100 px-1 rounded text-xs">Month Number</code> · <code className="bg-slate-100 px-1 rounded text-xs">Model Description</code> · <code className="bg-slate-100 px-1 rounded text-xs">Vehicle Version</code> · <code className="bg-slate-100 px-1 rounded text-xs">Exterior Color</code>
+            Excel (.xlsx) veya CSV — Gerekli sütunlar: <code className="bg-slate-100 px-1 rounded text-xs">Dealer Code Processing</code> · <code className="bg-slate-100 px-1 rounded text-xs">Dispatchable</code> · <code className="bg-slate-100 px-1 rounded text-xs">Month Number</code> · <code className="bg-slate-100 px-1 rounded text-xs">Long Chassis No</code> · <code className="bg-slate-100 px-1 rounded text-xs">Model Description</code> · <code className="bg-slate-100 px-1 rounded text-xs">Vehicle Version</code> · <code className="bg-slate-100 px-1 rounded text-xs">Exterior Color</code>
           </p>
           <label className="flex flex-col items-center justify-center gap-3 border-2 border-dashed border-slate-300 rounded-xl p-10 cursor-pointer hover:border-blue-400 hover:bg-blue-50 transition-colors">
             <Upload size={28} className="text-slate-400" />
@@ -544,6 +549,7 @@ export default function Dagitim() {
                 <thead className="sticky top-0 bg-slate-50 border-b border-slate-200">
                   <tr>
                     <th className="px-4 py-2.5 text-left font-medium text-slate-500 text-xs w-8">#</th>
+                    <th className="px-4 py-2.5 text-left font-medium text-slate-500 text-xs">Long Chassis No</th>
                     <th className="px-4 py-2.5 text-left font-medium text-slate-500 text-xs">Model</th>
                     <th className="px-4 py-2.5 text-left font-medium text-slate-500 text-xs">Versiyon</th>
                     <th className="px-4 py-2.5 text-left font-medium text-slate-500 text-xs">Renk</th>
@@ -554,6 +560,7 @@ export default function Dagitim() {
                   {vehicleRows.map((v, i) => (
                     <tr key={i} className={`border-b border-slate-100 hover:bg-slate-50 ${i%2===0?'':'bg-slate-50/30'}`}>
                       <td className="px-4 py-2 text-slate-400 text-xs">{i+1}</td>
+                      <td className="px-4 py-2 font-mono text-xs text-slate-700 whitespace-nowrap">{v.chassis || '—'}</td>
                       <td className="px-4 py-2 font-semibold text-slate-900">{v.model}</td>
                       <td className="px-4 py-2 text-slate-600">{v.version}</td>
                       <td className="px-4 py-2 text-slate-600">{v.color}</td>
