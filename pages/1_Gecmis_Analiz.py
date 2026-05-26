@@ -178,6 +178,75 @@ def _load_rakip(year_key: str) -> pd.DataFrame | None:
     return df
 
 
+@st.cache_data
+def _load_sales_raw() -> pd.DataFrame:
+    """Ham satış CSV'sini yükler; yıl sütunu ekler."""
+    path = ROOT / "data" / "raw" / "2024&2025-ALL-SALES-CSV-FILE.csv"
+    df = pd.read_csv(path, sep=";", encoding="utf-8-sig")
+    df["_year"] = df["Sales Date"].str[:4]
+    return df[["Dealer Name", "Exterior Color", "_year"]].copy()
+
+
+def _top3_colors_per_dealer(year_key: str) -> pd.DataFrame:
+    """Bayi başına en çok satan 3 rengi geniş formatta döndürür."""
+    df = _load_sales_raw()
+    if year_key != "all":
+        df = df[df["_year"] == year_key]
+    grp = df.groupby(["Dealer Name", "Exterior Color"]).size().reset_index(name="n")
+    grp["rank"] = grp.groupby("Dealer Name")["n"].rank(method="first", ascending=False)
+    top3 = grp[grp["rank"] <= 3].sort_values(["Dealer Name", "rank"])
+    rows = []
+    for dealer, sub in top3.groupby("Dealer Name"):
+        sub = sub.reset_index(drop=True)
+        row: dict = {"Bayi": dealer}
+        for i in range(3):
+            if i < len(sub):
+                row[f"{i+1}. Renk"] = sub.loc[i, "Exterior Color"]
+                row[f"{i+1}. Adet"] = int(sub.loc[i, "n"])
+            else:
+                row[f"{i+1}. Renk"] = "-"
+                row[f"{i+1}. Adet"] = 0
+        rows.append(row)
+    df_wide = pd.DataFrame(rows)
+    df_wide["_n"] = df_wide["Bayi"].str.extract(r"(\d+)$").astype(float).fillna(0)
+    return df_wide.sort_values("_n").drop(columns=["_n"]).reset_index(drop=True)
+
+
+def _dealer_color_chart(year_key: str, year_label: str) -> go.Figure:
+    """Bayi bazında renk dağılımını yığılmış bar grafik olarak döndürür."""
+    df = _load_sales_raw()
+    if year_key != "all":
+        df = df[df["_year"] == year_key]
+    grp = df.groupby(["Dealer Name", "Exterior Color"]).size().reset_index(name="Adet")
+    grp["_n"] = grp["Dealer Name"].str.extract(r"(\d+)$").astype(float).fillna(0)
+    grp = grp.sort_values("_n").drop(columns=["_n"])
+    dealer_order = grp["Dealer Name"].drop_duplicates().tolist()
+    fig = go.Figure()
+    for color in sorted(grp["Exterior Color"].unique()):
+        sub = grp[grp["Exterior Color"] == color]
+        fig.add_trace(go.Bar(
+            name=color,
+            x=sub["Dealer Name"],
+            y=sub["Adet"],
+            text=sub["Adet"],
+            textposition="inside",
+            insidetextanchor="middle",
+        ))
+    fig.update_layout(
+        barmode="stack",
+        title=f"Bayi Bazında Renk Dağılımı ({year_label})",
+        xaxis_title="Bayi",
+        yaxis_title="Satış Adedi",
+        xaxis=dict(categoryorder="array", categoryarray=dealer_order, tickangle=-45),
+        height=500,
+        legend_title_text="Renk",
+        plot_bgcolor="white",
+        yaxis=dict(showgrid=True, gridcolor="#f0f0f0"),
+        margin=dict(b=80),
+    )
+    return fig
+
+
 # ---------------------------------------------------------------------------
 # Sayfa başlığı ve dönem seçimi
 # ---------------------------------------------------------------------------
@@ -239,6 +308,10 @@ with tab2:
         show_df(_sort_dealers(_clean(df_b)), "Bayi Toplam Satışları")
     else:
         st.info("Veri henüz oluşturulmamış: 04_bayi_toplam_satis.csv")
+
+    st.divider()
+    show_df(_top3_colors_per_dealer(year_key), "Bayi Başına Top 3 Renk")
+    st.plotly_chart(_dealer_color_chart(year_key, year), use_container_width=True)
 
 # ---------- Tab 3: Aylık Trend ----------
 with tab3:
