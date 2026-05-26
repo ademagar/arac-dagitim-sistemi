@@ -242,20 +242,13 @@ if has_inventory:
         """, unsafe_allow_html=True)
 
         # ── Hızlı aksiyonlar ──────────────────────────────────────
-        qa1, qa2, qa3 = st.columns([1, 1, 2])
+        qa1, qa2 = st.columns([1, 3])
         with qa1:
-            if st.button("⚖️  Eşit Dağıt", use_container_width=True,
-                         help=f"Toplam arzı {len(dealers)} bayiye eşit böler"):
-                per_d = supply // len(dealers)
-                for d in dealers:
-                    st.session_state[f"inp_{d['code']}"] = per_d
-                st.rerun()
-        with qa2:
             if st.button("🗑️  Tümünü Sıfırla", use_container_width=True):
                 for d in dealers:
                     st.session_state[f"inp_{d['code']}"] = 0
                 st.rerun()
-        with qa3:
+        with qa2:
             n_filled = sum(1 for d in dealers if st.session_state.get(f"inp_{d['code']}", 0) > 0)
             st.caption(f"Toplam **{len(dealers)}** bayi · Hedef girilen: **{n_filled}**")
 

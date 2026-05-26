@@ -5,5 +5,7 @@ pulp>=2.7
 matplotlib>=3.7
 seaborn>=0.13
 plotly>=5.18
+folium>=0.15
+streamlit-folium>=0.17
 streamlit>=1.30
 openpyxl>=3.1
