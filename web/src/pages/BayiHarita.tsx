@@ -14,16 +14,6 @@ const REGION_COLORS: Record<string, string> = {
   'Güneydoğu Anadolu': '#14b8a6',
 }
 
-const REGION_POLYGONS: Record<string, [number, number][]> = {
-  'Marmara':           [[26.0,41.9],[27.5,42.0],[28.5,41.8],[29.1,41.4],[30.5,41.2],[32.0,41.5],[32.0,40.5],[30.5,40.0],[28.0,39.5],[26.5,39.5],[26.2,40.0]],
-  'Karadeniz':         [[32.0,41.5],[33.5,41.7],[35.0,41.5],[36.5,41.3],[38.0,41.1],[40.5,41.3],[41.5,41.5],[43.5,41.5],[44.5,40.3],[44.0,40.5],[40.5,40.5],[38.0,40.5],[32.0,40.5]],
-  'Ege':               [[26.5,39.5],[28.0,39.5],[30.5,40.0],[30.5,37.5],[30.5,36.4],[29.0,36.2],[28.0,36.5],[27.5,36.8],[27.2,37.0],[27.0,37.5],[26.5,38.3],[26.3,39.0]],
-  'İç Anadolu':        [[32.0,40.5],[38.0,40.5],[38.0,37.5],[30.5,37.5],[30.5,40.0]],
-  'Akdeniz':           [[30.5,37.5],[37.0,37.5],[37.0,36.7],[36.5,36.5],[36.0,36.4],[35.0,36.2],[34.0,36.0],[33.0,36.0],[31.5,36.2],[30.5,36.4]],
-  'Doğu Anadolu':      [[38.0,40.5],[44.0,40.5],[44.5,40.3],[44.5,39.5],[44.5,38.5],[44.0,37.5],[38.0,37.5]],
-  'Güneydoğu Anadolu': [[37.0,37.5],[38.0,37.5],[44.0,37.5],[44.3,37.2],[43.5,37.0],[42.5,36.8],[41.5,36.8],[40.5,37.1],[38.5,36.7],[37.0,36.7]],
-}
-
 const REGIONS = Object.keys(REGION_COLORS)
 
 export default function BayiHarita() {
@@ -37,14 +27,12 @@ export default function BayiHarita() {
   const [selected, setSelected]     = useState<Dealer | null>(null)
   const [mapReady, setMapReady]     = useState(false)
 
-  // Load dealers
   useEffect(() => {
     fetch(`${import.meta.env.BASE_URL}data/dealers.json`)
       .then(r => r.json())
       .then(setDealers)
   }, [])
 
-  // Init map
   useEffect(() => {
     if (!mapContainer.current || map.current) return
     map.current = new maplibregl.Map({
@@ -58,33 +46,10 @@ export default function BayiHarita() {
     return () => { map.current?.remove(); map.current = null }
   }, [])
 
-  // Add/update layers once map is ready and dealers loaded
   useEffect(() => {
     if (!mapReady || !map.current || dealers.length === 0) return
     const m = map.current
 
-    // ── Region polygons ──
-    Object.entries(REGION_POLYGONS).forEach(([regionName, coords]) => {
-      const srcId = `region-${regionName}`
-      const layerId = `region-fill-${regionName}`
-      const lineId  = `region-line-${regionName}`
-      if (!m.getSource(srcId)) {
-        m.addSource(srcId, {
-          type: 'geojson',
-          data: {
-            type: 'Feature',
-            properties: { name: regionName },
-            geometry: { type: 'Polygon', coordinates: [[...coords, coords[0]]] },
-          },
-        })
-        m.addLayer({ id: layerId, type: 'fill', source: srcId,
-          paint: { 'fill-color': REGION_COLORS[regionName] ?? '#94a3b8', 'fill-opacity': 0.12 } })
-        m.addLayer({ id: lineId, type: 'line', source: srcId,
-          paint: { 'line-color': REGION_COLORS[regionName] ?? '#94a3b8', 'line-width': 1.5, 'line-opacity': 0.7 } })
-      }
-    })
-
-    // ── Dealer points ──
     const filtered = dealers.filter(d => (showInactive || d.active) && (region === 'all' || d.region === region))
     const geojson: GeoJSON.FeatureCollection = {
       type: 'FeatureCollection',
@@ -100,22 +65,20 @@ export default function BayiHarita() {
     } else {
       m.addSource('dealers', { type: 'geojson', data: geojson })
 
-      // Shadow circle
       m.addLayer({ id: 'dealers-shadow', type: 'circle', source: 'dealers',
-        paint: { 'circle-radius': 11, 'circle-color': '#000', 'circle-opacity': 0.15, 'circle-blur': 1 } })
+        paint: { 'circle-radius': 11, 'circle-color': '#000', 'circle-opacity': 0.12, 'circle-blur': 1 } })
 
-      // Main circle
       m.addLayer({ id: 'dealers-circle', type: 'circle', source: 'dealers',
         paint: {
           'circle-radius': ['case', ['==', ['get', 'selected'], true], 13, ['==', ['get', 'active'], true], 9, 6],
           'circle-color': [
             'match', ['get', 'region'],
-            'Marmara', REGION_COLORS['Marmara'],
-            'Karadeniz', REGION_COLORS['Karadeniz'],
-            'Ege', REGION_COLORS['Ege'],
-            'İç Anadolu', REGION_COLORS['İç Anadolu'],
-            'Akdeniz', REGION_COLORS['Akdeniz'],
-            'Doğu Anadolu', REGION_COLORS['Doğu Anadolu'],
+            'Marmara',           REGION_COLORS['Marmara'],
+            'Karadeniz',         REGION_COLORS['Karadeniz'],
+            'Ege',               REGION_COLORS['Ege'],
+            'İç Anadolu',        REGION_COLORS['İç Anadolu'],
+            'Akdeniz',           REGION_COLORS['Akdeniz'],
+            'Doğu Anadolu',      REGION_COLORS['Doğu Anadolu'],
             'Güneydoğu Anadolu', REGION_COLORS['Güneydoğu Anadolu'],
             '#94a3b8',
           ],
@@ -125,7 +88,6 @@ export default function BayiHarita() {
         },
       })
 
-      // Labels
       m.addLayer({ id: 'dealers-label', type: 'symbol', source: 'dealers',
         layout: {
           'text-field': ['get', 'name'],
@@ -136,7 +98,6 @@ export default function BayiHarita() {
         paint: { 'text-color': '#1e293b', 'text-halo-color': '#fff', 'text-halo-width': 1.5 },
       })
 
-      // Click handler
       m.on('click', 'dealers-circle', (e) => {
         if (!e.features?.[0]) return
         const props = e.features[0].properties as { name: string }
@@ -177,7 +138,6 @@ export default function BayiHarita() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-        {/* Sol panel */}
         <div className="space-y-4">
           <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-4">
             <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-3">Filtreler</h3>
@@ -238,13 +198,11 @@ export default function BayiHarita() {
           )}
         </div>
 
-        {/* Harita */}
         <div className="lg:col-span-3 rounded-xl border border-slate-200 shadow-sm overflow-hidden bg-slate-100" style={{ height: 560 }}>
           <div ref={mapContainer} style={{ height: '100%', width: '100%' }} />
         </div>
       </div>
 
-      {/* Tablo */}
       <div className="mt-6 bg-white rounded-xl border border-slate-200 shadow-sm">
         <div className="px-5 py-3 border-b border-slate-200">
           <h3 className="text-sm font-semibold text-slate-600">
@@ -262,8 +220,7 @@ export default function BayiHarita() {
             </thead>
             <tbody>
               {[...filtered].sort((a,b) => parseInt(a.name.split(' ').pop()??'0') - parseInt(b.name.split(' ').pop()??'0')).map(d => (
-                <tr key={d.name}
-                  onClick={() => setSelected(s => s?.name === d.name ? null : d)}
+                <tr key={d.name} onClick={() => setSelected(s => s?.name === d.name ? null : d)}
                   className={`border-b border-slate-100 cursor-pointer hover:bg-slate-50 transition-colors ${selected?.name === d.name ? 'bg-blue-50' : ''}`}>
                   <td className="px-4 py-2.5 font-medium text-slate-900">{d.name}</td>
                   <td className="px-4 py-2.5">
