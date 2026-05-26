@@ -332,14 +332,6 @@ with tab4:
     else:
         st.info("Hedef gerçekleşme verisi henüz oluşturulmamış.")
 
-    if year_key == "all":
-        df_bayi = _load(OUT / "all" / "13_bayi_2025_performansi.csv")
-        if df_bayi is not None:
-            df_bayi = _clean(df_bayi)
-            if "Kanal" in df_bayi.columns:
-                df_bayi = df_bayi[df_bayi["Kanal"] == "B2C"].drop(columns=["Kanal"])
-            df_bayi = df_bayi.sort_values("Gerçekleşen", ascending=False).reset_index(drop=True)
-            show_df(df_bayi, "Bayi B2C Gerçekleşen (2025)")
 
 # ---------- Tab 5: Rakip Karşılaştırma ----------
 with tab5:
