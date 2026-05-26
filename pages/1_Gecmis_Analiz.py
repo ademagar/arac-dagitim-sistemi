@@ -98,6 +98,15 @@ def _clean(df: pd.DataFrame) -> pd.DataFrame:
     return df.rename(columns={k: v for k, v in _RENAME.items() if k in df.columns})
 
 
+def _sort_dealers(df: pd.DataFrame, col: str = "Bayi") -> pd.DataFrame:
+    """'DEALER 10' gibi isimleri sayısal sıraya göre sıralar."""
+    if col not in df.columns:
+        return df
+    df = df.copy()
+    df["_n"] = df[col].str.extract(r"(\d+)$").astype(float).fillna(0)
+    return df.sort_values("_n").drop(columns=["_n"]).reset_index(drop=True)
+
+
 def _load(path: Path) -> pd.DataFrame | None:
     if not path.exists():
         return None
@@ -225,7 +234,11 @@ with tab2:
     with c4:
         show_csv(out_dir / "03_renk_satislari.csv", "Renk Satışları")
 
-    show_csv(out_dir / "04_bayi_toplam_satis.csv", "Bayi Toplam Satışları")
+    df_b = _load(out_dir / "04_bayi_toplam_satis.csv")
+    if df_b is not None:
+        show_df(_sort_dealers(_clean(df_b)), "Bayi Toplam Satışları")
+    else:
+        st.info("Veri henüz oluşturulmamış: 04_bayi_toplam_satis.csv")
 
 # ---------- Tab 3: Aylık Trend ----------
 with tab3:
