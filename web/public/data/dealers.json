@@ -1,198 +1,450 @@
 [
   {
     "name": "DEALER 1",
+    "code": "BA-3-ICA-01",
     "lat": 39.8972755,
     "lon": 32.6805304,
     "region": "İç Anadolu",
-    "active": true
+    "active": true,
+    "activity": {
+      "Ara.25": "AKTİF",
+      "Oca.26": "AKTİF",
+      "Şub.26": "AKTİF",
+      "Mar.26": "AKTİF",
+      "Nis.26": "AKTİF",
+      "May.26": "AKTİF"
+    }
   },
   {
     "name": "DEALER 2",
+    "code": "BA-3-EGE-01",
     "lat": 38.359972,
     "lon": 27.136247,
     "region": "Ege",
-    "active": true
+    "active": true,
+    "activity": {
+      "Ara.25": "AKTİF",
+      "Oca.26": "AKTİF",
+      "Şub.26": "AKTİF",
+      "Mar.26": "AKTİF",
+      "Nis.26": "AKTİF",
+      "May.26": "AKTİF"
+    }
   },
   {
     "name": "DEALER 3",
+    "code": "BA-3-AKD-01",
     "lat": 36.987081,
     "lon": 35.13425,
     "region": "Akdeniz",
-    "active": true
+    "active": true,
+    "activity": {
+      "Ara.25": "AKTİF",
+      "Oca.26": "AKTİF",
+      "Şub.26": "AKTİF",
+      "Mar.26": "AKTİF",
+      "Nis.26": "AKTİF",
+      "May.26": "AKTİF"
+    }
   },
   {
     "name": "DEALER 4",
+    "code": "BA-3-AKD-02",
     "lat": 36.80853,
     "lon": 34.602551,
     "region": "Akdeniz",
-    "active": true
+    "active": true,
+    "activity": {
+      "Ara.25": "AKTİF",
+      "Oca.26": "AKTİF",
+      "Şub.26": "AKTİF",
+      "Mar.26": "AKTİF",
+      "Nis.26": "AKTİF",
+      "May.26": "AKTİF"
+    }
   },
   {
     "name": "DEALER 5",
+    "code": "BA-3-MAR-01",
     "lat": 40.7965216,
     "lon": 29.3854523,
     "region": "Marmara",
-    "active": true
+    "active": true,
+    "activity": {
+      "Ara.25": "AKTİF",
+      "Oca.26": "AKTİF",
+      "Şub.26": "AKTİF",
+      "Mar.26": "AKTİF",
+      "Nis.26": "AKTİF",
+      "May.26": "AKTİF"
+    }
   },
   {
     "name": "DEALER 6",
+    "code": "BA-3-EGE-02",
     "lat": 38.460598,
     "lon": 27.173128,
     "region": "Ege",
-    "active": true
+    "active": true,
+    "activity": {
+      "Ara.25": "AKTİF",
+      "Oca.26": "AKTİF",
+      "Şub.26": "AKTİF",
+      "Mar.26": "AKTİF",
+      "Nis.26": "AKTİF",
+      "May.26": "AKTİF"
+    }
   },
   {
     "name": "DEALER 7",
+    "code": "BA-3-MAR-02",
     "lat": 41.022163,
     "lon": 28.812565,
     "region": "Marmara",
-    "active": true
+    "active": true,
+    "activity": {
+      "Ara.25": "AKTİF",
+      "Oca.26": "AKTİF",
+      "Şub.26": "AKTİF",
+      "Mar.26": "AKTİF",
+      "Nis.26": "AKTİF",
+      "May.26": "AKTİF"
+    }
   },
   {
     "name": "DEALER 8",
+    "code": "BA-3-MAR-03",
     "lat": 40.9883226,
     "lon": 27.5914106,
     "region": "Marmara",
-    "active": true
+    "active": true,
+    "activity": {
+      "Ara.25": "AKTİF",
+      "Oca.26": "AKTİF",
+      "Şub.26": "AKTİF",
+      "Mar.26": "AKTİF",
+      "Nis.26": "AKTİF",
+      "May.26": "KAPANDI"
+    }
   },
   {
     "name": "DEALER 9",
+    "code": "BA-3-ICA-02",
     "lat": 38.754222,
     "lon": 35.3443,
     "region": "İç Anadolu",
-    "active": true
+    "active": true,
+    "activity": {
+      "Ara.25": "AKTİF",
+      "Oca.26": "AKTİF",
+      "Şub.26": "AKTİF",
+      "Mar.26": "AKTİF",
+      "Nis.26": "AKTİF",
+      "May.26": "AKTİF"
+    }
   },
   {
     "name": "DEALER 10",
+    "code": "BA-3-ICA-03",
     "lat": 37.714388,
     "lon": 33.037807,
     "region": "İç Anadolu",
-    "active": true
+    "active": true,
+    "activity": {
+      "Ara.25": "AKTİF",
+      "Oca.26": "AKTİF",
+      "Şub.26": "AKTİF",
+      "Mar.26": "AKTİF",
+      "Nis.26": "AKTİF",
+      "May.26": "AKTİF"
+    }
   },
   {
     "name": "DEALER 11",
+    "code": "BA-3-AKD-03",
     "lat": 37.558047,
     "lon": 36.954844,
-    "region": "İç Anadolu",
-    "active": true
+    "region": "Akdeniz",
+    "active": true,
+    "activity": {
+      "Ara.25": "AKTİF",
+      "Oca.26": "AKTİF",
+      "Şub.26": "AKTİF",
+      "Mar.26": "AKTİF",
+      "Nis.26": "AKTİF",
+      "May.26": "AKTİF"
+    }
   },
   {
     "name": "DEALER 12",
+    "code": "BA-3-MAR-04",
     "lat": 40.284756,
     "lon": 29.054335,
     "region": "Marmara",
-    "active": true
+    "active": true,
+    "activity": {
+      "Ara.25": "AKTİF",
+      "Oca.26": "AKTİF",
+      "Şub.26": "KAPANDI",
+      "Mar.26": "KAPANDI",
+      "Nis.26": "KAPANDI",
+      "May.26": "KAPANDI"
+    }
   },
   {
     "name": "DEALER 13",
+    "code": "BA-3-MAR-05",
     "lat": 40.9808038,
     "lon": 29.0990564,
     "region": "Marmara",
-    "active": true
+    "active": true,
+    "activity": {
+      "Ara.25": "AKTİF",
+      "Oca.26": "AKTİF",
+      "Şub.26": "AKTİF",
+      "Mar.26": "AKTİF",
+      "Nis.26": "AKTİF",
+      "May.26": "AKTİF"
+    }
   },
   {
     "name": "DEALER 14",
+    "code": "BA-3-ICA-04",
     "lat": 39.961972,
     "lon": 32.760281,
     "region": "İç Anadolu",
-    "active": true
+    "active": true,
+    "activity": {
+      "Ara.25": "AKTİF",
+      "Oca.26": "AKTİF",
+      "Şub.26": "AKTİF",
+      "Mar.26": "AKTİF",
+      "Nis.26": "AKTİF",
+      "May.26": "AKTİF"
+    }
   },
   {
     "name": "DEALER 15",
+    "code": "BA-3-AKD-04",
     "lat": 36.9196597,
     "lon": 30.6322527,
     "region": "Akdeniz",
-    "active": true
+    "active": true,
+    "activity": {
+      "Ara.25": "AKTİF",
+      "Oca.26": "AKTİF",
+      "Şub.26": "AKTİF",
+      "Mar.26": "AKTİF",
+      "Nis.26": "AKTİF",
+      "May.26": "AKTİF"
+    }
   },
   {
     "name": "DEALER 16",
+    "code": "BA-3-MAR-06",
     "lat": 41.009099,
     "lon": 28.656071,
     "region": "Marmara",
-    "active": true
+    "active": true,
+    "activity": {
+      "Ara.25": "AKTİF",
+      "Oca.26": "AKTİF",
+      "Şub.26": "AKTİF",
+      "Mar.26": "AKTİF",
+      "Nis.26": "AKTİF",
+      "May.26": "AKTİF"
+    }
   },
   {
     "name": "DEALER 17",
+    "code": "BA-3-MAR-07",
     "lat": 41.114761,
     "lon": 29.058369,
     "region": "Marmara",
-    "active": true
+    "active": true,
+    "activity": {
+      "Ara.25": "AKTİF",
+      "Oca.26": "AKTİF",
+      "Şub.26": "AKTİF",
+      "Mar.26": "AKTİF",
+      "Nis.26": "AKTİF",
+      "May.26": "AKTİF"
+    }
   },
   {
     "name": "DEALER 18",
+    "code": "BA-3-MAR-08",
     "lat": 40.9584065,
     "lon": 29.0839168,
     "region": "Marmara",
-    "active": true
+    "active": true,
+    "activity": {
+      "Ara.25": "AKTİF",
+      "Oca.26": "AKTİF",
+      "Şub.26": "AKTİF",
+      "Mar.26": "AKTİF",
+      "Nis.26": "AKTİF",
+      "May.26": "AKTİF"
+    }
   },
   {
     "name": "DEALER 19",
+    "code": "BA-3-GDA-01",
     "lat": 37.082257,
     "lon": 37.360765,
     "region": "Güneydoğu Anadolu",
-    "active": true
+    "active": true,
+    "activity": {
+      "Ara.25": "AKTİF",
+      "Oca.26": "AKTİF",
+      "Şub.26": "AKTİF",
+      "Mar.26": "AKTİF",
+      "Nis.26": "AKTİF",
+      "May.26": "AKTİF"
+    }
   },
   {
     "name": "DEALER 20",
+    "code": "BA-3-KAR-01",
     "lat": 41.013266,
     "lon": 39.605626,
     "region": "Karadeniz",
-    "active": true
+    "active": true,
+    "activity": {
+      "Ara.25": "AKTİF",
+      "Oca.26": "AKTİF",
+      "Şub.26": "AKTİF",
+      "Mar.26": "AKTİF",
+      "Nis.26": "AKTİF",
+      "May.26": "AKTİF"
+    }
   },
   {
     "name": "DEALER 21",
+    "code": "BA-3-EGE-03",
     "lat": 37.152242,
     "lon": 27.571076,
     "region": "Ege",
-    "active": true
+    "active": true,
+    "activity": {
+      "Ara.25": "AKTİF",
+      "Oca.26": "AKTİF",
+      "Şub.26": "AKTİF",
+      "Mar.26": "AKTİF",
+      "Nis.26": "AKTİF",
+      "May.26": "AKTİF"
+    }
   },
   {
     "name": "DEALER 22",
+    "code": "BA-3-EGE-04",
     "lat": 37.819197,
     "lon": 29.12416,
     "region": "Ege",
-    "active": true
+    "active": true,
+    "activity": {
+      "Ara.25": "AKTİF",
+      "Oca.26": "AKTİF",
+      "Şub.26": "AKTİF",
+      "Mar.26": "AKTİF",
+      "Nis.26": "AKTİF",
+      "May.26": "AKTİF"
+    }
   },
   {
     "name": "DEALER 23",
-    "lat": 40.216181,
-    "lon": 28.887613,
-    "region": "Marmara",
-    "active": false
-  },
-  {
-    "name": "DEALER 24",
-    "lat": 41.569932,
-    "lon": 35.854104,
-    "region": "Karadeniz",
-    "active": false
-  },
-  {
-    "name": "DEALER 25",
-    "lat": 41.055768,
-    "lon": 28.82913,
-    "region": "Marmara",
-    "active": false
-  },
-  {
-    "name": "DEALER 26",
-    "lat": 41.141229,
-    "lon": 27.864863,
-    "region": "Marmara",
-    "active": false
-  },
-  {
-    "name": "DEALER 27",
-    "lat": 41.0405855,
-    "lon": 28.9341408,
-    "region": "Marmara",
-    "active": false
-  },
-  {
-    "name": "DEALER 28",
+    "code": "BA-3-ICA-05",
     "lat": 39.755354,
     "lon": 37.061388,
     "region": "İç Anadolu",
-    "active": false
+    "active": false,
+    "activity": {
+      "Ara.25": "AKTİF DEĞİL",
+      "Oca.26": "AKTİF DEĞİL",
+      "Şub.26": "AKTİF",
+      "Mar.26": "AKTİF",
+      "Nis.26": "AKTİF",
+      "May.26": "AKTİF"
+    }
+  },
+  {
+    "name": "DEALER 24",
+    "code": "BA-3-MAR-09",
+    "lat": 40.216181,
+    "lon": 28.887613,
+    "region": "Marmara",
+    "active": false,
+    "activity": {
+      "Ara.25": "AKTİF DEĞİL",
+      "Oca.26": "AKTİF DEĞİL",
+      "Şub.26": "AKTİF",
+      "Mar.26": "AKTİF",
+      "Nis.26": "AKTİF",
+      "May.26": "AKTİF"
+    }
+  },
+  {
+    "name": "DEALER 25",
+    "code": "BA-3-KAR-02",
+    "lat": 41.569932,
+    "lon": 35.854104,
+    "region": "Karadeniz",
+    "active": false,
+    "activity": {
+      "Ara.25": "AKTİF DEĞİL",
+      "Oca.26": "AKTİF DEĞİL",
+      "Şub.26": "AKTİF",
+      "Mar.26": "AKTİF",
+      "Nis.26": "AKTİF",
+      "May.26": "AKTİF"
+    }
+  },
+  {
+    "name": "DEALER 26",
+    "code": "BA-3-MAR-10",
+    "lat": 41.055768,
+    "lon": 28.82913,
+    "region": "Marmara",
+    "active": false,
+    "activity": {
+      "Ara.25": "AKTİF DEĞİL",
+      "Oca.26": "AKTİF DEĞİL",
+      "Şub.26": "AKTİF",
+      "Mar.26": "AKTİF",
+      "Nis.26": "AKTİF",
+      "May.26": "AKTİF"
+    }
+  },
+  {
+    "name": "DEALER 27",
+    "code": "BA-3-MAR-11",
+    "lat": 41.141229,
+    "lon": 27.864863,
+    "region": "Marmara",
+    "active": false,
+    "activity": {
+      "Ara.25": "AKTİF DEĞİL",
+      "Oca.26": "AKTİF DEĞİL",
+      "Şub.26": "AKTİF DEĞİL",
+      "Mar.26": "AKTİF DEĞİL",
+      "Nis.26": "AKTİF DEĞİL",
+      "May.26": "AKTİF"
+    }
+  },
+  {
+    "name": "DEALER 28",
+    "code": "BA-3-MAR-12",
+    "lat": 41.0547474,
+    "lon": 28.9365795,
+    "region": "Marmara",
+    "active": false,
+    "activity": {
+      "Ara.25": "AKTİF DEĞİL",
+      "Oca.26": "AKTİF DEĞİL",
+      "Şub.26": "AKTİF",
+      "Mar.26": "AKTİF",
+      "Nis.26": "AKTİF",
+      "May.26": "AKTİF"
+    }
   }
 ]

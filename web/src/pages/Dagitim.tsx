@@ -8,12 +8,17 @@ import { Upload, CheckCircle, ChevronRight, RotateCcw } from 'lucide-react'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface VehicleRow { model: string; version: string; color: string; vehicle_type: string; quantity: number }
-interface Dealer     { name: string }
+interface Dealer     { name: string; code: string; active: boolean; activity: Record<string,string> }
 interface Target     { dealer: string; target: number }
 interface AllocRow   { dealer: string; model: string; version: string; color: string; quantity: number }
 interface SummaryRow { dealer: string; target: number; allocated: number; gap: number; fill_rate: number }
+interface BayiHedefRow { dealer: string; code: string; target: number | null }
 
 const MONTHS = ['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık']
+// Maps dağıtım ayı → aktiflik dosyasındaki kolon adı
+const MONTH_TO_ACTIVITY: Record<string, string> = {
+  'Ocak':'Oca.26','Şubat':'Şub.26','Mart':'Mar.26','Nisan':'Nis.26','Mayıs':'May.26',
+}
 const MONTH_EN: Record<string,string[]> = {
   'Ocak':['January','Current Month','Jan','1'], 'Şubat':['February','Feb','2'],
   'Mart':['March','Mar','3'], 'Nisan':['April','Apr','4'],
@@ -114,33 +119,42 @@ function Steps({ active }: { active: number }) {
 
 // ─── Main Page ────────────────────────────────────────────────────────────────
 export default function Dagitim() {
-  const [step, setStep]           = useState(0)
-  const [month, setMonth]         = useState('Ocak')
-  const [fileName, setFileName]   = useState('')
-  const [parseError, setError]    = useState('')
-  const [inventory, setInventory] = useState<VehicleRow[]>([])
-  const [dealers, setDealers]     = useState<Dealer[]>([])
-  const [targets, setTargets]     = useState<Record<string, number>>({})
-  const [allocRows, setAllocRows] = useState<AllocRow[]>([])
-  const [summary, setSummary]     = useState<SummaryRow[]>([])
-  const [resultTab, setResultTab] = useState(0)
+  const [step, setStep]               = useState(0)
+  const [month, setMonth]             = useState('Ocak')
+  const [fileName, setFileName]       = useState('')
+  const [parseError, setError]        = useState('')
+  const [inventory, setInventory]     = useState<VehicleRow[]>([])
+  const [dealers, setDealers]         = useState<Dealer[]>([])
+  const [allDealers, setAllDealers]   = useState<Dealer[]>([])
+  const [bayiHedef, setBayiHedef]     = useState<Record<string, BayiHedefRow[]>>({})
+  const [targets, setTargets]         = useState<Record<string, number>>({})
+  const [allocRows, setAllocRows]     = useState<AllocRow[]>([])
+  const [summary, setSummary]         = useState<SummaryRow[]>([])
+  const [resultTab, setResultTab]     = useState(0)
   const fileRef = useRef<HTMLInputElement>(null)
 
-  // Load dealer list from JSON
+  // Load dealers + targets
   useEffect(() => {
-    fetch(`${import.meta.env.BASE_URL}data/dealers.json`)
-      .then(r => r.json())
-      .then((d: { name: string; active: boolean }[]) => setDealers(d.filter(x => x.active)))
+    const base = import.meta.env.BASE_URL
+    fetch(`${base}data/dealers.json`).then(r => r.json()).then(setAllDealers)
+    fetch(`${base}data/bayi-hedefleri.json`).then(r => r.json()).then(setBayiHedef)
   }, [])
 
-  // Init targets when dealers load
+  // Filter active dealers for selected month whenever month or allDealers changes
   useEffect(() => {
-    if (dealers.length && Object.keys(targets).length === 0) {
-      const t: Record<string, number> = {}
-      dealers.forEach(d => { t[d.name] = 0 })
-      setTargets(t)
-    }
-  }, [dealers])
+    if (!allDealers.length) return
+    const actCol = MONTH_TO_ACTIVITY[month]
+    const active = actCol
+      ? allDealers.filter(d => d.activity[actCol] === 'AKTİF')
+      : allDealers.filter(d => d.active)
+    setDealers(active)
+    // Reset targets for new dealer set (keep values if dealer still active)
+    setTargets(prev => {
+      const t: Record<string,number> = {}
+      active.forEach(d => { t[d.name] = prev[d.name] ?? 0 })
+      return t
+    })
+  }, [month, allDealers])
 
   // ── Excel parse ──────────────────────────────────────────────────────────────
   function handleFile(file: File) {
@@ -345,13 +359,30 @@ export default function Dagitim() {
         </div>
       </div>
 
-      {/* Reset button */}
-      <div className="flex justify-between items-center">
+      {/* Actions row */}
+      <div className="flex flex-wrap justify-between items-center gap-3">
         <p className="text-sm text-slate-600 font-medium">Bayi başına aylık hedef girin:</p>
-        <button onClick={() => { const t: Record<string,number> = {}; dealers.forEach(d => { t[d.name] = 0 }); setTargets(t) }}
-          className="text-xs text-slate-400 hover:text-red-500 flex items-center gap-1 transition-colors">
-          <RotateCcw size={12} /> Tümünü Sıfırla
-        </button>
+        <div className="flex gap-2">
+          {bayiHedef[month] && (
+            <button
+              onClick={() => {
+                const rows = bayiHedef[month]
+                setTargets(prev => {
+                  const t = { ...prev }
+                  rows.forEach(r => { if (r.target !== null && t[r.dealer] !== undefined) t[r.dealer] = r.target })
+                  return t
+                })
+              }}
+              className="text-xs bg-blue-50 border border-blue-200 text-blue-600 hover:bg-blue-100 px-3 py-1.5 rounded-lg transition-colors font-medium"
+            >
+              📋 {month} Hedeflerini Yükle
+            </button>
+          )}
+          <button onClick={() => { const t: Record<string,number> = {}; dealers.forEach(d => { t[d.name] = 0 }); setTargets(t) }}
+            className="text-xs text-slate-400 hover:text-red-500 flex items-center gap-1 transition-colors">
+            <RotateCcw size={12} /> Sıfırla
+          </button>
+        </div>
       </div>
 
       {/* Dealer grid */}
