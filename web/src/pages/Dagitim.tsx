@@ -648,7 +648,7 @@ export default function Dagitim() {
         </span>
       </div>
 
-      <TabBar tabs={['Dağıtım Tablosu','Bayi Özeti','Model Dağılımı','Atama Özeti']} active={resultTab} onChange={setResultTab}/>
+      <TabBar tabs={['Dağıtım Tablosu','Bayi Özeti','Model Dağılımı','Atama Özeti','Dağıtım Listesi']} active={resultTab} onChange={setResultTab}/>
 
       {/* ── TAB 0: Dağıtım Tablosu ── */}
       {resultTab === 0 && (
@@ -1046,50 +1046,51 @@ export default function Dagitim() {
         )
       })()}
 
-      {/* ── Export: xlsx indirme ─────────────────────────────────────────────── */}
-      <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden mt-2">
-        <div className="px-5 py-3 border-b border-slate-200 flex items-center justify-between">
-          <div>
-            <h3 className="text-sm font-semibold text-slate-700">Dağıtım Listesi</h3>
-            <p className="text-xs text-slate-400 mt-0.5">
-              Orijinal Excel'deki araçlar — <code className="bg-slate-100 px-1 rounded">Dealer Code Processing</code> ve <code className="bg-slate-100 px-1 rounded">Dealer Name</code> alanları atanan bayi bilgileriyle doldurulmuş
-            </p>
-          </div>
-          <button
-            onClick={exportToXlsx}
-            className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors shrink-0"
-          >
-            ↓ .xlsx İndir
-          </button>
-        </div>
-        <div className="overflow-x-auto">
-          <table className="w-full text-xs">
-            <thead>
-              <tr className="bg-slate-50 border-b border-slate-200">
-                {['#','Long Chassis No','Model','Versiyon','Renk','Dealer Code Processing','Dealer Name'].map(h => (
-                  <th key={h} className="px-3 py-2.5 text-left font-medium text-slate-500 whitespace-nowrap">{h}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {(() => {
-                const codeMap = allDealers.reduce<Record<string,string>>((a,d)=>{ a[d.name]=d.code; return a }, {})
-                return allocated.map((v, i) => (
-                  <tr key={i} className={`border-b border-slate-100 hover:bg-slate-50 ${i%2===0?'':'bg-slate-50/30'}`}>
-                    <td className="px-3 py-1.5 text-slate-400">{i+1}</td>
-                    <td className="px-3 py-1.5 font-mono text-slate-700 whitespace-nowrap">{v.chassis||'—'}</td>
-                    <td className="px-3 py-1.5 font-semibold text-slate-900">{v.model}</td>
-                    <td className="px-3 py-1.5 text-slate-600">{v.version}</td>
-                    <td className="px-3 py-1.5 text-slate-600">{v.color}</td>
-                    <td className="px-3 py-1.5 font-mono text-blue-700">{codeMap[v.dealer] ?? '—'}</td>
-                    <td className="px-3 py-1.5 font-medium text-slate-800">{v.dealer}</td>
+      {/* ── TAB 4: Dağıtım Listesi ── */}
+      {resultTab === 4 && (
+        <div className="space-y-4">
+          <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+            <div className="px-5 py-3 border-b border-slate-200 flex items-center justify-between">
+              <p className="text-xs text-slate-400">
+                Orijinal Excel'deki araçlar — <code className="bg-slate-100 px-1 rounded">Dealer Code Processing</code> ve <code className="bg-slate-100 px-1 rounded">Dealer Name</code> alanları atanan bayi bilgileriyle doldurulmuş
+              </p>
+              <button
+                onClick={exportToXlsx}
+                className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors shrink-0 ml-4"
+              >
+                ↓ .xlsx İndir
+              </button>
+            </div>
+            <div className="overflow-x-auto max-h-[560px] overflow-y-auto">
+              <table className="w-full text-xs">
+                <thead className="sticky top-0 bg-slate-50 border-b border-slate-200">
+                  <tr>
+                    {['#','Long Chassis No','Model','Versiyon','Renk','Dealer Code Processing','Dealer Name'].map(h => (
+                      <th key={h} className="px-3 py-2.5 text-left font-medium text-slate-500 whitespace-nowrap">{h}</th>
+                    ))}
                   </tr>
-                ))
-              })()}
-            </tbody>
-          </table>
+                </thead>
+                <tbody>
+                  {(() => {
+                    const codeMap = allDealers.reduce<Record<string,string>>((a,d)=>{ a[d.name]=d.code; return a }, {})
+                    return allocated.map((v, i) => (
+                      <tr key={i} className={`border-b border-slate-100 hover:bg-slate-50 ${i%2===0?'':'bg-slate-50/30'}`}>
+                        <td className="px-3 py-1.5 text-slate-400">{i+1}</td>
+                        <td className="px-3 py-1.5 font-mono text-slate-700 whitespace-nowrap">{v.chassis||'—'}</td>
+                        <td className="px-3 py-1.5 font-semibold text-slate-900">{v.model}</td>
+                        <td className="px-3 py-1.5 text-slate-600">{v.version}</td>
+                        <td className="px-3 py-1.5 text-slate-600">{v.color}</td>
+                        <td className="px-3 py-1.5 font-mono text-blue-700">{codeMap[v.dealer] ?? '—'}</td>
+                        <td className="px-3 py-1.5 font-medium text-slate-800">{v.dealer}</td>
+                      </tr>
+                    ))
+                  })()}
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
-      </div>
+      )}
 
       <div className="flex gap-3 pt-2">
         <button onClick={() => setStep(1)} className="px-5 py-2.5 rounded-lg border border-slate-300 text-sm text-slate-600 hover:bg-slate-50">
