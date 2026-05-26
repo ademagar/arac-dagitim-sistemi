@@ -4,7 +4,7 @@ import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
   ResponsiveContainer, Cell, LabelList,
 } from 'recharts'
-import { Upload, CheckCircle, ChevronRight, RotateCcw } from 'lucide-react'
+import { Upload, CheckCircle, ChevronRight, RotateCcw, Info, AlertTriangle } from 'lucide-react'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface Vehicle    { chassis: string; model: string; version: string; color: string; vehicle_type: string }
@@ -31,30 +31,32 @@ function numSort(a: string, b: string) {
   return parseInt(a.match(/\d+$/)?.[0]??'0') - parseInt(b.match(/\d+$/)?.[0]??'0')
 }
 
-// ─── Allocation: assign each vehicle to a dealer ──────────────────────────────
+// ─── Allocation ───────────────────────────────────────────────────────────────
+// vGroups: version → 'A' | 'B' | '' (boş = kural dışı)
+// Faz 1 — her bayiye her modelden en az 1 A + 1 B araç garantisi (kota izin verdiğince)
+// Faz 2 — kalan araçlar kotaya orantılı dağıtılır, hiçbir zaman hedef aşılmaz
 function allocate(
   vehicles: Vehicle[],
   targets: { dealer: string; target: number }[],
+  vGroups: Record<string, 'A' | 'B' | ''>,
 ): { allocated: AllocVehicle[]; summary: SummaryRow[] } {
 
   const active = targets.filter(t => t.target > 0)
   const totalTarget = active.reduce((s, t) => s + t.target, 0)
-
-  // Hiçbir zaman bayi hedefinin üzerine çıkılmaz
-  // Supply < demand: orantılı küçültme  |  supply >= demand: tam hedef
-  const scale = vehicles.length < totalTarget ? vehicles.length / totalTarget : 1.0
   const toDistribute = Math.min(vehicles.length, totalTarget)
+  const scale = vehicles.length < totalTarget ? vehicles.length / totalTarget : 1.0
 
   const pool = [...vehicles]
 
+  // Kotalar — hiçbir zaman hedefin üzerine çıkılmaz
   const quotas = active.map(t => ({
-    dealer: t.dealer,
-    target: t.target,
-    quota:  Math.min(t.target, Math.round(t.target * scale)),
+    dealer:   t.dealer,
+    target:   t.target,
+    quota:    Math.min(t.target, Math.round(t.target * scale)),
     assigned: [] as Vehicle[],
   }))
 
-  // Yalnızca supply < demand durumunda yuvarlama hatasını düzelt
+  // Supply < demand → yuvarlama farkını düzelt (hedefi aşmadan)
   if (vehicles.length < totalTarget) {
     let totalQuota = quotas.reduce((s, q) => s + q.quota, 0)
     let diff = toDistribute - totalQuota
@@ -67,21 +69,44 @@ function allocate(
     quotas.sort((a,b) => numSort(a.dealer, b.dealer))
   }
 
-  // Distribute vehicles proportionally across types per dealer
-  // Group pool by vehicle_type
+  // ── Faz 1: A + B minimum garantisi ──────────────────────────────────────────
+  const hasGrouped = pool.some(v => vGroups[v.version] === 'A' || vGroups[v.version] === 'B')
+
+  if (hasGrouped) {
+    const uniqueModels = [...new Set(pool.map(v => v.model))]
+    // Küçük kotadan büyüğe → küçük bayiler dezavantajlı kalmasın
+    const byQuota = [...quotas].sort((a,b) => a.quota - b.quota)
+
+    for (const q of byQuota) {
+      for (const model of uniqueModels) {
+        for (const grp of ['A', 'B'] as const) {
+          if (q.quota <= 0) break
+          const idx = pool.findIndex(v => v.model === model && vGroups[v.version] === grp)
+          if (idx !== -1) {
+            q.assigned.push(pool.splice(idx, 1)[0])
+            q.quota--
+          }
+        }
+      }
+    }
+  }
+
+  // ── Faz 2: Kalan havuzu kotaya orantılı dağıt ────────────────────────────────
   const byType: Record<string, Vehicle[]> = {}
   pool.forEach(v => { if (!byType[v.vehicle_type]) byType[v.vehicle_type] = []; byType[v.vehicle_type].push(v) })
   const types = Object.keys(byType)
-  const typeCounts = types.map(t => byType[t].length)
-  const totalVehicles = pool.length
+  // Faz 2 başındaki sayımları sabitle (orantı hesabı için)
+  const initCount: Record<string, number> = {}
+  types.forEach(t => { initCount[t] = byType[t].length })
+  const initTotal = pool.length
 
   quotas.forEach(q => {
-    // For this dealer, pick proportional share of each type
+    if (q.quota <= 0) return
     let remaining = q.quota
-    types.forEach((type, ti) => {
+    types.forEach(type => {
       if (remaining <= 0 || byType[type].length === 0) return
       const share = Math.min(
-        Math.round(q.quota * typeCounts[ti] / totalVehicles),
+        Math.round(q.quota * (initCount[type] || 0) / (initTotal || 1)),
         byType[type].length,
         remaining,
       )
@@ -89,7 +114,6 @@ function allocate(
       q.assigned.push(...byType[type].splice(0, share))
       remaining -= share
     })
-    // Fill remaining from whatever is left
     for (const type of types) {
       if (remaining <= 0) break
       const take = Math.min(remaining, byType[type].length)
@@ -99,7 +123,6 @@ function allocate(
 
   const allocated: AllocVehicle[] = []
   const summary: SummaryRow[] = []
-
   quotas.forEach(q => {
     q.assigned.forEach(v => allocated.push({ ...v, dealer: q.dealer }))
     const alloc = q.assigned.length
@@ -156,20 +179,21 @@ function TabBar({ tabs, active, onChange }: { tabs: string[]; active: number; on
 
 // ─── Main ─────────────────────────────────────────────────────────────────────
 export default function Dagitim() {
-  const [step, setStep]             = useState(0)
-  const [month, setMonth]           = useState('Ocak')
-  const [fileName, setFileName]     = useState('')
-  const [parseError, setError]      = useState('')
-  const [rawPool, setRawPool]       = useState<Vehicle[]>([])
-  const [allDealers, setAllDealers] = useState<Dealer[]>([])
-  const [dealers, setDealers]       = useState<Dealer[]>([])
-  const [bayiHedef, setBayiHedef]   = useState<Record<string, BayiHedefRow[]>>({})
-  const [targets, setTargets]       = useState<Record<string, number>>({})
-  const [allocated, setAllocated]   = useState<AllocVehicle[]>([])
-  const [summary, setSummary]       = useState<SummaryRow[]>([])
-  const [resultTab, setResultTab]   = useState(0)
-  const [modelFilter, setMF]        = useState('')
-  const [dealerFilter, setDF]       = useState('')
+  const [step, setStep]               = useState(0)
+  const [month, setMonth]             = useState('Ocak')
+  const [fileName, setFileName]       = useState('')
+  const [parseError, setError]        = useState('')
+  const [rawPool, setRawPool]         = useState<Vehicle[]>([])
+  const [versionGroups, setVGroups]   = useState<Record<string, 'A' | 'B' | ''>>({})
+  const [allDealers, setAllDealers]   = useState<Dealer[]>([])
+  const [dealers, setDealers]         = useState<Dealer[]>([])
+  const [bayiHedef, setBayiHedef]     = useState<Record<string, BayiHedefRow[]>>({})
+  const [targets, setTargets]         = useState<Record<string, number>>({})
+  const [allocated, setAllocated]     = useState<AllocVehicle[]>([])
+  const [summary, setSummary]         = useState<SummaryRow[]>([])
+  const [resultTab, setResultTab]     = useState(0)
+  const [modelFilter, setMF]          = useState('')
+  const [dealerFilter, setDF]         = useState('')
   const fileRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
@@ -218,13 +242,16 @@ export default function Dagitim() {
           const model   = r['Model Description'] ?? ''
           const version = r['Vehicle Version']   ?? ''
           const color   = r['Exterior Color']    ?? ''
-          // Şasi numarası — farklı Excel şablonlarında sütun adı değişebilir
           const chassis = r['Long Chassis No'] ?? r['Long Chassis'] ?? r['Chassis No'] ?? r['Chassis Number'] ?? r['VIN'] ?? r['VIN No'] ?? ''
           return { chassis, model, version, color, vehicle_type: `${model} / ${version} / ${color}` }
         })
+        // Versiyonları başlangıçta gruplandırılmamış olarak başlat
+        const groups: Record<string, 'A' | 'B' | ''> = {}
+        ;[...new Set(vehicles.map(v => v.version))].forEach(ver => { groups[ver] = '' })
+        setVGroups(groups)
         setRawPool(vehicles)
         setFileName(file.name)
-        setStep(1)
+        // Step 0'da kal — kullanıcı versiyon gruplarını ayarlar, sonra ileri gider
       } catch (err) { setError(`Dosya okunamadı: ${err}`) }
     }
     reader.readAsArrayBuffer(file)
@@ -237,7 +264,7 @@ export default function Dagitim() {
     const tArr = Object.entries(targets)
       .filter(([,v]) => v > 0)
       .map(([dealer, target]) => ({ dealer, target }))
-    const { allocated: a, summary: s } = allocate(rawPool, tArr)
+    const { allocated: a, summary: s } = allocate(rawPool, tArr, versionGroups)
     setAllocated(a)
     setSummary(s)
     setResultTab(0)
@@ -246,13 +273,36 @@ export default function Dagitim() {
   }
 
   function reset() {
-    setStep(0); setRawPool([]); setFileName(''); setError('')
+    setStep(0); setRawPool([]); setFileName(''); setError(''); setVGroups({})
     const t: Record<string,number> = {}; dealers.forEach(d => { t[d.name]=0 }); setTargets(t)
     setAllocated([]); setSummary([])
     if (fileRef.current) fileRef.current.value = ''
   }
 
-  // ── Inventory summary ───────────────────────────────────────────────────────
+  // ── Versiyon grubu hesaplamaları ─────────────────────────────────────────────
+  // Havuzdaki benzersiz versiyonlar + adet + hangi modeller
+  const uniqueVersions = [...new Set(rawPool.map(v => v.version))]
+    .map(ver => ({
+      version: ver,
+      count:   rawPool.filter(v => v.version === ver).length,
+      models:  [...new Set(rawPool.filter(v => v.version === ver).map(v => v.model))],
+    }))
+    .sort((a,b) => b.count - a.count)
+
+  const aCount = rawPool.filter(v => versionGroups[v.version] === 'A').length
+  const bCount = rawPool.filter(v => versionGroups[v.version] === 'B').length
+
+  // Her model için A ve B araç sayısı (minimum kontrol için)
+  const uniqueModels = [...new Set(rawPool.map(v => v.model))]
+  const modelMinCheck = uniqueModels.map(model => {
+    const modelVehicles = rawPool.filter(v => v.model === model)
+    const aInModel = modelVehicles.filter(v => versionGroups[v.version] === 'A').length
+    const bInModel = modelVehicles.filter(v => versionGroups[v.version] === 'B').length
+    const needed   = dealers.length  // her bayi 1 A + 1 B
+    return { model, aInModel, bInModel, aOk: aInModel >= needed, bOk: bInModel >= needed }
+  }).filter(m => m.aInModel > 0 || m.bInModel > 0)
+
+  // ── Inventory summary (step 0 / step 1 preview) ──────────────────────────────
   const invByType = Object.values(
     rawPool.reduce<Record<string, { model:string; version:string; color:string; count:number }>>(
       (acc, v) => {
@@ -265,32 +315,40 @@ export default function Dagitim() {
 
   const invModels = [...new Set(rawPool.map(v=>v.model))].sort()
 
-  // ── Results derived ─────────────────────────────────────────────────────────
-  const allModels  = [...new Set(allocated.map(v=>v.model))].sort()
+  // ── Results derived ──────────────────────────────────────────────────────────
+  const allModels   = [...new Set(allocated.map(v=>v.model))].sort()
   const allDealersR = [...new Set(allocated.map(v=>v.dealer))].sort(numSort)
 
-  // Vehicle-level rows (filtered)
   const vehicleRows = allocated.filter(v =>
     (!modelFilter  || v.model  === modelFilter) &&
     (!dealerFilter || v.dealer === dealerFilter)
   )
 
-  // Stacked bar: dealer × model
+  // A/B kural karşılanma durumu (sonuçlar için)
+  const abCheck = allDealersR.reduce<Record<string, { a: boolean; b: boolean }>>((acc, dealer) => {
+    const dvs = allocated.filter(v => v.dealer === dealer)
+    acc[dealer] = {
+      a: dvs.some(v => versionGroups[v.version] === 'A'),
+      b: dvs.some(v => versionGroups[v.version] === 'B'),
+    }
+    return acc
+  }, {})
+  const abRuleActive = aCount > 0 || bCount > 0
+
   const stackedData = allDealersR.map(dealer => {
     const row: Record<string,unknown> = { dealer }
     allModels.forEach(m => { row[m] = allocated.filter(v=>v.dealer===dealer && v.model===m).length })
     return row
   })
 
-  // Model summary
   const modelSummary = allModels.map(m => ({
     model: m,
     total: allocated.filter(v=>v.model===m).length,
     dealers: allDealersR.map(d => ({ dealer:d, count: allocated.filter(v=>v.dealer===d && v.model===m).length })).filter(x=>x.count>0),
   }))
 
-  // ─── STEP 0 ────────────────────────────────────────────────────────────────
-  const StepUpload = (
+  // ─── STEP 0 — A: Yükleme formu ────────────────────────────────────────────
+  const StepUploadForm = (
     <div className="max-w-2xl space-y-5">
       <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-6 space-y-5">
         <div>
@@ -308,7 +366,10 @@ export default function Dagitim() {
         <div>
           <label className="text-sm font-medium text-slate-700 block mb-2">Envanter Dosyası</label>
           <p className="text-xs text-slate-500 mb-3">
-            Excel (.xlsx) veya CSV — Gerekli sütunlar: <code className="bg-slate-100 px-1 rounded text-xs">Dealer Code Processing</code> · <code className="bg-slate-100 px-1 rounded text-xs">Dispatchable</code> · <code className="bg-slate-100 px-1 rounded text-xs">Month Number</code> · <code className="bg-slate-100 px-1 rounded text-xs">Long Chassis No</code> · <code className="bg-slate-100 px-1 rounded text-xs">Model Description</code> · <code className="bg-slate-100 px-1 rounded text-xs">Vehicle Version</code> · <code className="bg-slate-100 px-1 rounded text-xs">Exterior Color</code>
+            Excel (.xlsx) veya CSV — Gerekli sütunlar:{' '}
+            {['Dealer Code Processing','Dispatchable','Month Number','Long Chassis No','Model Description','Vehicle Version','Exterior Color'].map(c => (
+              <code key={c} className="bg-slate-100 px-1 rounded text-xs mx-0.5">{c}</code>
+            ))}
           </p>
           <label className="flex flex-col items-center justify-center gap-3 border-2 border-dashed border-slate-300 rounded-xl p-10 cursor-pointer hover:border-blue-400 hover:bg-blue-50 transition-colors">
             <Upload size={28} className="text-slate-400" />
@@ -324,28 +385,31 @@ export default function Dagitim() {
     </div>
   )
 
-  // ─── STEP 1 ────────────────────────────────────────────────────────────────
+  // ─── STEP 0 — B: Versiyon gruplandırma ────────────────────────────────────
   const modelChart = invModels.map(m => ({ model:m, adet: rawPool.filter(v=>v.model===m).length })).sort((a,b)=>b.adet-a.adet)
 
-  const StepInventory = (
+  const StepVersionGroups = (
     <div className="space-y-5">
+      {/* Başarı banner */}
       <div className="bg-green-50 border border-green-200 rounded-xl p-4 flex items-center justify-between">
         <div>
           <p className="text-sm font-semibold text-green-800">{fileName}</p>
-          <p className="text-xs text-green-600 mt-0.5">{month} · CENT-STOCK · Dispatchable=Y</p>
+          <p className="text-xs text-green-600 mt-0.5">
+            {rawPool.length} araç · {month} · CENT-STOCK · Dispatchable=Y
+          </p>
         </div>
         <button onClick={reset} className="flex items-center gap-1 text-xs text-slate-500 hover:text-red-500">
-          <RotateCcw size={13}/> Baştan Başla
+          <RotateCcw size={13}/> Farklı Dosya
         </button>
       </div>
 
-      {/* KPIs */}
+      {/* KPI bar */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          ['Toplam Araç',    rawPool.length,       'text-blue-600'],
-          ['Farklı Tip',     invByType.length,     'text-slate-900'],
-          ['Model Sayısı',   invModels.length,     'text-slate-900'],
-          ['Farklı Renk',    new Set(rawPool.map(v=>v.color)).size, 'text-slate-900'],
+          ['Toplam Araç',  rawPool.length,                                'text-blue-600'],
+          ['Farklı Tip',   invByType.length,                              'text-slate-900'],
+          ['Model Sayısı', invModels.length,                              'text-slate-900'],
+          ['Farklı Renk',  new Set(rawPool.map(v=>v.color)).size,         'text-slate-900'],
         ].map(([l,v,c]) => (
           <div key={l as string} className="bg-white rounded-xl border border-slate-200 shadow-sm p-4 text-center">
             <p className="text-xs text-slate-500 mb-1">{l}</p>
@@ -354,8 +418,107 @@ export default function Dagitim() {
         ))}
       </div>
 
+      {/* Versiyon Grupları */}
+      <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-5">
+        <div className="flex items-start justify-between gap-4 mb-4">
+          <div>
+            <h3 className="text-sm font-semibold text-slate-800">Versiyon Grupları (A / B Kuralı)</h3>
+            <p className="text-xs text-slate-500 mt-1 max-w-xl">
+              Her bayiye her modelden en az{' '}
+              <span className="font-semibold text-blue-600">1 adet A</span> ve{' '}
+              <span className="font-semibold text-purple-600">1 adet B</span> versiyonu atanacak.
+              Versiyonları aşağıda işaretleyin. İşaretlenmeyen versiyonlar kural dışı tutulur; kural uygulanmadan devam etmek istiyorsanız boş bırakabilirsiniz.
+            </p>
+          </div>
+          <div className="flex gap-2 shrink-0">
+            <span className="text-xs px-3 py-1.5 rounded-full bg-blue-100 text-blue-700 font-semibold">A: {aCount}</span>
+            <span className="text-xs px-3 py-1.5 rounded-full bg-purple-100 text-purple-700 font-semibold">B: {bCount}</span>
+          </div>
+        </div>
+
+        {/* Versiyon listesi */}
+        <div className="border border-slate-200 rounded-lg overflow-hidden">
+          <table className="w-full text-sm">
+            <thead className="bg-slate-50 border-b border-slate-200">
+              <tr>
+                <th className="px-4 py-2.5 text-left text-xs font-medium text-slate-500">Versiyon</th>
+                <th className="px-4 py-2.5 text-left text-xs font-medium text-slate-500">Model(ler)</th>
+                <th className="px-4 py-2.5 text-right text-xs font-medium text-slate-500">Adet</th>
+                <th className="px-4 py-2.5 text-center text-xs font-medium text-slate-500">Grup</th>
+              </tr>
+            </thead>
+            <tbody>
+              {uniqueVersions.map(({ version, count, models }) => {
+                const grp = versionGroups[version] ?? ''
+                return (
+                  <tr key={version} className="border-b border-slate-100 last:border-0 hover:bg-slate-50">
+                    <td className="px-4 py-2.5 font-medium text-slate-800">{version}</td>
+                    <td className="px-4 py-2.5 text-xs text-slate-500">{models.join(', ')}</td>
+                    <td className="px-4 py-2.5 text-right text-slate-700 font-semibold">{count}</td>
+                    <td className="px-4 py-2.5">
+                      <div className="flex gap-1 justify-center">
+                        {(['A', 'B', ''] as const).map(g => (
+                          <button
+                            key={g}
+                            onClick={() => setVGroups(prev => ({ ...prev, [version]: g }))}
+                            className={`w-9 h-7 rounded text-xs font-bold transition-colors ${
+                              grp === g
+                                ? g === 'A'
+                                  ? 'bg-blue-600 text-white shadow-sm'
+                                  : g === 'B'
+                                    ? 'bg-purple-600 text-white shadow-sm'
+                                    : 'bg-slate-400 text-white shadow-sm'
+                                : 'bg-slate-100 text-slate-500 hover:bg-slate-200'
+                            }`}
+                          >
+                            {g || '—'}
+                          </button>
+                        ))}
+                      </div>
+                    </td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </table>
+        </div>
+
+        {/* Minimum kontrol özeti */}
+        {(aCount > 0 || bCount > 0) && modelMinCheck.length > 0 && (
+          <div className="mt-4 space-y-2">
+            <p className="text-xs font-semibold text-slate-600 uppercase tracking-wide">Minimum Kontrol ({dealers.length} aktif bayi)</p>
+            {modelMinCheck.map(m => (
+              <div key={m.model} className="flex items-center gap-3 text-xs">
+                <span className="font-medium text-slate-700 w-24 shrink-0 truncate">{m.model}</span>
+                <span className={`flex items-center gap-1 px-2 py-0.5 rounded-full font-medium ${
+                  m.aOk ? 'bg-blue-50 text-blue-700' : 'bg-amber-50 text-amber-700'
+                }`}>
+                  {m.aOk ? '✓' : '⚠'} A: {m.aInModel} araç
+                </span>
+                <span className={`flex items-center gap-1 px-2 py-0.5 rounded-full font-medium ${
+                  m.bOk ? 'bg-purple-50 text-purple-700' : 'bg-amber-50 text-amber-700'
+                }`}>
+                  {m.bOk ? '✓' : '⚠'} B: {m.bInModel} araç
+                </span>
+                {(!m.aOk || !m.bOk) && (
+                  <span className="text-amber-600 flex items-center gap-1">
+                    <AlertTriangle size={12}/> {dealers.length} bayi için yeterli olmayabilir
+                  </span>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+
+        {aCount === 0 && bCount === 0 && (
+          <div className="mt-4 flex items-center gap-2 text-xs text-slate-500 bg-slate-50 rounded-lg p-3">
+            <Info size={14}/> Hiçbir versiyon gruplandırılmadı — minimum A/B garantisi uygulanmayacak, araçlar yalnızca orantılı dağıtılacak.
+          </div>
+        )}
+      </div>
+
+      {/* Model dağılım önizlemesi */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        {/* Model bar */}
         <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-5">
           <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-4">Model Dağılımı</h3>
           <ResponsiveContainer width="100%" height={200}>
@@ -371,8 +534,6 @@ export default function Dagitim() {
             </BarChart>
           </ResponsiveContainer>
         </div>
-
-        {/* Inventory table */}
         <div className="bg-white rounded-xl border border-slate-200 shadow-sm">
           <div className="px-4 py-3 border-b border-slate-200">
             <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-wide">Araç Havuzu ({invByType.length} tip)</h3>
@@ -401,13 +562,14 @@ export default function Dagitim() {
         </div>
       </div>
 
-      <button onClick={() => setStep(1)} className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-lg text-sm font-medium transition-colors flex items-center gap-2">
+      <button onClick={() => setStep(1)}
+        className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-lg text-sm font-medium flex items-center gap-2 transition-colors">
         Bayi Hedeflerine Geç <ChevronRight size={16}/>
       </button>
     </div>
   )
 
-  // ─── STEP 1 (target entry) ─────────────────────────────────────────────────
+  // ─── STEP 1: Bayi hedefleri ────────────────────────────────────────────────
   const StepTargets = (
     <div className="space-y-5">
       {/* Live bar */}
@@ -429,6 +591,17 @@ export default function Dagitim() {
           <span>Kalan: {Math.max(0, rawPool.length-totalTarget)} araç</span>
         </div>
       </div>
+
+      {/* A/B kural özeti */}
+      {abRuleActive && (
+        <div className="flex items-center gap-3 bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-xs">
+          <Info size={14} className="text-slate-400 shrink-0"/>
+          <span className="text-slate-600">
+            <span className="font-semibold text-blue-600">A/B minimum kuralı aktif</span> —
+            her bayiye her modelden en az 1 A (<span className="font-medium">{aCount} araç</span>) ve 1 B (<span className="font-medium">{bCount} araç</span>) ayrılacak, kalanlar orantılı dağıtılacak.
+          </span>
+        </div>
+      )}
 
       {/* Actions */}
       <div className="flex flex-wrap justify-between items-center gap-3">
@@ -493,6 +666,9 @@ export default function Dagitim() {
   // ─── STEP 2: RESULTS ───────────────────────────────────────────────────────
   const totalAllocated = allocated.length
   const fillRate = rawPool.length > 0 ? totalAllocated / rawPool.length * 100 : 0
+  const abSatisfied = abRuleActive
+    ? allDealersR.filter(d => abCheck[d]?.a && abCheck[d]?.b).length
+    : null
 
   const StepResults = (
     <div className="space-y-5">
@@ -511,13 +687,28 @@ export default function Dagitim() {
         ))}
       </div>
 
+      {/* A/B kural özeti */}
+      {abRuleActive && abSatisfied !== null && (
+        <div className={`flex items-center gap-3 rounded-xl px-4 py-3 text-xs border ${
+          abSatisfied === allDealersR.length
+            ? 'bg-green-50 border-green-200 text-green-700'
+            : 'bg-amber-50 border-amber-200 text-amber-700'
+        }`}>
+          {abSatisfied === allDealersR.length ? <CheckCircle size={14}/> : <AlertTriangle size={14}/>}
+          <span>
+            A/B kuralı: <strong>{abSatisfied}/{allDealersR.length}</strong> bayide her iki grup da karşılandı
+            {abSatisfied < allDealersR.length && ' — bazı bayilerde arz yetersiz kaldı'}
+          </span>
+        </div>
+      )}
+
       <TabBar
         tabs={['Dağıtım Tablosu', 'Bayi Özeti', 'Model Dağılımı']}
         active={resultTab}
         onChange={setResultTab}
       />
 
-      {/* ── TAB 0: Dağıtım Tablosu (araç bazında) ── */}
+      {/* ── TAB 0: Dağıtım Tablosu ── */}
       {resultTab === 0 && (
         <div className="space-y-4">
           <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-4 flex flex-wrap gap-4 items-end">
@@ -557,20 +748,30 @@ export default function Dagitim() {
                   </tr>
                 </thead>
                 <tbody>
-                  {vehicleRows.map((v, i) => (
-                    <tr key={i} className={`border-b border-slate-100 hover:bg-slate-50 ${i%2===0?'':'bg-slate-50/30'}`}>
-                      <td className="px-4 py-2 text-slate-400 text-xs">{i+1}</td>
-                      <td className="px-4 py-2 font-mono text-xs text-slate-700 whitespace-nowrap">{v.chassis || '—'}</td>
-                      <td className="px-4 py-2 font-semibold text-slate-900">{v.model}</td>
-                      <td className="px-4 py-2 text-slate-600">{v.version}</td>
-                      <td className="px-4 py-2 text-slate-600">{v.color}</td>
-                      <td className="px-4 py-2">
-                        <span className="inline-flex items-center gap-1.5 bg-blue-50 text-blue-700 text-xs px-2 py-0.5 rounded-full font-medium">
-                          {v.dealer}
-                        </span>
-                      </td>
-                    </tr>
-                  ))}
+                  {vehicleRows.map((v, i) => {
+                    const grp = versionGroups[v.version]
+                    return (
+                      <tr key={i} className={`border-b border-slate-100 hover:bg-slate-50 ${i%2===0?'':'bg-slate-50/30'}`}>
+                        <td className="px-4 py-2 text-slate-400 text-xs">{i+1}</td>
+                        <td className="px-4 py-2 font-mono text-xs text-slate-700 whitespace-nowrap">{v.chassis || '—'}</td>
+                        <td className="px-4 py-2 font-semibold text-slate-900">{v.model}</td>
+                        <td className="px-4 py-2 text-slate-600">
+                          {v.version}
+                          {grp && (
+                            <span className={`ml-1.5 text-xs px-1.5 py-0.5 rounded font-bold ${grp==='A'?'bg-blue-100 text-blue-700':'bg-purple-100 text-purple-700'}`}>
+                              {grp}
+                            </span>
+                          )}
+                        </td>
+                        <td className="px-4 py-2 text-slate-600">{v.color}</td>
+                        <td className="px-4 py-2">
+                          <span className="inline-flex items-center gap-1.5 bg-blue-50 text-blue-700 text-xs px-2 py-0.5 rounded-full font-medium">
+                            {v.dealer}
+                          </span>
+                        </td>
+                      </tr>
+                    )
+                  })}
                 </tbody>
               </table>
             </div>
@@ -581,13 +782,21 @@ export default function Dagitim() {
       {/* ── TAB 1: Bayi Özeti ── */}
       {resultTab === 1 && (
         <div className="space-y-5">
-          {/* Summary cards */}
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
             {summary.map(s => {
-              const ok = s.fill_rate >= 85
+              const ok  = s.fill_rate >= 85
+              const ab  = abCheck[s.dealer]
               return (
                 <div key={s.dealer} className="bg-white rounded-xl border border-slate-200 shadow-sm p-3">
-                  <p className="text-xs font-semibold text-slate-700 mb-1">{s.dealer}</p>
+                  <div className="flex items-start justify-between gap-1 mb-1">
+                    <p className="text-xs font-semibold text-slate-700">{s.dealer}</p>
+                    {abRuleActive && ab && (
+                      <div className="flex gap-1 shrink-0">
+                        <span className={`text-xs px-1 py-0.5 rounded font-bold ${ab.a?'bg-blue-100 text-blue-700':'bg-slate-100 text-slate-400'}`}>A{ab.a?'✓':'✗'}</span>
+                        <span className={`text-xs px-1 py-0.5 rounded font-bold ${ab.b?'bg-purple-100 text-purple-700':'bg-slate-100 text-slate-400'}`}>B{ab.b?'✓':'✗'}</span>
+                      </div>
+                    )}
+                  </div>
                   <div className="flex items-end gap-1 mb-1">
                     <span className="text-2xl font-bold text-blue-600">{s.allocated}</span>
                     <span className="text-slate-400 text-sm mb-0.5">/ {s.target}</span>
@@ -608,7 +817,6 @@ export default function Dagitim() {
             })}
           </div>
 
-          {/* Bar chart */}
           <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-5">
             <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-4">Hedef vs Atanan</h3>
             <ResponsiveContainer width="100%" height={340}>
@@ -626,33 +834,46 @@ export default function Dagitim() {
             </ResponsiveContainer>
           </div>
 
-          {/* Detail table */}
           <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
                   <tr className="bg-slate-50 border-b border-slate-200">
-                    {['Bayi','Hedef','Atanan','Fark','Doluluk'].map(h => (
-                      <th key={h} className={`px-4 py-2.5 font-medium text-slate-500 text-xs ${['Hedef','Atanan','Fark'].includes(h)?'text-right':h==='Doluluk'?'text-center':'text-left'}`}>{h}</th>
-                    ))}
+                    <th className="px-4 py-2.5 font-medium text-slate-500 text-xs text-left">Bayi</th>
+                    <th className="px-4 py-2.5 font-medium text-slate-500 text-xs text-right">Hedef</th>
+                    <th className="px-4 py-2.5 font-medium text-slate-500 text-xs text-right">Atanan</th>
+                    <th className="px-4 py-2.5 font-medium text-slate-500 text-xs text-right">Fark</th>
+                    <th className="px-4 py-2.5 font-medium text-slate-500 text-xs text-center">Doluluk</th>
+                    {abRuleActive && <th className="px-4 py-2.5 font-medium text-slate-500 text-xs text-center">A/B</th>}
                   </tr>
                 </thead>
                 <tbody>
-                  {summary.map(s => (
-                    <tr key={s.dealer} className="border-b border-slate-100 hover:bg-slate-50">
-                      <td className="px-4 py-2.5 font-medium text-slate-900">{s.dealer}</td>
-                      <td className="px-4 py-2.5 text-right text-slate-600">{s.target}</td>
-                      <td className="px-4 py-2.5 text-right font-bold text-blue-600">{s.allocated}</td>
-                      <td className={`px-4 py-2.5 text-right font-semibold ${s.gap>=0?'text-green-600':'text-red-600'}`}>
-                        {s.gap>=0?'+':''}{s.gap}
-                      </td>
-                      <td className="px-4 py-2.5 text-center">
-                        <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${s.fill_rate>=85?'bg-green-100 text-green-700':'bg-amber-100 text-amber-700'}`}>
-                          %{s.fill_rate.toFixed(1)}
-                        </span>
-                      </td>
-                    </tr>
-                  ))}
+                  {summary.map(s => {
+                    const ab = abCheck[s.dealer]
+                    return (
+                      <tr key={s.dealer} className="border-b border-slate-100 hover:bg-slate-50">
+                        <td className="px-4 py-2.5 font-medium text-slate-900">{s.dealer}</td>
+                        <td className="px-4 py-2.5 text-right text-slate-600">{s.target}</td>
+                        <td className="px-4 py-2.5 text-right font-bold text-blue-600">{s.allocated}</td>
+                        <td className={`px-4 py-2.5 text-right font-semibold ${s.gap>=0?'text-green-600':'text-red-600'}`}>
+                          {s.gap>=0?'+':''}{s.gap}
+                        </td>
+                        <td className="px-4 py-2.5 text-center">
+                          <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${s.fill_rate>=85?'bg-green-100 text-green-700':'bg-amber-100 text-amber-700'}`}>
+                            %{s.fill_rate.toFixed(1)}
+                          </span>
+                        </td>
+                        {abRuleActive && (
+                          <td className="px-4 py-2.5 text-center">
+                            <div className="flex gap-1 justify-center">
+                              <span className={`text-xs px-1.5 py-0.5 rounded font-bold ${ab?.a?'bg-blue-100 text-blue-700':'bg-slate-100 text-slate-400'}`}>A{ab?.a?'✓':'✗'}</span>
+                              <span className={`text-xs px-1.5 py-0.5 rounded font-bold ${ab?.b?'bg-purple-100 text-purple-700':'bg-slate-100 text-slate-400'}`}>B{ab?.b?'✓':'✗'}</span>
+                            </div>
+                          </td>
+                        )}
+                      </tr>
+                    )
+                  })}
                 </tbody>
               </table>
             </div>
@@ -663,7 +884,6 @@ export default function Dagitim() {
       {/* ── TAB 2: Model Dağılımı ── */}
       {resultTab === 2 && (
         <div className="space-y-5">
-          {/* Stacked bar */}
           <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-5">
             <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-4">Bayi × Model Dağılımı</h3>
             <ResponsiveContainer width="100%" height={380}>
@@ -680,7 +900,6 @@ export default function Dagitim() {
             </ResponsiveContainer>
           </div>
 
-          {/* Model detail cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {modelSummary.map((ms, mi) => (
               <div key={ms.model} className="bg-white rounded-xl border border-slate-200 shadow-sm p-4">
@@ -703,7 +922,6 @@ export default function Dagitim() {
             ))}
           </div>
 
-          {/* Model × dealer pivot table */}
           <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
             <div className="px-5 py-3 border-b border-slate-200">
               <h3 className="text-sm font-semibold text-slate-600">Model × Bayi Pivot</h3>
@@ -737,7 +955,6 @@ export default function Dagitim() {
                       </tr>
                     )
                   })}
-                  {/* Totals row */}
                   <tr className="bg-slate-50 border-t-2 border-slate-200">
                     <td className="px-3 py-2 font-bold text-slate-700">Toplam</td>
                     {allModels.map(m => (
@@ -769,11 +986,12 @@ export default function Dagitim() {
     <div className="max-w-7xl mx-auto">
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-slate-900">Dağıtım Sistemi</h1>
-        <p className="text-slate-500 text-sm mt-1">Envanter yükle → hedefleri onayla → dağıtım hesapla</p>
+        <p className="text-slate-500 text-sm mt-1">Envanter yükle → versiyonları gruplandır → hedefleri onayla → dağıtım hesapla</p>
       </div>
       <Steps active={step} />
-      {step === 0 && StepUpload}
-      {step === 1 && (rawPool.length === 0 ? StepUpload : step === 1 && fileName ? StepTargets : StepInventory)}
+      {step === 0 && !fileName && StepUploadForm}
+      {step === 0 &&  fileName && StepVersionGroups}
+      {step === 1 && StepTargets}
       {step === 2 && StepResults}
     </div>
   )
