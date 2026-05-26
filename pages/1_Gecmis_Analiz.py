@@ -3,6 +3,8 @@
 from pathlib import Path
 
 import pandas as pd
+import plotly.graph_objects as go
+import plotly.express as px
 import streamlit as st
 
 st.set_page_config(page_title="Geçmiş Satış Analizi", page_icon="📊", layout="wide")
@@ -51,16 +53,22 @@ _NUM: dict[int, str] = {
     7: "Tem", 8: "Ağu", 9: "Eyl", 10: "Eki", 11: "Kas", 12: "Ara",
 }
 
+_MONTH_ORDER: dict[str, int] = {
+    "Oca": 1, "Şub": 2, "Mar": 3, "Nis": 4, "May": 5, "Haz": 6,
+    "Tem": 7, "Ağu": 8, "Eyl": 9, "Eki": 10, "Kas": 11, "Ara": 12,
+}
+
 
 # ---------------------------------------------------------------------------
 # Yardımcı fonksiyonlar
 # ---------------------------------------------------------------------------
 def _fmt_abbr(val: str, show_year: bool = False) -> str:
-    """'JAN'24' → 'Oca' veya '2024 Oca'."""
+    """'JAN'24' → 'Oca' veya '2024 Oca'. Typo 'AUG'2525' da desteklenir."""
     parts = str(val).split("'")
     tr = _ABBR.get(parts[0][:3].upper(), parts[0])
     if show_year and len(parts) > 1:
-        return f"20{parts[1]} {tr}"
+        yr = parts[1][-2:]  # '2525' gibi typo'lar için son 2 karakter al
+        return f"20{yr} {tr}"
     return tr
 
 
@@ -72,6 +80,14 @@ def _fmt_ym(val: str, show_year: bool = True) -> str:
         return f"{y} {tr}" if show_year else tr
     except (ValueError, AttributeError):
         return str(val)
+
+
+def _month_sort_key(ay: str) -> int:
+    """'2024 Oca' veya 'Oca' → sıralama için tamsayı."""
+    parts = ay.strip().split()
+    if len(parts) == 2:
+        return int(parts[0]) * 12 + _MONTH_ORDER.get(parts[1], 0)
+    return _MONTH_ORDER.get(parts[0], 0)
 
 
 def _clean(df: pd.DataFrame) -> pd.DataFrame:
@@ -123,7 +139,6 @@ def _load_hedef_long(year_key: str) -> pd.DataFrame | None:
         df = _clean(df)
         if "Ay" in df.columns:
             df["Ay"] = df["Ay"].apply(lambda v: _fmt_abbr(v, show_year=True))
-        # Yıl kolonu artık Ay içinde gömülü
         if "Yıl" in df.columns:
             df = df.drop(columns=["Yıl"])
     else:
@@ -241,14 +256,79 @@ with tab3:
     else:
         st.info("Aylık trend verisi henüz oluşturulmamış.")
 
-# ---------- Tab 4: Hedef Gerçekleşme ----------
+# ---------- Tab 4: Hedef Gerçekleşme (Sadece B2C) ----------
 with tab4:
+    # Aktif filtre göstergesi
+    st.markdown(
+        """<div style="margin-bottom:14px;display:flex;align-items:center;gap:8px;">
+          <span style="font-size:12px;color:#666;margin-right:4px;">Kanal filtresi:</span>
+          <span style="background:#1565C0;color:white;padding:3px 14px;
+                border-radius:14px;font-size:12px;font-weight:600">✓ B2C</span>
+          <span style="background:#f5f5f5;color:#bdbdbd;padding:3px 14px;
+                border-radius:14px;font-size:12px;text-decoration:line-through">B2B</span>
+          <span style="background:#f5f5f5;color:#bdbdbd;padding:3px 14px;
+                border-radius:14px;font-size:12px;text-decoration:line-through">B2B+B2C</span>
+        </div>""",
+        unsafe_allow_html=True,
+    )
+
     show_image(img_dir / "08_hedef_gerceklestirme.png", "Hedef Gerçekleşme Analizi")
 
     df_hedef = _load_hedef_long(year_key)
     if df_hedef is not None:
-        lbl = "Aylık Hedef Gerçekleşme (2024–2025)" if year_key == "all" else "Aylık Hedef Gerçekleşme"
-        show_df(df_hedef, lbl)
+        b2c = df_hedef[df_hedef["Kanal"] == "B2C"].copy()
+        b2c["_sort"] = b2c["Ay"].apply(_month_sort_key)
+        b2c = b2c.sort_values("_sort").drop(columns=["_sort"])
+
+        df_target = (
+            b2c[b2c["Metrik"] == "target"][["Ay", "Değer"]]
+            .rename(columns={"Ay": "Dönem", "Değer": "Hedef"})
+            .reset_index(drop=True)
+        )
+        df_achieve = (
+            b2c[b2c["Metrik"] == "achievement"][["Ay", "Değer"]]
+            .rename(columns={"Ay": "Dönem", "Değer": "Gerçekleşen"})
+            .reset_index(drop=True)
+        )
+
+        c1, c2 = st.columns(2)
+        with c1:
+            show_df(df_target, "B2C Aylık Hedef")
+        with c2:
+            show_df(df_achieve, "B2C Aylık Gerçekleşen")
+
+        # Gerçekleşme % hesapla ve grafik çiz
+        df_pct = df_target.merge(df_achieve, on="Dönem", how="inner")
+        df_pct["Gerçekleşme %"] = (df_pct["Gerçekleşen"] / df_pct["Hedef"] * 100).round(1)
+
+        bar_colors = [
+            "#4CAF50" if v >= 100 else "#EF5350"
+            for v in df_pct["Gerçekleşme %"]
+        ]
+        fig_pct = go.Figure(go.Bar(
+            x=df_pct["Dönem"],
+            y=df_pct["Gerçekleşme %"],
+            marker_color=bar_colors,
+            text=df_pct["Gerçekleşme %"].apply(lambda v: f"%{v:.0f}"),
+            textposition="outside",
+            hovertemplate="<b>%{x}</b><br>Hedef: %{customdata[0]:.0f}<br>"
+                          "Gerçekleşen: %{customdata[1]:.0f}<br>Oran: %{y:.1f}%<extra></extra>",
+            customdata=df_pct[["Hedef", "Gerçekleşen"]].values,
+        ))
+        fig_pct.add_hline(
+            y=100, line_dash="dash", line_color="#1565C0", line_width=2,
+            annotation_text="Hedef: 100%", annotation_position="top right",
+        )
+        fig_pct.update_layout(
+            title="B2C Aylık Gerçekleşme Oranı (%)",
+            yaxis_title="Gerçekleşme %",
+            plot_bgcolor="white",
+            yaxis=dict(showgrid=True, gridcolor="#f0f0f0", zeroline=False),
+            xaxis=dict(showgrid=False),
+            height=380,
+            margin=dict(t=50, b=10),
+        )
+        st.plotly_chart(fig_pct, use_container_width=True)
     else:
         st.info("Hedef gerçekleşme verisi henüz oluşturulmamış.")
 
@@ -257,23 +337,64 @@ with tab4:
         if df_bayi is not None:
             show_df(_clean(df_bayi), "Bayi Performansı")
 
-        df_perf = _load(OUT / "all" / "12_aylik_hedef_performansi.csv")
-        if df_perf is not None:
-            df_perf = _clean(df_perf)
-            if "Ay" in df_perf.columns:
-                df_perf["Ay"] = df_perf["Ay"].map(
-                    lambda v: _EN_FULL.get(str(v).upper(), v)
-                )
-            show_df(df_perf, "Aylık Gerçekleşen Adetler")
-
 # ---------- Tab 5: Rakip Karşılaştırma ----------
 with tab5:
-    if year_key == "all":
-        show_image(IMG / "all" / "11_rakip_karsilastirma.png", "Rakip Marka Satış Trendi")
-
-    df_rakip = _load_rakip(year_key)
-    if df_rakip is not None:
-        lbl = "Rakip Marka Satışları (2024–2025)" if year_key == "all" else f"Rakip Marka Satışları ({year})"
-        show_df(df_rakip, lbl)
-    else:
+    df_rakip_raw = _load(OUT / "all" / "15_rakip_satislar.csv")
+    if df_rakip_raw is None:
         st.info("Rakip satış verisi henüz oluşturulmamış.")
+    else:
+        df_rakip_raw = df_rakip_raw.loc[:, ~df_rakip_raw.columns.str.startswith("Unnamed")]
+
+        if year_key == "all":
+            show_image(IMG / "all" / "11_rakip_karsilastirma.png", "Rakip Marka Satış Trendi")
+            df_plot = df_rakip_raw.copy()
+            df_plot["Dönem"] = df_plot["year_month"].apply(lambda v: _fmt_ym(v, show_year=True))
+            df_plot = df_plot.sort_values("year_month")
+            fig_all = px.line(
+                df_plot, x="Dönem", y="sales_qty", color="brand",
+                title="Rakip Marka Aylık Satışları (2024–2025)",
+                labels={"sales_qty": "Satış Adedi", "brand": "Marka", "Dönem": "Dönem"},
+                markers=True,
+            )
+            fig_all.update_layout(height=440, legend_title_text="Marka")
+            st.plotly_chart(fig_all, use_container_width=True)
+
+        else:
+            df_y = df_rakip_raw[df_rakip_raw["year_month"].str.startswith(year_key)].copy()
+            df_y["Ay"] = df_y["year_month"].apply(lambda v: _fmt_ym(v, show_year=False))
+            df_y["_sort"] = df_y["year_month"].apply(lambda v: int(v.split("-")[1]))
+            df_y = df_y.sort_values("_sort")
+
+            # Aylık çizgi grafiği
+            fig_line = px.line(
+                df_y, x="Ay", y="sales_qty", color="brand",
+                title=f"Rakip Marka Aylık Satışları ({year})",
+                labels={"sales_qty": "Satış Adedi", "brand": "Marka", "Ay": "Ay"},
+                markers=True,
+            )
+            fig_line.update_layout(height=400, legend_title_text="Marka")
+            st.plotly_chart(fig_line, use_container_width=True)
+
+            # Yıllık toplam karşılaştırma (yatay bar)
+            df_totals = (
+                df_y.groupby("brand")["sales_qty"]
+                .sum()
+                .reset_index()
+                .sort_values("sales_qty", ascending=True)
+                .rename(columns={"brand": "Marka", "sales_qty": "Toplam Satış"})
+            )
+            fig_bar = px.bar(
+                df_totals, x="Toplam Satış", y="Marka", orientation="h",
+                title=f"{year} Yıllık Toplam Satış Karşılaştırması",
+                color="Toplam Satış",
+                color_continuous_scale="Blues",
+                text="Toplam Satış",
+            )
+            fig_bar.update_traces(textposition="outside")
+            fig_bar.update_layout(
+                height=350, coloraxis_showscale=False,
+                plot_bgcolor="white",
+                xaxis=dict(showgrid=True, gridcolor="#f0f0f0"),
+                yaxis=dict(showgrid=False),
+            )
+            st.plotly_chart(fig_bar, use_container_width=True)

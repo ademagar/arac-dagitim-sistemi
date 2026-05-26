@@ -21,13 +21,13 @@ ROOT = Path(__file__).parents[1]
 # Sabitler
 # ---------------------------------------------------------------------------
 REGION_COLORS: dict[str, str] = {
-    "Marmara":              "#1565C0",   # Koyu mavi
-    "Ege":                  "#2E7D32",   # Koyu yeşil
-    "Akdeniz":              "#E65100",   # Turuncu
-    "İç Anadolu":           "#6A1B9A",   # Mor
-    "Karadeniz":            "#00695C",   # Teal
-    "Güneydoğu Anadolu":   "#B71C1C",   # Kırmızı
-    "Doğu Anadolu":         "#4E342E",   # Kahve
+    "Marmara":             "#E53935",   # Kırmızı
+    "Ege":                 "#1E88E5",   # Mavi
+    "Akdeniz":             "#F57C00",   # Turuncu
+    "İç Anadolu":          "#43A047",   # Yeşil
+    "Karadeniz":           "#00ACC1",   # Cyan
+    "Güneydoğu Anadolu":  "#8E24AA",   # Mor
+    "Doğu Anadolu":        "#6D4C41",   # Kahve
 }
 
 REGION_ICONS: dict[str, str] = {
@@ -197,7 +197,7 @@ with left:
 
         r_outer = 14 if is_active else 10
         r_inner = 6  if is_active else 4
-        opacity = 0.18 if is_active else 0.08
+        opacity = 0.30 if is_active else 0.08
 
         folium.CircleMarker(
             location=[row["lat"], row["lon"]],
