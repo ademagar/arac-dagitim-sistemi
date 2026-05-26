@@ -170,7 +170,9 @@ with st.expander("**Adım 1 — Envanter Dosyası Yükle**", expanded=not has_in
                     with st.expander("Envanter Özeti (ilk 10 tip)"):
                         st.dataframe(inv_sum.head(10), use_container_width=True, hide_index=True)
 
-                    st.success(f"✓ {len(pool)} araç yüklendi. Adım 2'ye geçin.")
+                    st.success(f"✓ {len(pool)} araç yüklendi.")
+                    if st.button("Adım 2'ye Geç →", type="primary", key="go_step2"):
+                        st.rerun()
 
             except Exception as exc:
                 st.error(f"Hata: {exc}")
