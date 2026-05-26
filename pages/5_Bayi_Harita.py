@@ -40,94 +40,95 @@ REGION_ICONS: dict[str, str] = {
     "Doğu Anadolu":        "mountain",
 }
 
-# Türkiye'nin 7 coğrafi bölgesi için gerçek sınır koordinatları.
-# Paylaşılan iç sınır noktaları: A=(40.5,32), B=(40.0,30.5), C=(37.5,30.5),
-# D=(40.5,38), E=(37.5,38), F=(38.0,37), G=(37.5,44).
+# Türkiye'nin 7 coğrafi bölgesi — temiz, örtüşmesiz poligonlar.
+# Paylaşılan iç sınır noktaları (lat, lon):
+#   A=(40.5,32)  B=(40.0,30.5)  C=(37.5,30.5)  D=(40.5,38)
+#   E=(37.5,38)  F=(37.5,37)    G=(37.5,44)
 REGION_POLYGONS: dict[str, list[tuple[float, float]]] = {
     # 1. Marmara: Trakya + Kuzey Marmara (Edirne–İstanbul–Bursa–Bolu)
     "Marmara": [
-        (41.9, 26.0),  # Bulgaristan sınırı KB
-        (42.0, 27.5),  # Kuzey Trakya
-        (41.8, 28.5),  # Kırklareli
+        (41.9, 26.0),  # KB Bulgaristan sınırı
+        (42.0, 27.5),  # K Trakya
+        (41.8, 28.5),
         (41.4, 29.1),  # İstanbul
-        (41.2, 30.5),  # Düzce/Bolu kıyısı
-        (41.5, 32.0),  # A1: Karadeniz sınırı (kıyı)
-        (40.5, 32.0),  # A: Marmara/Karadeniz/İç Anadolu iç noktası
-        (40.0, 30.5),  # B: Marmara/Ege/İç Anadolu iç noktası
-        (39.5, 28.5),  # Balıkesir/Kütahya güney
+        (41.2, 30.5),  # Bolu kıyısı
+        (41.5, 32.0),  # A1: Karadeniz sınırı
+        (40.5, 32.0),  # A: Marmara/Karadeniz/İç Anadolu
+        (40.0, 30.5),  # B: Marmara/Ege/İç Anadolu
+        (39.5, 28.0),  # Balıkesir hattı
         (39.5, 26.5),  # Çanakkale GB kıyısı
         (40.0, 26.2),  # Batı kıyı
     ],
     # 2. Karadeniz: Zonguldak'tan Artvin'e kuzey sahil şeridi
     "Karadeniz": [
-        (41.5, 32.0),  # A1: Batı (Marmara ile)
-        (41.7, 33.5),  (41.5, 35.0),  (41.3, 36.5),
-        (41.1, 38.0),  (41.3, 40.5),  (41.5, 41.5),
+        (41.5, 32.0),  # A1: Batı
+        (41.7, 33.5), (41.5, 35.0), (41.3, 36.5),
+        (41.1, 38.0), (41.3, 40.5), (41.5, 41.5),
         (41.5, 43.5),  # KD kıyı
         (40.3, 44.5),  # Gürcistan sınırı
-        (40.5, 44.0),  # GD iç
-        (40.5, 40.5),
+        (40.5, 44.0), (40.5, 40.5),
         (40.5, 38.0),  # D: Karadeniz/İç Anadolu/Doğu Anadolu
-        (40.5, 32.0),  # A: Batı iç (Marmara ile)
+        (40.5, 32.0),  # A: Batı iç
     ],
     # 3. Ege: Çanakkale'den Fethiye'ye batı kıyı bölgesi
     "Ege": [
-        (39.5, 26.5),  # Kuzey kıyı (Çanakkale)
-        (39.5, 28.5),  # Kuzey iç
-        (40.0, 30.5),  # B: KD köşe (Marmara/Ege/İç Anadolu)
-        (37.5, 30.5),  # C: GD köşe (Ege/İç Anadolu/Akdeniz)
-        (36.6, 30.5),  # Güney Ege kıyısı başlangıcı
-        (36.5, 29.5),
-        (36.8, 28.5),
-        (37.0, 27.5),
+        (39.5, 26.5),  # K kıyı (Çanakkale)
+        (39.5, 28.0),  # K iç (Marmara ile ortak)
+        (40.0, 30.5),  # B: KD köşe
+        (37.5, 30.5),  # C: GD köşe
+        (36.4, 30.5),  # Güney Ege/Akdeniz ortak noktası
+        (36.2, 29.0),  # GB sahil
+        (36.5, 28.0),
+        (36.8, 27.5),
+        (37.0, 27.2),
         (37.5, 27.0),
         (38.3, 26.5),
-        (39.0, 26.3),  # Batı Ege kıyısı
+        (39.0, 26.3),
     ],
     # 4. İç Anadolu: Ankara–Konya–Kayseri–Sivas merkezi platosu
+    # Güney sınırı: lat 37.5 boyunca düz çizgi (Toroslar hattı)
     "İç Anadolu": [
-        (40.5, 32.0),  # A: KB (Marmara/Karadeniz ile)
-        (40.5, 38.0),  # D: KD (Karadeniz/Doğu Anadolu ile)
-        (37.5, 38.0),  # E: GD (Doğu Anadolu/Güneydoğu ile)
-        (38.0, 37.0),  # F: Güney (K.maraş hattı — Akdeniz/Güneydoğu ile)
-        (37.5, 30.5),  # C: GB (Ege/Akdeniz ile)
-        (40.0, 30.5),  # B: KB iç (Marmara/Ege ile)
+        (40.5, 32.0),  # A: KB
+        (40.5, 38.0),  # D: KD
+        (37.5, 38.0),  # E: GD
+        (37.5, 30.5),  # C: GB
+        (40.0, 30.5),  # B: K iç
     ],
-    # 5. Akdeniz: Antalya–Mersin–Adana–Hatay–K.maraş güney sahil bölgesi
+    # 5. Akdeniz: Antalya–Mersin–Adana–Hatay güney sahil bölgesi
     "Akdeniz": [
         (37.5, 30.5),  # C: KB köşe
-        (38.0, 37.0),  # F: KD köşe (K.maraş dahil)
-        (36.7, 37.0),  # Doğu kıyı / Suriye sınırı başlangıcı
+        (37.5, 37.0),  # F: KD köşe (Akdeniz/Güneydoğu sınırı)
+        (36.7, 37.0),  # Suriye sınırı başlangıcı
         (36.5, 36.5),
         (36.4, 36.0),
         (36.2, 35.0),
-        (36.0, 33.5),
-        (36.1, 32.0),
-        (36.3, 31.0),
-        (36.6, 30.5),  # GB kıyı
+        (36.0, 34.0),
+        (36.0, 33.0),
+        (36.2, 31.5),
+        (36.4, 30.5),  # Ege ile ortak nokta
     ],
-    # 6. Doğu Anadolu: Erzurum–Malatya–Van–Ağrı–Kars yüksek platosu
+    # 6. Doğu Anadolu: Erzurum–Van–Ağrı–Kars yüksek platosu
     "Doğu Anadolu": [
-        (40.5, 38.0),  # D: KB (Karadeniz/İç Anadolu ile)
+        (40.5, 38.0),  # D: KB
         (40.5, 44.0),  # KD iç
         (40.3, 44.5),  # Gürcistan/Ermenistan sınırı
-        (39.5, 44.5),  # İran sınırı
-        (38.5, 44.5),
+        (39.5, 44.5),
+        (38.5, 44.5),  # İran sınırı
         (37.5, 44.0),  # G: GD köşe
-        (37.5, 38.0),  # E: GB (İç Anadolu/Güneydoğu ile)
+        (37.5, 38.0),  # E: GB
     ],
-    # 7. Güneydoğu Anadolu: Gaziantep–Şanlıurfa–Diyarbakır–Mardin–Hakkari
+    # 7. Güneydoğu Anadolu: Gaziantep–Şanlıurfa–Diyarbakır–Hakkari
     "Güneydoğu Anadolu": [
-        (38.0, 37.0),  # F: KB (Akdeniz/İç Anadolu ile)
-        (37.5, 38.0),  # E: Kuzey iç
+        (37.5, 37.0),  # F: KB (Akdeniz/İç Anadolu ile)
+        (37.5, 38.0),  # E: K iç
         (37.5, 44.0),  # G: KD (Doğu Anadolu ile)
         (37.2, 44.3),  # İran/Irak sınırı
         (37.0, 43.5),
         (36.8, 42.5),
         (36.8, 41.5),  # Irak sınırı
         (37.1, 40.5),  # Suriye sınırı
-        (36.8, 38.5),
-        (36.7, 37.0),  # Batı Suriye sınırı / Hatay hattı
+        (36.7, 38.5),
+        (36.7, 37.0),  # GB (Akdeniz ile)
     ],
 }
 
@@ -172,13 +173,12 @@ def load_locations() -> pd.DataFrame:
 
 
 def _classify(lat: float, lon: float) -> str:
-    if lat >= 40.0 and lon < 32.0:             return "Marmara"
-    if lat >= 40.5 and lon >= 32.0:            return "Karadeniz"
-    if lon < 30.5 and lat < 40.0:             return "Ege"
-    if lat < 37.5 and lon >= 37.0:            return "Güneydoğu Anadolu"
-    if lat < 37.5:                             return "Akdeniz"
-    if lat < 38.0 and lon >= 35.0:            return "Akdeniz"   # K.maraş/Hatay kuşağı
-    if lon >= 38.0 and lat < 40.5:            return "Doğu Anadolu"
+    if lat >= 40.0 and lon < 32.0:   return "Marmara"
+    if lat >= 40.5 and lon >= 32.0:  return "Karadeniz"
+    if lon < 30.5 and lat < 40.0:    return "Ege"
+    if lat < 37.5 and lon >= 37.0:   return "Güneydoğu Anadolu"
+    if lat < 37.5:                    return "Akdeniz"
+    if lon >= 38.0 and lat < 40.5:   return "Doğu Anadolu"
     return "İç Anadolu"
 
 
