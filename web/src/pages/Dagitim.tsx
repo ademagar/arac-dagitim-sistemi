@@ -7,7 +7,7 @@ import {
 import { Upload, CheckCircle, ChevronRight, RotateCcw, Info } from 'lucide-react'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
-interface Vehicle    { chassis: string; model: string; version: string; color: string; vehicle_type: string }
+interface Vehicle    { _idx: number; chassis: string; model: string; version: string; color: string; vehicle_type: string }
 interface Dealer     { name: string; code: string; active: boolean; activity: Record<string,string> }
 interface BayiHedefRow { dealer: string; code: string; target: number | null }
 // reason: 'A grubu min.' | 'B grubu min.' | 'Orantılı'
@@ -193,6 +193,8 @@ export default function Dagitim() {
   const [resultTab, setResultTab]   = useState(0)
   const [modelFilter, setMF]        = useState('')
   const [dealerFilter, setDF]       = useState('')
+  // Orijinal Excel satırları (export için — filtered pool ile 1:1 eşleşir)
+  const [rawRows, setRawRows]       = useState<Record<string,string>[]>([])
   // Bayi renk tercihleri: geçmiş satışlardan top-3 renk (dealer → [renk1, renk2, renk3])
   const [colorPrefs, setColorPrefs] = useState<Record<string, string[]>>({})
   const fileRef = useRef<HTMLInputElement>(null)
@@ -248,7 +250,8 @@ export default function Dagitim() {
           setError(`Filtre sonucu boş. 'CENT-STOCK' + 'Dispatchable=Y' + ay='${month}' bulunamadı.\nDosyadaki Month Number değerleri: ${found || '(bulunamadı)'}`)
           return
         }
-        const vehicles: Vehicle[] = pool.map(r => ({
+        const vehicles: Vehicle[] = pool.map((r, i) => ({
+          _idx:    i,
           chassis: r['Long Chassis No'] ?? r['Long Chassis'] ?? r['Chassis No'] ?? r['Chassis Number'] ?? r['VIN'] ?? r['VIN No'] ?? '',
           model:   r['Model Description'] ?? '',
           version: r['Vehicle Version']   ?? '',
@@ -256,6 +259,7 @@ export default function Dagitim() {
           vehicle_type: `${r['Model Description']??''} / ${r['Vehicle Version']??''} / ${r['Exterior Color']??''}`,
         }))
         setRawPool(vehicles)
+        setRawRows(pool)   // orijinal satırlar; _idx ile eşleşir
         setFileName(file.name)
         // Envanter özeti + kural bilgisi göster, step 0'da kal
       } catch (err) { setError(`Dosya okunamadı: ${err}`) }
@@ -273,10 +277,27 @@ export default function Dagitim() {
   }
 
   function reset() {
-    setStep(0); setRawPool([]); setFileName(''); setError('')
+    setStep(0); setRawPool([]); setRawRows([]); setFileName(''); setError('')
     const t: Record<string,number> = {}; dealers.forEach(d => { t[d.name]=0 }); setTargets(t)
     setAllocated([]); setSummary([])
     if (fileRef.current) fileRef.current.value = ''
+  }
+
+  // ── Export: atanan araçları xlsx olarak indir ────────────────────────────────
+  function exportToXlsx() {
+    if (!allocated.length) return
+    const codeMap = allDealers.reduce<Record<string,string>>((a, d) => { a[d.name]=d.code; return a }, {})
+    const exportRows = allocated.map(v => {
+      const orig = { ...(rawRows[v._idx] ?? {}) }
+      // Dealer Code Processing → bayi kodu | Dealer Name → bayi adı
+      orig['Dealer Code Processing'] = codeMap[v.dealer] ?? v.dealer
+      orig['Dealer Name']            = v.dealer
+      return orig
+    })
+    const ws = XLSX.utils.json_to_sheet(exportRows)
+    const wb = XLSX.utils.book_new()
+    XLSX.utils.book_append_sheet(wb, ws, 'Dağıtım')
+    XLSX.writeFile(wb, `dagitim-${month}.xlsx`)
   }
 
   // ── Model grubu özeti (A→A1,A2,A3 | B→B1) ────────────────────────────────
@@ -627,7 +648,7 @@ export default function Dagitim() {
         </span>
       </div>
 
-      <TabBar tabs={['Dağıtım Tablosu','Bayi Özeti','Model Dağılımı']} active={resultTab} onChange={setResultTab}/>
+      <TabBar tabs={['Dağıtım Tablosu','Bayi Özeti','Model Dağılımı','Atama Özeti']} active={resultTab} onChange={setResultTab}/>
 
       {/* ── TAB 0: Dağıtım Tablosu ── */}
       {resultTab === 0 && (
@@ -660,55 +681,32 @@ export default function Dagitim() {
               <table className="w-full text-sm">
                 <thead className="sticky top-0 bg-slate-50 border-b border-slate-200">
                   <tr>
-                    <th className="px-3 py-2.5 text-left font-medium text-slate-500 text-xs w-8">#</th>
-                    <th className="px-3 py-2.5 text-left font-medium text-slate-500 text-xs">Long Chassis No</th>
-                    <th className="px-3 py-2.5 text-left font-medium text-slate-500 text-xs">Model</th>
-                    <th className="px-3 py-2.5 text-left font-medium text-slate-500 text-xs">Versiyon</th>
-                    <th className="px-3 py-2.5 text-left font-medium text-slate-500 text-xs">Renk</th>
-                    <th className="px-3 py-2.5 text-left font-medium text-slate-500 text-xs">Gönderildiği Bayi</th>
-                    <th className="px-3 py-2.5 text-left font-medium text-slate-500 text-xs">Atama Sebebi</th>
-                    <th className="px-3 py-2.5 text-left font-medium text-slate-500 text-xs">Renk Tercihi</th>
+                    <th className="px-4 py-2.5 text-left font-medium text-slate-500 text-xs w-8">#</th>
+                    <th className="px-4 py-2.5 text-left font-medium text-slate-500 text-xs">Long Chassis No</th>
+                    <th className="px-4 py-2.5 text-left font-medium text-slate-500 text-xs">Model</th>
+                    <th className="px-4 py-2.5 text-left font-medium text-slate-500 text-xs">Versiyon</th>
+                    <th className="px-4 py-2.5 text-left font-medium text-slate-500 text-xs">Renk</th>
+                    <th className="px-4 py-2.5 text-left font-medium text-slate-500 text-xs">Gönderildiği Bayi</th>
                   </tr>
                 </thead>
                 <tbody>
                   {vehicleRows.map((v, i) => {
                     const grp = modelGroup(v.model)
                     const s   = grpStyle(grp)
-                    const isMin = v.reason !== 'Orantılı'
-                    const prefColors = colorPrefs[v.dealer] ?? []
-                    const prefRank   = prefColors.indexOf(v.color) // -1 | 0 | 1 | 2
                     return (
                       <tr key={i} className={`border-b border-slate-100 hover:bg-slate-50 ${i%2===0?'':'bg-slate-50/30'}`}>
-                        <td className="px-3 py-2 text-slate-400 text-xs">{i+1}</td>
-                        <td className="px-3 py-2 font-mono text-xs text-slate-700 whitespace-nowrap">{v.chassis||'—'}</td>
-                        <td className="px-3 py-2">
+                        <td className="px-4 py-2 text-slate-400 text-xs">{i+1}</td>
+                        <td className="px-4 py-2 font-mono text-xs text-slate-700 whitespace-nowrap">{v.chassis||'—'}</td>
+                        <td className="px-4 py-2">
                           <span className="font-semibold text-slate-900">{v.model}</span>
                           <span className={`ml-1.5 text-xs px-1.5 py-0.5 rounded font-bold ${s.pill}`}>{grp}</span>
                         </td>
-                        <td className="px-3 py-2 text-slate-600">{v.version}</td>
-                        <td className="px-3 py-2 text-slate-600">{v.color}</td>
-                        <td className="px-3 py-2">
+                        <td className="px-4 py-2 text-slate-600">{v.version}</td>
+                        <td className="px-4 py-2 text-slate-600">{v.color}</td>
+                        <td className="px-4 py-2">
                           <span className="inline-flex items-center gap-1.5 bg-blue-50 text-blue-700 text-xs px-2 py-0.5 rounded-full font-medium">
                             {v.dealer}
                           </span>
-                        </td>
-                        {/* Atama sebebi */}
-                        <td className="px-3 py-2 whitespace-nowrap">
-                          {isMin
-                            ? <span className={`text-xs px-2 py-0.5 rounded-full font-semibold ${s.pill}`}>{v.reason}</span>
-                            : <span className="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-500 font-medium">Orantılı</span>
-                          }
-                        </td>
-                        {/* Renk tercihi */}
-                        <td className="px-3 py-2 whitespace-nowrap">
-                          {prefRank >= 0
-                            ? <span className="text-xs px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 font-semibold">
-                                ⭐ {prefRank+1}. tercih
-                              </span>
-                            : prefColors.length > 0
-                              ? <span className="text-xs text-slate-400">Havuzdan</span>
-                              : <span className="text-xs text-slate-300">—</span>
-                          }
                         </td>
                       </tr>
                     )
@@ -723,88 +721,30 @@ export default function Dagitim() {
       {/* ── TAB 1: Bayi Özeti ── */}
       {resultTab === 1 && (
         <div className="space-y-5">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
             {summary.map(s => {
-              const ok      = s.fill_rate >= 85
-              const chk     = dealerGroupCheck[s.dealer] ?? {}
-              const allOk   = groupsInResult.every(g => chk[g])
-              const dv      = allocated.filter(v => v.dealer === s.dealer)
-              const minVehs = dv.filter(v => v.reason !== 'Orantılı')
-              const propVehs = dv.filter(v => v.reason === 'Orantılı')
-              const prefColors = colorPrefs[s.dealer] ?? []
-              const colorMatchCount = prefColors.length > 0
-                ? dv.filter(v => prefColors.includes(v.color)).length
-                : null
-              // Grup bazında min kırılımı: "1A + 1B"
-              const minBreakdown = groupsInResult
-                .map(g => `${minVehs.filter(v => v.reason === `${g} grubu min.`).length}${g}`)
-                .filter(x => !x.startsWith('0'))
-                .join(' + ')
+              const ok  = s.fill_rate >= 85
+              const chk = dealerGroupCheck[s.dealer] ?? {}
               return (
-                <div key={s.dealer} className="bg-white rounded-xl border border-slate-200 shadow-sm p-4">
-                  {/* Başlık + grup rozetleri */}
-                  <div className="flex items-start justify-between gap-1 mb-2">
-                    <p className="text-sm font-semibold text-slate-700">{s.dealer}</p>
+                <div key={s.dealer} className="bg-white rounded-xl border border-slate-200 shadow-sm p-3">
+                  <div className="flex items-start justify-between gap-1 mb-1">
+                    <p className="text-xs font-semibold text-slate-700">{s.dealer}</p>
                     <div className="flex gap-1 shrink-0">
                       {groupsInResult.map(g => (
-                        <span key={g} className={`text-xs px-1.5 py-0.5 rounded font-bold ${chk[g] ? grpStyle(g).pill : 'bg-slate-100 text-slate-400'}`}>
+                        <span key={g} className={`text-xs px-1 py-0.5 rounded font-bold ${chk[g] ? grpStyle(g).pill : 'bg-slate-100 text-slate-400'}`}>
                           {g}{chk[g]?'✓':'✗'}
                         </span>
                       ))}
                     </div>
                   </div>
-                  {/* Atanan / hedef */}
                   <div className="flex items-end gap-1 mb-1">
                     <span className="text-2xl font-bold text-blue-600">{s.allocated}</span>
-                    <span className="text-slate-400 text-sm mb-0.5">/ {s.target} araç</span>
+                    <span className="text-slate-400 text-sm mb-0.5">/ {s.target}</span>
                   </div>
-                  <div className="w-full bg-slate-100 rounded-full h-1.5 mb-3">
+                  <div className="w-full bg-slate-100 rounded-full h-1.5 mb-1">
                     <div className="h-1.5 rounded-full" style={{ width:`${Math.min(100,s.fill_rate)}%`, background: ok?'#22c55e':'#f59e0b' }}/>
                   </div>
-                  {/* Açıklama satırları */}
-                  <div className="space-y-1.5 border-t border-slate-100 pt-3">
-                    {/* Atama kırılımı */}
-                    <div className="flex items-start gap-2 text-xs">
-                      <span className="text-slate-400 w-20 shrink-0">Atama</span>
-                      <span className="text-slate-600">
-                        {minBreakdown && (
-                          <span className="font-semibold text-slate-700">{minBreakdown} min.</span>
-                        )}
-                        {minBreakdown && propVehs.length > 0 && ' + '}
-                        {propVehs.length > 0 && (
-                          <span>{propVehs.length} orantılı</span>
-                        )}
-                        {!allOk && (
-                          <span className="ml-1 text-amber-500">⚠ eksik grup</span>
-                        )}
-                      </span>
-                    </div>
-                    {/* Renk tercihi */}
-                    <div className="flex items-start gap-2 text-xs">
-                      <span className="text-slate-400 w-20 shrink-0">Renk uyumu</span>
-                      <span className="text-slate-600">
-                        {colorMatchCount !== null
-                          ? <>
-                              <span className={`font-semibold ${colorMatchCount > 0 ? 'text-amber-600' : 'text-slate-500'}`}>
-                                {colorMatchCount}/{s.allocated}
-                              </span>
-                              {' '}araç geçmiş tercihle örtüşüyor
-                              {' '}(%{s.allocated > 0 ? Math.round(colorMatchCount/s.allocated*100) : 0})
-                            </>
-                          : <span className="text-slate-400">Geçmiş renk verisi yok</span>
-                        }
-                      </span>
-                    </div>
-                    {/* Doluluk oranı */}
-                    <div className="flex items-start gap-2 text-xs">
-                      <span className="text-slate-400 w-20 shrink-0">Hedef doluluk</span>
-                      <span className={`font-semibold ${ok?'text-green-600':'text-amber-600'}`}>
-                        %{s.fill_rate.toFixed(1)}
-                        {s.gap < 0 && ` (${s.gap} eksik — arz yetersiz)`}
-                        {s.gap === 0 && ' (tam)'}
-                      </span>
-                    </div>
-                  </div>
+                  <span className={`text-xs font-medium ${ok?'text-green-600':'text-amber-600'}`}>%{s.fill_rate.toFixed(1)}</span>
                 </div>
               )
             })}
@@ -969,6 +909,187 @@ export default function Dagitim() {
           </div>
         </div>
       )}
+
+      {/* ── TAB 3: Atama Özeti ── */}
+      {resultTab === 3 && (() => {
+        const totalMin  = allocated.filter(v => v.reason !== 'Orantılı').length
+        const totalProp = allocated.filter(v => v.reason === 'Orantılı').length
+        const totalColorMatch = Object.values(colorPrefs).length > 0
+          ? allocated.filter(v => (colorPrefs[v.dealer] ?? []).includes(v.color)).length
+          : null
+
+        // Bayi bazında kırılım tablosu
+        const atamaRows = allDealersR.map(dealer => {
+          const dv = allocated.filter(v => v.dealer === dealer)
+          const grpMin: Record<string, number> = {}
+          groupsInResult.forEach(g => {
+            grpMin[g] = dv.filter(v => v.reason === `${g} grubu min.`).length
+          })
+          const prop  = dv.filter(v => v.reason === 'Orantılı').length
+          const prefs = colorPrefs[dealer] ?? []
+          const colorMatch = prefs.length > 0 ? dv.filter(v => prefs.includes(v.color)).length : null
+          const target = summary.find(s => s.dealer === dealer)?.target ?? 0
+          return { dealer, grpMin, prop, colorMatch, total: dv.length, target }
+        })
+
+        // Stacked bar: min vs orantılı per dealer
+        const atamaBars = atamaRows.map(r => {
+          const bar: Record<string,unknown> = { dealer: r.dealer, Orantılı: r.prop }
+          groupsInResult.forEach(g => { bar[`${g} min.`] = r.grpMin[g] ?? 0 })
+          return bar
+        })
+        const barKeys = groupsInResult.map(g => `${g} min.`)
+
+        return (
+          <div className="space-y-5">
+            {/* KPI */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {([
+                ['Min. Garantili', totalMin,  'text-blue-600'],
+                ['Orantılı Atanan', totalProp, 'text-slate-700'],
+                ['Renk Uyumu', totalColorMatch !== null ? `${totalColorMatch} araç` : '—', 'text-amber-600'],
+                ['Uyum Oranı', totalColorMatch !== null ? `%${Math.round(totalColorMatch/allocated.length*100)}` : '—', 'text-amber-600'],
+              ] as [string, string|number, string][]).map(([l,v,c]) => (
+                <div key={l} className="bg-white rounded-xl border border-slate-200 shadow-sm p-4 text-center">
+                  <p className="text-xs text-slate-500 mb-1">{l}</p>
+                  <p className={`text-2xl font-bold ${c}`}>{v}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* Açıklama */}
+            <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 text-xs text-slate-600 space-y-1">
+              <p><span className="font-semibold text-slate-800">Min. Garantili:</span> Her bayiye model grubu başına (A, B, …) ayrılan araçlar. Faz 1'de havuzdan ilk uygun araç alınır.</p>
+              <p><span className="font-semibold text-slate-800">Orantılı Atanan:</span> Minimum sonrası kalan araçlar; her bayinin kotası toplam kota içindeki payıyla çarpılarak model-versiyon-renk karması korunur.</p>
+              <p><span className="font-semibold text-slate-800">Renk Uyumu:</span> Atanan aracın rengi, bayinin geçmiş satışlarda en çok tercih ettiği ilk 3 renk arasında yer alıyorsa uyumlu sayılır.</p>
+            </div>
+
+            {/* Stacked bar: min vs orantılı */}
+            <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-5">
+              <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-4">Atama Tipi Dağılımı (Bayi Bazında)</h3>
+              <ResponsiveContainer width="100%" height={320}>
+                <BarChart data={atamaBars} margin={{ left:0, right:10, bottom:60 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9"/>
+                  <XAxis dataKey="dealer" tick={{ fontSize:10 }} angle={-45} textAnchor="end" interval={0}/>
+                  <YAxis tick={{ fontSize:11 }}/><Tooltip/><Legend/>
+                  {barKeys.map((k, i) => (
+                    <Bar key={k} dataKey={k} stackId="a" fill={CHART_COLORS[i % CHART_COLORS.length]}/>
+                  ))}
+                  <Bar dataKey="Orantılı" stackId="a" fill="#cbd5e1"/>
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+
+            {/* Bayi bazında özet tablosu */}
+            <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+              <div className="px-5 py-3 border-b border-slate-200">
+                <h3 className="text-sm font-semibold text-slate-600">Bayi Bazında Atama Kırılımı</h3>
+              </div>
+              <div className="overflow-x-auto">
+                <table className="w-full text-xs">
+                  <thead>
+                    <tr className="bg-slate-50 border-b border-slate-200">
+                      <th className="px-4 py-2.5 text-left font-medium text-slate-500">Bayi</th>
+                      {groupsInResult.map(g => (
+                        <th key={g} className={`px-4 py-2.5 text-right font-medium ${grpStyle(g).text}`}>{g} min.</th>
+                      ))}
+                      <th className="px-4 py-2.5 text-right font-medium text-slate-500">Orantılı</th>
+                      <th className="px-4 py-2.5 text-right font-medium text-slate-500">Toplam</th>
+                      <th className="px-4 py-2.5 text-right font-medium text-slate-500">Hedef</th>
+                      <th className="px-4 py-2.5 text-right font-medium text-slate-500">Renk Uyumu</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {atamaRows.map(r => (
+                      <tr key={r.dealer} className="border-b border-slate-100 hover:bg-slate-50">
+                        <td className="px-4 py-2 font-medium text-slate-800">{r.dealer}</td>
+                        {groupsInResult.map(g => (
+                          <td key={g} className={`px-4 py-2 text-right font-semibold ${grpStyle(g).text}`}>
+                            {r.grpMin[g] ?? 0}
+                          </td>
+                        ))}
+                        <td className="px-4 py-2 text-right text-slate-600">{r.prop}</td>
+                        <td className="px-4 py-2 text-right font-bold text-blue-600">{r.total}</td>
+                        <td className="px-4 py-2 text-right text-slate-500">{r.target}</td>
+                        <td className="px-4 py-2 text-right">
+                          {r.colorMatch !== null
+                            ? <span className={`font-semibold ${r.colorMatch > 0 ? 'text-amber-600' : 'text-slate-400'}`}>
+                                {r.colorMatch}/{r.total}
+                                <span className="text-slate-400 font-normal ml-1">
+                                  (%{r.total > 0 ? Math.round(r.colorMatch/r.total*100) : 0})
+                                </span>
+                              </span>
+                            : <span className="text-slate-300">—</span>
+                          }
+                        </td>
+                      </tr>
+                    ))}
+                    <tr className="bg-slate-50 border-t-2 border-slate-200 font-bold">
+                      <td className="px-4 py-2 text-slate-700">Toplam</td>
+                      {groupsInResult.map(g => (
+                        <td key={g} className={`px-4 py-2 text-right ${grpStyle(g).text}`}>
+                          {atamaRows.reduce((s,r) => s+(r.grpMin[g]??0), 0)}
+                        </td>
+                      ))}
+                      <td className="px-4 py-2 text-right text-slate-600">{totalProp}</td>
+                      <td className="px-4 py-2 text-right text-blue-700">{allocated.length}</td>
+                      <td className="px-4 py-2 text-right text-slate-500">{summary.reduce((s,r)=>s+r.target,0)}</td>
+                      <td className="px-4 py-2 text-right text-amber-600">
+                        {totalColorMatch !== null ? `${totalColorMatch}/${allocated.length}` : '—'}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        )
+      })()}
+
+      {/* ── Export: xlsx indirme ─────────────────────────────────────────────── */}
+      <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden mt-2">
+        <div className="px-5 py-3 border-b border-slate-200 flex items-center justify-between">
+          <div>
+            <h3 className="text-sm font-semibold text-slate-700">Dağıtım Listesi</h3>
+            <p className="text-xs text-slate-400 mt-0.5">
+              Orijinal Excel'deki araçlar — <code className="bg-slate-100 px-1 rounded">Dealer Code Processing</code> ve <code className="bg-slate-100 px-1 rounded">Dealer Name</code> alanları atanan bayi bilgileriyle doldurulmuş
+            </p>
+          </div>
+          <button
+            onClick={exportToXlsx}
+            className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors shrink-0"
+          >
+            ↓ .xlsx İndir
+          </button>
+        </div>
+        <div className="overflow-x-auto">
+          <table className="w-full text-xs">
+            <thead>
+              <tr className="bg-slate-50 border-b border-slate-200">
+                {['#','Long Chassis No','Model','Versiyon','Renk','Dealer Code Processing','Dealer Name'].map(h => (
+                  <th key={h} className="px-3 py-2.5 text-left font-medium text-slate-500 whitespace-nowrap">{h}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {(() => {
+                const codeMap = allDealers.reduce<Record<string,string>>((a,d)=>{ a[d.name]=d.code; return a }, {})
+                return allocated.map((v, i) => (
+                  <tr key={i} className={`border-b border-slate-100 hover:bg-slate-50 ${i%2===0?'':'bg-slate-50/30'}`}>
+                    <td className="px-3 py-1.5 text-slate-400">{i+1}</td>
+                    <td className="px-3 py-1.5 font-mono text-slate-700 whitespace-nowrap">{v.chassis||'—'}</td>
+                    <td className="px-3 py-1.5 font-semibold text-slate-900">{v.model}</td>
+                    <td className="px-3 py-1.5 text-slate-600">{v.version}</td>
+                    <td className="px-3 py-1.5 text-slate-600">{v.color}</td>
+                    <td className="px-3 py-1.5 font-mono text-blue-700">{codeMap[v.dealer] ?? '—'}</td>
+                    <td className="px-3 py-1.5 font-medium text-slate-800">{v.dealer}</td>
+                  </tr>
+                ))
+              })()}
+            </tbody>
+          </table>
+        </div>
+      </div>
 
       <div className="flex gap-3 pt-2">
         <button onClick={() => setStep(1)} className="px-5 py-2.5 rounded-lg border border-slate-300 text-sm text-slate-600 hover:bg-slate-50">
