@@ -72,6 +72,8 @@ plt.rcParams.update({
 
 # Yetersiz veri eşiği: 2 yıllık toplam bu sayının altındaysa atlana
 MIN_SALES_THRESHOLD = 24
+# İkili kombinasyon (bayi×model / bayi×renk) için düşürülmüş eşik
+MIN_COMBO_THRESHOLD = 8
 
 
 # ---------------------------------------------------------------------------
@@ -579,6 +581,127 @@ def compute_color_si(df_sales: pd.DataFrame) -> pd.DataFrame:
     return pivot
 
 
+def compute_dealer_model_si(df_sales: pd.DataFrame) -> dict[str, pd.DataFrame]:
+    """Bayi × Model kombinasyonu bazında mevsimsel indeks.
+
+    Sadece NORTHSTAR (Marka X) 2024-2025 kendi satış verisi kullanılır;
+    piyasa veya rakip verisi dahil edilmez.
+    Her bayi için, o bayinin sattığı her model bazında ayrı SI hesaplanır.
+    İkili kombinasyon için veri eşiği MIN_COMBO_THRESHOLD olarak düşürülür.
+
+    Args:
+        df_sales: load_sales() çıktısı.
+
+    Returns:
+        Dict: bayi adı → DataFrame (satır=ay 1-12, sütun=model adları).
+    """
+    result: dict[str, pd.DataFrame] = {}
+
+    for dealer, dealer_grp in df_sales.groupby("Dealer Name"):
+        if len(dealer_grp) < MIN_SALES_THRESHOLD:
+            continue
+
+        model_sis: dict[str, list[float]] = {}
+        for model, model_grp in dealer_grp.groupby("Model Description"):
+            if len(model_grp) < MIN_COMBO_THRESHOLD:
+                continue
+            monthly = (
+                model_grp
+                .groupby(["year", "month"])
+                .size()
+                .reset_index(name="sales_qty")
+            )
+            si_series = _ratio_to_mean(monthly, "sales_qty")
+            model_sis[str(model)] = si_series.tolist()
+
+        if model_sis:
+            df = pd.DataFrame(model_sis, index=range(1, 13))
+            df.index.name = "month"
+            result[str(dealer)] = df
+
+    return result
+
+
+def compute_dealer_color_si(df_sales: pd.DataFrame) -> dict[str, pd.DataFrame]:
+    """Bayi × Renk kombinasyonu bazında mevsimsel indeks.
+
+    Sadece NORTHSTAR (Marka X) 2024-2025 kendi satış verisi kullanılır;
+    piyasa veya rakip verisi dahil edilmez.
+    Her bayi için, en çok satılan ilk 5 renk bazında SI hesaplanır.
+    İkili kombinasyon için veri eşiği MIN_COMBO_THRESHOLD olarak düşürülür.
+
+    Args:
+        df_sales: load_sales() çıktısı.
+
+    Returns:
+        Dict: bayi adı → DataFrame (satır=ay 1-12, sütun=renk adları).
+    """
+    result: dict[str, pd.DataFrame] = {}
+
+    for dealer, dealer_grp in df_sales.groupby("Dealer Name"):
+        if len(dealer_grp) < MIN_SALES_THRESHOLD:
+            continue
+
+        # Bu bayinin en çok sattığı 5 renk
+        top_colors = (
+            dealer_grp["Exterior Color"]
+            .value_counts()
+            .head(5)
+            .index
+            .tolist()
+        )
+
+        color_sis: dict[str, list[float]] = {}
+        for color in top_colors:
+            color_grp = dealer_grp[dealer_grp["Exterior Color"] == color]
+            if len(color_grp) < MIN_COMBO_THRESHOLD:
+                continue
+            monthly = (
+                color_grp
+                .groupby(["year", "month"])
+                .size()
+                .reset_index(name="sales_qty")
+            )
+            si_series = _ratio_to_mean(monthly, "sales_qty")
+            color_sis[str(color)] = si_series.tolist()
+
+        if color_sis:
+            df = pd.DataFrame(color_sis, index=range(1, 13))
+            df.index.name = "month"
+            result[str(dealer)] = df
+
+    return result
+
+
+def _dict_si_to_long(
+    si_dict: dict[str, pd.DataFrame],
+    key_col: str,
+) -> pd.DataFrame:
+    """Bayi→DataFrame(ay×kategori) yapısını long format CSV için düzleştirir.
+
+    Args:
+        si_dict:  compute_dealer_model_si() veya compute_dealer_color_si() çıktısı.
+        key_col:  Kategori sütun adı ("model" veya "color").
+
+    Returns:
+        Long format DataFrame: dealer, key_col, month, month_name, si.
+    """
+    rows: list[dict] = []
+    for dealer, df in si_dict.items():
+        for cat in df.columns:
+            for month_no, si_val in zip(range(1, 13), df[cat].tolist()):
+                rows.append({
+                    "dealer":     dealer,
+                    key_col:      cat,
+                    "month":      month_no,
+                    "month_name": MONTH_ABBR_TR[month_no - 1],
+                    "si":         round(float(si_val), 4),
+                })
+    if rows:
+        return pd.DataFrame(rows)
+    return pd.DataFrame(columns=["dealer", key_col, "month", "month_name", "si"])
+
+
 # ---------------------------------------------------------------------------
 # 6. Nihai ağırlıklı SI
 # ---------------------------------------------------------------------------
@@ -890,6 +1013,128 @@ def plot_color_heatmap(color_si_pivot: pd.DataFrame, output_dir: Path) -> None:
         title="Renk Bazında Mevsimsel İndeks Isı Haritası (Top 10)",
         output_path=output_dir / "06_renk_heatmap.png",
     )
+
+
+def plot_dealer_model_heatmap(
+    dealer_model_si: dict[str, pd.DataFrame],
+    output_dir: Path,
+) -> None:
+    """Model bazında Bayi × Ay mevsimsel indeks ısı haritası.
+
+    Başlıkta açıkça belirtilir: Marka X 2024-2025 kendi satış verisi bazlıdır.
+    Her model için ayrı bir heatmap üretilir: satırlar=bayiler, sütunlar=aylar.
+
+    Args:
+        dealer_model_si: compute_dealer_model_si() çıktısı.
+        output_dir:      Çıktı klasörü.
+    """
+    if not dealer_model_si:
+        return
+
+    all_models: set[str] = set()
+    for df in dealer_model_si.values():
+        all_models.update(df.columns.tolist())
+
+    for model in sorted(all_models):
+        dealer_rows: dict[str, list[float]] = {}
+        for dealer, df in sorted(dealer_model_si.items()):
+            if model in df.columns:
+                dealer_rows[dealer] = df[model].tolist()
+
+        if len(dealer_rows) < 2:
+            continue
+
+        pivot = pd.DataFrame(dealer_rows, index=range(1, 13)).T
+        pivot.columns = MONTH_ABBR_EN
+
+        n_dealers = pivot.shape[0]
+        fig_h = max(4, n_dealers * 0.45)
+        fig, ax = plt.subplots(figsize=(14, fig_h))
+
+        sns.heatmap(
+            pivot,
+            annot=True, fmt=".2f",
+            cmap="RdYlGn", center=1.0,
+            vmin=0.4, vmax=1.8,
+            linewidths=0.4, linecolor="white",
+            ax=ax,
+            cbar_kws={"label": "Mevsimsel İndeks (1.0 = ortalama)"},
+            annot_kws={"size": 8},
+        )
+        ax.set_title(
+            f"Marka X 2024-2025 Kendi Satış Verisi Bazlı\n"
+            f"{model} — Bayi Bazında Aylık Mevsimsel İndeks",
+            fontsize=12, fontweight="bold",
+        )
+        ax.set_xlabel("Ay")
+        ax.set_ylabel("Bayi")
+        fig.tight_layout()
+
+        safe = model.replace("/", "_").replace(" ", "_")
+        _save_fig(fig, output_dir / f"10_bayi_model_{safe}_heatmap.png")
+
+
+def plot_dealer_color_heatmap(
+    dealer_color_si: dict[str, pd.DataFrame],
+    output_dir: Path,
+    top_n: int = 4,
+) -> None:
+    """Renk bazında Bayi × Ay mevsimsel indeks ısı haritası.
+
+    Başlıkta açıkça belirtilir: Marka X 2024-2025 kendi satış verisi bazlıdır.
+    En yaygın top_n renk için ayrı heatmap üretilir.
+
+    Args:
+        dealer_color_si: compute_dealer_color_si() çıktısı.
+        output_dir:      Çıktı klasörü.
+        top_n:           Kaç renk için heatmap üretileceği.
+    """
+    if not dealer_color_si:
+        return
+
+    color_counts: dict[str, int] = {}
+    for df in dealer_color_si.values():
+        for color in df.columns:
+            color_counts[color] = color_counts.get(color, 0) + 1
+    top_colors = sorted(color_counts, key=lambda x: -color_counts[x])[:top_n]
+
+    for color in top_colors:
+        dealer_rows: dict[str, list[float]] = {}
+        for dealer, df in sorted(dealer_color_si.items()):
+            if color in df.columns:
+                dealer_rows[dealer] = df[color].tolist()
+
+        if len(dealer_rows) < 2:
+            continue
+
+        pivot = pd.DataFrame(dealer_rows, index=range(1, 13)).T
+        pivot.columns = MONTH_ABBR_EN
+
+        n_dealers = pivot.shape[0]
+        fig_h = max(4, n_dealers * 0.45)
+        fig, ax = plt.subplots(figsize=(14, fig_h))
+
+        sns.heatmap(
+            pivot,
+            annot=True, fmt=".2f",
+            cmap="RdYlGn", center=1.0,
+            vmin=0.4, vmax=1.8,
+            linewidths=0.4, linecolor="white",
+            ax=ax,
+            cbar_kws={"label": "Mevsimsel İndeks (1.0 = ortalama)"},
+            annot_kws={"size": 8},
+        )
+        ax.set_title(
+            f"Marka X 2024-2025 Kendi Satış Verisi Bazlı\n"
+            f"{color} Rengi — Bayi Bazında Aylık Mevsimsel İndeks",
+            fontsize=12, fontweight="bold",
+        )
+        ax.set_xlabel("Ay")
+        ax.set_ylabel("Bayi")
+        fig.tight_layout()
+
+        safe = color.replace("/", "_").replace(" ", "_")
+        _save_fig(fig, output_dir / f"11_bayi_renk_{safe}_heatmap.png")
 
 
 def plot_monthly_plan(
@@ -1353,6 +1598,11 @@ def run(annual_target: int = 3_600) -> None:
     dealer_si   = compute_dealer_si(df_sales)
     model_si    = compute_model_si(df_sales)
     color_si    = compute_color_si(df_sales)
+    # Marka X 2024-2025 kendi verisi bazlı çapraz boyutlu SI'lar
+    dealer_model_si = compute_dealer_model_si(df_sales)
+    dealer_color_si = compute_dealer_color_si(df_sales)
+    print(f"  Bayi×Model kombinasyonu: {sum(len(v.columns) for v in dealer_model_si.values())} çift")
+    print(f"  Bayi×Renk kombinasyonu:  {sum(len(v.columns) for v in dealer_color_si.values())} çift")
 
     print("\n[3/7] Optimal ağırlıklar hesaplanıyor (YoY stability)...")
     stabilities = _stability_detail(DATA_DIR, df_comp, df_sales)
@@ -1449,6 +1699,9 @@ def run(annual_target: int = 3_600) -> None:
         "method":          ["YoY Stability"] * 3,
     })
 
+    dealer_model_long = _dict_si_to_long(dealer_model_si, "model")
+    dealer_color_long = _dict_si_to_long(dealer_color_si, "color")
+
     csv_outputs: list[tuple] = [
         (odd_df,                       "01_odd_si.csv"),
         (combined_df,                  "01_mevsimsel_indeksler.csv"),
@@ -1458,6 +1711,8 @@ def run(annual_target: int = 3_600) -> None:
         (dealer_si.reset_index(),      "05_bayi_si.csv"),
         (model_si.reset_index(),       "06_model_si.csv"),
         (color_si.reset_index(),       "07_renk_si.csv"),
+        (dealer_model_long,            "08_bayi_model_si.csv"),
+        (dealer_color_long,            "10_bayi_renk_si.csv"),
         (weight_df,                    "09_agirlik_analizi.csv"),
     ]
     for df_out, fname in csv_outputs:
@@ -1492,6 +1747,9 @@ def run(annual_target: int = 3_600) -> None:
     plot_model_heatmap(model_si, OUTPUT_DIR)
     plot_color_heatmap(color_si, OUTPUT_DIR)
     plot_monthly_plan(plan, annual_target, OUTPUT_DIR, weights=weights)
+    # Marka X 2024-2025 kendi verisi bazlı çapraz boyutlu görseller
+    plot_dealer_model_heatmap(dealer_model_si, OUTPUT_DIR)
+    plot_dealer_color_heatmap(dealer_color_si, OUTPUT_DIR)
 
     print(f"\nTamamlandi → {OUTPUT_DIR}")
     png_count = len(list(OUTPUT_DIR.glob("*.png")))

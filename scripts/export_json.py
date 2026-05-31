@@ -232,99 +232,98 @@ model_si_rows = model_si_df.to_dict("records") if model_si_df is not None else [
 renk_si_df = read(SEA / "07_renk_si.csv")
 renk_si_rows = renk_si_df.to_dict("records") if renk_si_df is not None else []
 
+_MONTH_TR = ["Ocak","Şubat","Mart","Nisan","Mayıs","Haziran",
+             "Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"]
+
+
+def _long_to_nested(df: pd.DataFrame | None, cat_col: str) -> dict[str, list[dict]]:
+    """Long-format SI CSV'sini bayi→[aylık kayıt] dict yapısına çevirir."""
+    if df is None:
+        return {}
+    result: dict[str, list[dict]] = {}
+    for dealer, grp in df.groupby("dealer"):
+        month_names = {
+            int(r["month"]): r["month_name"]
+            for _, r in grp[["month", "month_name"]].drop_duplicates().iterrows()
+        }
+        pivot = grp.pivot_table(
+            index="month", columns=cat_col, values="si", aggfunc="first"
+        ).reset_index()
+        pivot.columns.name = None
+        records: list[dict] = []
+        for _, row in pivot.iterrows():
+            m = int(row["month"])
+            rec: dict = {"month": m, "month_name": month_names.get(m, _MONTH_TR[m - 1])}
+            for col in pivot.columns:
+                if col == "month":
+                    continue
+                val = row[col]
+                if not (isinstance(val, float) and pd.isna(val)):
+                    rec[str(col)] = round(float(val), 4)
+            records.append(rec)
+        result[str(dealer)] = records
+    return result
+
+
+bayi_model_si_dict = _long_to_nested(read(SEA / "08_bayi_model_si.csv"), "model")
+bayi_renk_si_dict  = _long_to_nested(read(SEA / "10_bayi_renk_si.csv"),  "color")
+
 save({
-    "final":   final_rows,
-    "bayi_si": bayi_si_rows,
-    "model_si": model_si_rows,
-    "renk_si":  renk_si_rows,
+    "final":         final_rows,
+    "bayi_si":       bayi_si_rows,
+    "model_si":      model_si_rows,
+    "renk_si":       renk_si_rows,
+    "bayi_model_si": bayi_model_si_dict,
+    "bayi_renk_si":  bayi_renk_si_dict,
 }, "mevsimsellik.json")
 
 
 # ---------------------------------------------------------------------------
-# 5. Bayi konumları + aktiflik + kodlar + hedefler
+# 5. Bayi konumları
 # ---------------------------------------------------------------------------
 print("Bayi konumları export ediliyor...")
 
-import csv as _csv
+INACTIVE_FROM = 23
 
-REGION_MAP = {
-    "ICA": "İç Anadolu", "EGE": "Ege", "AKD": "Akdeniz",
-    "MAR": "Marmara",    "GDA": "Güneydoğu Anadolu",
-    "KAR": "Karadeniz",  "DOA": "Doğu Anadolu",
-}
+def classify(lat: float, lon: float) -> str:
+    if lat >= 40.0 and lon < 32.0:   return "Marmara"
+    if lat >= 40.5 and lon >= 32.0:  return "Karadeniz"
+    if lon < 30.5 and lat < 40.0:    return "Ege"
+    if lat < 37.5 and lon >= 37.0:   return "Güneydoğu Anadolu"
+    if lat < 37.5:                   return "Akdeniz"
+    if lon >= 38.0 and lat < 40.5:   return "Doğu Anadolu"
+    return "İç Anadolu"
 
-def region_from_code(code: str) -> str:
-    parts = code.split("-")
-    return REGION_MAP.get(parts[2] if len(parts) > 2 else "", "Bilinmiyor")
-
-# Kodlar
-codes: dict[str, str] = {}
-with open(RAW / "Bayi-Adi-Kodu.csv", encoding="utf-8-sig") as f:
-    for row in _csv.reader(f, delimiter=";"):
-        if len(row) >= 2 and row[0].startswith("DEALER"):
-            codes[row[0].strip()] = row[1].strip()
-
-# Konumlar
-locations: dict[str, dict] = {}
-with open(RAW / "Bayi-Konum-Bilgisi.csv", encoding="utf-8-sig") as f:
-    for row in _csv.reader(f, delimiter=";"):
-        if len(row) >= 2 and row[0].startswith("DEALER"):
-            lat, lon = map(float, row[1].strip().split(","))
-            locations[row[0].strip()] = {"lat": lat, "lon": lon}
-
-# Aktiflik durumu
-activity_months: list[str] = []
-activity: dict[str, dict] = {}
-with open(RAW / "Bayi-Aktiflik-Durumu.csv", encoding="utf-8-sig") as f:
-    reader = _csv.reader(f, delimiter=";")
-    header = next(reader)
-    activity_months = [h.strip() for h in header[1:] if h.strip()]
-    for row in reader:
-        if len(row) >= 2 and row[0].startswith("DEALER"):
-            dealer = row[0].strip()
-            activity[dealer] = {
-                activity_months[i]: row[i + 1].strip()
-                for i in range(len(activity_months))
-                if i + 1 < len(row)
-            }
-
-dealer_rows = []
-for dealer in sorted(codes.keys(), key=lambda x: int(x.split()[-1])):
-    code = codes[dealer]
-    loc  = locations.get(dealer, {"lat": 0.0, "lon": 0.0})
-    act  = activity.get(dealer, {})
-    default_active = act.get("Oca.26", "AKTİF DEĞİL") == "AKTİF"
-    dealer_rows.append({
-        "name":     dealer,
-        "code":     code,
-        "lat":      loc["lat"],
-        "lon":      loc["lon"],
-        "region":   region_from_code(code),
-        "active":   default_active,
-        "activity": act,
-    })
+dealer_rows: list[dict] = []
+loc_path = RAW / "Dealer-Location.csv"
+if loc_path.exists():
+    with open(loc_path, encoding="utf-8-sig") as f:
+        lines = f.readlines()
+    for line in lines[1:]:
+        line = line.strip()
+        if not line:
+            continue
+        parts = line.split(";")
+        if len(parts) < 2:
+            continue
+        name = parts[0].strip()
+        try:
+            lat, lon = map(float, parts[1].strip().split(","))
+        except Exception:
+            continue
+        try:
+            num = int(name.split()[-1])
+            active = num < INACTIVE_FROM
+        except ValueError:
+            active = True
+        dealer_rows.append({
+            "name":   name,
+            "lat":    lat,
+            "lon":    lon,
+            "region": classify(lat, lon),
+            "active": active,
+        })
 
 save(dealer_rows, "dealers.json")
-
-# Bayi hedefleri
-print("Bayi hedefleri export ediliyor...")
-TARGET_MONTHS = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs"]
-bayi_hedef: dict[str, list] = {m: [] for m in TARGET_MONTHS}
-with open(RAW / "Bayi-Hedefleri.csv", encoding="utf-8-sig") as f:
-    reader = _csv.reader(f, delimiter=";")
-    next(reader)
-    for row in reader:
-        if not row or not row[0].startswith("DEALER"):
-            continue
-        dealer = row[0].strip()
-        code   = row[1].strip() if len(row) > 1 else ""
-        for i, month in enumerate(TARGET_MONTHS):
-            col     = i + 2
-            val_str = row[col].strip() if col < len(row) else ""
-            target  = int(val_str) if val_str.isdigit() else None
-            bayi_hedef[month].append({"dealer": dealer, "code": code, "target": target})
-
-save(bayi_hedef, "bayi-hedefleri.json")
-print("  ✓ bayi-hedefleri.json")
 
 print(f"\nToplam {len(list(DEST.glob('*.json')))} JSON dosyası oluşturuldu → {DEST}")

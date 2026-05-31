@@ -6,10 +6,12 @@ import {
 
 interface FinalRow { month: number; month_name: string; final_si: number; odd_si: number; segment_si: number }
 interface MevsimData {
-  final:    FinalRow[]
-  bayi_si:  Record<string, number | string>[]
-  model_si: Record<string, number | string>[]
-  renk_si:  Record<string, number | string>[]
+  final:          FinalRow[]
+  bayi_si:        Record<string, number | string>[]
+  model_si:       Record<string, number | string>[]
+  renk_si:        Record<string, number | string>[]
+  bayi_model_si?: Record<string, Record<string, number | string>[]>
+  bayi_renk_si?:  Record<string, Record<string, number | string>[]>
 }
 
 const CHART_COLORS = [
@@ -100,10 +102,12 @@ function HeatTable({ data, keys, selected, onSelect }: {
 }
 
 export default function Mevsimsellik() {
-  const [data, setData]     = useState<MevsimData | null>(null)
-  const [tab, setTab]       = useState(0)
-  const [dealer, setDealer] = useState('')
-  const [model, setModel]   = useState('')
+  const [data, setData]              = useState<MevsimData | null>(null)
+  const [tab, setTab]                = useState(0)
+  const [dealer, setDealer]          = useState('')
+  const [model, setModel]            = useState('')
+  const [dealerForModel, setDealerForModel] = useState('')
+  const [dealerForColor, setDealerForColor] = useState('')
 
   useEffect(() => {
     const base = import.meta.env.BASE_URL
@@ -120,6 +124,23 @@ export default function Mevsimsellik() {
   const effDealer = dealer || dealerKeys[0]
   const effModel  = model  || modelKeys[0]
 
+  const bayiModelKeys = Object.keys(data.bayi_model_si ?? {})
+    .sort((a,b) => parseInt(a.split(' ').pop()??'0') - parseInt(b.split(' ').pop()??'0'))
+  const bayiRenkKeys  = Object.keys(data.bayi_renk_si ?? {})
+    .sort((a,b) => parseInt(a.split(' ').pop()??'0') - parseInt(b.split(' ').pop()??'0'))
+
+  const effDealerForModel = dealerForModel || bayiModelKeys[0] || ''
+  const effDealerForColor = dealerForColor || bayiRenkKeys[0]  || ''
+
+  const modelKeysForDealer = effDealerForModel && data.bayi_model_si?.[effDealerForModel]
+    ? Object.keys(data.bayi_model_si[effDealerForModel][0])
+        .filter(k => k !== 'month' && k !== 'month_name').sort()
+    : []
+  const colorKeysForDealer = effDealerForColor && data.bayi_renk_si?.[effDealerForColor]
+    ? Object.keys(data.bayi_renk_si[effDealerForColor][0])
+        .filter(k => k !== 'month' && k !== 'month_name').sort()
+    : []
+
   return (
     <div className="max-w-7xl mx-auto">
       <div className="mb-6">
@@ -127,7 +148,7 @@ export default function Mevsimsellik() {
         <p className="text-slate-500 text-sm mt-1">STL Decomposition ile hesaplanan aylık mevsimsellik indeksleri</p>
       </div>
 
-      <TabBar tabs={['Genel SI', 'Bayi Bazında', 'Model Bazında', 'Renk Bazında']} active={tab} onChange={setTab} />
+      <TabBar tabs={['Genel SI', 'Bayi Bazında', 'Model Bazında', 'Renk Bazında', 'Bayi × Model', 'Bayi × Renk']} active={tab} onChange={setTab} />
 
       {/* TAB 0: Genel */}
       {tab === 0 && (
@@ -284,6 +305,167 @@ export default function Mevsimsellik() {
               </LineChart>
             </ResponsiveContainer>
           </Card>
+        </div>
+      )}
+
+      {/* TAB 4: Bayi × Model — Marka X kendi verisi */}
+      {tab === 4 && (
+        <div className="space-y-6">
+          <div className="bg-blue-50 rounded-xl p-4 border border-blue-200">
+            <p className="text-sm font-semibold text-blue-800">
+              Marka X 2024-2025 Kendi Satış Verisi Bazlı — Bayi × Model Mevsimsel İndeks
+            </p>
+            <p className="text-xs text-blue-600 mt-1">
+              Her bayinin kendi satış geçmişindeki model bazında aylık mevsimsellik ölçülür.
+              Piyasa verisi veya rakip verisi kullanılmaz. Yetersiz veri bulunan kombinasyonlar gösterilmez.
+            </p>
+          </div>
+
+          {bayiModelKeys.length === 0 ? (
+            <div className="text-slate-400 text-sm p-6 text-center">Veri bulunamadı — önce export_json.py çalıştırın.</div>
+          ) : (
+            <>
+              <div className="flex items-center gap-3">
+                <label className="text-sm font-medium text-slate-600">Bayi:</label>
+                <select value={effDealerForModel} onChange={e => setDealerForModel(e.target.value)}
+                  className="text-sm border border-slate-300 rounded-lg px-3 py-1.5 bg-white">
+                  {bayiModelKeys.map(k => <option key={k}>{k}</option>)}
+                </select>
+              </div>
+
+              {data.bayi_model_si?.[effDealerForModel] && modelKeysForDealer.length > 0 && (
+                <>
+                  <Card title={`${effDealerForModel} — Model Bazında Aylık SI`}>
+                    <ResponsiveContainer width="100%" height={290}>
+                      <LineChart data={data.bayi_model_si[effDealerForModel]} margin={{ left: 0, right: 10 }}>
+                        <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
+                        <XAxis dataKey="month_name" tick={{ fontSize: 11 }} />
+                        <YAxis tick={{ fontSize: 11 }} />
+                        <Tooltip formatter={(v: number) => v?.toFixed(3)} />
+                        <ReferenceLine y={1} stroke="#94a3b8" strokeDasharray="4 4" />
+                        <Legend />
+                        {modelKeysForDealer.map((k, i) => (
+                          <Line key={k} dataKey={k} name={k}
+                            stroke={CHART_COLORS[i % CHART_COLORS.length]}
+                            strokeWidth={2} dot={{ r: 3 }} />
+                        ))}
+                      </LineChart>
+                    </ResponsiveContainer>
+                  </Card>
+
+                  <HeatTable
+                    data={data.bayi_model_si[effDealerForModel]}
+                    keys={modelKeysForDealer}
+                    selected=""
+                    onSelect={() => {}}
+                  />
+                </>
+              )}
+
+              <Card title="Tüm Bayiler Karşılaştırması — Model Bazında Ortalama SI">
+                <p className="text-xs text-slate-500 mb-3">Her bayinin tüm modeller ortalaması (veri olan modeller)</p>
+                <div className="overflow-x-auto">
+                  <table className="text-xs w-full">
+                    <thead>
+                      <tr className="border-b border-slate-200">
+                        <th className="text-left py-2 px-2 font-medium text-slate-500">Bayi</th>
+                        {Array.from(new Set(
+                          Object.values(data.bayi_model_si ?? {})
+                            .flatMap(rows => Object.keys(rows[0]).filter(k => k !== 'month' && k !== 'month_name'))
+                        )).sort().map(m => (
+                          <th key={m} className="text-center py-2 px-2 font-medium text-slate-500">{m}</th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {bayiModelKeys.map(d => {
+                        const rows = data.bayi_model_si?.[d] ?? []
+                        const allModels = Array.from(new Set(
+                          Object.values(data.bayi_model_si ?? {})
+                            .flatMap(r => Object.keys(r[0]).filter(k => k !== 'month' && k !== 'month_name'))
+                        )).sort()
+                        return (
+                          <tr key={d} className="border-b border-slate-100">
+                            <td className="py-1.5 px-2 font-medium text-slate-700 whitespace-nowrap">{d}</td>
+                            {allModels.map(m => {
+                              const vals = rows.map(r => r[m] as number).filter(v => v != null && !isNaN(v))
+                              const avg = vals.length ? vals.reduce((a,b) => a + b, 0) / vals.length : null
+                              return (
+                                <td key={m} className="py-1.5 px-2 text-center">
+                                  {avg != null
+                                    ? <span className="inline-block w-12 py-0.5 rounded font-mono text-center text-xs" style={siBg(avg)}>{avg.toFixed(2)}</span>
+                                    : <span className="text-slate-300">—</span>
+                                  }
+                                </td>
+                              )
+                            })}
+                          </tr>
+                        )
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              </Card>
+            </>
+          )}
+        </div>
+      )}
+
+      {/* TAB 5: Bayi × Renk — Marka X kendi verisi */}
+      {tab === 5 && (
+        <div className="space-y-6">
+          <div className="bg-violet-50 rounded-xl p-4 border border-violet-200">
+            <p className="text-sm font-semibold text-violet-800">
+              Marka X 2024-2025 Kendi Satış Verisi Bazlı — Bayi × Renk Mevsimsel İndeks
+            </p>
+            <p className="text-xs text-violet-600 mt-1">
+              Her bayinin kendi satış geçmişindeki renk bazında aylık mevsimsellik ölçülür (bayinin top 5 rengi).
+              Piyasa verisi veya rakip verisi kullanılmaz.
+            </p>
+          </div>
+
+          {bayiRenkKeys.length === 0 ? (
+            <div className="text-slate-400 text-sm p-6 text-center">Veri bulunamadı — önce export_json.py çalıştırın.</div>
+          ) : (
+            <>
+              <div className="flex items-center gap-3">
+                <label className="text-sm font-medium text-slate-600">Bayi:</label>
+                <select value={effDealerForColor} onChange={e => setDealerForColor(e.target.value)}
+                  className="text-sm border border-slate-300 rounded-lg px-3 py-1.5 bg-white">
+                  {bayiRenkKeys.map(k => <option key={k}>{k}</option>)}
+                </select>
+              </div>
+
+              {data.bayi_renk_si?.[effDealerForColor] && colorKeysForDealer.length > 0 && (
+                <>
+                  <Card title={`${effDealerForColor} — Renk Bazında Aylık SI (Top 5)`}>
+                    <ResponsiveContainer width="100%" height={290}>
+                      <LineChart data={data.bayi_renk_si[effDealerForColor]} margin={{ left: 0, right: 10 }}>
+                        <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
+                        <XAxis dataKey="month_name" tick={{ fontSize: 11 }} />
+                        <YAxis tick={{ fontSize: 11 }} />
+                        <Tooltip formatter={(v: number) => v?.toFixed(3)} />
+                        <ReferenceLine y={1} stroke="#94a3b8" strokeDasharray="4 4" />
+                        <Legend />
+                        {colorKeysForDealer.map((k, i) => (
+                          <Line key={k} dataKey={k} name={k}
+                            stroke={CHART_COLORS[i % CHART_COLORS.length]}
+                            strokeWidth={2} dot={{ r: 3 }} />
+                        ))}
+                      </LineChart>
+                    </ResponsiveContainer>
+                  </Card>
+
+                  <HeatTable
+                    data={data.bayi_renk_si[effDealerForColor]}
+                    keys={colorKeysForDealer}
+                    selected=""
+                    onSelect={() => {}}
+                  />
+                </>
+              )}
+            </>
+          )}
         </div>
       )}
     </div>
