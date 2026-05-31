@@ -136,6 +136,7 @@
   "bayi_si": [
     {
       "month": 1,
+      "month_name": "Ocak",
       "DEALER 1": 0.9897,
       "DEALER 2": 0.8348,
       "DEALER 3": 1.3083,
@@ -161,6 +162,7 @@
     },
     {
       "month": 2,
+      "month_name": "Şubat",
       "DEALER 1": 1.0722,
       "DEALER 2": 1.0435,
       "DEALER 3": 1.0376,
@@ -186,6 +188,7 @@
     },
     {
       "month": 3,
+      "month_name": "Mart",
       "DEALER 1": 1.0309,
       "DEALER 2": 1.0435,
       "DEALER 3": 1.0827,
@@ -211,6 +214,7 @@
     },
     {
       "month": 4,
+      "month_name": "Nisan",
       "DEALER 1": 0.701,
       "DEALER 2": 0.7826,
       "DEALER 3": 0.5414,
@@ -236,6 +240,7 @@
     },
     {
       "month": 5,
+      "month_name": "Mayıs",
       "DEALER 1": 0.7835,
       "DEALER 2": 0.6261,
       "DEALER 3": 0.5865,
@@ -261,6 +266,7 @@
     },
     {
       "month": 6,
+      "month_name": "Haziran",
       "DEALER 1": 0.7835,
       "DEALER 2": 0.9913,
       "DEALER 3": 0.9474,
@@ -286,6 +292,7 @@
     },
     {
       "month": 7,
+      "month_name": "Temmuz",
       "DEALER 1": 0.9691,
       "DEALER 2": 0.9391,
       "DEALER 3": 1.0376,
@@ -311,6 +318,7 @@
     },
     {
       "month": 8,
+      "month_name": "Ağustos",
       "DEALER 1": 1.1959,
       "DEALER 2": 0.8348,
       "DEALER 3": 1.1729,
@@ -336,6 +344,7 @@
     },
     {
       "month": 9,
+      "month_name": "Eylül",
       "DEALER 1": 1.0309,
       "DEALER 2": 1.2,
       "DEALER 3": 0.9925,
@@ -361,6 +370,7 @@
     },
     {
       "month": 10,
+      "month_name": "Ekim",
       "DEALER 1": 0.9691,
       "DEALER 2": 0.9391,
       "DEALER 3": 0.8571,
@@ -386,6 +396,7 @@
     },
     {
       "month": 11,
+      "month_name": "Kasım",
       "DEALER 1": 0.9278,
       "DEALER 2": 1.1478,
       "DEALER 3": 0.9925,
@@ -411,6 +422,7 @@
     },
     {
       "month": 12,
+      "month_name": "Aralık",
       "DEALER 1": 1.5464,
       "DEALER 2": 1.6174,
       "DEALER 3": 1.4436,
@@ -438,6 +450,7 @@
   "model_si": [
     {
       "month": 1,
+      "month_name": "Ocak",
       "A1": 0.0,
       "A2": 0.745,
       "A3": 1.2277,
@@ -446,6 +459,7 @@
     },
     {
       "month": 2,
+      "month_name": "Şubat",
       "A1": 0.0,
       "A2": 0.5865,
       "A3": 1.3846,
@@ -454,6 +468,7 @@
     },
     {
       "month": 3,
+      "month_name": "Mart",
       "A1": 0.0,
       "A2": 0.7054,
       "A3": 1.3292,
@@ -462,6 +477,7 @@
     },
     {
       "month": 4,
+      "month_name": "Nisan",
       "A1": 0.0,
       "A2": 0.9194,
       "A3": 0.8585,
@@ -470,6 +486,7 @@
     },
     {
       "month": 5,
+      "month_name": "Mayıs",
       "A1": 0.0,
       "A2": 1.0938,
       "A3": 0.7477,
@@ -478,6 +495,7 @@
     },
     {
       "month": 6,
+      "month_name": "Haziran",
       "A1": 0.0,
       "A2": 0.7015,
       "A3": 1.6338,
@@ -486,6 +504,7 @@
     },
     {
       "month": 7,
+      "month_name": "Temmuz",
       "A1": 0.0,
       "A2": 0.9789,
       "A3": 0.9323,
@@ -494,6 +513,7 @@
     },
     {
       "month": 8,
+      "month_name": "Ağustos",
       "A1": 0.0,
       "A2": 0.9947,
       "A3": 0.6831,
@@ -502,6 +522,7 @@
     },
     {
       "month": 9,
+      "month_name": "Eylül",
       "A1": 4.1111,
       "A2": 1.1731,
       "A3": 0.5354,
@@ -510,6 +531,7 @@
     },
     {
       "month": 10,
+      "month_name": "Ekim",
       "A1": 1.2222,
       "A2": 1.1334,
       "A3": 0.5262,
@@ -518,6 +540,7 @@
     },
     {
       "month": 11,
+      "month_name": "Kasım",
       "A1": 3.3333,
       "A2": 0.9115,
       "A3": 0.9692,
@@ -526,6 +549,7 @@
     },
     {
       "month": 12,
+      "month_name": "Aralık",
       "A1": 3.3333,
       "A2": 2.0568,
       "A3": 1.1723,
@@ -536,6 +560,7 @@
   "renk_si": [
     {
       "month": 1,
+      "month_name": "Ocak",
       "Grey3": 1.0778,
       "Grey2": 2.0106,
       "Black1": 1.5101,
@@ -549,6 +574,7 @@
     },
     {
       "month": 2,
+      "month_name": "Şubat",
       "Grey3": 0.9989,
       "Grey2": 1.5989,
       "Black1": 1.5751,
@@ -562,6 +588,7 @@
     },
     {
       "month": 3,
+      "month_name": "Mart",
       "Grey3": 0.9332,
       "Grey2": 1.2507,
       "Black1": 1.8512,
@@ -575,6 +602,7 @@
     },
     {
       "month": 4,
+      "month_name": "Nisan",
       "Grey3": 0.6835,
       "Grey2": 0.5066,
       "Black1": 0.7145,
@@ -588,6 +616,7 @@
     },
     {
       "month": 5,
+      "month_name": "Mayıs",
       "Grey3": 0.8018,
       "Grey2": 1.2982,
       "Black1": 0.9905,
@@ -601,6 +630,7 @@
     },
     {
       "month": 6,
+      "month_name": "Haziran",
       "Grey3": 0.92,
       "Grey2": 0.8232,
       "Black1": 0.8444,
@@ -614,6 +644,7 @@
     },
     {
       "month": 7,
+      "month_name": "Temmuz",
       "Grey3": 1.3406,
       "Grey2": 0.7599,
       "Black1": 0.8769,
@@ -627,6 +658,7 @@
     },
     {
       "month": 8,
+      "month_name": "Ağustos",
       "Grey3": 0.5915,
       "Grey2": 1.1082,
       "Black1": 1.5589,
@@ -640,6 +672,7 @@
     },
     {
       "month": 9,
+      "month_name": "Eylül",
       "Grey3": 1.0646,
       "Grey2": 0.8232,
       "Black1": 0.6495,
@@ -653,6 +686,7 @@
     },
     {
       "month": 10,
+      "month_name": "Ekim",
       "Grey3": 0.6703,
       "Grey2": 0.5541,
       "Black1": 0.5034,
@@ -666,6 +700,7 @@
     },
     {
       "month": 11,
+      "month_name": "Kasım",
       "Grey3": 1.0515,
       "Grey2": 0.5699,
       "Black1": 0.5521,
@@ -679,6 +714,7 @@
     },
     {
       "month": 12,
+      "month_name": "Aralık",
       "Grey3": 1.8664,
       "Grey2": 0.6966,
       "Black1": 0.3735,
