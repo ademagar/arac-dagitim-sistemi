@@ -38,8 +38,26 @@ BAYI_KOD_FILE = DATA_RAW / "Bayi-Adi-Kodu.csv"
 # Sabitler
 # ---------------------------------------------------------------------------
 LANSMAN_AY = 3        # Mart lansmanı
-LANSMAN_BOOST = 1.15  # Mart+ çarpanı
-LANSMAN_MODEL = "B1"  # Mart 2026'da yeni versiyon lansmanı yapılacak model
+LANSMAN_BOOST = 1.15  # Mart+ çarpanı (aylık toplam hedefte)
+LANSMAN_MODEL = "B1"  # Yeni versiyon lansmanı yapılacak model
+
+# B Segmenti tüm versiyonları lansmandan yararlanır (B1 yeni versiyon + B2 yan etki)
+LANSMAN_SEGMENT: frozenset[str] = frozenset({"B1", "B2"})
+
+# B Segmenti model mix boost — aya göre: lansman ayı peak, sonra kademeli normalize
+# Veri: tarihsel B payı Mart'ta zaten %50, H2'de %13-27 → yeni versiyon bunu yukarı çeker
+B_SEGMENT_BOOST_BY_AY: dict[int, float] = {
+    3: 1.60,   # Mart: lansman ayı peak — B segment ~%50 → ~%65
+    4: 1.45,   # Nisan: lansman sonrası yüksek talep
+    5: 1.40,   # Mayıs
+    6: 1.35,   # Haziran
+    7: 1.25,   # Temmuz: yaz sezonu, kademeli normalize
+    8: 1.20,   # Ağustos
+    9: 1.15,   # Eylül
+    10: 1.10,  # Ekim
+    11: 1.10,  # Kasım
+    12: 1.05,  # Aralık: yıl sonu A segment ivmesiyle normalize
+}
 
 PLAN_HEDEFLER = [8500, 10000]  # İki senaryo
 
@@ -702,10 +720,12 @@ def compute_model_aylik_hedefler(
                 tum_cnt = df_hist.groupby("model_desc").size()
                 mix = (tum_cnt / tum_cnt.sum()).to_dict()
 
-            # Mart+ için lansman modeli payını artır
-            if ay >= LANSMAN_AY and LANSMAN_MODEL in mix:
-                boost_factor = 1.30
-                mix[LANSMAN_MODEL] *= boost_factor
+            # Mart+ için tüm B segmentini (B1+B2) aylık kademeli boost ile artır
+            if ay in B_SEGMENT_BOOST_BY_AY:
+                boost = B_SEGMENT_BOOST_BY_AY[ay]
+                for m in LANSMAN_SEGMENT:
+                    if m in mix:
+                        mix[m] *= boost
                 toplam_yeni = sum(mix.values())
                 mix = {k: v / toplam_yeni for k, v in mix.items()}
 
@@ -730,7 +750,7 @@ def compute_model_aylik_hedefler(
                     "aciklama": MODEL_ACIKLAMALAR.get(model, model),
                     "pay_pct": round(pay * 100, 1),
                     "adet": adet,
-                    "lansman_model": model == LANSMAN_MODEL,
+                    "lansman_model": model in LANSMAN_SEGMENT,
                 })
 
             if diger_pay_norm >= 0.005:

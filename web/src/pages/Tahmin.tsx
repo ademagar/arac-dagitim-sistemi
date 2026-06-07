@@ -793,12 +793,15 @@ function AylikModelTablosu({
             <strong>Yöntem:</strong> Her ayın toplam araç hedefi, o ayın tarihsel model karışımına
             (model mix) göre modellere dağıtıldı.
             Son 6 ay verisi %60, önceki 18 ay %40 ağırlıkla harmanlandı.
-            Bu, A1 gibi yeni giren modellere daha fazla ağırlık verir.
+            Bu, son dönemde hız kazanan B1 gibi modellere daha fazla ağırlık verir.
           </p>
           <p>
-            <strong>Lansman Etkisi:</strong> Mart ve sonrası için B1 (yeni versiyon)
-            payı +%30 artırıldı ve toplam normalize edildi.
-            Bu, B1 yeni versiyonunun Mart 2026 lansmanındaki talep artışını yansıtır.
+            <strong>Lansman Etkisi (B Segmenti Boost):</strong> Mart ve sonrası için tüm B segmenti
+            (B1 + B2) payı aylık kademeli faktörlerle artırıldı ve toplam normalize edildi.
+            Mart: ×1.60, Nisan: ×1.45, Mayıs: ×1.40, Haziran: ×1.35, Temmuz: ×1.25,
+            Ağustos: ×1.20, Eylül: ×1.15, Ekim–Kasım: ×1.10, Aralık: ×1.05.
+            Bu, B1'in Mart 2026 yeni versiyon lansmanı sonrasında tüm B segmentine olan
+            talebin tüm yıl boyunca kademeli şekilde normalleşmesini yansıtır.
           </p>
           <p>
             <strong>Dikkat — C1 Trendi:</strong> Ocak 2026 için C1 payı historik Ocak verisine
@@ -815,7 +818,7 @@ function AylikModelTablosu({
           const info = modelAylik[0]?.model_dagilim.find(md => md.model === m)
           return (
             <div key={m} className={`px-2 py-1 rounded-lg text-xs font-medium flex items-center gap-1.5 ${MODEL_BG[m] ?? 'bg-slate-100 text-slate-600'}`}>
-              {m === 'B1' && <span className="text-xs">🚀</span>}
+              {(m === 'B1' || m === 'B2') && <span className="text-xs">🚀</span>}
               <span className="font-bold">{m}</span>
               {info?.aciklama && <span className="opacity-70">{info.aciklama}</span>}
               <span className="font-bold">— {(modelTotals[m] || 0).toLocaleString('tr')} araç/yıl</span>
@@ -836,7 +839,7 @@ function AylikModelTablosu({
               </th>
               {sortedModels.map(m => (
                 <th key={m} className={`text-right py-3 px-3 font-semibold min-w-[75px] ${
-                  m === 'B1' ? 'bg-amber-900' : ''
+                  (m === 'B1' || m === 'B2') ? 'bg-amber-900' : ''
                 }`}>
                   {m}
                 </th>
@@ -874,7 +877,7 @@ function AylikModelTablosu({
                   </td>
                   {sortedModels.map(m => {
                     const adet = getAdet(ay, m)
-                    const isLansmanModelCol = m === 'B1'
+                    const isLansmanModelCol = m === 'B1' || m === 'B2'
                     return (
                       <td key={m} className={`py-2.5 px-3 text-right font-mono ${
                         isLansmanModelCol && adet > 0 ? 'text-violet-700 font-semibold' :
@@ -896,7 +899,7 @@ function AylikModelTablosu({
               </td>
               {sortedModels.map(m => (
                 <td key={m} className={`py-3 px-3 text-right font-mono ${
-                  m === 'B1' ? 'text-amber-700' : 'text-slate-700'
+                  (m === 'B1' || m === 'B2') ? 'text-amber-700' : 'text-slate-700'
                 }`}>
                   {(modelTotals[m] || 0).toLocaleString('tr')}
                   <span className="block text-xs font-normal text-slate-400">
@@ -909,8 +912,8 @@ function AylikModelTablosu({
         </table>
       </div>
       <p className="text-xs text-slate-400 mt-2">
-        🚀 B1 = Lansman modeli (yeni versiyon Mart 2026) · LANSMAN satırı = Mart 2026 (×1.15 boost aylık toplama uygulandı)
-        · A1 = Eylül 2025'ten itibaren organik büyüyen yeni model
+        🚀 B1 / B2 = B Segmenti (B1 yeni versiyon Mart 2026 lansmanı) · LANSMAN satırı = Mart 2026 (×1.15 SI boost + B segmenti kademeli pay artışı)
+        · A1 = Eylül 2025'ten itibaren organik büyüyen yeni versiyon
         · Sütun altları: model bazında yıllık pay
       </p>
     </div>
@@ -1290,13 +1293,14 @@ function Plan2026Tab({ data }: { data: Plan2026 }) {
         </p>
         <p>
           <strong className="text-white">Mart Lansman Boostı:</strong>{' '}
-          Mart ve sonrası için SI ×1.15 uygulandı. Yeni A1 modelinin tam lansmanı Mart 2026'da.
-          Bu boost distribütörün satış stratejisini ve lansman dönemindeki talep artışını yansıtır.
+          Mart ve sonrası için SI ×1.15 uygulandı. B1'in (B Segmenti Versiyon 1) yeni versiyon
+          lansmanı Mart 2026'da gerçekleşti. Bu boost distribütörün satış stratejisini ve
+          lansman dönemindeki toplam pazar talebindeki artışı yansıtır.
         </p>
         <p>
           <strong className="text-white">Senaryo Seçimi:</strong>{' '}
           8500 → mevcut 2024-2025 büyüme trendini sürdürür (muhafazakâr).
-          10000 → A1 lansmanı ve pazar genişlemesiyle agresif büyüme (+%18).
+          10000 → B1 lansmanı ve pazar genişlemesiyle agresif büyüme (+%18).
         </p>
       </BilgiKutusu>
 

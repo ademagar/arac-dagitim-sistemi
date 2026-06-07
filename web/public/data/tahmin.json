@@ -1114,36 +1114,36 @@
             {
               "model": "B1",
               "aciklama": "B Segmenti — Versiyon 1 (Mart 2026 yeni versiyon lansmanı)",
-              "pay_pct": 56.2,
-              "adet": 417,
+              "pay_pct": 61.1,
+              "adet": 454,
               "lansman_model": true
             },
             {
               "model": "A3",
               "aciklama": "A Segmenti — Versiyon 3",
-              "pay_pct": 23.9,
-              "adet": 178,
+              "pay_pct": 21.1,
+              "adet": 157,
               "lansman_model": false
             },
             {
               "model": "A2",
               "aciklama": "A Segmenti — Versiyon 2 (en yüksek hacim)",
-              "pay_pct": 14.8,
-              "adet": 110,
+              "pay_pct": 13.0,
+              "adet": 97,
               "lansman_model": false
             },
             {
               "model": "C1",
               "aciklama": "C Segmenti — Versiyon 1 (azalan trend)",
-              "pay_pct": 4.0,
-              "adet": 30,
+              "pay_pct": 3.5,
+              "adet": 26,
               "lansman_model": false
             },
             {
               "model": "Diğer",
               "aciklama": "Düşük hacimli modeller",
-              "pay_pct": 1.2,
-              "adet": 9,
+              "pay_pct": 1.3,
+              "adet": 10,
               "lansman_model": false
             }
           ]
@@ -1157,29 +1157,29 @@
             {
               "model": "B1",
               "aciklama": "B Segmenti — Versiyon 1 (Mart 2026 yeni versiyon lansmanı)",
-              "pay_pct": 35.7,
-              "adet": 216,
+              "pay_pct": 38.2,
+              "adet": 230,
               "lansman_model": true
             },
             {
               "model": "A2",
               "aciklama": "A Segmenti — Versiyon 2 (en yüksek hacim)",
-              "pay_pct": 30.6,
-              "adet": 184,
+              "pay_pct": 29.4,
+              "adet": 177,
               "lansman_model": false
             },
             {
               "model": "A3",
               "aciklama": "A Segmenti — Versiyon 3",
-              "pay_pct": 24.5,
-              "adet": 147,
+              "pay_pct": 23.6,
+              "adet": 142,
               "lansman_model": false
             },
             {
               "model": "C1",
               "aciklama": "C Segmenti — Versiyon 1 (azalan trend)",
-              "pay_pct": 9.0,
-              "adet": 54,
+              "pay_pct": 8.6,
+              "adet": 52,
               "lansman_model": false
             }
           ]
@@ -1193,35 +1193,35 @@
             {
               "model": "B1",
               "aciklama": "B Segmenti — Versiyon 1 (Mart 2026 yeni versiyon lansmanı)",
-              "pay_pct": 34.6,
-              "adet": 241,
+              "pay_pct": 36.3,
+              "adet": 253,
               "lansman_model": true
             },
             {
               "model": "A2",
               "aciklama": "A Segmenti — Versiyon 2 (en yüksek hacim)",
-              "pay_pct": 28.5,
-              "adet": 197,
+              "pay_pct": 27.7,
+              "adet": 192,
               "lansman_model": false
             },
             {
               "model": "C1",
               "aciklama": "C Segmenti — Versiyon 1 (azalan trend)",
-              "pay_pct": 18.2,
-              "adet": 126,
+              "pay_pct": 17.7,
+              "adet": 122,
               "lansman_model": false
             },
             {
               "model": "A3",
               "aciklama": "A Segmenti — Versiyon 3",
-              "pay_pct": 16.7,
-              "adet": 116,
+              "pay_pct": 16.3,
+              "adet": 113,
               "lansman_model": false
             },
             {
               "model": "D1",
               "aciklama": "D Segmenti — Versiyon 1",
-              "pay_pct": 1.9,
+              "pay_pct": 1.8,
               "adet": 13,
               "lansman_model": false
             }
@@ -1236,29 +1236,29 @@
             {
               "model": "A2",
               "aciklama": "A Segmenti — Versiyon 2 (en yüksek hacim)",
-              "pay_pct": 31.7,
-              "adet": 246,
+              "pay_pct": 31.3,
+              "adet": 244,
               "lansman_model": false
             },
             {
               "model": "A3",
               "aciklama": "A Segmenti — Versiyon 3",
-              "pay_pct": 31.7,
-              "adet": 245,
+              "pay_pct": 31.3,
+              "adet": 242,
               "lansman_model": false
             },
             {
               "model": "B1",
               "aciklama": "B Segmenti — Versiyon 1 (Mart 2026 yeni versiyon lansmanı)",
-              "pay_pct": 27.0,
-              "adet": 208,
+              "pay_pct": 27.7,
+              "adet": 214,
               "lansman_model": true
             },
             {
               "model": "C1",
               "aciklama": "C Segmenti — Versiyon 1 (azalan trend)",
-              "pay_pct": 9.5,
-              "adet": 73,
+              "pay_pct": 9.4,
+              "adet": 72,
               "lansman_model": false
             }
           ]
@@ -1272,28 +1272,28 @@
             {
               "model": "A2",
               "aciklama": "A Segmenti — Versiyon 2 (en yüksek hacim)",
-              "pay_pct": 43.1,
-              "adet": 291,
+              "pay_pct": 43.6,
+              "adet": 296,
               "lansman_model": false
             },
             {
               "model": "B1",
               "aciklama": "B Segmenti — Versiyon 1 (Mart 2026 yeni versiyon lansmanı)",
-              "pay_pct": 33.3,
-              "adet": 225,
+              "pay_pct": 32.4,
+              "adet": 219,
               "lansman_model": true
             },
             {
               "model": "A3",
               "aciklama": "A Segmenti — Versiyon 3",
-              "pay_pct": 17.7,
-              "adet": 120,
+              "pay_pct": 17.9,
+              "adet": 121,
               "lansman_model": false
             },
             {
               "model": "C1",
               "aciklama": "C Segmenti — Versiyon 1 (azalan trend)",
-              "pay_pct": 5.7,
+              "pay_pct": 5.8,
               "adet": 39,
               "lansman_model": false
             }
@@ -1308,29 +1308,29 @@
             {
               "model": "B1",
               "aciklama": "B Segmenti — Versiyon 1 (Mart 2026 yeni versiyon lansmanı)",
-              "pay_pct": 52.5,
-              "adet": 335,
+              "pay_pct": 50.5,
+              "adet": 323,
               "lansman_model": true
             },
             {
               "model": "A2",
               "aciklama": "A Segmenti — Versiyon 2 (en yüksek hacim)",
-              "pay_pct": 33.8,
-              "adet": 216,
+              "pay_pct": 35.2,
+              "adet": 225,
               "lansman_model": false
             },
             {
               "model": "A3",
               "aciklama": "A Segmenti — Versiyon 3",
-              "pay_pct": 10.0,
-              "adet": 64,
+              "pay_pct": 10.4,
+              "adet": 66,
               "lansman_model": false
             },
             {
               "model": "C1",
               "aciklama": "C Segmenti — Versiyon 1 (azalan trend)",
-              "pay_pct": 3.6,
-              "adet": 23,
+              "pay_pct": 3.7,
+              "adet": 24,
               "lansman_model": false
             }
           ]
@@ -1344,36 +1344,36 @@
             {
               "model": "A2",
               "aciklama": "A Segmenti — Versiyon 2 (en yüksek hacim)",
-              "pay_pct": 50.0,
-              "adet": 333,
+              "pay_pct": 51.4,
+              "adet": 343,
               "lansman_model": false
             },
             {
               "model": "B1",
               "aciklama": "B Segmenti — Versiyon 1 (Mart 2026 yeni versiyon lansmanı)",
-              "pay_pct": 24.8,
-              "adet": 165,
+              "pay_pct": 22.6,
+              "adet": 150,
               "lansman_model": true
             },
             {
               "model": "A3",
               "aciklama": "A Segmenti — Versiyon 3",
-              "pay_pct": 9.9,
-              "adet": 66,
+              "pay_pct": 10.2,
+              "adet": 68,
               "lansman_model": false
             },
             {
               "model": "C1",
               "aciklama": "C Segmenti — Versiyon 1 (azalan trend)",
-              "pay_pct": 9.1,
-              "adet": 60,
+              "pay_pct": 9.3,
+              "adet": 62,
               "lansman_model": false
             },
             {
               "model": "A1",
               "aciklama": "A Segmenti — Versiyon 1 (Eylül 2025'ten itibaren)",
-              "pay_pct": 6.0,
-              "adet": 40,
+              "pay_pct": 6.2,
+              "adet": 41,
               "lansman_model": false
             }
           ]
@@ -1387,36 +1387,36 @@
             {
               "model": "A2",
               "aciklama": "A Segmenti — Versiyon 2 (en yüksek hacim)",
-              "pay_pct": 54.3,
-              "adet": 392,
+              "pay_pct": 56.3,
+              "adet": 406,
               "lansman_model": false
             },
             {
               "model": "B1",
               "aciklama": "B Segmenti — Versiyon 1 (Mart 2026 yeni versiyon lansmanı)",
-              "pay_pct": 23.2,
-              "adet": 167,
+              "pay_pct": 20.4,
+              "adet": 146,
               "lansman_model": true
             },
             {
               "model": "A3",
               "aciklama": "A Segmenti — Versiyon 3",
-              "pay_pct": 11.1,
-              "adet": 79,
+              "pay_pct": 11.5,
+              "adet": 82,
               "lansman_model": false
             },
             {
               "model": "C1",
               "aciklama": "C Segmenti — Versiyon 1 (azalan trend)",
-              "pay_pct": 9.2,
-              "adet": 66,
+              "pay_pct": 9.5,
+              "adet": 69,
               "lansman_model": false
             },
             {
               "model": "A1",
               "aciklama": "A Segmenti — Versiyon 1 (Eylül 2025'ten itibaren)",
-              "pay_pct": 2.0,
-              "adet": 14,
+              "pay_pct": 2.1,
+              "adet": 15,
               "lansman_model": false
             }
           ]
@@ -1430,36 +1430,36 @@
             {
               "model": "A2",
               "aciklama": "A Segmenti — Versiyon 2 (en yüksek hacim)",
-              "pay_pct": 43.8,
-              "adet": 381,
+              "pay_pct": 45.0,
+              "adet": 391,
               "lansman_model": false
             },
             {
               "model": "A3",
               "aciklama": "A Segmenti — Versiyon 3",
-              "pay_pct": 21.3,
-              "adet": 184,
+              "pay_pct": 21.9,
+              "adet": 190,
               "lansman_model": false
             },
             {
               "model": "B1",
               "aciklama": "B Segmenti — Versiyon 1 (Mart 2026 yeni versiyon lansmanı)",
-              "pay_pct": 17.6,
-              "adet": 152,
+              "pay_pct": 15.3,
+              "adet": 132,
               "lansman_model": true
             },
             {
               "model": "C1",
               "aciklama": "C Segmenti — Versiyon 1 (azalan trend)",
-              "pay_pct": 11.6,
-              "adet": 100,
+              "pay_pct": 11.9,
+              "adet": 103,
               "lansman_model": false
             },
             {
               "model": "A1",
               "aciklama": "A Segmenti — Versiyon 1 (Eylül 2025'ten itibaren)",
-              "pay_pct": 5.4,
-              "adet": 47,
+              "pay_pct": 5.5,
+              "adet": 48,
               "lansman_model": false
             }
           ]
@@ -1473,36 +1473,36 @@
             {
               "model": "A2",
               "aciklama": "A Segmenti — Versiyon 2 (en yüksek hacim)",
-              "pay_pct": 61.5,
-              "adet": 718,
+              "pay_pct": 63.4,
+              "adet": 740,
+              "lansman_model": false
+            },
+            {
+              "model": "A3",
+              "aciklama": "A Segmenti — Versiyon 3",
+              "pay_pct": 16.1,
+              "adet": 187,
               "lansman_model": false
             },
             {
               "model": "B1",
               "aciklama": "B Segmenti — Versiyon 1 (Mart 2026 yeni versiyon lansmanı)",
-              "pay_pct": 16.0,
-              "adet": 186,
+              "pay_pct": 13.3,
+              "adet": 155,
               "lansman_model": true
-            },
-            {
-              "model": "A3",
-              "aciklama": "A Segmenti — Versiyon 3",
-              "pay_pct": 15.6,
-              "adet": 181,
-              "lansman_model": false
             },
             {
               "model": "A1",
               "aciklama": "A Segmenti — Versiyon 1 (Eylül 2025'ten itibaren)",
-              "pay_pct": 3.5,
-              "adet": 40,
+              "pay_pct": 3.6,
+              "adet": 42,
               "lansman_model": false
             },
             {
               "model": "C1",
               "aciklama": "C Segmenti — Versiyon 1 (azalan trend)",
-              "pay_pct": 3.3,
-              "adet": 38,
+              "pay_pct": 3.4,
+              "adet": 39,
               "lansman_model": false
             }
           ]
@@ -2042,36 +2042,36 @@
             {
               "model": "B1",
               "aciklama": "B Segmenti — Versiyon 1 (Mart 2026 yeni versiyon lansmanı)",
-              "pay_pct": 56.2,
-              "adet": 493,
+              "pay_pct": 61.1,
+              "adet": 535,
               "lansman_model": true
             },
             {
               "model": "A3",
               "aciklama": "A Segmenti — Versiyon 3",
-              "pay_pct": 23.9,
-              "adet": 209,
+              "pay_pct": 21.1,
+              "adet": 185,
               "lansman_model": false
             },
             {
               "model": "A2",
               "aciklama": "A Segmenti — Versiyon 2 (en yüksek hacim)",
-              "pay_pct": 14.8,
-              "adet": 129,
+              "pay_pct": 13.0,
+              "adet": 114,
               "lansman_model": false
             },
             {
               "model": "C1",
               "aciklama": "C Segmenti — Versiyon 1 (azalan trend)",
-              "pay_pct": 4.0,
-              "adet": 35,
+              "pay_pct": 3.5,
+              "adet": 31,
               "lansman_model": false
             },
             {
               "model": "Diğer",
               "aciklama": "Düşük hacimli modeller",
-              "pay_pct": 1.2,
-              "adet": 10,
+              "pay_pct": 1.3,
+              "adet": 11,
               "lansman_model": false
             }
           ]
@@ -2085,29 +2085,29 @@
             {
               "model": "B1",
               "aciklama": "B Segmenti — Versiyon 1 (Mart 2026 yeni versiyon lansmanı)",
-              "pay_pct": 35.7,
-              "adet": 255,
+              "pay_pct": 38.2,
+              "adet": 271,
               "lansman_model": true
             },
             {
               "model": "A2",
               "aciklama": "A Segmenti — Versiyon 2 (en yüksek hacim)",
-              "pay_pct": 30.6,
-              "adet": 216,
+              "pay_pct": 29.4,
+              "adet": 208,
               "lansman_model": false
             },
             {
               "model": "A3",
               "aciklama": "A Segmenti — Versiyon 3",
-              "pay_pct": 24.5,
-              "adet": 173,
+              "pay_pct": 23.6,
+              "adet": 167,
               "lansman_model": false
             },
             {
               "model": "C1",
               "aciklama": "C Segmenti — Versiyon 1 (azalan trend)",
-              "pay_pct": 9.0,
-              "adet": 63,
+              "pay_pct": 8.6,
+              "adet": 61,
               "lansman_model": false
             }
           ]
@@ -2121,35 +2121,35 @@
             {
               "model": "B1",
               "aciklama": "B Segmenti — Versiyon 1 (Mart 2026 yeni versiyon lansmanı)",
-              "pay_pct": 34.6,
-              "adet": 284,
+              "pay_pct": 36.3,
+              "adet": 297,
               "lansman_model": true
             },
             {
               "model": "A2",
               "aciklama": "A Segmenti — Versiyon 2 (en yüksek hacim)",
-              "pay_pct": 28.5,
-              "adet": 232,
+              "pay_pct": 27.7,
+              "adet": 226,
               "lansman_model": false
             },
             {
               "model": "C1",
               "aciklama": "C Segmenti — Versiyon 1 (azalan trend)",
-              "pay_pct": 18.2,
-              "adet": 148,
+              "pay_pct": 17.7,
+              "adet": 144,
               "lansman_model": false
             },
             {
               "model": "A3",
               "aciklama": "A Segmenti — Versiyon 3",
-              "pay_pct": 16.7,
-              "adet": 136,
+              "pay_pct": 16.3,
+              "adet": 133,
               "lansman_model": false
             },
             {
               "model": "D1",
               "aciklama": "D Segmenti — Versiyon 1",
-              "pay_pct": 1.9,
+              "pay_pct": 1.8,
               "adet": 15,
               "lansman_model": false
             }
@@ -2164,29 +2164,29 @@
             {
               "model": "A2",
               "aciklama": "A Segmenti — Versiyon 2 (en yüksek hacim)",
-              "pay_pct": 31.7,
-              "adet": 290,
+              "pay_pct": 31.3,
+              "adet": 287,
               "lansman_model": false
             },
             {
               "model": "A3",
               "aciklama": "A Segmenti — Versiyon 3",
-              "pay_pct": 31.7,
-              "adet": 288,
+              "pay_pct": 31.3,
+              "adet": 285,
               "lansman_model": false
             },
             {
               "model": "B1",
               "aciklama": "B Segmenti — Versiyon 1 (Mart 2026 yeni versiyon lansmanı)",
-              "pay_pct": 27.0,
-              "adet": 245,
+              "pay_pct": 27.7,
+              "adet": 252,
               "lansman_model": true
             },
             {
               "model": "C1",
               "aciklama": "C Segmenti — Versiyon 1 (azalan trend)",
-              "pay_pct": 9.5,
-              "adet": 86,
+              "pay_pct": 9.4,
+              "adet": 85,
               "lansman_model": false
             }
           ]
@@ -2200,29 +2200,29 @@
             {
               "model": "A2",
               "aciklama": "A Segmenti — Versiyon 2 (en yüksek hacim)",
-              "pay_pct": 43.1,
-              "adet": 344,
+              "pay_pct": 43.6,
+              "adet": 349,
               "lansman_model": false
             },
             {
               "model": "B1",
               "aciklama": "B Segmenti — Versiyon 1 (Mart 2026 yeni versiyon lansmanı)",
-              "pay_pct": 33.3,
-              "adet": 264,
+              "pay_pct": 32.4,
+              "adet": 257,
               "lansman_model": true
             },
             {
               "model": "A3",
               "aciklama": "A Segmenti — Versiyon 3",
-              "pay_pct": 17.7,
-              "adet": 141,
+              "pay_pct": 17.9,
+              "adet": 142,
               "lansman_model": false
             },
             {
               "model": "C1",
               "aciklama": "C Segmenti — Versiyon 1 (azalan trend)",
-              "pay_pct": 5.7,
-              "adet": 45,
+              "pay_pct": 5.8,
+              "adet": 46,
               "lansman_model": false
             }
           ]
@@ -2236,29 +2236,29 @@
             {
               "model": "B1",
               "aciklama": "B Segmenti — Versiyon 1 (Mart 2026 yeni versiyon lansmanı)",
-              "pay_pct": 52.5,
-              "adet": 395,
+              "pay_pct": 50.5,
+              "adet": 380,
               "lansman_model": true
             },
             {
               "model": "A2",
               "aciklama": "A Segmenti — Versiyon 2 (en yüksek hacim)",
-              "pay_pct": 33.8,
-              "adet": 254,
+              "pay_pct": 35.2,
+              "adet": 265,
               "lansman_model": false
             },
             {
               "model": "A3",
               "aciklama": "A Segmenti — Versiyon 3",
-              "pay_pct": 10.0,
-              "adet": 75,
+              "pay_pct": 10.4,
+              "adet": 78,
               "lansman_model": false
             },
             {
               "model": "C1",
               "aciklama": "C Segmenti — Versiyon 1 (azalan trend)",
-              "pay_pct": 3.6,
-              "adet": 27,
+              "pay_pct": 3.7,
+              "adet": 28,
               "lansman_model": false
             }
           ]
@@ -2272,36 +2272,36 @@
             {
               "model": "A2",
               "aciklama": "A Segmenti — Versiyon 2 (en yüksek hacim)",
-              "pay_pct": 50.0,
-              "adet": 391,
+              "pay_pct": 51.4,
+              "adet": 403,
               "lansman_model": false
             },
             {
               "model": "B1",
               "aciklama": "B Segmenti — Versiyon 1 (Mart 2026 yeni versiyon lansmanı)",
-              "pay_pct": 24.8,
-              "adet": 194,
+              "pay_pct": 22.6,
+              "adet": 177,
               "lansman_model": true
             },
             {
               "model": "A3",
               "aciklama": "A Segmenti — Versiyon 3",
-              "pay_pct": 9.9,
-              "adet": 78,
+              "pay_pct": 10.2,
+              "adet": 80,
               "lansman_model": false
             },
             {
               "model": "C1",
               "aciklama": "C Segmenti — Versiyon 1 (azalan trend)",
-              "pay_pct": 9.1,
-              "adet": 71,
+              "pay_pct": 9.3,
+              "adet": 73,
               "lansman_model": false
             },
             {
               "model": "A1",
               "aciklama": "A Segmenti — Versiyon 1 (Eylül 2025'ten itibaren)",
-              "pay_pct": 6.0,
-              "adet": 47,
+              "pay_pct": 6.2,
+              "adet": 48,
               "lansman_model": false
             }
           ]
@@ -2315,36 +2315,36 @@
             {
               "model": "A2",
               "aciklama": "A Segmenti — Versiyon 2 (en yüksek hacim)",
-              "pay_pct": 54.3,
-              "adet": 460,
+              "pay_pct": 56.3,
+              "adet": 476,
               "lansman_model": false
             },
             {
               "model": "B1",
               "aciklama": "B Segmenti — Versiyon 1 (Mart 2026 yeni versiyon lansmanı)",
-              "pay_pct": 23.2,
-              "adet": 196,
+              "pay_pct": 20.4,
+              "adet": 172,
               "lansman_model": true
             },
             {
               "model": "A3",
               "aciklama": "A Segmenti — Versiyon 3",
-              "pay_pct": 11.1,
-              "adet": 93,
+              "pay_pct": 11.5,
+              "adet": 97,
               "lansman_model": false
             },
             {
               "model": "C1",
               "aciklama": "C Segmenti — Versiyon 1 (azalan trend)",
-              "pay_pct": 9.2,
-              "adet": 78,
+              "pay_pct": 9.5,
+              "adet": 81,
               "lansman_model": false
             },
             {
               "model": "A1",
               "aciklama": "A Segmenti — Versiyon 1 (Eylül 2025'ten itibaren)",
-              "pay_pct": 2.0,
-              "adet": 17,
+              "pay_pct": 2.1,
+              "adet": 18,
               "lansman_model": false
             }
           ]
@@ -2358,36 +2358,36 @@
             {
               "model": "A2",
               "aciklama": "A Segmenti — Versiyon 2 (en yüksek hacim)",
-              "pay_pct": 43.8,
-              "adet": 447,
+              "pay_pct": 45.0,
+              "adet": 461,
               "lansman_model": false
             },
             {
               "model": "A3",
               "aciklama": "A Segmenti — Versiyon 3",
-              "pay_pct": 21.3,
-              "adet": 217,
+              "pay_pct": 21.9,
+              "adet": 223,
               "lansman_model": false
             },
             {
               "model": "B1",
               "aciklama": "B Segmenti — Versiyon 1 (Mart 2026 yeni versiyon lansmanı)",
-              "pay_pct": 17.6,
-              "adet": 179,
+              "pay_pct": 15.3,
+              "adet": 155,
               "lansman_model": true
             },
             {
               "model": "C1",
               "aciklama": "C Segmenti — Versiyon 1 (azalan trend)",
-              "pay_pct": 11.6,
-              "adet": 118,
+              "pay_pct": 11.9,
+              "adet": 121,
               "lansman_model": false
             },
             {
               "model": "A1",
               "aciklama": "A Segmenti — Versiyon 1 (Eylül 2025'ten itibaren)",
-              "pay_pct": 5.4,
-              "adet": 55,
+              "pay_pct": 5.5,
+              "adet": 56,
               "lansman_model": false
             }
           ]
@@ -2401,36 +2401,36 @@
             {
               "model": "A2",
               "aciklama": "A Segmenti — Versiyon 2 (en yüksek hacim)",
-              "pay_pct": 61.5,
-              "adet": 844,
+              "pay_pct": 63.4,
+              "adet": 871,
+              "lansman_model": false
+            },
+            {
+              "model": "A3",
+              "aciklama": "A Segmenti — Versiyon 3",
+              "pay_pct": 16.1,
+              "adet": 220,
               "lansman_model": false
             },
             {
               "model": "B1",
               "aciklama": "B Segmenti — Versiyon 1 (Mart 2026 yeni versiyon lansmanı)",
-              "pay_pct": 16.0,
-              "adet": 218,
+              "pay_pct": 13.3,
+              "adet": 182,
               "lansman_model": true
-            },
-            {
-              "model": "A3",
-              "aciklama": "A Segmenti — Versiyon 3",
-              "pay_pct": 15.6,
-              "adet": 213,
-              "lansman_model": false
             },
             {
               "model": "A1",
               "aciklama": "A Segmenti — Versiyon 1 (Eylül 2025'ten itibaren)",
-              "pay_pct": 3.5,
-              "adet": 48,
+              "pay_pct": 3.6,
+              "adet": 49,
               "lansman_model": false
             },
             {
               "model": "C1",
               "aciklama": "C Segmenti — Versiyon 1 (azalan trend)",
-              "pay_pct": 3.3,
-              "adet": 45,
+              "pay_pct": 3.4,
+              "adet": 46,
               "lansman_model": false
             }
           ]
@@ -2546,12 +2546,12 @@
           {
             "ay": 3,
             "ay_adi": "Mart",
-            "toplam": 66,
+            "toplam": 67,
             "modeller": {
               "A1": 0,
-              "A2": 10,
-              "A3": 16,
-              "B1": 40,
+              "A2": 9,
+              "A3": 14,
+              "B1": 44,
               "B2": 0,
               "C1": 0,
               "D1": 0
@@ -2560,12 +2560,12 @@
           {
             "ay": 4,
             "ay_adi": "Nisan",
-            "toplam": 52,
+            "toplam": 53,
             "modeller": {
               "A1": 0,
               "A2": 17,
               "A3": 13,
-              "B1": 21,
+              "B1": 22,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -2574,12 +2574,12 @@
           {
             "ay": 5,
             "ay_adi": "Mayıs",
-            "toplam": 54,
+            "toplam": 53,
             "modeller": {
               "A1": 0,
-              "A2": 19,
-              "A3": 11,
-              "B1": 23,
+              "A2": 18,
+              "A3": 10,
+              "B1": 24,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -2588,12 +2588,12 @@
           {
             "ay": 6,
             "ay_adi": "Haziran",
-            "toplam": 66,
+            "toplam": 67,
             "modeller": {
               "A1": 0,
               "A2": 23,
               "A3": 22,
-              "B1": 20,
+              "B1": 21,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -2602,12 +2602,12 @@
           {
             "ay": 7,
             "ay_adi": "Temmuz",
-            "toplam": 61,
+            "toplam": 60,
             "modeller": {
               "A1": 0,
               "A2": 28,
               "A3": 11,
-              "B1": 22,
+              "B1": 21,
               "B2": 0,
               "C1": 0,
               "D1": 0
@@ -2619,9 +2619,9 @@
             "toplam": 58,
             "modeller": {
               "A1": 0,
-              "A2": 20,
+              "A2": 21,
               "A3": 6,
-              "B1": 32,
+              "B1": 31,
               "B2": 0,
               "C1": 0,
               "D1": 0
@@ -2630,12 +2630,12 @@
           {
             "ay": 9,
             "ay_adi": "Eylül",
-            "toplam": 61,
+            "toplam": 60,
             "modeller": {
               "A1": 6,
               "A2": 32,
               "A3": 6,
-              "B1": 16,
+              "B1": 15,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -2644,12 +2644,12 @@
           {
             "ay": 10,
             "ay_adi": "Ekim",
-            "toplam": 63,
+            "toplam": 62,
             "modeller": {
               "A1": 2,
-              "A2": 37,
+              "A2": 38,
               "A3": 7,
-              "B1": 16,
+              "B1": 14,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -2658,12 +2658,12 @@
           {
             "ay": 11,
             "ay_adi": "Kasım",
-            "toplam": 76,
+            "toplam": 75,
             "modeller": {
               "A1": 7,
-              "A2": 36,
+              "A2": 37,
               "A3": 17,
-              "B1": 15,
+              "B1": 13,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -2672,31 +2672,31 @@
           {
             "ay": 12,
             "ay_adi": "Aralık",
-            "toplam": 109,
+            "toplam": 108,
             "modeller": {
               "A1": 6,
-              "A2": 68,
+              "A2": 70,
               "A3": 17,
-              "B1": 18,
+              "B1": 15,
               "B2": 0,
               "C1": 0,
               "D1": 0
             }
           }
         ],
-        "yillik_toplam": 727,
+        "yillik_toplam": 724,
         "yillik_modeller": {
           "A1": 21,
-          "A2": 304,
-          "A3": 149,
-          "B1": 243,
+          "A2": 307,
+          "A3": 146,
+          "B1": 240,
           "B2": 0,
           "C1": 10,
           "D1": 0
         },
         "yillik_segmentler": {
           "A": 474,
-          "B": 243,
+          "B": 240,
           "C": 10,
           "D": 0
         }
@@ -2735,12 +2735,12 @@
           {
             "ay": 3,
             "ay_adi": "Mart",
-            "toplam": 29,
+            "toplam": 28,
             "modeller": {
               "A1": 0,
-              "A2": 5,
-              "A3": 10,
-              "B1": 13,
+              "A2": 4,
+              "A3": 9,
+              "B1": 14,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -2749,10 +2749,10 @@
           {
             "ay": 4,
             "ay_adi": "Nisan",
-            "toplam": 25,
+            "toplam": 24,
             "modeller": {
               "A1": 0,
-              "A2": 8,
+              "A2": 7,
               "A3": 8,
               "B1": 7,
               "B2": 0,
@@ -2763,12 +2763,12 @@
           {
             "ay": 5,
             "ay_adi": "Mayıs",
-            "toplam": 26,
+            "toplam": 27,
             "modeller": {
               "A1": 0,
               "A2": 8,
               "A3": 6,
-              "B1": 7,
+              "B1": 8,
               "B2": 0,
               "C1": 5,
               "D1": 0
@@ -2805,11 +2805,11 @@
           {
             "ay": 8,
             "ay_adi": "Ağustos",
-            "toplam": 23,
+            "toplam": 24,
             "modeller": {
               "A1": 0,
               "A2": 9,
-              "A3": 3,
+              "A3": 4,
               "B1": 10,
               "B2": 0,
               "C1": 1,
@@ -2819,14 +2819,14 @@
           {
             "ay": 9,
             "ay_adi": "Eylül",
-            "toplam": 28,
+            "toplam": 29,
             "modeller": {
               "A1": 3,
               "A2": 14,
               "A3": 4,
               "B1": 5,
               "B2": 0,
-              "C1": 2,
+              "C1": 3,
               "D1": 0
             }
           },
@@ -2836,9 +2836,9 @@
             "toplam": 29,
             "modeller": {
               "A1": 1,
-              "A2": 16,
+              "A2": 17,
               "A3": 4,
-              "B1": 5,
+              "B1": 4,
               "B2": 0,
               "C1": 3,
               "D1": 0
@@ -2847,12 +2847,12 @@
           {
             "ay": 11,
             "ay_adi": "Kasım",
-            "toplam": 39,
+            "toplam": 38,
             "modeller": {
               "A1": 4,
               "A2": 16,
               "A3": 10,
-              "B1": 5,
+              "B1": 4,
               "B2": 0,
               "C1": 4,
               "D1": 0
@@ -2864,9 +2864,9 @@
             "toplam": 50,
             "modeller": {
               "A1": 3,
-              "A2": 29,
+              "A2": 30,
               "A3": 10,
-              "B1": 6,
+              "B1": 5,
               "B2": 0,
               "C1": 2,
               "D1": 0
@@ -2878,15 +2878,15 @@
           "A1": 11,
           "A2": 133,
           "A3": 88,
-          "B1": 78,
+          "B1": 77,
           "B2": 0,
-          "C1": 40,
+          "C1": 41,
           "D1": 0
         },
         "yillik_segmentler": {
           "A": 232,
-          "B": 78,
-          "C": 40,
+          "B": 77,
+          "C": 41,
           "D": 0
         }
       },
@@ -2928,8 +2928,8 @@
             "modeller": {
               "A1": 0,
               "A2": 4,
-              "A3": 9,
-              "B1": 18,
+              "A3": 8,
+              "B1": 19,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -2938,12 +2938,12 @@
           {
             "ay": 4,
             "ay_adi": "Nisan",
-            "toplam": 26,
+            "toplam": 25,
             "modeller": {
               "A1": 0,
-              "A2": 7,
-              "A3": 8,
-              "B1": 9,
+              "A2": 6,
+              "A3": 7,
+              "B1": 10,
               "B2": 0,
               "C1": 2,
               "D1": 0
@@ -2952,12 +2952,12 @@
           {
             "ay": 5,
             "ay_adi": "Mayıs",
-            "toplam": 28,
+            "toplam": 29,
             "modeller": {
               "A1": 0,
               "A2": 7,
               "A3": 6,
-              "B1": 10,
+              "B1": 11,
               "B2": 0,
               "C1": 5,
               "D1": 0
@@ -2980,12 +2980,12 @@
           {
             "ay": 7,
             "ay_adi": "Temmuz",
-            "toplam": 29,
+            "toplam": 28,
             "modeller": {
               "A1": 0,
               "A2": 11,
               "A3": 6,
-              "B1": 10,
+              "B1": 9,
               "B2": 0,
               "C1": 2,
               "D1": 0
@@ -3008,14 +3008,14 @@
           {
             "ay": 9,
             "ay_adi": "Eylül",
-            "toplam": 25,
+            "toplam": 27,
             "modeller": {
               "A1": 1,
-              "A2": 12,
-              "A3": 3,
-              "B1": 7,
+              "A2": 13,
+              "A3": 4,
+              "B1": 6,
               "B2": 0,
-              "C1": 2,
+              "C1": 3,
               "D1": 0
             }
           },
@@ -3025,9 +3025,9 @@
             "toplam": 28,
             "modeller": {
               "A1": 0,
-              "A2": 14,
+              "A2": 15,
               "A3": 4,
-              "B1": 7,
+              "B1": 6,
               "B2": 0,
               "C1": 3,
               "D1": 0
@@ -3053,29 +3053,29 @@
             "toplam": 47,
             "modeller": {
               "A1": 1,
-              "A2": 26,
+              "A2": 27,
               "A3": 10,
-              "B1": 8,
+              "B1": 7,
               "B2": 0,
               "C1": 2,
               "D1": 0
             }
           }
         ],
-        "yillik_toplam": 353,
+        "yillik_toplam": 354,
         "yillik_modeller": {
           "A1": 3,
-          "A2": 118,
-          "A3": 85,
-          "B1": 107,
+          "A2": 120,
+          "A3": 84,
+          "B1": 106,
           "B2": 0,
-          "C1": 40,
+          "C1": 41,
           "D1": 0
         },
         "yillik_segmentler": {
-          "A": 206,
-          "B": 107,
-          "C": 40,
+          "A": 207,
+          "B": 106,
+          "C": 41,
           "D": 0
         }
       },
@@ -3117,22 +3117,22 @@
             "modeller": {
               "A1": 0,
               "A2": 3,
-              "A3": 8,
-              "B1": 21,
+              "A3": 7,
+              "B1": 23,
               "B2": 0,
-              "C1": 2,
+              "C1": 1,
               "D1": 0
             }
           },
           {
             "ay": 4,
             "ay_adi": "Nisan",
-            "toplam": 25,
+            "toplam": 26,
             "modeller": {
               "A1": 0,
               "A2": 5,
               "A3": 6,
-              "B1": 11,
+              "B1": 12,
               "B2": 0,
               "C1": 3,
               "D1": 0
@@ -3146,9 +3146,9 @@
               "A1": 0,
               "A2": 5,
               "A3": 5,
-              "B1": 12,
+              "B1": 13,
               "B2": 0,
-              "C1": 7,
+              "C1": 6,
               "D1": 0
             }
           },
@@ -3183,12 +3183,12 @@
           {
             "ay": 8,
             "ay_adi": "Ağustos",
-            "toplam": 27,
+            "toplam": 26,
             "modeller": {
               "A1": 0,
               "A2": 6,
               "A3": 3,
-              "B1": 17,
+              "B1": 16,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -3215,10 +3215,10 @@
             "modeller": {
               "A1": 1,
               "A2": 11,
-              "A3": 3,
-              "B1": 9,
+              "A3": 4,
+              "B1": 7,
               "B2": 0,
-              "C1": 3,
+              "C1": 4,
               "D1": 0
             }
           },
@@ -3228,9 +3228,9 @@
             "toplam": 33,
             "modeller": {
               "A1": 2,
-              "A2": 10,
+              "A2": 11,
               "A3": 8,
-              "B1": 8,
+              "B1": 7,
               "B2": 0,
               "C1": 5,
               "D1": 0
@@ -3239,32 +3239,32 @@
           {
             "ay": 12,
             "ay_adi": "Aralık",
-            "toplam": 41,
+            "toplam": 40,
             "modeller": {
               "A1": 2,
               "A2": 20,
               "A3": 8,
-              "B1": 9,
+              "B1": 8,
               "B2": 0,
               "C1": 2,
               "D1": 0
             }
           }
         ],
-        "yillik_toplam": 343,
+        "yillik_toplam": 342,
         "yillik_modeller": {
           "A1": 7,
-          "A2": 88,
+          "A2": 89,
           "A3": 70,
-          "B1": 128,
+          "B1": 127,
           "B2": 0,
-          "C1": 50,
+          "C1": 49,
           "D1": 0
         },
         "yillik_segmentler": {
-          "A": 165,
-          "B": 128,
-          "C": 50,
+          "A": 166,
+          "B": 127,
+          "C": 49,
           "D": 0
         }
       },
@@ -3302,12 +3302,12 @@
           {
             "ay": 3,
             "ay_adi": "Mart",
-            "toplam": 23,
+            "toplam": 24,
             "modeller": {
               "A1": 0,
               "A2": 3,
               "A3": 3,
-              "B1": 17,
+              "B1": 18,
               "B2": 0,
               "C1": 0,
               "D1": 0
@@ -3316,11 +3316,11 @@
           {
             "ay": 4,
             "ay_adi": "Nisan",
-            "toplam": 19,
+            "toplam": 17,
             "modeller": {
               "A1": 0,
-              "A2": 6,
-              "A3": 3,
+              "A2": 5,
+              "A3": 2,
               "B1": 9,
               "B2": 0,
               "C1": 1,
@@ -3344,12 +3344,12 @@
           {
             "ay": 6,
             "ay_adi": "Haziran",
-            "toplam": 20,
+            "toplam": 21,
             "modeller": {
               "A1": 0,
               "A2": 7,
               "A3": 4,
-              "B1": 8,
+              "B1": 9,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -3375,9 +3375,9 @@
             "toplam": 21,
             "modeller": {
               "A1": 0,
-              "A2": 6,
+              "A2": 7,
               "A3": 1,
-              "B1": 14,
+              "B1": 13,
               "B2": 0,
               "C1": 0,
               "D1": 0
@@ -3386,12 +3386,12 @@
           {
             "ay": 9,
             "ay_adi": "Eylül",
-            "toplam": 20,
+            "toplam": 19,
             "modeller": {
               "A1": 1,
               "A2": 10,
               "A3": 1,
-              "B1": 7,
+              "B1": 6,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -3400,12 +3400,12 @@
           {
             "ay": 10,
             "ay_adi": "Ekim",
-            "toplam": 21,
+            "toplam": 20,
             "modeller": {
               "A1": 0,
               "A2": 12,
               "A3": 1,
-              "B1": 7,
+              "B1": 6,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -3417,9 +3417,9 @@
             "toplam": 22,
             "modeller": {
               "A1": 1,
-              "A2": 11,
+              "A2": 12,
               "A3": 3,
-              "B1": 6,
+              "B1": 5,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -3428,31 +3428,31 @@
           {
             "ay": 12,
             "ay_adi": "Aralık",
-            "toplam": 34,
+            "toplam": 32,
             "modeller": {
               "A1": 1,
               "A2": 22,
               "A3": 3,
-              "B1": 8,
+              "B1": 6,
               "B2": 0,
               "C1": 0,
               "D1": 0
             }
           }
         ],
-        "yillik_toplam": 240,
+        "yillik_toplam": 236,
         "yillik_modeller": {
           "A1": 3,
-          "A2": 96,
-          "A3": 28,
-          "B1": 103,
+          "A2": 97,
+          "A3": 27,
+          "B1": 99,
           "B2": 0,
           "C1": 10,
           "D1": 0
         },
         "yillik_segmentler": {
           "A": 127,
-          "B": 103,
+          "B": 99,
           "C": 10,
           "D": 0
         }
@@ -3491,12 +3491,12 @@
           {
             "ay": 3,
             "ay_adi": "Mart",
-            "toplam": 48,
+            "toplam": 50,
             "modeller": {
               "A1": 0,
               "A2": 5,
-              "A3": 10,
-              "B1": 31,
+              "A3": 9,
+              "B1": 34,
               "B2": 0,
               "C1": 2,
               "D1": 0
@@ -3508,9 +3508,9 @@
             "toplam": 36,
             "modeller": {
               "A1": 0,
-              "A2": 9,
+              "A2": 8,
               "A3": 8,
-              "B1": 16,
+              "B1": 17,
               "B2": 0,
               "C1": 3,
               "D1": 0
@@ -3523,8 +3523,8 @@
             "modeller": {
               "A1": 0,
               "A2": 9,
-              "A3": 7,
-              "B1": 18,
+              "A3": 6,
+              "B1": 19,
               "B2": 0,
               "C1": 8,
               "D1": 1
@@ -3533,26 +3533,26 @@
           {
             "ay": 6,
             "ay_adi": "Haziran",
-            "toplam": 47,
+            "toplam": 46,
             "modeller": {
               "A1": 0,
               "A2": 12,
               "A3": 14,
               "B1": 16,
               "B2": 0,
-              "C1": 5,
+              "C1": 4,
               "D1": 0
             }
           },
           {
             "ay": 7,
             "ay_adi": "Temmuz",
-            "toplam": 40,
+            "toplam": 39,
             "modeller": {
               "A1": 0,
               "A2": 14,
               "A3": 7,
-              "B1": 17,
+              "B1": 16,
               "B2": 0,
               "C1": 2,
               "D1": 0
@@ -3561,26 +3561,26 @@
           {
             "ay": 8,
             "ay_adi": "Ağustos",
-            "toplam": 40,
+            "toplam": 41,
             "modeller": {
               "A1": 0,
-              "A2": 10,
+              "A2": 11,
               "A3": 4,
-              "B1": 25,
+              "B1": 24,
               "B2": 0,
-              "C1": 1,
+              "C1": 2,
               "D1": 0
             }
           },
           {
             "ay": 9,
             "ay_adi": "Eylül",
-            "toplam": 39,
+            "toplam": 38,
             "modeller": {
               "A1": 3,
               "A2": 16,
               "A3": 4,
-              "B1": 12,
+              "B1": 11,
               "B2": 0,
               "C1": 4,
               "D1": 0
@@ -3593,8 +3593,8 @@
             "modeller": {
               "A1": 1,
               "A2": 19,
-              "A3": 4,
-              "B1": 12,
+              "A3": 5,
+              "B1": 11,
               "B2": 0,
               "C1": 4,
               "D1": 0
@@ -3603,12 +3603,12 @@
           {
             "ay": 11,
             "ay_adi": "Kasım",
-            "toplam": 49,
+            "toplam": 50,
             "modeller": {
               "A1": 4,
-              "A2": 18,
-              "A3": 10,
-              "B1": 11,
+              "A2": 19,
+              "A3": 11,
+              "B1": 10,
               "B2": 0,
               "C1": 6,
               "D1": 0
@@ -3617,31 +3617,31 @@
           {
             "ay": 12,
             "ay_adi": "Aralık",
-            "toplam": 63,
+            "toplam": 64,
             "modeller": {
               "A1": 3,
-              "A2": 34,
-              "A3": 10,
-              "B1": 14,
+              "A2": 36,
+              "A3": 11,
+              "B1": 12,
               "B2": 0,
               "C1": 2,
               "D1": 0
             }
           }
         ],
-        "yillik_toplam": 505,
+        "yillik_toplam": 507,
         "yillik_modeller": {
           "A1": 11,
-          "A2": 153,
-          "A3": 93,
-          "B1": 188,
+          "A2": 156,
+          "A3": 94,
+          "B1": 186,
           "B2": 0,
           "C1": 59,
           "D1": 1
         },
         "yillik_segmentler": {
-          "A": 257,
-          "B": 188,
+          "A": 261,
+          "B": 186,
           "C": 59,
           "D": 1
         }
@@ -3683,9 +3683,9 @@
             "toplam": 60,
             "modeller": {
               "A1": 0,
-              "A2": 8,
-              "A3": 11,
-              "B1": 39,
+              "A2": 7,
+              "A3": 9,
+              "B1": 42,
               "B2": 0,
               "C1": 2,
               "D1": 0
@@ -3694,12 +3694,12 @@
           {
             "ay": 4,
             "ay_adi": "Nisan",
-            "toplam": 47,
+            "toplam": 48,
             "modeller": {
               "A1": 0,
-              "A2": 14,
+              "A2": 13,
               "A3": 9,
-              "B1": 20,
+              "B1": 22,
               "B2": 0,
               "C1": 4,
               "D1": 0
@@ -3711,9 +3711,9 @@
             "toplam": 55,
             "modeller": {
               "A1": 0,
-              "A2": 15,
+              "A2": 14,
               "A3": 7,
-              "B1": 23,
+              "B1": 24,
               "B2": 0,
               "C1": 10,
               "D1": 0
@@ -3722,12 +3722,12 @@
           {
             "ay": 6,
             "ay_adi": "Haziran",
-            "toplam": 58,
+            "toplam": 59,
             "modeller": {
               "A1": 0,
               "A2": 18,
               "A3": 15,
-              "B1": 19,
+              "B1": 20,
               "B2": 0,
               "C1": 6,
               "D1": 0
@@ -3739,9 +3739,9 @@
             "toplam": 52,
             "modeller": {
               "A1": 0,
-              "A2": 21,
+              "A2": 22,
               "A3": 7,
-              "B1": 21,
+              "B1": 20,
               "B2": 0,
               "C1": 3,
               "D1": 0
@@ -3753,9 +3753,9 @@
             "toplam": 53,
             "modeller": {
               "A1": 0,
-              "A2": 16,
+              "A2": 17,
               "A3": 4,
-              "B1": 31,
+              "B1": 30,
               "B2": 0,
               "C1": 2,
               "D1": 0
@@ -3764,12 +3764,12 @@
           {
             "ay": 9,
             "ay_adi": "Eylül",
-            "toplam": 51,
+            "toplam": 50,
             "modeller": {
               "A1": 2,
               "A2": 25,
               "A3": 4,
-              "B1": 15,
+              "B1": 14,
               "B2": 0,
               "C1": 5,
               "D1": 0
@@ -3778,12 +3778,12 @@
           {
             "ay": 10,
             "ay_adi": "Ekim",
-            "toplam": 57,
+            "toplam": 56,
             "modeller": {
               "A1": 1,
-              "A2": 29,
+              "A2": 30,
               "A3": 5,
-              "B1": 16,
+              "B1": 14,
               "B2": 0,
               "C1": 6,
               "D1": 0
@@ -3795,43 +3795,43 @@
             "toplam": 63,
             "modeller": {
               "A1": 2,
-              "A2": 28,
+              "A2": 29,
               "A3": 11,
-              "B1": 14,
+              "B1": 12,
               "B2": 0,
-              "C1": 8,
+              "C1": 9,
               "D1": 0
             }
           },
           {
             "ay": 12,
             "ay_adi": "Aralık",
-            "toplam": 86,
+            "toplam": 85,
             "modeller": {
               "A1": 2,
-              "A2": 53,
+              "A2": 54,
               "A3": 11,
-              "B1": 17,
+              "B1": 15,
               "B2": 0,
               "C1": 3,
               "D1": 0
             }
           }
         ],
-        "yillik_toplam": 658,
+        "yillik_toplam": 657,
         "yillik_modeller": {
           "A1": 7,
-          "A2": 238,
-          "A3": 99,
-          "B1": 235,
+          "A2": 240,
+          "A3": 97,
+          "B1": 233,
           "B2": 0,
-          "C1": 79,
+          "C1": 80,
           "D1": 0
         },
         "yillik_segmentler": {
           "A": 344,
-          "B": 235,
-          "C": 79,
+          "B": 233,
+          "C": 80,
           "D": 0
         }
       },
@@ -3869,14 +3869,14 @@
           {
             "ay": 3,
             "ay_adi": "Mart",
-            "toplam": 28,
+            "toplam": 26,
             "modeller": {
               "A1": 0,
-              "A2": 4,
-              "A3": 7,
-              "B1": 15,
+              "A2": 3,
+              "A3": 6,
+              "B1": 16,
               "B2": 0,
-              "C1": 2,
+              "C1": 1,
               "D1": 0
             }
           },
@@ -3897,26 +3897,26 @@
           {
             "ay": 5,
             "ay_adi": "Mayıs",
-            "toplam": 28,
+            "toplam": 27,
             "modeller": {
               "A1": 0,
               "A2": 7,
               "A3": 4,
               "B1": 9,
               "B2": 0,
-              "C1": 7,
+              "C1": 6,
               "D1": 1
             }
           },
           {
             "ay": 6,
             "ay_adi": "Haziran",
-            "toplam": 29,
+            "toplam": 30,
             "modeller": {
               "A1": 0,
               "A2": 9,
               "A3": 9,
-              "B1": 7,
+              "B1": 8,
               "B2": 0,
               "C1": 4,
               "D1": 0
@@ -3939,12 +3939,12 @@
           {
             "ay": 8,
             "ay_adi": "Ağustos",
-            "toplam": 23,
+            "toplam": 22,
             "modeller": {
               "A1": 0,
               "A2": 8,
               "A3": 2,
-              "B1": 12,
+              "B1": 11,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -3957,8 +3957,8 @@
             "modeller": {
               "A1": 1,
               "A2": 12,
-              "A3": 2,
-              "B1": 6,
+              "A3": 3,
+              "B1": 5,
               "B2": 0,
               "C1": 3,
               "D1": 0
@@ -3972,19 +3972,19 @@
               "A1": 0,
               "A2": 14,
               "A3": 3,
-              "B1": 6,
+              "B1": 5,
               "B2": 0,
-              "C1": 3,
+              "C1": 4,
               "D1": 0
             }
           },
           {
             "ay": 11,
             "ay_adi": "Kasım",
-            "toplam": 31,
+            "toplam": 32,
             "modeller": {
               "A1": 1,
-              "A2": 13,
+              "A2": 14,
               "A3": 7,
               "B1": 5,
               "B2": 0,
@@ -3995,32 +3995,32 @@
           {
             "ay": 12,
             "ay_adi": "Aralık",
-            "toplam": 42,
+            "toplam": 41,
             "modeller": {
               "A1": 1,
-              "A2": 25,
+              "A2": 26,
               "A3": 7,
-              "B1": 7,
+              "B1": 5,
               "B2": 0,
               "C1": 2,
               "D1": 0
             }
           }
         ],
-        "yillik_toplam": 318,
+        "yillik_toplam": 315,
         "yillik_modeller": {
           "A1": 3,
-          "A2": 113,
+          "A2": 114,
           "A3": 60,
-          "B1": 91,
+          "B1": 88,
           "B2": 0,
-          "C1": 50,
+          "C1": 49,
           "D1": 1
         },
         "yillik_segmentler": {
-          "A": 176,
-          "B": 91,
-          "C": 50,
+          "A": 177,
+          "B": 88,
+          "C": 49,
           "D": 1
         }
       },
@@ -4170,10 +4170,10 @@
           {
             "ay": 11,
             "ay_adi": "Kasım",
-            "toplam": 10,
+            "toplam": 11,
             "modeller": {
               "A1": 0,
-              "A2": 3,
+              "A2": 4,
               "A3": 3,
               "B1": 1,
               "B2": 0,
@@ -4184,11 +4184,11 @@
           {
             "ay": 12,
             "ay_adi": "Aralık",
-            "toplam": 10,
+            "toplam": 12,
             "modeller": {
               "A1": 0,
-              "A2": 6,
-              "A3": 2,
+              "A2": 7,
+              "A3": 3,
               "B1": 1,
               "B2": 0,
               "C1": 1,
@@ -4196,18 +4196,18 @@
             }
           }
         ],
-        "yillik_toplam": 97,
+        "yillik_toplam": 100,
         "yillik_modeller": {
           "A1": 0,
-          "A2": 30,
-          "A3": 22,
+          "A2": 32,
+          "A3": 23,
           "B1": 15,
           "B2": 0,
           "C1": 30,
           "D1": 0
         },
         "yillik_segmentler": {
-          "A": 52,
+          "A": 55,
           "B": 15,
           "C": 30,
           "D": 0
@@ -4247,11 +4247,11 @@
           {
             "ay": 3,
             "ay_adi": "Mart",
-            "toplam": 17,
+            "toplam": 15,
             "modeller": {
               "A1": 0,
-              "A2": 4,
-              "A3": 4,
+              "A2": 3,
+              "A3": 3,
               "B1": 8,
               "B2": 0,
               "C1": 1,
@@ -4362,9 +4362,9 @@
             "toplam": 22,
             "modeller": {
               "A1": 0,
-              "A2": 12,
+              "A2": 13,
               "A3": 4,
-              "B1": 3,
+              "B1": 2,
               "B2": 0,
               "C1": 3,
               "D1": 0
@@ -4373,10 +4373,10 @@
           {
             "ay": 12,
             "ay_adi": "Aralık",
-            "toplam": 31,
+            "toplam": 32,
             "modeller": {
               "A1": 0,
-              "A2": 23,
+              "A2": 24,
               "A3": 4,
               "B1": 3,
               "B2": 0,
@@ -4385,19 +4385,19 @@
             }
           }
         ],
-        "yillik_toplam": 215,
+        "yillik_toplam": 214,
         "yillik_modeller": {
           "A1": 0,
-          "A2": 104,
-          "A3": 34,
-          "B1": 47,
+          "A2": 105,
+          "A3": 33,
+          "B1": 46,
           "B2": 0,
           "C1": 30,
           "D1": 0
         },
         "yillik_segmentler": {
           "A": 138,
-          "B": 47,
+          "B": 46,
           "C": 30,
           "D": 0
         }
@@ -4436,11 +4436,11 @@
           {
             "ay": 3,
             "ay_adi": "Mart",
-            "toplam": 9,
+            "toplam": 8,
             "modeller": {
               "A1": 0,
               "A2": 1,
-              "A3": 3,
+              "A3": 2,
               "B1": 4,
               "B2": 0,
               "C1": 1,
@@ -4506,10 +4506,10 @@
           {
             "ay": 8,
             "ay_adi": "Ağustos",
-            "toplam": 6,
+            "toplam": 7,
             "modeller": {
               "A1": 0,
-              "A2": 2,
+              "A2": 3,
               "A3": 1,
               "B1": 3,
               "B2": 0,
@@ -4520,12 +4520,12 @@
           {
             "ay": 9,
             "ay_adi": "Eylül",
-            "toplam": 8,
+            "toplam": 7,
             "modeller": {
               "A1": 0,
               "A2": 4,
               "A3": 1,
-              "B1": 2,
+              "B1": 1,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -4534,12 +4534,12 @@
           {
             "ay": 10,
             "ay_adi": "Ekim",
-            "toplam": 9,
+            "toplam": 8,
             "modeller": {
               "A1": 0,
               "A2": 5,
               "A3": 1,
-              "B1": 2,
+              "B1": 1,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -4548,10 +4548,10 @@
           {
             "ay": 11,
             "ay_adi": "Kasım",
-            "toplam": 10,
+            "toplam": 11,
             "modeller": {
               "A1": 0,
-              "A2": 4,
+              "A2": 5,
               "A3": 3,
               "B1": 1,
               "B2": 0,
@@ -4565,28 +4565,28 @@
             "toplam": 14,
             "modeller": {
               "A1": 0,
-              "A2": 8,
+              "A2": 9,
               "A3": 3,
-              "B1": 2,
+              "B1": 1,
               "B2": 0,
               "C1": 1,
               "D1": 0
             }
           }
         ],
-        "yillik_toplam": 106,
+        "yillik_toplam": 105,
         "yillik_modeller": {
           "A1": 0,
-          "A2": 36,
-          "A3": 26,
-          "B1": 24,
+          "A2": 39,
+          "A3": 25,
+          "B1": 21,
           "B2": 0,
           "C1": 20,
           "D1": 0
         },
         "yillik_segmentler": {
-          "A": 62,
-          "B": 24,
+          "A": 64,
+          "B": 21,
           "C": 20,
           "D": 0
         }
@@ -4628,9 +4628,9 @@
             "toplam": 24,
             "modeller": {
               "A1": 0,
-              "A2": 4,
-              "A3": 5,
-              "B1": 14,
+              "A2": 3,
+              "A3": 4,
+              "B1": 16,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -4642,9 +4642,9 @@
             "toplam": 19,
             "modeller": {
               "A1": 0,
-              "A2": 7,
+              "A2": 6,
               "A3": 4,
-              "B1": 7,
+              "B1": 8,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -4653,12 +4653,12 @@
           {
             "ay": 5,
             "ay_adi": "Mayıs",
-            "toplam": 21,
+            "toplam": 22,
             "modeller": {
               "A1": 0,
               "A2": 7,
               "A3": 3,
-              "B1": 8,
+              "B1": 9,
               "B2": 0,
               "C1": 3,
               "D1": 0
@@ -4681,10 +4681,10 @@
           {
             "ay": 7,
             "ay_adi": "Temmuz",
-            "toplam": 22,
+            "toplam": 23,
             "modeller": {
               "A1": 0,
-              "A2": 10,
+              "A2": 11,
               "A3": 3,
               "B1": 8,
               "B2": 0,
@@ -4709,12 +4709,12 @@
           {
             "ay": 9,
             "ay_adi": "Eylül",
-            "toplam": 23,
+            "toplam": 22,
             "modeller": {
               "A1": 2,
               "A2": 12,
               "A3": 2,
-              "B1": 6,
+              "B1": 5,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -4726,9 +4726,9 @@
             "toplam": 24,
             "modeller": {
               "A1": 1,
-              "A2": 14,
+              "A2": 15,
               "A3": 2,
-              "B1": 6,
+              "B1": 5,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -4754,28 +4754,28 @@
             "toplam": 40,
             "modeller": {
               "A1": 2,
-              "A2": 26,
+              "A2": 27,
               "A3": 5,
-              "B1": 6,
+              "B1": 5,
               "B2": 0,
               "C1": 1,
               "D1": 0
             }
           }
         ],
-        "yillik_toplam": 273,
+        "yillik_toplam": 274,
         "yillik_modeller": {
           "A1": 7,
-          "A2": 116,
-          "A3": 45,
-          "B1": 85,
+          "A2": 117,
+          "A3": 44,
+          "B1": 86,
           "B2": 0,
           "C1": 20,
           "D1": 0
         },
         "yillik_segmentler": {
           "A": 168,
-          "B": 85,
+          "B": 86,
           "C": 20,
           "D": 0
         }
@@ -4814,12 +4814,12 @@
           {
             "ay": 3,
             "ay_adi": "Mart",
-            "toplam": 45,
+            "toplam": 46,
             "modeller": {
               "A1": 0,
-              "A2": 7,
-              "A3": 10,
-              "B1": 27,
+              "A2": 6,
+              "A3": 9,
+              "B1": 30,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -4828,12 +4828,12 @@
           {
             "ay": 4,
             "ay_adi": "Nisan",
-            "toplam": 35,
+            "toplam": 36,
             "modeller": {
               "A1": 0,
               "A2": 12,
               "A3": 8,
-              "B1": 14,
+              "B1": 15,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -4846,8 +4846,8 @@
             "modeller": {
               "A1": 0,
               "A2": 13,
-              "A3": 7,
-              "B1": 16,
+              "A3": 6,
+              "B1": 17,
               "B2": 0,
               "C1": 3,
               "D1": 6
@@ -4873,9 +4873,9 @@
             "toplam": 42,
             "modeller": {
               "A1": 0,
-              "A2": 19,
+              "A2": 20,
               "A3": 7,
-              "B1": 15,
+              "B1": 14,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -4887,9 +4887,9 @@
             "toplam": 40,
             "modeller": {
               "A1": 0,
-              "A2": 14,
+              "A2": 15,
               "A3": 4,
-              "B1": 22,
+              "B1": 21,
               "B2": 0,
               "C1": 0,
               "D1": 0
@@ -4901,9 +4901,9 @@
             "toplam": 42,
             "modeller": {
               "A1": 4,
-              "A2": 22,
+              "A2": 23,
               "A3": 4,
-              "B1": 11,
+              "B1": 10,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -4912,12 +4912,12 @@
           {
             "ay": 10,
             "ay_adi": "Ekim",
-            "toplam": 43,
+            "toplam": 44,
             "modeller": {
               "A1": 1,
-              "A2": 26,
-              "A3": 4,
-              "B1": 11,
+              "A2": 27,
+              "A3": 5,
+              "B1": 10,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -4926,12 +4926,12 @@
           {
             "ay": 11,
             "ay_adi": "Kasım",
-            "toplam": 51,
+            "toplam": 52,
             "modeller": {
               "A1": 4,
-              "A2": 25,
-              "A3": 10,
-              "B1": 10,
+              "A2": 26,
+              "A3": 11,
+              "B1": 9,
               "B2": 0,
               "C1": 2,
               "D1": 0
@@ -4943,28 +4943,28 @@
             "toplam": 75,
             "modeller": {
               "A1": 4,
-              "A2": 48,
-              "A3": 10,
-              "B1": 12,
+              "A2": 49,
+              "A3": 11,
+              "B1": 10,
               "B2": 0,
               "C1": 1,
               "D1": 0
             }
           }
         ],
-        "yillik_toplam": 510,
+        "yillik_toplam": 514,
         "yillik_modeller": {
           "A1": 13,
-          "A2": 212,
-          "A3": 93,
-          "B1": 166,
+          "A2": 217,
+          "A3": 94,
+          "B1": 164,
           "B2": 0,
           "C1": 20,
           "D1": 6
         },
         "yillik_segmentler": {
-          "A": 318,
-          "B": 166,
+          "A": 324,
+          "B": 164,
           "C": 20,
           "D": 6
         }
@@ -5003,12 +5003,12 @@
           {
             "ay": 3,
             "ay_adi": "Mart",
-            "toplam": 35,
+            "toplam": 34,
             "modeller": {
               "A1": 0,
-              "A2": 7,
-              "A3": 11,
-              "B1": 17,
+              "A2": 6,
+              "A3": 10,
+              "B1": 18,
               "B2": 0,
               "C1": 0,
               "D1": 0
@@ -5031,10 +5031,10 @@
           {
             "ay": 5,
             "ay_adi": "Mayıs",
-            "toplam": 30,
+            "toplam": 29,
             "modeller": {
               "A1": 0,
-              "A2": 12,
+              "A2": 11,
               "A3": 7,
               "B1": 10,
               "B2": 0,
@@ -5045,12 +5045,12 @@
           {
             "ay": 6,
             "ay_adi": "Haziran",
-            "toplam": 40,
+            "toplam": 41,
             "modeller": {
               "A1": 0,
               "A2": 15,
               "A3": 16,
-              "B1": 8,
+              "B1": 9,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -5059,10 +5059,10 @@
           {
             "ay": 7,
             "ay_adi": "Temmuz",
-            "toplam": 34,
+            "toplam": 35,
             "modeller": {
               "A1": 0,
-              "A2": 17,
+              "A2": 18,
               "A3": 8,
               "B1": 9,
               "B2": 0,
@@ -5073,12 +5073,12 @@
           {
             "ay": 8,
             "ay_adi": "Ağustos",
-            "toplam": 31,
+            "toplam": 30,
             "modeller": {
               "A1": 0,
               "A2": 13,
               "A3": 4,
-              "B1": 14,
+              "B1": 13,
               "B2": 0,
               "C1": 0,
               "D1": 0
@@ -5087,12 +5087,12 @@
           {
             "ay": 9,
             "ay_adi": "Eylül",
-            "toplam": 34,
+            "toplam": 33,
             "modeller": {
               "A1": 2,
               "A2": 20,
               "A3": 4,
-              "B1": 7,
+              "B1": 6,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -5104,9 +5104,9 @@
             "toplam": 37,
             "modeller": {
               "A1": 1,
-              "A2": 23,
+              "A2": 24,
               "A3": 5,
-              "B1": 7,
+              "B1": 6,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -5115,12 +5115,12 @@
           {
             "ay": 11,
             "ay_adi": "Kasım",
-            "toplam": 44,
+            "toplam": 43,
             "modeller": {
               "A1": 2,
               "A2": 23,
               "A3": 12,
-              "B1": 6,
+              "B1": 5,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -5129,31 +5129,31 @@
           {
             "ay": 12,
             "ay_adi": "Aralık",
-            "toplam": 65,
+            "toplam": 64,
             "modeller": {
               "A1": 2,
-              "A2": 43,
+              "A2": 44,
               "A3": 12,
-              "B1": 8,
+              "B1": 6,
               "B2": 0,
               "C1": 0,
               "D1": 0
             }
           }
         ],
-        "yillik_toplam": 416,
+        "yillik_toplam": 412,
         "yillik_modeller": {
           "A1": 7,
-          "A2": 192,
-          "A3": 104,
-          "B1": 103,
+          "A2": 193,
+          "A3": 103,
+          "B1": 99,
           "B2": 0,
           "C1": 10,
           "D1": 0
         },
         "yillik_segmentler": {
           "A": 303,
-          "B": 103,
+          "B": 99,
           "C": 10,
           "D": 0
         }
@@ -5196,8 +5196,8 @@
             "modeller": {
               "A1": 0,
               "A2": 6,
-              "A3": 16,
-              "B1": 24,
+              "A3": 14,
+              "B1": 26,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -5206,10 +5206,10 @@
           {
             "ay": 4,
             "ay_adi": "Nisan",
-            "toplam": 39,
+            "toplam": 38,
             "modeller": {
               "A1": 0,
-              "A2": 11,
+              "A2": 10,
               "A3": 13,
               "B1": 13,
               "B2": 0,
@@ -5220,12 +5220,12 @@
           {
             "ay": 5,
             "ay_adi": "Mayıs",
-            "toplam": 39,
+            "toplam": 40,
             "modeller": {
               "A1": 0,
               "A2": 11,
               "A3": 10,
-              "B1": 14,
+              "B1": 15,
               "B2": 0,
               "C1": 4,
               "D1": 0
@@ -5265,9 +5265,9 @@
             "toplam": 39,
             "modeller": {
               "A1": 0,
-              "A2": 12,
+              "A2": 13,
               "A3": 6,
-              "B1": 20,
+              "B1": 19,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -5279,9 +5279,9 @@
             "toplam": 39,
             "modeller": {
               "A1": 2,
-              "A2": 19,
+              "A2": 20,
               "A3": 6,
-              "B1": 10,
+              "B1": 9,
               "B2": 0,
               "C1": 2,
               "D1": 0
@@ -5290,12 +5290,12 @@
           {
             "ay": 10,
             "ay_adi": "Ekim",
-            "toplam": 43,
+            "toplam": 41,
             "modeller": {
               "A1": 1,
               "A2": 23,
               "A3": 7,
-              "B1": 10,
+              "B1": 8,
               "B2": 0,
               "C1": 2,
               "D1": 0
@@ -5304,12 +5304,12 @@
           {
             "ay": 11,
             "ay_adi": "Kasım",
-            "toplam": 52,
+            "toplam": 53,
             "modeller": {
               "A1": 2,
-              "A2": 22,
-              "A3": 16,
-              "B1": 9,
+              "A2": 23,
+              "A3": 17,
+              "B1": 8,
               "B2": 0,
               "C1": 3,
               "D1": 0
@@ -5318,12 +5318,12 @@
           {
             "ay": 12,
             "ay_adi": "Aralık",
-            "toplam": 71,
+            "toplam": 72,
             "modeller": {
               "A1": 2,
-              "A2": 41,
-              "A3": 16,
-              "B1": 11,
+              "A2": 43,
+              "A3": 17,
+              "B1": 9,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -5333,16 +5333,16 @@
         "yillik_toplam": 515,
         "yillik_modeller": {
           "A1": 7,
-          "A2": 184,
+          "A2": 188,
           "A3": 146,
-          "B1": 148,
+          "B1": 144,
           "B2": 0,
           "C1": 30,
           "D1": 0
         },
         "yillik_segmentler": {
-          "A": 337,
-          "B": 148,
+          "A": 341,
+          "B": 144,
           "C": 30,
           "D": 0
         }
@@ -5381,12 +5381,12 @@
           {
             "ay": 3,
             "ay_adi": "Mart",
-            "toplam": 52,
+            "toplam": 53,
             "modeller": {
               "A1": 0,
-              "A2": 6,
-              "A3": 11,
-              "B1": 33,
+              "A2": 5,
+              "A3": 10,
+              "B1": 36,
               "B2": 0,
               "C1": 2,
               "D1": 0
@@ -5398,9 +5398,9 @@
             "toplam": 40,
             "modeller": {
               "A1": 0,
-              "A2": 10,
+              "A2": 9,
               "A3": 9,
-              "B1": 17,
+              "B1": 18,
               "B2": 0,
               "C1": 4,
               "D1": 0
@@ -5409,12 +5409,12 @@
           {
             "ay": 5,
             "ay_adi": "Mayıs",
-            "toplam": 48,
+            "toplam": 49,
             "modeller": {
               "A1": 0,
               "A2": 10,
               "A3": 7,
-              "B1": 19,
+              "B1": 20,
               "B2": 0,
               "C1": 10,
               "D1": 2
@@ -5423,12 +5423,12 @@
           {
             "ay": 6,
             "ay_adi": "Haziran",
-            "toplam": 51,
+            "toplam": 52,
             "modeller": {
               "A1": 0,
               "A2": 13,
               "A3": 16,
-              "B1": 16,
+              "B1": 17,
               "B2": 0,
               "C1": 6,
               "D1": 0
@@ -5440,9 +5440,9 @@
             "toplam": 44,
             "modeller": {
               "A1": 0,
-              "A2": 15,
+              "A2": 16,
               "A3": 8,
-              "B1": 18,
+              "B1": 17,
               "B2": 0,
               "C1": 3,
               "D1": 0
@@ -5451,10 +5451,10 @@
           {
             "ay": 8,
             "ay_adi": "Ağustos",
-            "toplam": 43,
+            "toplam": 44,
             "modeller": {
               "A1": 0,
-              "A2": 11,
+              "A2": 12,
               "A3": 4,
               "B1": 26,
               "B2": 0,
@@ -5468,9 +5468,9 @@
             "toplam": 42,
             "modeller": {
               "A1": 3,
-              "A2": 17,
+              "A2": 18,
               "A3": 4,
-              "B1": 13,
+              "B1": 12,
               "B2": 0,
               "C1": 5,
               "D1": 0
@@ -5479,12 +5479,12 @@
           {
             "ay": 10,
             "ay_adi": "Ekim",
-            "toplam": 46,
+            "toplam": 45,
             "modeller": {
               "A1": 1,
               "A2": 21,
               "A3": 5,
-              "B1": 13,
+              "B1": 12,
               "B2": 0,
               "C1": 6,
               "D1": 0
@@ -5496,43 +5496,43 @@
             "toplam": 56,
             "modeller": {
               "A1": 4,
-              "A2": 20,
+              "A2": 21,
               "A3": 12,
-              "B1": 12,
+              "B1": 10,
               "B2": 0,
-              "C1": 8,
+              "C1": 9,
               "D1": 0
             }
           },
           {
             "ay": 12,
             "ay_adi": "Aralık",
-            "toplam": 71,
+            "toplam": 69,
             "modeller": {
               "A1": 3,
-              "A2": 38,
+              "A2": 39,
               "A3": 12,
-              "B1": 15,
+              "B1": 12,
               "B2": 0,
               "C1": 3,
               "D1": 0
             }
           }
         ],
-        "yillik_toplam": 563,
+        "yillik_toplam": 564,
         "yillik_modeller": {
           "A1": 11,
-          "A2": 169,
-          "A3": 104,
-          "B1": 198,
+          "A2": 172,
+          "A3": 103,
+          "B1": 196,
           "B2": 0,
-          "C1": 79,
+          "C1": 80,
           "D1": 2
         },
         "yillik_segmentler": {
-          "A": 284,
-          "B": 198,
-          "C": 79,
+          "A": 286,
+          "B": 196,
+          "C": 80,
           "D": 2
         }
       },
@@ -5570,42 +5570,42 @@
           {
             "ay": 3,
             "ay_adi": "Mart",
-            "toplam": 68,
+            "toplam": 66,
             "modeller": {
               "A1": 0,
-              "A2": 16,
-              "A3": 15,
-              "B1": 30,
+              "A2": 14,
+              "A3": 13,
+              "B1": 33,
               "B2": 0,
-              "C1": 7,
+              "C1": 6,
               "D1": 0
             }
           },
           {
             "ay": 4,
             "ay_adi": "Nisan",
-            "toplam": 67,
+            "toplam": 65,
             "modeller": {
               "A1": 0,
-              "A2": 26,
-              "A3": 13,
-              "B1": 15,
+              "A2": 25,
+              "A3": 12,
+              "B1": 16,
               "B2": 0,
-              "C1": 13,
+              "C1": 12,
               "D1": 0
             }
           },
           {
             "ay": 5,
             "ay_adi": "Mayıs",
-            "toplam": 86,
+            "toplam": 85,
             "modeller": {
               "A1": 0,
-              "A2": 28,
+              "A2": 27,
               "A3": 10,
-              "B1": 17,
+              "B1": 18,
               "B2": 0,
-              "C1": 30,
+              "C1": 29,
               "D1": 1
             }
           },
@@ -5626,10 +5626,10 @@
           {
             "ay": 7,
             "ay_adi": "Temmuz",
-            "toplam": 76,
+            "toplam": 77,
             "modeller": {
               "A1": 0,
-              "A2": 41,
+              "A2": 42,
               "A3": 10,
               "B1": 16,
               "B2": 0,
@@ -5640,12 +5640,12 @@
           {
             "ay": 8,
             "ay_adi": "Ağustos",
-            "toplam": 66,
+            "toplam": 67,
             "modeller": {
               "A1": 0,
-              "A2": 31,
-              "A3": 5,
-              "B1": 24,
+              "A2": 32,
+              "A3": 6,
+              "B1": 23,
               "B2": 0,
               "C1": 6,
               "D1": 0
@@ -5654,28 +5654,28 @@
           {
             "ay": 9,
             "ay_adi": "Eylül",
-            "toplam": 82,
+            "toplam": 84,
             "modeller": {
               "A1": 3,
-              "A2": 47,
+              "A2": 49,
               "A3": 6,
-              "B1": 12,
+              "B1": 11,
               "B2": 0,
-              "C1": 14,
+              "C1": 15,
               "D1": 0
             }
           },
           {
             "ay": 10,
             "ay_adi": "Ekim",
-            "toplam": 91,
+            "toplam": 92,
             "modeller": {
               "A1": 1,
-              "A2": 55,
+              "A2": 57,
               "A3": 7,
-              "B1": 12,
+              "B1": 10,
               "B2": 0,
-              "C1": 16,
+              "C1": 17,
               "D1": 0
             }
           },
@@ -5685,42 +5685,42 @@
             "toplam": 109,
             "modeller": {
               "A1": 4,
-              "A2": 54,
+              "A2": 55,
               "A3": 16,
-              "B1": 11,
+              "B1": 9,
               "B2": 0,
-              "C1": 24,
+              "C1": 25,
               "D1": 0
             }
           },
           {
             "ay": 12,
             "ay_adi": "Aralık",
-            "toplam": 142,
+            "toplam": 144,
             "modeller": {
               "A1": 3,
-              "A2": 102,
-              "A3": 15,
-              "B1": 13,
+              "A2": 105,
+              "A3": 16,
+              "B1": 11,
               "B2": 0,
               "C1": 9,
               "D1": 0
             }
           }
         ],
-        "yillik_toplam": 1016,
+        "yillik_toplam": 1018,
         "yillik_modeller": {
           "A1": 11,
-          "A2": 456,
-          "A3": 139,
-          "B1": 180,
+          "A2": 462,
+          "A3": 138,
+          "B1": 177,
           "B2": 0,
           "C1": 229,
           "D1": 1
         },
         "yillik_segmentler": {
-          "A": 606,
-          "B": 180,
+          "A": 611,
+          "B": 177,
           "C": 229,
           "D": 1
         }
@@ -5762,9 +5762,9 @@
             "toplam": 39,
             "modeller": {
               "A1": 0,
-              "A2": 6,
-              "A3": 7,
-              "B1": 25,
+              "A2": 5,
+              "A3": 6,
+              "B1": 27,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -5773,12 +5773,12 @@
           {
             "ay": 4,
             "ay_adi": "Nisan",
-            "toplam": 31,
+            "toplam": 32,
             "modeller": {
               "A1": 0,
               "A2": 10,
               "A3": 6,
-              "B1": 13,
+              "B1": 14,
               "B2": 0,
               "C1": 2,
               "D1": 0
@@ -5790,9 +5790,9 @@
             "toplam": 36,
             "modeller": {
               "A1": 0,
-              "A2": 11,
+              "A2": 10,
               "A3": 5,
-              "B1": 14,
+              "B1": 15,
               "B2": 0,
               "C1": 5,
               "D1": 1
@@ -5801,12 +5801,12 @@
           {
             "ay": 6,
             "ay_adi": "Haziran",
-            "toplam": 38,
+            "toplam": 39,
             "modeller": {
               "A1": 0,
               "A2": 13,
               "A3": 10,
-              "B1": 12,
+              "B1": 13,
               "B2": 0,
               "C1": 3,
               "D1": 0
@@ -5829,12 +5829,12 @@
           {
             "ay": 8,
             "ay_adi": "Ağustos",
-            "toplam": 36,
+            "toplam": 35,
             "modeller": {
               "A1": 0,
               "A2": 12,
               "A3": 3,
-              "B1": 20,
+              "B1": 19,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -5843,26 +5843,26 @@
           {
             "ay": 9,
             "ay_adi": "Eylül",
-            "toplam": 37,
+            "toplam": 38,
             "modeller": {
               "A1": 4,
-              "A2": 18,
+              "A2": 19,
               "A3": 3,
-              "B1": 10,
+              "B1": 9,
               "B2": 0,
-              "C1": 2,
+              "C1": 3,
               "D1": 0
             }
           },
           {
             "ay": 10,
             "ay_adi": "Ekim",
-            "toplam": 38,
+            "toplam": 39,
             "modeller": {
-              "A1": 1,
-              "A2": 21,
+              "A1": 2,
+              "A2": 22,
               "A3": 3,
-              "B1": 10,
+              "B1": 9,
               "B2": 0,
               "C1": 3,
               "D1": 0
@@ -5871,12 +5871,12 @@
           {
             "ay": 11,
             "ay_adi": "Kasım",
-            "toplam": 47,
+            "toplam": 46,
             "modeller": {
               "A1": 5,
               "A2": 21,
               "A3": 8,
-              "B1": 9,
+              "B1": 8,
               "B2": 0,
               "C1": 4,
               "D1": 0
@@ -5888,29 +5888,29 @@
             "toplam": 63,
             "modeller": {
               "A1": 4,
-              "A2": 39,
-              "A3": 7,
-              "B1": 11,
+              "A2": 40,
+              "A3": 8,
+              "B1": 9,
               "B2": 0,
               "C1": 2,
               "D1": 0
             }
           }
         ],
-        "yillik_toplam": 446,
+        "yillik_toplam": 448,
         "yillik_modeller": {
-          "A1": 14,
-          "A2": 175,
+          "A1": 15,
+          "A2": 176,
           "A3": 67,
-          "B1": 149,
+          "B1": 148,
           "B2": 0,
-          "C1": 40,
+          "C1": 41,
           "D1": 1
         },
         "yillik_segmentler": {
-          "A": 256,
-          "B": 149,
-          "C": 40,
+          "A": 258,
+          "B": 148,
+          "C": 41,
           "D": 1
         }
       },
@@ -5948,12 +5948,12 @@
           {
             "ay": 3,
             "ay_adi": "Mart",
-            "toplam": 26,
+            "toplam": 27,
             "modeller": {
               "A1": 0,
               "A2": 2,
-              "A3": 7,
-              "B1": 15,
+              "A3": 6,
+              "B1": 17,
               "B2": 0,
               "C1": 2,
               "D1": 0
@@ -6032,26 +6032,26 @@
           {
             "ay": 9,
             "ay_adi": "Eylül",
-            "toplam": 19,
+            "toplam": 20,
             "modeller": {
               "A1": 0,
               "A2": 7,
-              "A3": 2,
-              "B1": 6,
+              "A3": 3,
+              "B1": 5,
               "B2": 0,
-              "C1": 4,
+              "C1": 5,
               "D1": 0
             }
           },
           {
             "ay": 10,
             "ay_adi": "Ekim",
-            "toplam": 23,
+            "toplam": 22,
             "modeller": {
               "A1": 0,
               "A2": 9,
               "A3": 3,
-              "B1": 6,
+              "B1": 5,
               "B2": 0,
               "C1": 5,
               "D1": 0
@@ -6060,46 +6060,46 @@
           {
             "ay": 11,
             "ay_adi": "Kasım",
-            "toplam": 28,
+            "toplam": 29,
             "modeller": {
               "A1": 0,
-              "A2": 8,
+              "A2": 9,
               "A3": 7,
-              "B1": 6,
+              "B1": 5,
               "B2": 0,
-              "C1": 7,
+              "C1": 8,
               "D1": 0
             }
           },
           {
             "ay": 12,
             "ay_adi": "Aralık",
-            "toplam": 33,
+            "toplam": 32,
             "modeller": {
               "A1": 0,
               "A2": 16,
               "A3": 7,
-              "B1": 7,
+              "B1": 6,
               "B2": 0,
               "C1": 3,
               "D1": 0
             }
           }
         ],
-        "yillik_toplam": 293,
+        "yillik_toplam": 294,
         "yillik_modeller": {
           "A1": 0,
-          "A2": 70,
+          "A2": 71,
           "A3": 60,
-          "B1": 93,
+          "B1": 91,
           "B2": 0,
-          "C1": 70,
+          "C1": 72,
           "D1": 0
         },
         "yillik_segmentler": {
-          "A": 130,
-          "B": 93,
-          "C": 70,
+          "A": 131,
+          "B": 91,
+          "C": 72,
           "D": 0
         }
       },
@@ -6263,10 +6263,10 @@
           {
             "ay": 12,
             "ay_adi": "Aralık",
-            "toplam": 16,
+            "toplam": 17,
             "modeller": {
               "A1": 2,
-              "A2": 12,
+              "A2": 13,
               "A3": 1,
               "B1": 1,
               "B2": 0,
@@ -6275,10 +6275,10 @@
             }
           }
         ],
-        "yillik_toplam": 99,
+        "yillik_toplam": 100,
         "yillik_modeller": {
           "A1": 7,
-          "A2": 55,
+          "A2": 56,
           "A3": 9,
           "B1": 18,
           "B2": 0,
@@ -6286,7 +6286,7 @@
           "D1": 0
         },
         "yillik_segmentler": {
-          "A": 71,
+          "A": 72,
           "B": 18,
           "C": 10,
           "D": 0
@@ -6326,12 +6326,12 @@
           {
             "ay": 3,
             "ay_adi": "Mart",
-            "toplam": 17,
+            "toplam": 18,
             "modeller": {
               "A1": 0,
               "A2": 3,
               "A3": 5,
-              "B1": 9,
+              "B1": 10,
               "B2": 0,
               "C1": 0,
               "D1": 0
@@ -6340,10 +6340,10 @@
           {
             "ay": 4,
             "ay_adi": "Nisan",
-            "toplam": 16,
+            "toplam": 15,
             "modeller": {
               "A1": 0,
-              "A2": 6,
+              "A2": 5,
               "A3": 4,
               "B1": 5,
               "B2": 0,
@@ -6354,12 +6354,12 @@
           {
             "ay": 5,
             "ay_adi": "Mayıs",
-            "toplam": 15,
+            "toplam": 16,
             "modeller": {
               "A1": 0,
               "A2": 6,
               "A3": 3,
-              "B1": 5,
+              "B1": 6,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -6368,10 +6368,10 @@
           {
             "ay": 6,
             "ay_adi": "Haziran",
-            "toplam": 21,
+            "toplam": 20,
             "modeller": {
               "A1": 0,
-              "A2": 8,
+              "A2": 7,
               "A3": 7,
               "B1": 5,
               "B2": 0,
@@ -6413,9 +6413,9 @@
             "toplam": 18,
             "modeller": {
               "A1": 1,
-              "A2": 10,
+              "A2": 11,
               "A3": 2,
-              "B1": 4,
+              "B1": 3,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -6424,12 +6424,12 @@
           {
             "ay": 10,
             "ay_adi": "Ekim",
-            "toplam": 19,
+            "toplam": 18,
             "modeller": {
               "A1": 0,
               "A2": 12,
               "A3": 2,
-              "B1": 4,
+              "B1": 3,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -6438,11 +6438,11 @@
           {
             "ay": 11,
             "ay_adi": "Kasım",
-            "toplam": 22,
+            "toplam": 23,
             "modeller": {
               "A1": 1,
               "A2": 12,
-              "A3": 5,
+              "A3": 6,
               "B1": 3,
               "B2": 0,
               "C1": 1,
@@ -6455,9 +6455,9 @@
             "toplam": 32,
             "modeller": {
               "A1": 1,
-              "A2": 22,
+              "A2": 23,
               "A3": 5,
-              "B1": 4,
+              "B1": 3,
               "B2": 0,
               "C1": 0,
               "D1": 0
@@ -6468,15 +6468,15 @@
         "yillik_modeller": {
           "A1": 3,
           "A2": 99,
-          "A3": 46,
-          "B1": 55,
+          "A3": 47,
+          "B1": 54,
           "B2": 0,
           "C1": 10,
           "D1": 0
         },
         "yillik_segmentler": {
-          "A": 148,
-          "B": 55,
+          "A": 149,
+          "B": 54,
           "C": 10,
           "D": 0
         }
@@ -6519,8 +6519,8 @@
             "modeller": {
               "A1": 0,
               "A2": 2,
-              "A3": 7,
-              "B1": 11,
+              "A3": 6,
+              "B1": 12,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -6557,10 +6557,10 @@
           {
             "ay": 6,
             "ay_adi": "Haziran",
-            "toplam": 23,
+            "toplam": 22,
             "modeller": {
               "A1": 0,
-              "A2": 6,
+              "A2": 5,
               "A3": 9,
               "B1": 6,
               "B2": 0,
@@ -6599,11 +6599,11 @@
           {
             "ay": 9,
             "ay_adi": "Eylül",
-            "toplam": 15,
+            "toplam": 17,
             "modeller": {
               "A1": 1,
-              "A2": 7,
-              "A3": 2,
+              "A2": 8,
+              "A3": 3,
               "B1": 4,
               "B2": 0,
               "C1": 1,
@@ -6613,12 +6613,12 @@
           {
             "ay": 10,
             "ay_adi": "Ekim",
-            "toplam": 18,
+            "toplam": 17,
             "modeller": {
               "A1": 0,
               "A2": 9,
               "A3": 3,
-              "B1": 5,
+              "B1": 4,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -6644,9 +6644,9 @@
             "toplam": 30,
             "modeller": {
               "A1": 1,
-              "A2": 16,
+              "A2": 17,
               "A3": 7,
-              "B1": 5,
+              "B1": 4,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -6656,16 +6656,16 @@
         "yillik_toplam": 225,
         "yillik_modeller": {
           "A1": 3,
-          "A2": 73,
+          "A2": 74,
           "A3": 60,
-          "B1": 69,
+          "B1": 68,
           "B2": 0,
           "C1": 20,
           "D1": 0
         },
         "yillik_segmentler": {
-          "A": 136,
-          "B": 69,
+          "A": 137,
+          "B": 68,
           "C": 20,
           "D": 0
         }
@@ -6706,12 +6706,12 @@
           {
             "ay": 3,
             "ay_adi": "Mart",
-            "toplam": 79,
+            "toplam": 80,
             "modeller": {
               "A1": 0,
-              "A2": 12,
-              "A3": 19,
-              "B1": 48,
+              "A2": 11,
+              "A3": 17,
+              "B1": 52,
               "B2": 0,
               "C1": 0,
               "D1": 0
@@ -6724,8 +6724,8 @@
             "modeller": {
               "A1": 0,
               "A2": 20,
-              "A3": 16,
-              "B1": 25,
+              "A3": 15,
+              "B1": 26,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -6734,12 +6734,12 @@
           {
             "ay": 5,
             "ay_adi": "Mayıs",
-            "toplam": 63,
+            "toplam": 64,
             "modeller": {
               "A1": 0,
-              "A2": 22,
+              "A2": 21,
               "A3": 12,
-              "B1": 27,
+              "B1": 29,
               "B2": 0,
               "C1": 2,
               "D1": 0
@@ -6762,12 +6762,12 @@
           {
             "ay": 7,
             "ay_adi": "Temmuz",
-            "toplam": 72,
+            "toplam": 71,
             "modeller": {
               "A1": 0,
               "A2": 33,
               "A3": 13,
-              "B1": 26,
+              "B1": 25,
               "B2": 0,
               "C1": 0,
               "D1": 0
@@ -6779,9 +6779,9 @@
             "toplam": 69,
             "modeller": {
               "A1": 0,
-              "A2": 24,
+              "A2": 25,
               "A3": 7,
-              "B1": 38,
+              "B1": 37,
               "B2": 0,
               "C1": 0,
               "D1": 0
@@ -6790,12 +6790,12 @@
           {
             "ay": 9,
             "ay_adi": "Eylül",
-            "toplam": 71,
+            "toplam": 70,
             "modeller": {
               "A1": 7,
-              "A2": 37,
+              "A2": 38,
               "A3": 7,
-              "B1": 19,
+              "B1": 17,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -6806,10 +6806,10 @@
             "ay_adi": "Ekim",
             "toplam": 75,
             "modeller": {
-              "A1": 2,
-              "A2": 44,
+              "A1": 3,
+              "A2": 45,
               "A3": 9,
-              "B1": 19,
+              "B1": 17,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -6821,9 +6821,9 @@
             "toplam": 88,
             "modeller": {
               "A1": 8,
-              "A2": 42,
+              "A2": 44,
               "A3": 20,
-              "B1": 17,
+              "B1": 15,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -6832,31 +6832,31 @@
           {
             "ay": 12,
             "ay_adi": "Aralık",
-            "toplam": 127,
+            "toplam": 128,
             "modeller": {
               "A1": 7,
-              "A2": 80,
-              "A3": 19,
-              "B1": 21,
+              "A2": 83,
+              "A3": 20,
+              "B1": 18,
               "B2": 0,
               "C1": 0,
               "D1": 0
             }
           }
         ],
-        "yillik_toplam": 855,
+        "yillik_toplam": 856,
         "yillik_modeller": {
-          "A1": 24,
-          "A2": 357,
-          "A3": 175,
-          "B1": 288,
+          "A1": 25,
+          "A2": 363,
+          "A3": 173,
+          "B1": 284,
           "B2": 0,
           "C1": 11,
           "D1": 0
         },
         "yillik_segmentler": {
-          "A": 556,
-          "B": 288,
+          "A": 561,
+          "B": 284,
           "C": 11,
           "D": 0
         }
@@ -6899,8 +6899,8 @@
             "modeller": {
               "A1": 0,
               "A2": 5,
-              "A3": 11,
-              "B1": 15,
+              "A3": 10,
+              "B1": 16,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -6923,10 +6923,10 @@
           {
             "ay": 5,
             "ay_adi": "Mayıs",
-            "toplam": 32,
+            "toplam": 31,
             "modeller": {
               "A1": 0,
-              "A2": 10,
+              "A2": 9,
               "A3": 7,
               "B1": 9,
               "B2": 0,
@@ -6937,12 +6937,12 @@
           {
             "ay": 6,
             "ay_adi": "Haziran",
-            "toplam": 39,
+            "toplam": 40,
             "modeller": {
               "A1": 0,
               "A2": 12,
               "A3": 16,
-              "B1": 7,
+              "B1": 8,
               "B2": 0,
               "C1": 4,
               "D1": 0
@@ -6968,9 +6968,9 @@
             "toplam": 27,
             "modeller": {
               "A1": 0,
-              "A2": 10,
+              "A2": 11,
               "A3": 4,
-              "B1": 12,
+              "B1": 11,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -6982,9 +6982,9 @@
             "toplam": 33,
             "modeller": {
               "A1": 4,
-              "A2": 16,
+              "A2": 17,
               "A3": 4,
-              "B1": 6,
+              "B1": 5,
               "B2": 0,
               "C1": 3,
               "D1": 0
@@ -6996,9 +6996,9 @@
             "toplam": 34,
             "modeller": {
               "A1": 1,
-              "A2": 19,
+              "A2": 20,
               "A3": 5,
-              "B1": 6,
+              "B1": 5,
               "B2": 0,
               "C1": 3,
               "D1": 0
@@ -7007,10 +7007,10 @@
           {
             "ay": 11,
             "ay_adi": "Kasım",
-            "toplam": 44,
+            "toplam": 45,
             "modeller": {
               "A1": 4,
-              "A2": 18,
+              "A2": 19,
               "A3": 12,
               "B1": 5,
               "B2": 0,
@@ -7021,12 +7021,12 @@
           {
             "ay": 12,
             "ay_adi": "Aralık",
-            "toplam": 60,
+            "toplam": 59,
             "modeller": {
               "A1": 4,
-              "A2": 35,
+              "A2": 36,
               "A3": 12,
-              "B1": 7,
+              "B1": 5,
               "B2": 0,
               "C1": 2,
               "D1": 0
@@ -7036,16 +7036,16 @@
         "yillik_toplam": 410,
         "yillik_modeller": {
           "A1": 13,
-          "A2": 155,
-          "A3": 104,
-          "B1": 91,
+          "A2": 159,
+          "A3": 103,
+          "B1": 88,
           "B2": 0,
           "C1": 47,
           "D1": 0
         },
         "yillik_segmentler": {
-          "A": 272,
-          "B": 91,
+          "A": 275,
+          "B": 88,
           "C": 47,
           "D": 0
         }
@@ -7087,9 +7087,9 @@
             "toplam": 38,
             "modeller": {
               "A1": 0,
-              "A2": 5,
-              "A3": 11,
-              "B1": 21,
+              "A2": 4,
+              "A3": 10,
+              "B1": 23,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -7098,12 +7098,12 @@
           {
             "ay": 4,
             "ay_adi": "Nisan",
-            "toplam": 31,
+            "toplam": 32,
             "modeller": {
               "A1": 0,
               "A2": 8,
               "A3": 9,
-              "B1": 11,
+              "B1": 12,
               "B2": 0,
               "C1": 3,
               "D1": 0
@@ -7112,12 +7112,12 @@
           {
             "ay": 5,
             "ay_adi": "Mayıs",
-            "toplam": 33,
+            "toplam": 34,
             "modeller": {
               "A1": 0,
               "A2": 8,
               "A3": 7,
-              "B1": 12,
+              "B1": 13,
               "B2": 0,
               "C1": 6,
               "D1": 0
@@ -7129,9 +7129,9 @@
             "toplam": 40,
             "modeller": {
               "A1": 0,
-              "A2": 11,
+              "A2": 10,
               "A3": 15,
-              "B1": 10,
+              "B1": 11,
               "B2": 0,
               "C1": 4,
               "D1": 0
@@ -7157,9 +7157,9 @@
             "toplam": 31,
             "modeller": {
               "A1": 0,
-              "A2": 9,
+              "A2": 10,
               "A3": 4,
-              "B1": 17,
+              "B1": 16,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -7168,10 +7168,10 @@
           {
             "ay": 9,
             "ay_adi": "Eylül",
-            "toplam": 30,
+            "toplam": 31,
             "modeller": {
               "A1": 1,
-              "A2": 14,
+              "A2": 15,
               "A3": 4,
               "B1": 8,
               "B2": 0,
@@ -7182,12 +7182,12 @@
           {
             "ay": 10,
             "ay_adi": "Ekim",
-            "toplam": 33,
+            "toplam": 32,
             "modeller": {
               "A1": 0,
               "A2": 17,
               "A3": 5,
-              "B1": 8,
+              "B1": 7,
               "B2": 0,
               "C1": 3,
               "D1": 0
@@ -7196,12 +7196,12 @@
           {
             "ay": 11,
             "ay_adi": "Kasım",
-            "toplam": 41,
+            "toplam": 42,
             "modeller": {
               "A1": 1,
-              "A2": 16,
-              "A3": 11,
-              "B1": 8,
+              "A2": 17,
+              "A3": 12,
+              "B1": 7,
               "B2": 0,
               "C1": 5,
               "D1": 0
@@ -7210,31 +7210,31 @@
           {
             "ay": 12,
             "ay_adi": "Aralık",
-            "toplam": 54,
+            "toplam": 55,
             "modeller": {
               "A1": 1,
-              "A2": 31,
-              "A3": 11,
-              "B1": 9,
+              "A2": 32,
+              "A3": 12,
+              "B1": 8,
               "B2": 0,
               "C1": 2,
               "D1": 0
             }
           }
         ],
-        "yillik_toplam": 413,
+        "yillik_toplam": 417,
         "yillik_modeller": {
           "A1": 3,
-          "A2": 138,
-          "A3": 99,
-          "B1": 126,
+          "A2": 140,
+          "A3": 100,
+          "B1": 127,
           "B2": 0,
           "C1": 47,
           "D1": 0
         },
         "yillik_segmentler": {
-          "A": 240,
-          "B": 126,
+          "A": 243,
+          "B": 127,
           "C": 47,
           "D": 0
         }
@@ -7276,9 +7276,9 @@
             "toplam": 40,
             "modeller": {
               "A1": 0,
-              "A2": 4,
-              "A3": 9,
-              "B1": 25,
+              "A2": 3,
+              "A3": 8,
+              "B1": 27,
               "B2": 0,
               "C1": 2,
               "D1": 0
@@ -7287,12 +7287,12 @@
           {
             "ay": 4,
             "ay_adi": "Nisan",
-            "toplam": 29,
+            "toplam": 30,
             "modeller": {
               "A1": 0,
               "A2": 6,
               "A3": 7,
-              "B1": 13,
+              "B1": 14,
               "B2": 0,
               "C1": 3,
               "D1": 0
@@ -7301,12 +7301,12 @@
           {
             "ay": 5,
             "ay_adi": "Mayıs",
-            "toplam": 34,
+            "toplam": 35,
             "modeller": {
               "A1": 0,
               "A2": 6,
               "A3": 6,
-              "B1": 14,
+              "B1": 15,
               "B2": 0,
               "C1": 8,
               "D1": 0
@@ -7315,12 +7315,12 @@
           {
             "ay": 6,
             "ay_adi": "Haziran",
-            "toplam": 36,
+            "toplam": 37,
             "modeller": {
               "A1": 0,
               "A2": 8,
               "A3": 12,
-              "B1": 12,
+              "B1": 13,
               "B2": 0,
               "C1": 4,
               "D1": 0
@@ -7329,10 +7329,10 @@
           {
             "ay": 7,
             "ay_adi": "Temmuz",
-            "toplam": 30,
+            "toplam": 31,
             "modeller": {
               "A1": 0,
-              "A2": 9,
+              "A2": 10,
               "A3": 6,
               "B1": 13,
               "B2": 0,
@@ -7343,12 +7343,12 @@
           {
             "ay": 8,
             "ay_adi": "Ağustos",
-            "toplam": 31,
+            "toplam": 30,
             "modeller": {
               "A1": 0,
               "A2": 7,
               "A3": 3,
-              "B1": 20,
+              "B1": 19,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -7357,12 +7357,12 @@
           {
             "ay": 9,
             "ay_adi": "Eylül",
-            "toplam": 30,
+            "toplam": 29,
             "modeller": {
               "A1": 2,
               "A2": 11,
               "A3": 3,
-              "B1": 10,
+              "B1": 9,
               "B2": 0,
               "C1": 4,
               "D1": 0
@@ -7371,12 +7371,12 @@
           {
             "ay": 10,
             "ay_adi": "Ekim",
-            "toplam": 32,
+            "toplam": 31,
             "modeller": {
               "A1": 1,
               "A2": 13,
               "A3": 4,
-              "B1": 10,
+              "B1": 9,
               "B2": 0,
               "C1": 4,
               "D1": 0
@@ -7385,12 +7385,12 @@
           {
             "ay": 11,
             "ay_adi": "Kasım",
-            "toplam": 38,
+            "toplam": 39,
             "modeller": {
               "A1": 2,
-              "A2": 12,
-              "A3": 9,
-              "B1": 9,
+              "A2": 13,
+              "A3": 10,
+              "B1": 8,
               "B2": 0,
               "C1": 6,
               "D1": 0
@@ -7399,31 +7399,31 @@
           {
             "ay": 12,
             "ay_adi": "Aralık",
-            "toplam": 47,
+            "toplam": 46,
             "modeller": {
               "A1": 2,
-              "A2": 23,
+              "A2": 24,
               "A3": 9,
-              "B1": 11,
+              "B1": 9,
               "B2": 0,
               "C1": 2,
               "D1": 0
             }
           }
         ],
-        "yillik_toplam": 397,
+        "yillik_toplam": 398,
         "yillik_modeller": {
           "A1": 7,
-          "A2": 103,
+          "A2": 105,
           "A3": 81,
-          "B1": 149,
+          "B1": 148,
           "B2": 0,
           "C1": 57,
           "D1": 0
         },
         "yillik_segmentler": {
-          "A": 191,
-          "B": 149,
+          "A": 193,
+          "B": 148,
           "C": 57,
           "D": 0
         }
@@ -7465,9 +7465,9 @@
             "toplam": 28,
             "modeller": {
               "A1": 0,
-              "A2": 4,
-              "A3": 4,
-              "B1": 20,
+              "A2": 3,
+              "A3": 3,
+              "B1": 22,
               "B2": 0,
               "C1": 0,
               "D1": 0
@@ -7476,12 +7476,12 @@
           {
             "ay": 4,
             "ay_adi": "Nisan",
-            "toplam": 20,
+            "toplam": 21,
             "modeller": {
               "A1": 0,
               "A2": 6,
               "A3": 3,
-              "B1": 10,
+              "B1": 11,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -7521,9 +7521,9 @@
             "toplam": 23,
             "modeller": {
               "A1": 0,
-              "A2": 10,
+              "A2": 11,
               "A3": 2,
-              "B1": 11,
+              "B1": 10,
               "B2": 0,
               "C1": 0,
               "D1": 0
@@ -7532,12 +7532,12 @@
           {
             "ay": 8,
             "ay_adi": "Ağustos",
-            "toplam": 25,
+            "toplam": 24,
             "modeller": {
               "A1": 0,
               "A2": 8,
               "A3": 1,
-              "B1": 16,
+              "B1": 15,
               "B2": 0,
               "C1": 0,
               "D1": 0
@@ -7546,12 +7546,12 @@
           {
             "ay": 9,
             "ay_adi": "Eylül",
-            "toplam": 23,
+            "toplam": 22,
             "modeller": {
               "A1": 1,
               "A2": 12,
               "A3": 1,
-              "B1": 8,
+              "B1": 7,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -7560,12 +7560,12 @@
           {
             "ay": 10,
             "ay_adi": "Ekim",
-            "toplam": 25,
+            "toplam": 24,
             "modeller": {
               "A1": 0,
               "A2": 14,
               "A3": 2,
-              "B1": 8,
+              "B1": 7,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -7577,9 +7577,9 @@
             "toplam": 26,
             "modeller": {
               "A1": 1,
-              "A2": 13,
+              "A2": 14,
               "A3": 4,
-              "B1": 7,
+              "B1": 6,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -7588,31 +7588,31 @@
           {
             "ay": 12,
             "ay_adi": "Aralık",
-            "toplam": 39,
+            "toplam": 38,
             "modeller": {
               "A1": 1,
-              "A2": 25,
+              "A2": 26,
               "A3": 4,
-              "B1": 9,
+              "B1": 7,
               "B2": 0,
               "C1": 0,
               "D1": 0
             }
           }
         ],
-        "yillik_toplam": 282,
+        "yillik_toplam": 279,
         "yillik_modeller": {
           "A1": 3,
-          "A2": 113,
-          "A3": 33,
-          "B1": 122,
+          "A2": 115,
+          "A3": 32,
+          "B1": 118,
           "B2": 0,
           "C1": 11,
           "D1": 0
         },
         "yillik_segmentler": {
-          "A": 149,
-          "B": 122,
+          "A": 150,
+          "B": 118,
           "C": 11,
           "D": 0
         }
@@ -7654,9 +7654,9 @@
             "toplam": 57,
             "modeller": {
               "A1": 0,
-              "A2": 6,
-              "A3": 12,
-              "B1": 37,
+              "A2": 5,
+              "A3": 10,
+              "B1": 40,
               "B2": 0,
               "C1": 2,
               "D1": 0
@@ -7669,8 +7669,8 @@
             "modeller": {
               "A1": 0,
               "A2": 10,
-              "A3": 10,
-              "B1": 19,
+              "A3": 9,
+              "B1": 20,
               "B2": 0,
               "C1": 4,
               "D1": 0
@@ -7679,12 +7679,12 @@
           {
             "ay": 5,
             "ay_adi": "Mayıs",
-            "toplam": 50,
+            "toplam": 51,
             "modeller": {
               "A1": 0,
               "A2": 11,
               "A3": 8,
-              "B1": 21,
+              "B1": 22,
               "B2": 0,
               "C1": 9,
               "D1": 1
@@ -7693,12 +7693,12 @@
           {
             "ay": 6,
             "ay_adi": "Haziran",
-            "toplam": 53,
+            "toplam": 54,
             "modeller": {
               "A1": 0,
               "A2": 14,
               "A3": 16,
-              "B1": 18,
+              "B1": 19,
               "B2": 0,
               "C1": 5,
               "D1": 0
@@ -7707,12 +7707,12 @@
           {
             "ay": 7,
             "ay_adi": "Temmuz",
-            "toplam": 48,
+            "toplam": 47,
             "modeller": {
               "A1": 0,
               "A2": 17,
               "A3": 8,
-              "B1": 20,
+              "B1": 19,
               "B2": 0,
               "C1": 3,
               "D1": 0
@@ -7721,12 +7721,12 @@
           {
             "ay": 8,
             "ay_adi": "Ağustos",
-            "toplam": 48,
+            "toplam": 47,
             "modeller": {
               "A1": 0,
-              "A2": 12,
+              "A2": 13,
               "A3": 4,
-              "B1": 30,
+              "B1": 28,
               "B2": 0,
               "C1": 2,
               "D1": 0
@@ -7739,22 +7739,22 @@
             "modeller": {
               "A1": 4,
               "A2": 19,
-              "A3": 4,
-              "B1": 15,
+              "A3": 5,
+              "B1": 13,
               "B2": 0,
-              "C1": 4,
+              "C1": 5,
               "D1": 0
             }
           },
           {
             "ay": 10,
             "ay_adi": "Ekim",
-            "toplam": 48,
+            "toplam": 47,
             "modeller": {
               "A1": 1,
-              "A2": 22,
+              "A2": 23,
               "A3": 5,
-              "B1": 15,
+              "B1": 13,
               "B2": 0,
               "C1": 5,
               "D1": 0
@@ -7763,26 +7763,26 @@
           {
             "ay": 11,
             "ay_adi": "Kasım",
-            "toplam": 57,
+            "toplam": 59,
             "modeller": {
               "A1": 4,
-              "A2": 21,
-              "A3": 12,
-              "B1": 13,
+              "A2": 22,
+              "A3": 13,
+              "B1": 12,
               "B2": 0,
-              "C1": 7,
+              "C1": 8,
               "D1": 0
             }
           },
           {
             "ay": 12,
             "ay_adi": "Aralık",
-            "toplam": 76,
+            "toplam": 75,
             "modeller": {
               "A1": 4,
-              "A2": 41,
+              "A2": 42,
               "A3": 12,
-              "B1": 16,
+              "B1": 14,
               "B2": 0,
               "C1": 3,
               "D1": 0
@@ -7792,17 +7792,17 @@
         "yillik_toplam": 595,
         "yillik_modeller": {
           "A1": 13,
-          "A2": 181,
-          "A3": 107,
-          "B1": 223,
+          "A2": 184,
+          "A3": 106,
+          "B1": 219,
           "B2": 0,
-          "C1": 70,
+          "C1": 72,
           "D1": 1
         },
         "yillik_segmentler": {
-          "A": 301,
-          "B": 223,
-          "C": 70,
+          "A": 303,
+          "B": 219,
+          "C": 72,
           "D": 1
         }
       },
@@ -7840,12 +7840,12 @@
           {
             "ay": 3,
             "ay_adi": "Mart",
-            "toplam": 71,
+            "toplam": 72,
             "modeller": {
               "A1": 0,
-              "A2": 9,
-              "A3": 13,
-              "B1": 46,
+              "A2": 8,
+              "A3": 11,
+              "B1": 50,
               "B2": 0,
               "C1": 3,
               "D1": 0
@@ -7857,9 +7857,9 @@
             "toplam": 55,
             "modeller": {
               "A1": 0,
-              "A2": 16,
+              "A2": 15,
               "A3": 10,
-              "B1": 24,
+              "B1": 25,
               "B2": 0,
               "C1": 5,
               "D1": 0
@@ -7868,12 +7868,12 @@
           {
             "ay": 5,
             "ay_adi": "Mayıs",
-            "toplam": 64,
+            "toplam": 65,
             "modeller": {
               "A1": 0,
               "A2": 17,
               "A3": 8,
-              "B1": 27,
+              "B1": 28,
               "B2": 0,
               "C1": 12,
               "D1": 0
@@ -7882,12 +7882,12 @@
           {
             "ay": 6,
             "ay_adi": "Haziran",
-            "toplam": 68,
+            "toplam": 69,
             "modeller": {
               "A1": 0,
               "A2": 21,
               "A3": 17,
-              "B1": 23,
+              "B1": 24,
               "B2": 0,
               "C1": 7,
               "D1": 0
@@ -7899,9 +7899,9 @@
             "toplam": 63,
             "modeller": {
               "A1": 0,
-              "A2": 25,
+              "A2": 26,
               "A3": 9,
-              "B1": 25,
+              "B1": 24,
               "B2": 0,
               "C1": 4,
               "D1": 0
@@ -7913,9 +7913,9 @@
             "toplam": 63,
             "modeller": {
               "A1": 0,
-              "A2": 19,
+              "A2": 20,
               "A3": 5,
-              "B1": 37,
+              "B1": 36,
               "B2": 0,
               "C1": 2,
               "D1": 0
@@ -7927,9 +7927,9 @@
             "toplam": 60,
             "modeller": {
               "A1": 2,
-              "A2": 29,
+              "A2": 30,
               "A3": 5,
-              "B1": 18,
+              "B1": 17,
               "B2": 0,
               "C1": 6,
               "D1": 0
@@ -7941,23 +7941,23 @@
             "toplam": 65,
             "modeller": {
               "A1": 1,
-              "A2": 34,
+              "A2": 35,
               "A3": 6,
-              "B1": 18,
+              "B1": 16,
               "B2": 0,
-              "C1": 6,
+              "C1": 7,
               "D1": 0
             }
           },
           {
             "ay": 11,
             "ay_adi": "Kasım",
-            "toplam": 75,
+            "toplam": 74,
             "modeller": {
               "A1": 2,
-              "A2": 33,
+              "A2": 34,
               "A3": 13,
-              "B1": 17,
+              "B1": 15,
               "B2": 0,
               "C1": 10,
               "D1": 0
@@ -7966,32 +7966,32 @@
           {
             "ay": 12,
             "ay_adi": "Aralık",
-            "toplam": 101,
+            "toplam": 100,
             "modeller": {
               "A1": 2,
-              "A2": 62,
+              "A2": 64,
               "A3": 13,
-              "B1": 20,
+              "B1": 17,
               "B2": 0,
               "C1": 4,
               "D1": 0
             }
           }
         ],
-        "yillik_toplam": 773,
+        "yillik_toplam": 774,
         "yillik_modeller": {
           "A1": 7,
-          "A2": 278,
-          "A3": 117,
-          "B1": 278,
+          "A2": 283,
+          "A3": 115,
+          "B1": 275,
           "B2": 0,
-          "C1": 93,
+          "C1": 94,
           "D1": 0
         },
         "yillik_segmentler": {
-          "A": 402,
-          "B": 278,
-          "C": 93,
+          "A": 405,
+          "B": 275,
+          "C": 94,
           "D": 0
         }
       },
@@ -8032,9 +8032,9 @@
             "toplam": 32,
             "modeller": {
               "A1": 0,
-              "A2": 5,
-              "A3": 8,
-              "B1": 17,
+              "A2": 4,
+              "A3": 7,
+              "B1": 19,
               "B2": 0,
               "C1": 2,
               "D1": 0
@@ -8046,9 +8046,9 @@
             "toplam": 26,
             "modeller": {
               "A1": 0,
-              "A2": 8,
+              "A2": 7,
               "A3": 6,
-              "B1": 9,
+              "B1": 10,
               "B2": 0,
               "C1": 3,
               "D1": 0
@@ -8099,12 +8099,12 @@
           {
             "ay": 8,
             "ay_adi": "Ağustos",
-            "toplam": 27,
+            "toplam": 26,
             "modeller": {
               "A1": 0,
               "A2": 9,
               "A3": 3,
-              "B1": 14,
+              "B1": 13,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -8113,12 +8113,12 @@
           {
             "ay": 9,
             "ay_adi": "Eylül",
-            "toplam": 29,
+            "toplam": 28,
             "modeller": {
               "A1": 1,
               "A2": 14,
               "A3": 3,
-              "B1": 7,
+              "B1": 6,
               "B2": 0,
               "C1": 4,
               "D1": 0
@@ -8127,12 +8127,12 @@
           {
             "ay": 10,
             "ay_adi": "Ekim",
-            "toplam": 30,
+            "toplam": 31,
             "modeller": {
               "A1": 0,
-              "A2": 16,
-              "A3": 3,
-              "B1": 7,
+              "A2": 17,
+              "A3": 4,
+              "B1": 6,
               "B2": 0,
               "C1": 4,
               "D1": 0
@@ -8141,12 +8141,12 @@
           {
             "ay": 11,
             "ay_adi": "Kasım",
-            "toplam": 37,
+            "toplam": 36,
             "modeller": {
               "A1": 1,
               "A2": 16,
               "A3": 8,
-              "B1": 6,
+              "B1": 5,
               "B2": 0,
               "C1": 6,
               "D1": 0
@@ -8155,31 +8155,31 @@
           {
             "ay": 12,
             "ay_adi": "Aralık",
-            "toplam": 49,
+            "toplam": 48,
             "modeller": {
               "A1": 1,
-              "A2": 30,
+              "A2": 31,
               "A3": 8,
-              "B1": 8,
+              "B1": 6,
               "B2": 0,
               "C1": 2,
               "D1": 0
             }
           }
         ],
-        "yillik_toplam": 371,
+        "yillik_toplam": 368,
         "yillik_modeller": {
           "A1": 3,
           "A2": 134,
           "A3": 71,
-          "B1": 105,
+          "B1": 102,
           "B2": 0,
           "C1": 57,
           "D1": 1
         },
         "yillik_segmentler": {
           "A": 208,
-          "B": 105,
+          "B": 102,
           "C": 57,
           "D": 1
         }
@@ -8246,14 +8246,14 @@
           {
             "ay": 5,
             "ay_adi": "Mayıs",
-            "toplam": 11,
+            "toplam": 10,
             "modeller": {
               "A1": 0,
               "A2": 2,
               "A3": 2,
               "B1": 2,
               "B2": 0,
-              "C1": 5,
+              "C1": 4,
               "D1": 0
             }
           },
@@ -8316,14 +8316,14 @@
           {
             "ay": 10,
             "ay_adi": "Ekim",
-            "toplam": 8,
+            "toplam": 9,
             "modeller": {
               "A1": 0,
               "A2": 4,
               "A3": 1,
               "B1": 1,
               "B2": 0,
-              "C1": 2,
+              "C1": 3,
               "D1": 0
             }
           },
@@ -8407,12 +8407,12 @@
           {
             "ay": 3,
             "ay_adi": "Mart",
-            "toplam": 18,
+            "toplam": 19,
             "modeller": {
               "A1": 0,
               "A2": 4,
               "A3": 4,
-              "B1": 9,
+              "B1": 10,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -8435,14 +8435,14 @@
           {
             "ay": 5,
             "ay_adi": "Mayıs",
-            "toplam": 21,
+            "toplam": 20,
             "modeller": {
               "A1": 0,
-              "A2": 8,
+              "A2": 7,
               "A3": 3,
-              "B1": 5,
+              "B1": 6,
               "B2": 0,
-              "C1": 5,
+              "C1": 4,
               "D1": 0
             }
           },
@@ -8477,10 +8477,10 @@
           {
             "ay": 8,
             "ay_adi": "Ağustos",
-            "toplam": 18,
+            "toplam": 19,
             "modeller": {
               "A1": 0,
-              "A2": 8,
+              "A2": 9,
               "A3": 2,
               "B1": 7,
               "B2": 0,
@@ -8491,12 +8491,12 @@
           {
             "ay": 9,
             "ay_adi": "Eylül",
-            "toplam": 21,
+            "toplam": 20,
             "modeller": {
               "A1": 0,
               "A2": 13,
               "A3": 2,
-              "B1": 4,
+              "B1": 3,
               "B2": 0,
               "C1": 2,
               "D1": 0
@@ -8505,14 +8505,14 @@
           {
             "ay": 10,
             "ay_adi": "Ekim",
-            "toplam": 23,
+            "toplam": 24,
             "modeller": {
               "A1": 0,
-              "A2": 15,
+              "A2": 16,
               "A3": 2,
-              "B1": 4,
+              "B1": 3,
               "B2": 0,
-              "C1": 2,
+              "C1": 3,
               "D1": 0
             }
           },
@@ -8533,12 +8533,12 @@
           {
             "ay": 12,
             "ay_adi": "Aralık",
-            "toplam": 38,
+            "toplam": 37,
             "modeller": {
               "A1": 0,
               "A2": 28,
               "A3": 5,
-              "B1": 4,
+              "B1": 3,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -8548,16 +8548,16 @@
         "yillik_toplam": 256,
         "yillik_modeller": {
           "A1": 0,
-          "A2": 124,
+          "A2": 125,
           "A3": 42,
-          "B1": 55,
+          "B1": 54,
           "B2": 0,
           "C1": 35,
           "D1": 0
         },
         "yillik_segmentler": {
-          "A": 166,
-          "B": 55,
+          "A": 167,
+          "B": 54,
           "C": 35,
           "D": 0
         }
@@ -8610,12 +8610,12 @@
           {
             "ay": 4,
             "ay_adi": "Nisan",
-            "toplam": 8,
+            "toplam": 9,
             "modeller": {
               "A1": 0,
               "A2": 2,
               "A3": 3,
-              "B1": 2,
+              "B1": 3,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -8680,25 +8680,25 @@
           {
             "ay": 9,
             "ay_adi": "Eylül",
-            "toplam": 9,
+            "toplam": 10,
             "modeller": {
               "A1": 0,
               "A2": 5,
               "A3": 1,
               "B1": 2,
               "B2": 0,
-              "C1": 1,
+              "C1": 2,
               "D1": 0
             }
           },
           {
             "ay": 10,
             "ay_adi": "Ekim",
-            "toplam": 10,
+            "toplam": 11,
             "modeller": {
               "A1": 0,
               "A2": 5,
-              "A3": 1,
+              "A3": 2,
               "B1": 2,
               "B2": 0,
               "C1": 2,
@@ -8713,9 +8713,9 @@
               "A1": 0,
               "A2": 5,
               "A3": 3,
-              "B1": 2,
+              "B1": 1,
               "B2": 0,
-              "C1": 2,
+              "C1": 3,
               "D1": 0
             }
           },
@@ -8734,20 +8734,20 @@
             }
           }
         ],
-        "yillik_toplam": 124,
+        "yillik_toplam": 127,
         "yillik_modeller": {
           "A1": 0,
           "A2": 43,
-          "A3": 28,
+          "A3": 29,
           "B1": 29,
           "B2": 0,
-          "C1": 24,
+          "C1": 26,
           "D1": 0
         },
         "yillik_segmentler": {
-          "A": 71,
+          "A": 72,
           "B": 29,
-          "C": 24,
+          "C": 26,
           "D": 0
         }
       },
@@ -8785,12 +8785,12 @@
           {
             "ay": 3,
             "ay_adi": "Mart",
-            "toplam": 29,
+            "toplam": 28,
             "modeller": {
               "A1": 0,
-              "A2": 5,
-              "A3": 6,
-              "B1": 17,
+              "A2": 4,
+              "A3": 5,
+              "B1": 18,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -8799,10 +8799,10 @@
           {
             "ay": 4,
             "ay_adi": "Nisan",
-            "toplam": 23,
+            "toplam": 22,
             "modeller": {
               "A1": 0,
-              "A2": 8,
+              "A2": 7,
               "A3": 5,
               "B1": 9,
               "B2": 0,
@@ -8827,12 +8827,12 @@
           {
             "ay": 6,
             "ay_adi": "Haziran",
-            "toplam": 28,
+            "toplam": 29,
             "modeller": {
               "A1": 0,
               "A2": 10,
               "A3": 8,
-              "B1": 8,
+              "B1": 9,
               "B2": 0,
               "C1": 2,
               "D1": 0
@@ -8841,10 +8841,10 @@
           {
             "ay": 7,
             "ay_adi": "Temmuz",
-            "toplam": 26,
+            "toplam": 27,
             "modeller": {
               "A1": 0,
-              "A2": 12,
+              "A2": 13,
               "A3": 4,
               "B1": 9,
               "B2": 0,
@@ -8858,9 +8858,9 @@
             "toplam": 26,
             "modeller": {
               "A1": 0,
-              "A2": 9,
+              "A2": 10,
               "A3": 2,
-              "B1": 14,
+              "B1": 13,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -8874,9 +8874,9 @@
               "A1": 2,
               "A2": 14,
               "A3": 2,
-              "B1": 7,
+              "B1": 6,
               "B2": 0,
-              "C1": 1,
+              "C1": 2,
               "D1": 0
             }
           },
@@ -8886,9 +8886,9 @@
             "toplam": 29,
             "modeller": {
               "A1": 1,
-              "A2": 16,
+              "A2": 17,
               "A3": 3,
-              "B1": 7,
+              "B1": 6,
               "B2": 0,
               "C1": 2,
               "D1": 0
@@ -8897,46 +8897,46 @@
           {
             "ay": 11,
             "ay_adi": "Kasım",
-            "toplam": 33,
+            "toplam": 34,
             "modeller": {
               "A1": 3,
-              "A2": 16,
+              "A2": 17,
               "A3": 6,
-              "B1": 6,
+              "B1": 5,
               "B2": 0,
-              "C1": 2,
+              "C1": 3,
               "D1": 0
             }
           },
           {
             "ay": 12,
             "ay_adi": "Aralık",
-            "toplam": 46,
+            "toplam": 47,
             "modeller": {
-              "A1": 2,
-              "A2": 30,
+              "A1": 3,
+              "A2": 31,
               "A3": 6,
-              "B1": 7,
+              "B1": 6,
               "B2": 0,
               "C1": 1,
               "D1": 0
             }
           }
         ],
-        "yillik_toplam": 322,
+        "yillik_toplam": 324,
         "yillik_modeller": {
-          "A1": 8,
-          "A2": 134,
-          "A3": 54,
-          "B1": 102,
+          "A1": 9,
+          "A2": 137,
+          "A3": 53,
+          "B1": 99,
           "B2": 0,
-          "C1": 24,
+          "C1": 26,
           "D1": 0
         },
         "yillik_segmentler": {
-          "A": 196,
-          "B": 102,
-          "C": 24,
+          "A": 199,
+          "B": 99,
+          "C": 26,
           "D": 0
         }
       },
@@ -8977,9 +8977,9 @@
             "toplam": 54,
             "modeller": {
               "A1": 0,
-              "A2": 9,
-              "A3": 12,
-              "B1": 32,
+              "A2": 8,
+              "A3": 10,
+              "B1": 35,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -8992,8 +8992,8 @@
             "modeller": {
               "A1": 0,
               "A2": 14,
-              "A3": 10,
-              "B1": 17,
+              "A3": 9,
+              "B1": 18,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -9016,12 +9016,12 @@
           {
             "ay": 6,
             "ay_adi": "Haziran",
-            "toplam": 53,
+            "toplam": 54,
             "modeller": {
               "A1": 0,
               "A2": 19,
               "A3": 16,
-              "B1": 16,
+              "B1": 17,
               "B2": 0,
               "C1": 2,
               "D1": 0
@@ -9047,9 +9047,9 @@
             "toplam": 48,
             "modeller": {
               "A1": 0,
-              "A2": 17,
+              "A2": 18,
               "A3": 4,
-              "B1": 26,
+              "B1": 25,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -9058,26 +9058,26 @@
           {
             "ay": 9,
             "ay_adi": "Eylül",
-            "toplam": 48,
+            "toplam": 50,
             "modeller": {
               "A1": 4,
-              "A2": 26,
-              "A3": 4,
-              "B1": 13,
+              "A2": 27,
+              "A3": 5,
+              "B1": 12,
               "B2": 0,
-              "C1": 1,
+              "C1": 2,
               "D1": 0
             }
           },
           {
             "ay": 10,
             "ay_adi": "Ekim",
-            "toplam": 53,
+            "toplam": 52,
             "modeller": {
               "A1": 2,
-              "A2": 31,
+              "A2": 32,
               "A3": 5,
-              "B1": 13,
+              "B1": 11,
               "B2": 0,
               "C1": 2,
               "D1": 0
@@ -9086,14 +9086,14 @@
           {
             "ay": 11,
             "ay_adi": "Kasım",
-            "toplam": 61,
+            "toplam": 62,
             "modeller": {
               "A1": 5,
-              "A2": 30,
-              "A3": 12,
-              "B1": 12,
+              "A2": 31,
+              "A3": 13,
+              "B1": 10,
               "B2": 0,
-              "C1": 2,
+              "C1": 3,
               "D1": 0
             }
           },
@@ -9103,29 +9103,29 @@
             "toplam": 87,
             "modeller": {
               "A1": 4,
-              "A2": 56,
+              "A2": 58,
               "A3": 12,
-              "B1": 14,
+              "B1": 12,
               "B2": 0,
               "C1": 1,
               "D1": 0
             }
           }
         ],
-        "yillik_toplam": 599,
+        "yillik_toplam": 602,
         "yillik_modeller": {
           "A1": 15,
-          "A2": 251,
-          "A3": 107,
-          "B1": 195,
+          "A2": 256,
+          "A3": 106,
+          "B1": 192,
           "B2": 0,
-          "C1": 24,
+          "C1": 26,
           "D1": 7
         },
         "yillik_segmentler": {
-          "A": 373,
-          "B": 195,
-          "C": 24,
+          "A": 377,
+          "B": 192,
+          "C": 26,
           "D": 7
         }
       },
@@ -9166,9 +9166,9 @@
             "toplam": 41,
             "modeller": {
               "A1": 0,
-              "A2": 8,
-              "A3": 13,
-              "B1": 20,
+              "A2": 7,
+              "A3": 12,
+              "B1": 22,
               "B2": 0,
               "C1": 0,
               "D1": 0
@@ -9180,9 +9180,9 @@
             "toplam": 35,
             "modeller": {
               "A1": 0,
-              "A2": 13,
+              "A2": 12,
               "A3": 11,
-              "B1": 10,
+              "B1": 11,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -9191,10 +9191,10 @@
           {
             "ay": 5,
             "ay_adi": "Mayıs",
-            "toplam": 37,
+            "toplam": 36,
             "modeller": {
               "A1": 0,
-              "A2": 14,
+              "A2": 13,
               "A3": 9,
               "B1": 12,
               "B2": 0,
@@ -9222,9 +9222,9 @@
             "toplam": 40,
             "modeller": {
               "A1": 0,
-              "A2": 20,
+              "A2": 21,
               "A3": 9,
-              "B1": 11,
+              "B1": 10,
               "B2": 0,
               "C1": 0,
               "D1": 0
@@ -9236,9 +9236,9 @@
             "toplam": 36,
             "modeller": {
               "A1": 0,
-              "A2": 15,
+              "A2": 16,
               "A3": 5,
-              "B1": 16,
+              "B1": 15,
               "B2": 0,
               "C1": 0,
               "D1": 0
@@ -9250,9 +9250,9 @@
             "toplam": 39,
             "modeller": {
               "A1": 2,
-              "A2": 23,
+              "A2": 24,
               "A3": 5,
-              "B1": 8,
+              "B1": 7,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -9264,9 +9264,9 @@
             "toplam": 43,
             "modeller": {
               "A1": 1,
-              "A2": 27,
+              "A2": 28,
               "A3": 6,
-              "B1": 8,
+              "B1": 7,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -9275,12 +9275,12 @@
           {
             "ay": 11,
             "ay_adi": "Kasım",
-            "toplam": 51,
+            "toplam": 50,
             "modeller": {
               "A1": 2,
               "A2": 27,
               "A3": 14,
-              "B1": 7,
+              "B1": 6,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -9292,28 +9292,28 @@
             "toplam": 75,
             "modeller": {
               "A1": 2,
-              "A2": 50,
+              "A2": 52,
               "A3": 14,
-              "B1": 9,
+              "B1": 7,
               "B2": 0,
               "C1": 0,
               "D1": 0
             }
           }
         ],
-        "yillik_toplam": 487,
+        "yillik_toplam": 485,
         "yillik_modeller": {
           "A1": 7,
-          "A2": 224,
-          "A3": 123,
-          "B1": 122,
+          "A2": 227,
+          "A3": 122,
+          "B1": 118,
           "B2": 0,
           "C1": 11,
           "D1": 0
         },
         "yillik_segmentler": {
-          "A": 354,
-          "B": 122,
+          "A": 356,
+          "B": 118,
           "C": 11,
           "D": 0
         }
@@ -9356,8 +9356,8 @@
             "modeller": {
               "A1": 0,
               "A2": 7,
-              "A3": 19,
-              "B1": 29,
+              "A3": 17,
+              "B1": 31,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -9366,12 +9366,12 @@
           {
             "ay": 4,
             "ay_adi": "Nisan",
-            "toplam": 44,
+            "toplam": 45,
             "modeller": {
               "A1": 0,
               "A2": 12,
               "A3": 15,
-              "B1": 15,
+              "B1": 16,
               "B2": 0,
               "C1": 2,
               "D1": 0
@@ -9380,26 +9380,26 @@
           {
             "ay": 5,
             "ay_adi": "Mayıs",
-            "toplam": 47,
+            "toplam": 46,
             "modeller": {
               "A1": 0,
               "A2": 13,
               "A3": 12,
               "B1": 17,
               "B2": 0,
-              "C1": 5,
+              "C1": 4,
               "D1": 0
             }
           },
           {
             "ay": 6,
             "ay_adi": "Haziran",
-            "toplam": 60,
+            "toplam": 61,
             "modeller": {
               "A1": 0,
               "A2": 17,
               "A3": 26,
-              "B1": 14,
+              "B1": 15,
               "B2": 0,
               "C1": 3,
               "D1": 0
@@ -9422,12 +9422,12 @@
           {
             "ay": 8,
             "ay_adi": "Ağustos",
-            "toplam": 46,
+            "toplam": 45,
             "modeller": {
               "A1": 0,
               "A2": 15,
               "A3": 7,
-              "B1": 23,
+              "B1": 22,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -9436,12 +9436,12 @@
           {
             "ay": 9,
             "ay_adi": "Eylül",
-            "toplam": 45,
+            "toplam": 44,
             "modeller": {
               "A1": 2,
               "A2": 23,
               "A3": 7,
-              "B1": 11,
+              "B1": 10,
               "B2": 0,
               "C1": 2,
               "D1": 0
@@ -9450,26 +9450,26 @@
           {
             "ay": 10,
             "ay_adi": "Ekim",
-            "toplam": 49,
+            "toplam": 50,
             "modeller": {
               "A1": 1,
               "A2": 27,
-              "A3": 8,
-              "B1": 11,
+              "A3": 9,
+              "B1": 10,
               "B2": 0,
-              "C1": 2,
+              "C1": 3,
               "D1": 0
             }
           },
           {
             "ay": 11,
             "ay_adi": "Kasım",
-            "toplam": 62,
+            "toplam": 63,
             "modeller": {
               "A1": 3,
-              "A2": 26,
-              "A3": 19,
-              "B1": 10,
+              "A2": 27,
+              "A3": 20,
+              "B1": 9,
               "B2": 0,
               "C1": 4,
               "D1": 0
@@ -9478,31 +9478,31 @@
           {
             "ay": 12,
             "ay_adi": "Aralık",
-            "toplam": 84,
+            "toplam": 85,
             "modeller": {
-              "A1": 2,
-              "A2": 49,
-              "A3": 19,
-              "B1": 13,
+              "A1": 3,
+              "A2": 50,
+              "A3": 20,
+              "B1": 11,
               "B2": 0,
               "C1": 1,
               "D1": 0
             }
           }
         ],
-        "yillik_toplam": 606,
+        "yillik_toplam": 608,
         "yillik_modeller": {
-          "A1": 8,
-          "A2": 219,
-          "A3": 171,
-          "B1": 173,
+          "A1": 9,
+          "A2": 221,
+          "A3": 172,
+          "B1": 171,
           "B2": 0,
           "C1": 35,
           "D1": 0
         },
         "yillik_segmentler": {
-          "A": 398,
-          "B": 173,
+          "A": 402,
+          "B": 171,
           "C": 35,
           "D": 0
         }
@@ -9541,12 +9541,12 @@
           {
             "ay": 3,
             "ay_adi": "Mart",
-            "toplam": 62,
+            "toplam": 63,
             "modeller": {
               "A1": 0,
-              "A2": 7,
-              "A3": 13,
-              "B1": 39,
+              "A2": 6,
+              "A3": 12,
+              "B1": 42,
               "B2": 0,
               "C1": 3,
               "D1": 0
@@ -9555,12 +9555,12 @@
           {
             "ay": 4,
             "ay_adi": "Nisan",
-            "toplam": 47,
+            "toplam": 48,
             "modeller": {
               "A1": 0,
               "A2": 11,
               "A3": 11,
-              "B1": 20,
+              "B1": 21,
               "B2": 0,
               "C1": 5,
               "D1": 0
@@ -9569,12 +9569,12 @@
           {
             "ay": 5,
             "ay_adi": "Mayıs",
-            "toplam": 58,
+            "toplam": 59,
             "modeller": {
               "A1": 0,
               "A2": 12,
               "A3": 9,
-              "B1": 22,
+              "B1": 23,
               "B2": 0,
               "C1": 12,
               "D1": 3
@@ -9583,12 +9583,12 @@
           {
             "ay": 6,
             "ay_adi": "Haziran",
-            "toplam": 59,
+            "toplam": 60,
             "modeller": {
               "A1": 0,
               "A2": 15,
               "A3": 18,
-              "B1": 19,
+              "B1": 20,
               "B2": 0,
               "C1": 7,
               "D1": 0
@@ -9597,12 +9597,12 @@
           {
             "ay": 7,
             "ay_adi": "Temmuz",
-            "toplam": 52,
+            "toplam": 51,
             "modeller": {
               "A1": 0,
               "A2": 18,
               "A3": 9,
-              "B1": 21,
+              "B1": 20,
               "B2": 0,
               "C1": 4,
               "D1": 0
@@ -9614,9 +9614,9 @@
             "toplam": 51,
             "modeller": {
               "A1": 0,
-              "A2": 13,
+              "A2": 14,
               "A3": 5,
-              "B1": 31,
+              "B1": 30,
               "B2": 0,
               "C1": 2,
               "D1": 0
@@ -9625,12 +9625,12 @@
           {
             "ay": 9,
             "ay_adi": "Eylül",
-            "toplam": 51,
+            "toplam": 50,
             "modeller": {
               "A1": 4,
               "A2": 21,
               "A3": 5,
-              "B1": 15,
+              "B1": 14,
               "B2": 0,
               "C1": 6,
               "D1": 0
@@ -9639,26 +9639,26 @@
           {
             "ay": 10,
             "ay_adi": "Ekim",
-            "toplam": 52,
+            "toplam": 53,
             "modeller": {
               "A1": 1,
-              "A2": 24,
+              "A2": 25,
               "A3": 6,
-              "B1": 15,
+              "B1": 14,
               "B2": 0,
-              "C1": 6,
+              "C1": 7,
               "D1": 0
             }
           },
           {
             "ay": 11,
             "ay_adi": "Kasım",
-            "toplam": 65,
+            "toplam": 64,
             "modeller": {
               "A1": 4,
-              "A2": 23,
+              "A2": 24,
               "A3": 14,
-              "B1": 14,
+              "B1": 12,
               "B2": 0,
               "C1": 10,
               "D1": 0
@@ -9667,32 +9667,32 @@
           {
             "ay": 12,
             "ay_adi": "Aralık",
-            "toplam": 83,
+            "toplam": 82,
             "modeller": {
               "A1": 4,
-              "A2": 44,
+              "A2": 46,
               "A3": 14,
-              "B1": 17,
+              "B1": 14,
               "B2": 0,
               "C1": 4,
               "D1": 0
             }
           }
         ],
-        "yillik_toplam": 662,
+        "yillik_toplam": 663,
         "yillik_modeller": {
           "A1": 13,
-          "A2": 197,
-          "A3": 123,
-          "B1": 233,
+          "A2": 201,
+          "A3": 122,
+          "B1": 230,
           "B2": 0,
-          "C1": 93,
+          "C1": 94,
           "D1": 3
         },
         "yillik_segmentler": {
-          "A": 333,
-          "B": 233,
-          "C": 93,
+          "A": 336,
+          "B": 230,
+          "C": 94,
           "D": 3
         }
       },
@@ -9730,26 +9730,26 @@
           {
             "ay": 3,
             "ay_adi": "Mart",
-            "toplam": 79,
+            "toplam": 77,
             "modeller": {
               "A1": 0,
-              "A2": 18,
-              "A3": 18,
-              "B1": 35,
+              "A2": 16,
+              "A3": 16,
+              "B1": 38,
               "B2": 0,
-              "C1": 8,
+              "C1": 7,
               "D1": 0
             }
           },
           {
             "ay": 4,
             "ay_adi": "Nisan",
-            "toplam": 79,
+            "toplam": 77,
             "modeller": {
               "A1": 0,
-              "A2": 31,
-              "A3": 15,
-              "B1": 18,
+              "A2": 29,
+              "A3": 14,
+              "B1": 19,
               "B2": 0,
               "C1": 15,
               "D1": 0
@@ -9758,40 +9758,40 @@
           {
             "ay": 5,
             "ay_adi": "Mayıs",
-            "toplam": 101,
+            "toplam": 99,
             "modeller": {
               "A1": 0,
-              "A2": 33,
-              "A3": 12,
-              "B1": 20,
+              "A2": 32,
+              "A3": 11,
+              "B1": 21,
               "B2": 0,
-              "C1": 35,
+              "C1": 34,
               "D1": 1
             }
           },
           {
             "ay": 6,
             "ay_adi": "Haziran",
-            "toplam": 105,
+            "toplam": 103,
             "modeller": {
               "A1": 0,
               "A2": 41,
-              "A3": 25,
+              "A3": 24,
               "B1": 18,
               "B2": 0,
-              "C1": 21,
+              "C1": 20,
               "D1": 0
             }
           },
           {
             "ay": 7,
             "ay_adi": "Temmuz",
-            "toplam": 91,
+            "toplam": 90,
             "modeller": {
               "A1": 0,
               "A2": 49,
               "A3": 12,
-              "B1": 19,
+              "B1": 18,
               "B2": 0,
               "C1": 11,
               "D1": 0
@@ -9800,26 +9800,26 @@
           {
             "ay": 8,
             "ay_adi": "Ağustos",
-            "toplam": 76,
+            "toplam": 78,
             "modeller": {
               "A1": 0,
-              "A2": 36,
-              "A3": 6,
-              "B1": 28,
+              "A2": 37,
+              "A3": 7,
+              "B1": 27,
               "B2": 0,
-              "C1": 6,
+              "C1": 7,
               "D1": 0
             }
           },
           {
             "ay": 9,
             "ay_adi": "Eylül",
-            "toplam": 97,
+            "toplam": 98,
             "modeller": {
               "A1": 4,
-              "A2": 55,
+              "A2": 57,
               "A3": 7,
-              "B1": 14,
+              "B1": 13,
               "B2": 0,
               "C1": 17,
               "D1": 0
@@ -9831,9 +9831,9 @@
             "toplam": 107,
             "modeller": {
               "A1": 1,
-              "A2": 65,
+              "A2": 67,
               "A3": 8,
-              "B1": 14,
+              "B1": 12,
               "B2": 0,
               "C1": 19,
               "D1": 0
@@ -9842,46 +9842,46 @@
           {
             "ay": 11,
             "ay_adi": "Kasım",
-            "toplam": 127,
+            "toplam": 128,
             "modeller": {
               "A1": 4,
-              "A2": 63,
+              "A2": 65,
               "A3": 19,
-              "B1": 13,
+              "B1": 11,
               "B2": 0,
-              "C1": 28,
+              "C1": 29,
               "D1": 0
             }
           },
           {
             "ay": 12,
             "ay_adi": "Aralık",
-            "toplam": 168,
+            "toplam": 170,
             "modeller": {
               "A1": 4,
-              "A2": 119,
-              "A3": 18,
-              "B1": 16,
+              "A2": 123,
+              "A3": 19,
+              "B1": 13,
               "B2": 0,
               "C1": 11,
               "D1": 0
             }
           }
         ],
-        "yillik_toplam": 1195,
+        "yillik_toplam": 1192,
         "yillik_modeller": {
           "A1": 13,
-          "A2": 534,
-          "A3": 165,
-          "B1": 213,
+          "A2": 540,
+          "A3": 162,
+          "B1": 208,
           "B2": 0,
-          "C1": 269,
+          "C1": 268,
           "D1": 1
         },
         "yillik_segmentler": {
-          "A": 712,
-          "B": 213,
-          "C": 269,
+          "A": 715,
+          "B": 208,
+          "C": 268,
           "D": 1
         }
       },
@@ -9919,12 +9919,12 @@
           {
             "ay": 3,
             "ay_adi": "Mart",
-            "toplam": 46,
+            "toplam": 47,
             "modeller": {
               "A1": 0,
-              "A2": 7,
-              "A3": 9,
-              "B1": 29,
+              "A2": 6,
+              "A3": 8,
+              "B1": 32,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -9936,9 +9936,9 @@
             "toplam": 37,
             "modeller": {
               "A1": 0,
-              "A2": 12,
+              "A2": 11,
               "A3": 7,
-              "B1": 15,
+              "B1": 16,
               "B2": 0,
               "C1": 3,
               "D1": 0
@@ -9947,12 +9947,12 @@
           {
             "ay": 5,
             "ay_adi": "Mayıs",
-            "toplam": 43,
+            "toplam": 42,
             "modeller": {
               "A1": 0,
-              "A2": 13,
-              "A3": 6,
-              "B1": 17,
+              "A2": 12,
+              "A3": 5,
+              "B1": 18,
               "B2": 0,
               "C1": 6,
               "D1": 1
@@ -9975,12 +9975,12 @@
           {
             "ay": 7,
             "ay_adi": "Temmuz",
-            "toplam": 43,
+            "toplam": 42,
             "modeller": {
               "A1": 0,
               "A2": 19,
               "A3": 6,
-              "B1": 16,
+              "B1": 15,
               "B2": 0,
               "C1": 2,
               "D1": 0
@@ -10006,9 +10006,9 @@
             "toplam": 43,
             "modeller": {
               "A1": 5,
-              "A2": 21,
+              "A2": 22,
               "A3": 3,
-              "B1": 11,
+              "B1": 10,
               "B2": 0,
               "C1": 3,
               "D1": 0
@@ -10017,12 +10017,12 @@
           {
             "ay": 10,
             "ay_adi": "Ekim",
-            "toplam": 46,
+            "toplam": 45,
             "modeller": {
               "A1": 2,
-              "A2": 25,
+              "A2": 26,
               "A3": 4,
-              "B1": 12,
+              "B1": 10,
               "B2": 0,
               "C1": 3,
               "D1": 0
@@ -10031,12 +10031,12 @@
           {
             "ay": 11,
             "ay_adi": "Kasım",
-            "toplam": 55,
+            "toplam": 54,
             "modeller": {
               "A1": 6,
-              "A2": 24,
+              "A2": 25,
               "A3": 9,
-              "B1": 11,
+              "B1": 9,
               "B2": 0,
               "C1": 5,
               "D1": 0
@@ -10045,31 +10045,31 @@
           {
             "ay": 12,
             "ay_adi": "Aralık",
-            "toplam": 75,
+            "toplam": 74,
             "modeller": {
               "A1": 5,
-              "A2": 46,
+              "A2": 47,
               "A3": 9,
-              "B1": 13,
+              "B1": 11,
               "B2": 0,
               "C1": 2,
               "D1": 0
             }
           }
         ],
-        "yillik_toplam": 529,
+        "yillik_toplam": 525,
         "yillik_modeller": {
           "A1": 18,
-          "A2": 206,
-          "A3": 80,
-          "B1": 177,
+          "A2": 207,
+          "A3": 78,
+          "B1": 174,
           "B2": 0,
           "C1": 47,
           "D1": 1
         },
         "yillik_segmentler": {
-          "A": 304,
-          "B": 177,
+          "A": 303,
+          "B": 174,
           "C": 47,
           "D": 1
         }
@@ -10108,14 +10108,14 @@
           {
             "ay": 3,
             "ay_adi": "Mart",
-            "toplam": 32,
+            "toplam": 30,
             "modeller": {
               "A1": 0,
-              "A2": 3,
-              "A3": 8,
-              "B1": 18,
+              "A2": 2,
+              "A3": 7,
+              "B1": 19,
               "B2": 0,
-              "C1": 3,
+              "C1": 2,
               "D1": 0
             }
           },
@@ -10127,9 +10127,9 @@
               "A1": 0,
               "A2": 5,
               "A3": 6,
-              "B1": 9,
+              "B1": 10,
               "B2": 0,
-              "C1": 5,
+              "C1": 4,
               "D1": 0
             }
           },
@@ -10141,9 +10141,9 @@
               "A1": 0,
               "A2": 5,
               "A3": 5,
-              "B1": 10,
+              "B1": 11,
               "B2": 0,
-              "C1": 11,
+              "C1": 10,
               "D1": 0
             }
           },
@@ -10167,9 +10167,9 @@
             "toplam": 25,
             "modeller": {
               "A1": 0,
-              "A2": 7,
+              "A2": 8,
               "A3": 5,
-              "B1": 10,
+              "B1": 9,
               "B2": 0,
               "C1": 3,
               "D1": 0
@@ -10192,12 +10192,12 @@
           {
             "ay": 9,
             "ay_adi": "Eylül",
-            "toplam": 24,
+            "toplam": 23,
             "modeller": {
               "A1": 0,
               "A2": 9,
               "A3": 3,
-              "B1": 7,
+              "B1": 6,
               "B2": 0,
               "C1": 5,
               "D1": 0
@@ -10210,8 +10210,8 @@
             "modeller": {
               "A1": 0,
               "A2": 10,
-              "A3": 3,
-              "B1": 7,
+              "A3": 4,
+              "B1": 6,
               "B2": 0,
               "C1": 6,
               "D1": 0
@@ -10220,12 +10220,12 @@
           {
             "ay": 11,
             "ay_adi": "Kasım",
-            "toplam": 34,
+            "toplam": 33,
             "modeller": {
               "A1": 0,
               "A2": 10,
               "A3": 8,
-              "B1": 7,
+              "B1": 6,
               "B2": 0,
               "C1": 9,
               "D1": 0
@@ -10237,29 +10237,29 @@
             "toplam": 37,
             "modeller": {
               "A1": 0,
-              "A2": 18,
+              "A2": 19,
               "A3": 8,
-              "B1": 8,
+              "B1": 7,
               "B2": 0,
               "C1": 3,
               "D1": 0
             }
           }
         ],
-        "yillik_toplam": 345,
+        "yillik_toplam": 341,
         "yillik_modeller": {
           "A1": 0,
-          "A2": 83,
+          "A2": 84,
           "A3": 71,
-          "B1": 108,
+          "B1": 106,
           "B2": 0,
-          "C1": 83,
+          "C1": 80,
           "D1": 0
         },
         "yillik_segmentler": {
-          "A": 154,
-          "B": 108,
-          "C": 83,
+          "A": 155,
+          "B": 106,
+          "C": 80,
           "D": 0
         }
       },
@@ -10367,10 +10367,10 @@
           {
             "ay": 8,
             "ay_adi": "Ağustos",
-            "toplam": 7,
+            "toplam": 8,
             "modeller": {
               "A1": 0,
-              "A2": 4,
+              "A2": 5,
               "A3": 0,
               "B1": 3,
               "B2": 0,
@@ -10423,12 +10423,12 @@
           {
             "ay": 12,
             "ay_adi": "Aralık",
-            "toplam": 20,
+            "toplam": 19,
             "modeller": {
               "A1": 2,
               "A2": 15,
               "A3": 1,
-              "B1": 2,
+              "B1": 1,
               "B2": 0,
               "C1": 0,
               "D1": 0
@@ -10438,16 +10438,16 @@
         "yillik_toplam": 116,
         "yillik_modeller": {
           "A1": 7,
-          "A2": 66,
+          "A2": 67,
           "A3": 11,
-          "B1": 21,
+          "B1": 20,
           "B2": 0,
           "C1": 11,
           "D1": 0
         },
         "yillik_segmentler": {
-          "A": 84,
-          "B": 21,
+          "A": 85,
+          "B": 20,
           "C": 11,
           "D": 0
         }
@@ -10490,8 +10490,8 @@
             "modeller": {
               "A1": 0,
               "A2": 4,
-              "A3": 6,
-              "B1": 11,
+              "A3": 5,
+              "B1": 12,
               "B2": 0,
               "C1": 0,
               "D1": 0
@@ -10500,10 +10500,10 @@
           {
             "ay": 4,
             "ay_adi": "Nisan",
-            "toplam": 19,
+            "toplam": 18,
             "modeller": {
               "A1": 0,
-              "A2": 7,
+              "A2": 6,
               "A3": 5,
               "B1": 6,
               "B2": 0,
@@ -10528,12 +10528,12 @@
           {
             "ay": 6,
             "ay_adi": "Haziran",
-            "toplam": 23,
+            "toplam": 24,
             "modeller": {
               "A1": 0,
               "A2": 9,
               "A3": 8,
-              "B1": 5,
+              "B1": 6,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -10556,12 +10556,12 @@
           {
             "ay": 8,
             "ay_adi": "Ağustos",
-            "toplam": 19,
+            "toplam": 18,
             "modeller": {
               "A1": 0,
               "A2": 8,
               "A3": 2,
-              "B1": 9,
+              "B1": 8,
               "B2": 0,
               "C1": 0,
               "D1": 0
@@ -10584,10 +10584,10 @@
           {
             "ay": 10,
             "ay_adi": "Ekim",
-            "toplam": 22,
+            "toplam": 23,
             "modeller": {
               "A1": 0,
-              "A2": 14,
+              "A2": 15,
               "A3": 3,
               "B1": 4,
               "B2": 0,
@@ -10602,8 +10602,8 @@
             "modeller": {
               "A1": 1,
               "A2": 14,
-              "A3": 6,
-              "B1": 4,
+              "A3": 7,
+              "B1": 3,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -10615,9 +10615,9 @@
             "toplam": 38,
             "modeller": {
               "A1": 1,
-              "A2": 26,
+              "A2": 27,
               "A3": 6,
-              "B1": 5,
+              "B1": 4,
               "B2": 0,
               "C1": 0,
               "D1": 0
@@ -10627,16 +10627,16 @@
         "yillik_toplam": 250,
         "yillik_modeller": {
           "A1": 3,
-          "A2": 117,
+          "A2": 118,
           "A3": 54,
-          "B1": 65,
+          "B1": 64,
           "B2": 0,
           "C1": 11,
           "D1": 0
         },
         "yillik_segmentler": {
-          "A": 174,
-          "B": 65,
+          "A": 175,
+          "B": 64,
           "C": 11,
           "D": 0
         }
@@ -10679,8 +10679,8 @@
             "modeller": {
               "A1": 0,
               "A2": 3,
-              "A3": 8,
-              "B1": 13,
+              "A3": 7,
+              "B1": 14,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -10745,12 +10745,12 @@
           {
             "ay": 8,
             "ay_adi": "Ağustos",
-            "toplam": 21,
+            "toplam": 20,
             "modeller": {
               "A1": 0,
               "A2": 6,
               "A3": 3,
-              "B1": 11,
+              "B1": 10,
               "B2": 0,
               "C1": 1,
               "D1": 0
@@ -10759,25 +10759,25 @@
           {
             "ay": 9,
             "ay_adi": "Eylül",
-            "toplam": 19,
+            "toplam": 20,
             "modeller": {
               "A1": 1,
               "A2": 9,
               "A3": 3,
               "B1": 5,
               "B2": 0,
-              "C1": 1,
+              "C1": 2,
               "D1": 0
             }
           },
           {
             "ay": 10,
             "ay_adi": "Ekim",
-            "toplam": 20,
+            "toplam": 22,
             "modeller": {
               "A1": 0,
-              "A2": 10,
-              "A3": 3,
+              "A2": 11,
+              "A3": 4,
               "B1": 5,
               "B2": 0,
               "C1": 2,
@@ -10792,9 +10792,9 @@
               "A1": 1,
               "A2": 10,
               "A3": 8,
-              "B1": 5,
+              "B1": 4,
               "B2": 0,
-              "C1": 2,
+              "C1": 3,
               "D1": 0
             }
           },
@@ -10804,29 +10804,29 @@
             "toplam": 35,
             "modeller": {
               "A1": 1,
-              "A2": 19,
+              "A2": 20,
               "A3": 8,
-              "B1": 6,
+              "B1": 5,
               "B2": 0,
               "C1": 1,
               "D1": 0
             }
           }
         ],
-        "yillik_toplam": 264,
+        "yillik_toplam": 266,
         "yillik_modeller": {
           "A1": 3,
-          "A2": 85,
+          "A2": 87,
           "A3": 71,
-          "B1": 81,
+          "B1": 79,
           "B2": 0,
-          "C1": 24,
+          "C1": 26,
           "D1": 0
         },
         "yillik_segmentler": {
-          "A": 159,
-          "B": 81,
-          "C": 24,
+          "A": 161,
+          "B": 79,
+          "C": 26,
           "D": 0
         }
       }
