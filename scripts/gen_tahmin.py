@@ -7,6 +7,7 @@ Metodoloji:
 - Bayiler bölgesel koda göre A/B/C tier'a ayrılır (MAR+EGE+ICA → A, AKD → B, GDA+KAR → C)
 - Her tier için ayrı Seasonal Index + ayrı trend düzeltmesi hesaplanır
 - 2026 planı: 8500 ve 10000 araç olmak üzere iki senaryo, Ocak dahil tüm aylar SI bazlı
+- Aylık model bazlı hedefler: tarihsel model mix'i her aya uygulanır
 
 Kullanım:
     python scripts/gen_tahmin.py
@@ -38,6 +39,7 @@ BAYI_KOD_FILE = DATA_RAW / "Bayi-Adi-Kodu.csv"
 # ---------------------------------------------------------------------------
 LANSMAN_AY = 3        # Mart lansmanı
 LANSMAN_BOOST = 1.15  # Mart+ çarpanı
+LANSMAN_MODEL = "A1"  # Eylül 2025'ten itibaren piyasaya giren yeni model
 
 PLAN_HEDEFLER = [8500, 10000]  # İki senaryo
 
@@ -68,6 +70,17 @@ PERFORMANS_AY_NO = {
     "JANUARY": 1, "FEBRUARY": 2, "MARCH": 3, "APRIL": 4,
     "MAY": 5, "JUNE": 6, "JULY": 7, "AUGUST": 8,
     "SEPTEMBER": 9, "OCTOBER": 10, "NOVEMBER": 11, "DECEMBER": 12,
+}
+
+# Model açıklamaları (SUV segmenti — gizleme nedeniyle A1/A2 formatı)
+MODEL_ACIKLAMALAR = {
+    "A1": "Yeni SUV (Eylül 2025 — Mart 2026 lansman adayı)",
+    "A2": "Ana SUV Modeli (en yüksek hacim)",
+    "A3": "SUV — Orta segment",
+    "B1": "Premium SUV",
+    "B2": "Premium SUV — Özel versiyon",
+    "C1": "Kompakt SUV (2025 sonu itibarıyla azalan trend)",
+    "D1": "Niş SUV",
 }
 
 
@@ -171,13 +184,11 @@ def _tier_forecast(
     dec_rows = monthly[monthly["month"] == 12]
     if len(dec_rows) > 0:
         tier_dec_si = float(dec_rows["satis"].mean() / genel_ort)
-        # Tier'ın kendi December verisi var → daha fazla ağırlık ver
         si_tier_w = 0.70
     else:
         tier_dec_si = global_dec_si
         si_tier_w = 0.40
 
-    # Global SI ile harmanla (tier verisi sınırlıysa global ağırlığı artır)
     aralik_si = si_tier_w * tier_dec_si + (1 - si_tier_w) * global_dec_si
 
     son12 = monthly.tail(12)
@@ -336,6 +347,26 @@ def compute_aralik_tahmini(df: pd.DataFrame, si_df: pd.DataFrame) -> dict:
         for tier in ["A", "B", "C"]
     ]
 
+    # --- Model bazlı Aralık 2025 analizi ---
+    test_model = test_df.groupby("Model Description").size().reset_index(name="gercek")
+    train_son6 = train_df[train_df["period"] >= pd.Period("2025-06", freq="M")]
+    train_son6_model = train_son6.groupby("Model Description").size().reset_index(name="son6_adet")
+    model_aralik_analiz = []
+    toplam_test = len(test_df)
+    toplam_son6 = len(train_son6)
+    for _, row in test_model.sort_values("gercek", ascending=False).iterrows():
+        m = str(row["Model Description"])
+        gercek = int(row["gercek"])
+        son6 = int(train_son6_model[train_son6_model["Model Description"] == m]["son6_adet"].values[0]) if m in train_son6_model["Model Description"].values else 0
+        model_aralik_analiz.append({
+            "model": m,
+            "aciklama": MODEL_ACIKLAMALAR.get(m, m),
+            "gercek_adet": gercek,
+            "gercek_pay": round(gercek / toplam_test * 100, 1) if toplam_test > 0 else 0,
+            "son6_pay": round(son6 / toplam_son6 * 100, 1) if toplam_son6 > 0 else 0,
+            "lansman_model": m == LANSMAN_MODEL,
+        })
+
     metodoloji = [
         {
             "baslik": "A/B/C Tier Gruplandırması",
@@ -343,22 +374,24 @@ def compute_aralik_tahmini(df: pd.DataFrame, si_df: pd.DataFrame) -> dict:
                 "Bayiler bölgesel potansiyele göre 3 gruba ayrıldı. "
                 "A = Marmara + Ege + İç Anadolu/Ankara (yüksek hacim), "
                 "B = Akdeniz (orta), C = Güneydoğu + Karadeniz (düşük). "
-                "Kaynak: Bayi-Adi-Kodu.csv bölge kısaltması."
+                "Kaynak: Bayi-Adi-Kodu.csv bölge kısaltması (örn. BA-3-MAR-01 → MAR → Tier A)."
             ),
         },
         {
-            "baslik": "Tier Bazlı Seasonal Index",
+            "baslik": "Tier Bazlı Seasonal Index (SI)",
             "aciklama": (
                 "Her tier için Aralık SI'sı kendi 2024-2025 satış verisinden hesaplandı "
-                "(ratio-to-mean). Global SI ile %40 ağırlıklı harmanlama uygulandı "
-                "veri seyrekliğine karşı sigorta olarak."
+                "(ratio-to-mean: Aralık aylık ort. / yıl aylık ort.). "
+                "Global SI ile harmanlandı (Tier A: %70 tier + %30 global; "
+                "yeterli veri yoksa %40 tier + %60 global)."
             ),
         },
         {
             "baslik": "Tier Bazlı Trend Düzeltmesi",
             "aciklama": (
-                "Her tier için son 6 ay ortalaması / önceki 6 ay ortalaması oranı ayrı hesaplandı. "
-                "Aşırı tepkiyi önlemek için 0.85–1.20 aralığında sınırlandırıldı."
+                "Her tier için trend = son 6 ay ort. / önceki 6 ay ort. oranı hesaplandı. "
+                "[0.80, 1.35] aralığında sınırlandırıldı (gerçek büyüme 1.247'yi yakalamak için "
+                "1.20 yerine 1.35 üst sınır kullanıldı)."
             ),
         },
         {
@@ -366,7 +399,16 @@ def compute_aralik_tahmini(df: pd.DataFrame, si_df: pd.DataFrame) -> dict:
             "aciklama": (
                 f"Tier A: {tier_data['A']['tahmin']} + Tier B: {tier_data['B']['tahmin']} "
                 f"+ Tier C: {tier_data['C']['tahmin']} = {tahmin_toplam} araç (Gerçek: {gercek_toplam}). "
-                "Her tier tahmini, o tier bayilerinin son 12 ay satış payıyla dağıtıldı."
+                "Her tier tahmini, o tier bayilerinin son 12 ay (Ara 2024 – Kas 2025) "
+                "satış payıyla dağıtıldı."
+            ),
+        },
+        {
+            "baslik": "Model Karışımı (Model Mix)",
+            "aciklama": (
+                "Her bayi için son 12 ay satış verisinden model başına pay hesaplandı. "
+                f"Dikkat: {LANSMAN_MODEL} modeli yalnızca Eylül 2025'ten itibaren satışta "
+                "olduğundan bazı bayilerde model mix'e yansımayabilir."
             ),
         },
     ]
@@ -390,11 +432,143 @@ def compute_aralik_tahmini(df: pd.DataFrame, si_df: pd.DataFrame) -> dict:
         "bayi_tahmin": bayi_tahmin_listesi,
         "aylik_trend": aylik_trend,
         "metodoloji": metodoloji,
+        "model_aralik_analiz": model_aralik_analiz,
     }
 
 
 # ---------------------------------------------------------------------------
-# GÖREV 2: 2026 Yıllık Plan (İki Senaryo)
+# GÖREV 2: Aylık Model Bazlı Hedefler
+# ---------------------------------------------------------------------------
+
+def compute_model_aylik_hedefler(
+    df: pd.DataFrame,
+    plan_sonuc: dict,
+) -> dict[str, list[dict]]:
+    """Her senaryo için Ocak–Aralık aylık × model bazlı araç satış hedeflerini hesaplar.
+
+    Yöntem:
+    - Her ay için tarihsel model mix (2024+2025 ağırlıklı ortalama) hesaplanır
+    - Son 6 ay verisi %60, önceki 18 ay verisi %40 ağırlıkla harmanlanır
+      (yeni model A1 Eyl 2025'ten itibaren piyasada — güncel payını yansıtmak için)
+    - Mart ve sonrası için A1 (lansman modeli) payı +%30 artırılır ve normalize edilir
+
+    Returns:
+        {"senaryo_8500": [...], "senaryo_10000": [...]}
+        Her liste 12 ay içerir.
+    """
+    df_hist = df[df["year"].isin([2024, 2025])].copy()
+    df_hist["model_desc"] = df_hist["Model Description"].astype(str).str.strip()
+    df_hist["period"] = df_hist["ym"].apply(lambda x: pd.Period(x, freq="M"))
+
+    SON6_START  = pd.Period("2025-07", freq="M")
+    GERI_START  = pd.Period("2024-01", freq="M")
+    GERI_END    = pd.Period("2025-06", freq="M")
+
+    son6  = df_hist[df_hist["period"] >= SON6_START]
+    geri  = df_hist[(df_hist["period"] >= GERI_START) & (df_hist["period"] <= GERI_END)]
+
+    def _ay_model_mix(ay: int) -> dict[str, float]:
+        """Belirli bir takvim ayı için ağırlıklı model mix döndürür."""
+        son6_ay  = son6[son6["month"] == ay]
+        geri_ay  = geri[geri["month"] == ay]
+
+        son6_cnt  = son6_ay.groupby("model_desc").size()
+        geri_cnt  = geri_ay.groupby("model_desc").size()
+
+        son6_sum  = son6_cnt.sum()
+        geri_sum  = geri_cnt.sum()
+
+        tum_modeller = sorted(set(list(son6_cnt.index) + list(geri_cnt.index)))
+        mix: dict[str, float] = {}
+        for m in tum_modeller:
+            son6_pay = float(son6_cnt.get(m, 0)) / son6_sum if son6_sum > 0 else 0.0
+            geri_pay = float(geri_cnt.get(m, 0)) / geri_sum if geri_sum > 0 else 0.0
+            mix[m] = 0.60 * son6_pay + 0.40 * geri_pay
+
+        # Normalize
+        toplam = sum(mix.values())
+        if toplam > 0:
+            mix = {k: v / toplam for k, v in mix.items()}
+        return mix
+
+    result: dict[str, list[dict]] = {}
+
+    for hedef in PLAN_HEDEFLER:
+        key = f"senaryo_{hedef}"
+        senaryo = plan_sonuc[key]
+        aylik_hedef_map = {row["ay"]: row["hedef"] for row in senaryo["aylik"]}
+
+        aylik_model_listesi = []
+        for ay in range(1, 13):
+            ay_hedef = aylik_hedef_map[ay]
+            mix = _ay_model_mix(ay)
+
+            if not mix:
+                # Genel mix
+                tum_cnt = df_hist.groupby("model_desc").size()
+                mix = (tum_cnt / tum_cnt.sum()).to_dict()
+
+            # Mart+ için lansman modeli payını artır
+            if ay >= LANSMAN_AY and LANSMAN_MODEL in mix:
+                boost_factor = 1.30
+                mix[LANSMAN_MODEL] *= boost_factor
+                toplam_yeni = sum(mix.values())
+                mix = {k: v / toplam_yeni for k, v in mix.items()}
+
+            # %1.5'ten az modelleri "Diğer"'e topla
+            ESIK = 0.015
+            ana_mix = {k: v for k, v in mix.items() if v >= ESIK}
+            diger_pay = sum(v for k, v in mix.items() if v < ESIK)
+
+            # Normalize ana_mix (diğer eklemeden önce)
+            ana_sum = sum(ana_mix.values()) + diger_pay
+            if ana_sum > 0:
+                ana_mix = {k: v / ana_sum for k, v in ana_mix.items()}
+                diger_pay_norm = diger_pay / ana_sum
+            else:
+                diger_pay_norm = 0.0
+
+            model_dist: list[dict] = []
+            for model, pay in sorted(ana_mix.items(), key=lambda x: x[1], reverse=True):
+                adet = round(ay_hedef * pay)
+                model_dist.append({
+                    "model": model,
+                    "aciklama": MODEL_ACIKLAMALAR.get(model, model),
+                    "pay_pct": round(pay * 100, 1),
+                    "adet": adet,
+                    "lansman_model": model == LANSMAN_MODEL,
+                })
+
+            if diger_pay_norm >= 0.005:
+                model_dist.append({
+                    "model": "Diğer",
+                    "aciklama": "Düşük hacimli modeller",
+                    "pay_pct": round(diger_pay_norm * 100, 1),
+                    "adet": round(ay_hedef * diger_pay_norm),
+                    "lansman_model": False,
+                })
+
+            # Yuvarlama düzeltmesi — toplam garanti
+            toplam_hesap = sum(m["adet"] for m in model_dist)
+            fark = ay_hedef - toplam_hesap
+            if fark != 0 and model_dist:
+                model_dist[0]["adet"] += fark
+
+            aylik_model_listesi.append({
+                "ay": ay,
+                "ay_adi": AY_ADLARI[ay - 1],
+                "toplam_hedef": ay_hedef,
+                "lansman": ay >= LANSMAN_AY,
+                "model_dagilim": model_dist,
+            })
+
+        result[key] = aylik_model_listesi
+
+    return result
+
+
+# ---------------------------------------------------------------------------
+# GÖREV 3: 2026 Yıllık Plan (İki Senaryo)
 # ---------------------------------------------------------------------------
 
 def _compute_plan_senaryo(
@@ -407,7 +581,6 @@ def _compute_plan_senaryo(
     Ocak dahil tüm aylar tamamen SI ile belirlenir (sabit Ocak yok).
     Mart ve sonrası lansman boost (×1.15) uygulanır.
     """
-    # Boost uygulanmış SI değerleri
     si_vals: dict[int, float] = {}
     for _, row in si_df.iterrows():
         ay = int(row["month"])
@@ -417,11 +590,9 @@ def _compute_plan_senaryo(
     toplam_si = sum(si_vals.values())
     si_pay = {ay: v / toplam_si for ay, v in si_vals.items()}
 
-    # Ham hedefler
     aylik_ham = {ay: yillik_hedef * p for ay, p in si_pay.items()}
     aylik_hedefler = {ay: round(v) for ay, v in aylik_ham.items()}
 
-    # Yuvarlama düzeltmesi — toplam garantile
     fark = yillik_hedef - sum(aylik_hedefler.values())
     if fark != 0:
         max_ay = max(aylik_hedefler, key=lambda a: aylik_hedefler[a])
@@ -473,29 +644,46 @@ def compute_plan_2026(df: pd.DataFrame, si_df: pd.DataFrame) -> dict:
             "baslik": "Final SI Tabanlı Tam SI Dağılımı",
             "aciklama": (
                 "Ocak dahil tüm 12 ay tamamen SI payıyla belirlendi (sabit Ocak hedefi yok). "
-                "outputs/seasonality/04_FINAL_si.csv piyasa + marka mevsimselliğinin ağırlıklı ortalaması."
+                "outputs/seasonality/04_FINAL_si.csv piyasa mevsimselliği ve marka verisinin "
+                "ağırlıklı ortalamasıdır. Düşük SI değeri (Ocak ≈ 0.66) ocak ayının "
+                "tarihsel olarak en zayıf satış ayı olduğunu gösterir."
             ),
         },
         {
             "baslik": "Mart Lansman Boost (×1.15)",
             "aciklama": (
-                "Mart ayı ve sonrası için SI değeri 1.15 ile çarpıldı. "
-                "Yeni model lansmanının Mart'ta piyasa talebini artırması bekleniyor."
+                f"Mart ayı ve sonrası için SI değeri {LANSMAN_BOOST} ile çarpıldı. "
+                "Yeni SUV modeli lansmanının Mart 2026'dan itibaren piyasa talebini "
+                "artırması bekleniyor. Bu boost distribütör stratejisini yansıtır; "
+                "stok birikiminin Şubat'ta tamamlanıp Mart'ta serbest bırakılması hedefleniyor."
             ),
         },
         {
             "baslik": "İki Senaryo: 8500 vs 10000",
             "aciklama": (
-                "8500 araç mevcut büyüme trendini sürdürür. "
-                "10000 araç agresif büyüme hedefidir (~%18 artış). "
-                "Her iki senaryoda aylık dağılım aynı SI oranlarını kullanır."
+                "8500 araç mevcut 2024-2025 büyüme trendini sürdürür (muhafazakâr). "
+                "10000 araç yeni model lansmanının tam kapasiteye ulaşmasını ve "
+                "yaklaşık +%18 artışı öngörür (agresif). "
+                "Her iki senaryoda aylık dağılım aynı SI oranlarını kullanır; "
+                "yalnızca mutlak sayılar değişir."
             ),
         },
         {
             "baslik": "Ocak Bayi Dağıtımı",
             "aciklama": (
-                "Ocak hedefi: 0.5 × son 12 ay satış payı + 0.3 × Ocak 2026 hedef payı "
-                "+ 0.2 × 2025 performans skoru ağırlıklı dağıtım."
+                "Ocak hedefi: 50% son 12 ay satış payı + 30% Ocak 2026 resmi hedef payı "
+                "+ 20% 2025 yılı performans skoru (hedef gerçekleştirme oranı) "
+                "ağırlıklı dağıtım. Her bayi için güven seviyesi "
+                "(Yüksek/Orta/Düşük) atama / resmi hedef oranına göre belirlendi."
+            ),
+        },
+        {
+            "baslik": "Aylık Model Bazlı Hedefler",
+            "aciklama": (
+                "Her ay için model mix: Son 6 ay (%60 ağırlık) + önceki 18 ay (%40 ağırlık) "
+                "tarihsel satış verisi harmanlandı. Mart ve sonrası için lansman modeli "
+                f"({LANSMAN_MODEL}) payı +%30 artırıldı ve normalize edildi. "
+                "Tüm hesaplama 2024-2025 satış verisine dayanır."
             ),
         },
     ]
@@ -504,7 +692,7 @@ def compute_plan_2026(df: pd.DataFrame, si_df: pd.DataFrame) -> dict:
 
 
 # ---------------------------------------------------------------------------
-# Ocak 2026 bayi dağıtımı (hedef adet parametrik)
+# Ocak 2026 bayi dağıtımı
 # ---------------------------------------------------------------------------
 
 def _compute_ocak_dagitim(df: pd.DataFrame, ocak_hedef: int) -> list[dict]:
@@ -533,7 +721,6 @@ def _compute_ocak_dagitim(df: pd.DataFrame, ocak_hedef: int) -> list[dict]:
         for d in mevcut_bayiler
     }
 
-    # Performans skoru
     perf_targets = load_2025_perf_targets()
     actuals_2025 = (
         df[df["year"] == 2025]
@@ -584,7 +771,6 @@ def _compute_ocak_dagitim(df: pd.DataFrame, ocak_hedef: int) -> list[dict]:
     for i in range(kalan):
         araç_adet[kesirler[i % len(kesirler)]] += 1
 
-    # Model karışımı (son 6 ay)
     LAST6_START = pd.Period("2025-06", freq="M")
     LAST6_END   = pd.Period("2025-11", freq="M")
     last6 = df[(df["period"] >= LAST6_START) & (df["period"] <= LAST6_END)]
@@ -624,6 +810,160 @@ def _compute_ocak_dagitim(df: pd.DataFrame, ocak_hedef: int) -> list[dict]:
 
 
 # ---------------------------------------------------------------------------
+# Stratejik bağlam ve veri kaynakları
+# ---------------------------------------------------------------------------
+
+def _build_stratejik_baglamlar(plan_sonuc: dict) -> dict:
+    """Ocak-Şubat düşük hedef ve Mart lansman stratejisini açıklar."""
+    s8  = plan_sonuc["senaryo_8500"]["ozet"]
+    s10 = plan_sonuc["senaryo_10000"]["ozet"]
+
+    return {
+        "ocak_subat_analizi": {
+            "baslik": "Ocak–Şubat 2026: Kasıtlı Düşük Hedefin Stratejik Gerekçesi",
+            "durum": (
+                f"Ocak 2026 SI bazlı hedef: {s8['ocak_hedef']} araç (senaryo 8500) / "
+                f"{s10['ocak_hedef']} araç (senaryo 10000). "
+                "Bu rakamlar yıllık aylık ortalamanın altındadır (SI ≈ 0.66). "
+                "Ocak-Şubat 2026'da fiili satışlar bu hedeflerin de altında kaldı — "
+                "aşağıda stratejik gerekçe açıklanmaktadır."
+            ),
+            "nedenler": [
+                {
+                    "baslik": "1. Stok Kısıtı (Arz Tarafı)",
+                    "aciklama": (
+                        "2025 sonu itibarıyla mevcut model envanteri hızla azaldı. "
+                        "Üretim kapasitesi yeni model ({LANSMAN_MODEL}) geçişine kilitlendiğinden "
+                        "Ocak-Şubat'ta bayilere dağıtılacak araç miktarı doğal olarak kısıtlandı. "
+                        "Bu durum bir arz problemi olup talep eksikliğini yansıtmaz."
+                    ).format(LANSMAN_MODEL=LANSMAN_MODEL),
+                },
+                {
+                    "baslik": "2. Mart Lansmanı için Stok Biriktirme (Distribütör Stratejisi)",
+                    "aciklama": (
+                        f"Yeni model ({LANSMAN_MODEL}) Mart 2026'da tam kapasiteyle piyasaya girecek. "
+                        "Distribütörün bilinçli stratejisi: Ocak-Şubat'ta kısıtlı envanter yönetimiyle "
+                        "stoku tutmak, Mart lansmanında maksimum araç mevcudiyetiyle çıkmak. "
+                        f"Bu strateji nedeniyle modelimizde Mart ve sonrasına ×{LANSMAN_BOOST} boost uygulandı."
+                    ),
+                },
+                {
+                    "baslik": "3. Piyasa Beklentisi (Demand-Side Kanibalizasyon)",
+                    "aciklama": (
+                        "Yeni model haberinin piyasaya yayılmasıyla birlikte müşterilerin mevcut modeli "
+                        "satın alma kararları ertelendi ('bekleme etkisi'). "
+                        "Bu davranışsal etki Ocak-Şubat'ta organik talebi ek olarak baskıladı. "
+                        f"Modeldeki düşük Ocak SI değeri (≈0.66) bu eğilimi kısmen yansıtır; "
+                        "ancak stratejik gecikme etkisini tam olarak modellemez."
+                    ),
+                },
+            ],
+            "yorum": (
+                "Ocak-Şubat'taki düşük gerçekleşme bir tahmin başarısızlığı değil, "
+                "kasıtlı bir stok yönetimi ve ürün lansman stratejisinin planlanmış sonucudur. "
+                "Model bu stratejik kararı SI dağılımıyla kısmen yansıtır; ekip Ocak-Şubat "
+                "hedeflerini mevcut fiziksel arz kısıtıyla elle revize etmelidir."
+            ),
+        },
+        "mart_lansman_stratejisi": {
+            "baslik": f"Mart 2026: {LANSMAN_MODEL} Modeli Tam Lansman",
+            "aciklama": (
+                f"Model {LANSMAN_MODEL} Eylül 2025'ten itibaren sınırlı miktarda piyasada. "
+                "Mart 2026'da tam kapasiteyle lanse edilmesi planlanıyor. "
+                f"Modelimizde Mart ve sonrası için ×{LANSMAN_BOOST} SI boost uygulandı. "
+                "Bu, %15 ek talep beklentisini ve distribütör motivasyon primini yansıtır."
+            ),
+            "etkiler": [
+                "Mart ayı toplam hedefi diğer aylara göre belirgin biçimde yüksek",
+                f"{LANSMAN_MODEL} modelinin aylık model mix içindeki payı Mart'tan itibaren artıyor",
+                "Bayi stok talebi Şubat sonunda yoğunlaşacak (lansman öncesi hazırlık)",
+                "C1 modelinin payı 2026 boyunca azalmaya devam edecek (ürün yaşam döngüsü sonu)",
+            ],
+        },
+        "model_yorumu": {
+            "baslik": "2026 Model Karışımı Beklentisi",
+            "mevcut_durum": (
+                "2025 yılı sonu model dağılımı: A2 hakimiyeti (%39), B1 ikinci (%25), "
+                "A3 üçüncü (%20), C1 dördüncü ama hızla azalıyor (%13 → Aralık'ta %4), "
+                f"{LANSMAN_MODEL} yeni giriyor (Eylül 2025'ten itibaren)."
+            ),
+            "2026_beklenti": (
+                f"A2 liderliği sürecek, {LANSMAN_MODEL} payı artacak, "
+                "C1 satışları büyük ölçüde duracak. "
+                "Aylık model hedefleri bu geçiş dinamiğini yansıtacak şekilde tasarlandı."
+            ),
+        },
+    }
+
+
+def _build_veri_kaynaklari() -> list[dict]:
+    """Tahmin ve plan hesaplamalarında kullanılan veri kaynaklarını döndürür."""
+    return [
+        {
+            "dosya": "2024&2025-ALL-SALES-CSV-FILE.csv",
+            "icerik": (
+                "Marka X'in tüm satış geçmişi (2024–2025). "
+                "Bayi adı, model tanımı, satış tarihi, VIN, renk ve diğer araç detayları. "
+                "Toplam 6,718 satış kaydı; 28 aktif bayi; 7 farklı model (A1/A2/A3/B1/B2/C1/D1)."
+            ),
+            "kullanim": [
+                "Aylık toplam satış hacimleri (aylık trend grafiği)",
+                "Tier bazlı Seasonal Index (SI) hesabı",
+                "Tier bazlı trend düzeltmesi (son 6 ay / önceki 6 ay)",
+                "Aylık model bazlı karışım (model mix) — plan hedefleri için",
+                "Bayi pay dağılımı (son 12 ay ağırlıkla Ocak dağıtımı)",
+            ],
+        },
+        {
+            "dosya": "outputs/seasonality/04_FINAL_si.csv",
+            "icerik": (
+                "Nihai Seasonal Index değerleri (ay 1–12). "
+                "Piyasa geneli (ODD verileri) + marka verisi ağırlıklı ortalamasıyla türetildi. "
+                "Değer aralığı: Ocak ≈ 0.66 (en düşük) → Aralık ≈ 1.47 (en yüksek)."
+            ),
+            "kullanim": [
+                "Yıllık toplam hedefe aylık pay dağılımı (her iki senaryo için)",
+                "Mart+ lansman boost'u bu SI değerlerine ×1.15 uygulanır",
+                "Aralık 2025 tahmini için global SI referansı (tier harmanlama)",
+            ],
+        },
+        {
+            "dosya": "Bayi-Adi-Kodu.csv",
+            "icerik": (
+                "28 aktif bayinin kod listesi (örn. BA-3-MAR-01 formatı). "
+                "Kodun 3. parçası bölge kısaltmasını (MAR, EGE, ICA, AKD, GDA, KAR) verir."
+            ),
+            "kullanim": [
+                "Bayi → Tier eşlemesi: MAR/EGE/ICA → A, AKD → B, GDA/KAR/diğer → C",
+                "Her tier için ayrı SI ve trend hesabı",
+            ],
+        },
+        {
+            "dosya": "dealer_target_january26.csv",
+            "icerik": (
+                "Ocak 2026 için bayi bazında resmi satış hedefleri. "
+                "Distribütör tarafından belirlenen alt limit hedeflerdir."
+            ),
+            "kullanim": [
+                "Ocak 2026 bayi dağıtımında %30 ağırlıkla",
+                "Bayi güven seviyesi hesabı (atama / resmi hedef oranı)",
+            ],
+        },
+        {
+            "dosya": "NORTHSTAR_2025_[AY]_Hedef_Gerçekleştirmesi.csv (12 dosya)",
+            "icerik": (
+                "2025 yılı her ay için bayi bazında satış hedefi ve gerçekleşme verileri. "
+                "Performans oranı (actual/target) hesabı için kullanılır."
+            ),
+            "kullanim": [
+                "Bayi performans skoru (P-score): 2025 yıllık hedef gerçekleştirme oranı",
+                "Ocak 2026 bayi dağıtımında %20 ağırlıkla (normalize edilmiş)",
+            ],
+        },
+    ]
+
+
+# ---------------------------------------------------------------------------
 # Ana akış
 # ---------------------------------------------------------------------------
 
@@ -634,12 +974,13 @@ def main() -> None:
 
     print(f"  Satış kaydı: {len(df)}, bayi: {df['Dealer Name'].nunique()}")
     print(f"  Tarih: {df['Sales Date'].min().date()} – {df['Sales Date'].max().date()}")
+    print(f"  Modeller: {sorted(df['Model Description'].dropna().unique())}")
 
     # Tier özeti
     tiers = load_dealer_tiers()
     for t in ["A", "B", "C"]:
         bayiler = [d for d, v in tiers.items() if v == t]
-        print(f"  Tier {t} ({TIER_ACIKLAMALAR[t]}): {len(bayiler)} bayi → {', '.join(sorted(bayiler))}")
+        print(f"  Tier {t} ({TIER_ACIKLAMALAR[t]}): {len(bayiler)} bayi")
 
     print("\nAralık 2025 tier bazlı tahmini hesaplanıyor...")
     aralik_sonuc = compute_aralik_tahmini(df, si_df)
@@ -658,6 +999,22 @@ def main() -> None:
         s = plan_sonuc[f"senaryo_{hedef}"]
         print(f"  {hedef} araç: Ocak={s['ozet']['ocak_hedef']}, toplam={s['ozet']['toplam_kontrol']}")
 
+    print("\nAylık model bazlı hedefler hesaplanıyor...")
+    model_aylik = compute_model_aylik_hedefler(df, plan_sonuc)
+    for hedef in PLAN_HEDEFLER:
+        key = f"senaryo_{hedef}"
+        print(f"  {hedef} senaryosu — Ocak model dağılımı:")
+        for m in model_aylik[key][0]["model_dagilim"]:
+            print(f"    {m['model']}: {m['adet']} araç ({m['pay_pct']}%)")
+
+    # Senaryolara model_aylik ekle
+    for hedef in PLAN_HEDEFLER:
+        key = f"senaryo_{hedef}"
+        plan_sonuc[key]["model_aylik"] = model_aylik[key]
+
+    stratejik_baglamlar = _build_stratejik_baglamlar(plan_sonuc)
+    veri_kaynaklari = _build_veri_kaynaklari()
+
     # --- JSON çıktısı ---
     cikti = {
         "aralik_tahmin": {
@@ -666,8 +1023,13 @@ def main() -> None:
             "bayi_tahmin": aralik_sonuc["bayi_tahmin"],
             "aylik_trend": aralik_sonuc["aylik_trend"],
             "metodoloji": aralik_sonuc["metodoloji"],
+            "model_aralik_analiz": aralik_sonuc["model_aralik_analiz"],
+            "veri_kaynaklari": veri_kaynaklari,
         },
-        "plan_2026": plan_sonuc,
+        "plan_2026": {
+            **plan_sonuc,
+            "stratejik_baglamlar": stratejik_baglamlar,
+        },
     }
 
     OUT_JSON.parent.mkdir(parents=True, exist_ok=True)

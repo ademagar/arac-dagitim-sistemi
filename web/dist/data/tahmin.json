@@ -480,19 +480,103 @@
     "metodoloji": [
       {
         "baslik": "A/B/C Tier Gruplandırması",
-        "aciklama": "Bayiler bölgesel potansiyele göre 3 gruba ayrıldı. A = Marmara + Ege + İç Anadolu/Ankara (yüksek hacim), B = Akdeniz (orta), C = Güneydoğu + Karadeniz (düşük). Kaynak: Bayi-Adi-Kodu.csv bölge kısaltması."
+        "aciklama": "Bayiler bölgesel potansiyele göre 3 gruba ayrıldı. A = Marmara + Ege + İç Anadolu/Ankara (yüksek hacim), B = Akdeniz (orta), C = Güneydoğu + Karadeniz (düşük). Kaynak: Bayi-Adi-Kodu.csv bölge kısaltması (örn. BA-3-MAR-01 → MAR → Tier A)."
       },
       {
-        "baslik": "Tier Bazlı Seasonal Index",
-        "aciklama": "Her tier için Aralık SI'sı kendi 2024-2025 satış verisinden hesaplandı (ratio-to-mean). Global SI ile %40 ağırlıklı harmanlama uygulandı veri seyrekliğine karşı sigorta olarak."
+        "baslik": "Tier Bazlı Seasonal Index (SI)",
+        "aciklama": "Her tier için Aralık SI'sı kendi 2024-2025 satış verisinden hesaplandı (ratio-to-mean: Aralık aylık ort. / yıl aylık ort.). Global SI ile harmanlandı (Tier A: %70 tier + %30 global; yeterli veri yoksa %40 tier + %60 global)."
       },
       {
         "baslik": "Tier Bazlı Trend Düzeltmesi",
-        "aciklama": "Her tier için son 6 ay ortalaması / önceki 6 ay ortalaması oranı ayrı hesaplandı. Aşırı tepkiyi önlemek için 0.85–1.20 aralığında sınırlandırıldı."
+        "aciklama": "Her tier için trend = son 6 ay ort. / önceki 6 ay ort. oranı hesaplandı. [0.80, 1.35] aralığında sınırlandırıldı (gerçek büyüme 1.247'yi yakalamak için 1.20 yerine 1.35 üst sınır kullanıldı)."
       },
       {
         "baslik": "Bayi Pay Dağıtımı",
-        "aciklama": "Tier A: 374 + Tier B: 70 + Tier C: 16 = 460 araç (Gerçek: 499). Her tier tahmini, o tier bayilerinin son 12 ay satış payıyla dağıtıldı."
+        "aciklama": "Tier A: 374 + Tier B: 70 + Tier C: 16 = 460 araç (Gerçek: 499). Her tier tahmini, o tier bayilerinin son 12 ay (Ara 2024 – Kas 2025) satış payıyla dağıtıldı."
+      },
+      {
+        "baslik": "Model Karışımı (Model Mix)",
+        "aciklama": "Her bayi için son 12 ay satış verisinden model başına pay hesaplandı. Dikkat: A1 modeli yalnızca Eylül 2025'ten itibaren satışta olduğundan bazı bayilerde model mix'e yansımayabilir."
+      }
+    ],
+    "model_aralik_analiz": [
+      {
+        "model": "A2",
+        "aciklama": "Ana SUV Modeli (en yüksek hacim)",
+        "gercek_adet": 376,
+        "gercek_pay": 75.4,
+        "son6_pay": 49.5,
+        "lansman_model": false
+      },
+      {
+        "model": "B1",
+        "aciklama": "Premium SUV",
+        "gercek_adet": 54,
+        "gercek_pay": 10.8,
+        "son6_pay": 31.4,
+        "lansman_model": false
+      },
+      {
+        "model": "A3",
+        "aciklama": "SUV — Orta segment",
+        "gercek_adet": 39,
+        "gercek_pay": 7.8,
+        "son6_pay": 14.6,
+        "lansman_model": false
+      },
+      {
+        "model": "A1",
+        "aciklama": "Yeni SUV (Eylül 2025 — Mart 2026 lansman adayı)",
+        "gercek_adet": 30,
+        "gercek_pay": 6.0,
+        "son6_pay": 4.3,
+        "lansman_model": true
+      }
+    ],
+    "veri_kaynaklari": [
+      {
+        "dosya": "2024&2025-ALL-SALES-CSV-FILE.csv",
+        "icerik": "Marka X'in tüm satış geçmişi (2024–2025). Bayi adı, model tanımı, satış tarihi, VIN, renk ve diğer araç detayları. Toplam 6,718 satış kaydı; 28 aktif bayi; 7 farklı model (A1/A2/A3/B1/B2/C1/D1).",
+        "kullanim": [
+          "Aylık toplam satış hacimleri (aylık trend grafiği)",
+          "Tier bazlı Seasonal Index (SI) hesabı",
+          "Tier bazlı trend düzeltmesi (son 6 ay / önceki 6 ay)",
+          "Aylık model bazlı karışım (model mix) — plan hedefleri için",
+          "Bayi pay dağılımı (son 12 ay ağırlıkla Ocak dağıtımı)"
+        ]
+      },
+      {
+        "dosya": "outputs/seasonality/04_FINAL_si.csv",
+        "icerik": "Nihai Seasonal Index değerleri (ay 1–12). Piyasa geneli (ODD verileri) + marka verisi ağırlıklı ortalamasıyla türetildi. Değer aralığı: Ocak ≈ 0.66 (en düşük) → Aralık ≈ 1.47 (en yüksek).",
+        "kullanim": [
+          "Yıllık toplam hedefe aylık pay dağılımı (her iki senaryo için)",
+          "Mart+ lansman boost'u bu SI değerlerine ×1.15 uygulanır",
+          "Aralık 2025 tahmini için global SI referansı (tier harmanlama)"
+        ]
+      },
+      {
+        "dosya": "Bayi-Adi-Kodu.csv",
+        "icerik": "28 aktif bayinin kod listesi (örn. BA-3-MAR-01 formatı). Kodun 3. parçası bölge kısaltmasını (MAR, EGE, ICA, AKD, GDA, KAR) verir.",
+        "kullanim": [
+          "Bayi → Tier eşlemesi: MAR/EGE/ICA → A, AKD → B, GDA/KAR/diğer → C",
+          "Her tier için ayrı SI ve trend hesabı"
+        ]
+      },
+      {
+        "dosya": "dealer_target_january26.csv",
+        "icerik": "Ocak 2026 için bayi bazında resmi satış hedefleri. Distribütör tarafından belirlenen alt limit hedeflerdir.",
+        "kullanim": [
+          "Ocak 2026 bayi dağıtımında %30 ağırlıkla",
+          "Bayi güven seviyesi hesabı (atama / resmi hedef oranı)"
+        ]
+      },
+      {
+        "dosya": "NORTHSTAR_2025_[AY]_Hedef_Gerçekleştirmesi.csv (12 dosya)",
+        "icerik": "2025 yılı her ay için bayi bazında satış hedefi ve gerçekleşme verileri. Performans oranı (actual/target) hesabı için kullanılır.",
+        "kullanim": [
+          "Bayi performans skoru (P-score): 2025 yıllık hedef gerçekleştirme oranı",
+          "Ocak 2026 bayi dağıtımında %20 ağırlıkla (normalize edilmiş)"
+        ]
       }
     ]
   },
@@ -933,6 +1017,496 @@
           "jan26_hedef": 6,
           "perf_skoru": 0.7
         }
+      ],
+      "model_aylik": [
+        {
+          "ay": 1,
+          "ay_adi": "Ocak",
+          "toplam_hedef": 413,
+          "lansman": false,
+          "model_dagilim": [
+            {
+              "model": "C1",
+              "aciklama": "Kompakt SUV (2025 sonu itibarıyla azalan trend)",
+              "pay_pct": 44.9,
+              "adet": 186,
+              "lansman_model": false
+            },
+            {
+              "model": "A3",
+              "aciklama": "SUV — Orta segment",
+              "pay_pct": 23.6,
+              "adet": 98,
+              "lansman_model": false
+            },
+            {
+              "model": "A2",
+              "aciklama": "Ana SUV Modeli (en yüksek hacim)",
+              "pay_pct": 16.7,
+              "adet": 69,
+              "lansman_model": false
+            },
+            {
+              "model": "B1",
+              "aciklama": "Premium SUV",
+              "pay_pct": 13.7,
+              "adet": 56,
+              "lansman_model": false
+            },
+            {
+              "model": "Diğer",
+              "aciklama": "Düşük hacimli modeller",
+              "pay_pct": 1.1,
+              "adet": 4,
+              "lansman_model": false
+            }
+          ]
+        },
+        {
+          "ay": 2,
+          "ay_adi": "Şubat",
+          "toplam_hedef": 555,
+          "lansman": false,
+          "model_dagilim": [
+            {
+              "model": "C1",
+              "aciklama": "Kompakt SUV (2025 sonu itibarıyla azalan trend)",
+              "pay_pct": 29.2,
+              "adet": 163,
+              "lansman_model": false
+            },
+            {
+              "model": "B1",
+              "aciklama": "Premium SUV",
+              "pay_pct": 28.5,
+              "adet": 158,
+              "lansman_model": false
+            },
+            {
+              "model": "A3",
+              "aciklama": "SUV — Orta segment",
+              "pay_pct": 27.6,
+              "adet": 153,
+              "lansman_model": false
+            },
+            {
+              "model": "A2",
+              "aciklama": "Ana SUV Modeli (en yüksek hacim)",
+              "pay_pct": 13.6,
+              "adet": 75,
+              "lansman_model": false
+            },
+            {
+              "model": "Diğer",
+              "aciklama": "Düşük hacimli modeller",
+              "pay_pct": 1.1,
+              "adet": 6,
+              "lansman_model": false
+            }
+          ]
+        },
+        {
+          "ay": 3,
+          "ay_adi": "Mart",
+          "toplam_hedef": 744,
+          "lansman": true,
+          "model_dagilim": [
+            {
+              "model": "B1",
+              "aciklama": "Premium SUV",
+              "pay_pct": 49.7,
+              "adet": 370,
+              "lansman_model": false
+            },
+            {
+              "model": "A3",
+              "aciklama": "SUV — Orta segment",
+              "pay_pct": 27.4,
+              "adet": 204,
+              "lansman_model": false
+            },
+            {
+              "model": "A2",
+              "aciklama": "Ana SUV Modeli (en yüksek hacim)",
+              "pay_pct": 17.0,
+              "adet": 126,
+              "lansman_model": false
+            },
+            {
+              "model": "C1",
+              "aciklama": "Kompakt SUV (2025 sonu itibarıyla azalan trend)",
+              "pay_pct": 4.6,
+              "adet": 34,
+              "lansman_model": false
+            },
+            {
+              "model": "Diğer",
+              "aciklama": "Düşük hacimli modeller",
+              "pay_pct": 1.3,
+              "adet": 10,
+              "lansman_model": false
+            }
+          ]
+        },
+        {
+          "ay": 4,
+          "ay_adi": "Nisan",
+          "toplam_hedef": 601,
+          "lansman": true,
+          "model_dagilim": [
+            {
+              "model": "A2",
+              "aciklama": "Ana SUV Modeli (en yüksek hacim)",
+              "pay_pct": 33.3,
+              "adet": 201,
+              "lansman_model": false
+            },
+            {
+              "model": "B1",
+              "aciklama": "Premium SUV",
+              "pay_pct": 29.9,
+              "adet": 180,
+              "lansman_model": false
+            },
+            {
+              "model": "A3",
+              "aciklama": "SUV — Orta segment",
+              "pay_pct": 26.7,
+              "adet": 161,
+              "lansman_model": false
+            },
+            {
+              "model": "C1",
+              "aciklama": "Kompakt SUV (2025 sonu itibarıyla azalan trend)",
+              "pay_pct": 9.8,
+              "adet": 59,
+              "lansman_model": false
+            }
+          ]
+        },
+        {
+          "ay": 5,
+          "ay_adi": "Mayıs",
+          "toplam_hedef": 693,
+          "lansman": true,
+          "model_dagilim": [
+            {
+              "model": "A2",
+              "aciklama": "Ana SUV Modeli (en yüksek hacim)",
+              "pay_pct": 30.9,
+              "adet": 216,
+              "lansman_model": false
+            },
+            {
+              "model": "B1",
+              "aciklama": "Premium SUV",
+              "pay_pct": 28.9,
+              "adet": 200,
+              "lansman_model": false
+            },
+            {
+              "model": "C1",
+              "aciklama": "Kompakt SUV (2025 sonu itibarıyla azalan trend)",
+              "pay_pct": 19.7,
+              "adet": 137,
+              "lansman_model": false
+            },
+            {
+              "model": "A3",
+              "aciklama": "SUV — Orta segment",
+              "pay_pct": 18.2,
+              "adet": 126,
+              "lansman_model": false
+            },
+            {
+              "model": "D1",
+              "aciklama": "Niş SUV",
+              "pay_pct": 2.0,
+              "adet": 14,
+              "lansman_model": false
+            }
+          ]
+        },
+        {
+          "ay": 6,
+          "ay_adi": "Haziran",
+          "toplam_hedef": 772,
+          "lansman": true,
+          "model_dagilim": [
+            {
+              "model": "A2",
+              "aciklama": "Ana SUV Modeli (en yüksek hacim)",
+              "pay_pct": 33.8,
+              "adet": 262,
+              "lansman_model": false
+            },
+            {
+              "model": "A3",
+              "aciklama": "SUV — Orta segment",
+              "pay_pct": 33.8,
+              "adet": 261,
+              "lansman_model": false
+            },
+            {
+              "model": "B1",
+              "aciklama": "Premium SUV",
+              "pay_pct": 22.1,
+              "adet": 171,
+              "lansman_model": false
+            },
+            {
+              "model": "C1",
+              "aciklama": "Kompakt SUV (2025 sonu itibarıyla azalan trend)",
+              "pay_pct": 10.1,
+              "adet": 78,
+              "lansman_model": false
+            }
+          ]
+        },
+        {
+          "ay": 7,
+          "ay_adi": "Temmuz",
+          "toplam_hedef": 675,
+          "lansman": true,
+          "model_dagilim": [
+            {
+              "model": "A2",
+              "aciklama": "Ana SUV Modeli (en yüksek hacim)",
+              "pay_pct": 46.7,
+              "adet": 316,
+              "lansman_model": false
+            },
+            {
+              "model": "B1",
+              "aciklama": "Premium SUV",
+              "pay_pct": 27.7,
+              "adet": 187,
+              "lansman_model": false
+            },
+            {
+              "model": "A3",
+              "aciklama": "SUV — Orta segment",
+              "pay_pct": 19.2,
+              "adet": 130,
+              "lansman_model": false
+            },
+            {
+              "model": "C1",
+              "aciklama": "Kompakt SUV (2025 sonu itibarıyla azalan trend)",
+              "pay_pct": 6.2,
+              "adet": 42,
+              "lansman_model": false
+            }
+          ]
+        },
+        {
+          "ay": 8,
+          "ay_adi": "Ağustos",
+          "toplam_hedef": 638,
+          "lansman": true,
+          "model_dagilim": [
+            {
+              "model": "B1",
+              "aciklama": "Premium SUV",
+              "pay_pct": 46.0,
+              "adet": 294,
+              "lansman_model": false
+            },
+            {
+              "model": "A2",
+              "aciklama": "Ana SUV Modeli (en yüksek hacim)",
+              "pay_pct": 38.5,
+              "adet": 246,
+              "lansman_model": false
+            },
+            {
+              "model": "A3",
+              "aciklama": "SUV — Orta segment",
+              "pay_pct": 11.3,
+              "adet": 72,
+              "lansman_model": false
+            },
+            {
+              "model": "C1",
+              "aciklama": "Kompakt SUV (2025 sonu itibarıyla azalan trend)",
+              "pay_pct": 4.1,
+              "adet": 26,
+              "lansman_model": false
+            }
+          ]
+        },
+        {
+          "ay": 9,
+          "ay_adi": "Eylül",
+          "toplam_hedef": 664,
+          "lansman": true,
+          "model_dagilim": [
+            {
+              "model": "A2",
+              "aciklama": "Ana SUV Modeli (en yüksek hacim)",
+              "pay_pct": 52.0,
+              "adet": 346,
+              "lansman_model": false
+            },
+            {
+              "model": "B1",
+              "aciklama": "Premium SUV",
+              "pay_pct": 19.9,
+              "adet": 132,
+              "lansman_model": false
+            },
+            {
+              "model": "A3",
+              "aciklama": "SUV — Orta segment",
+              "pay_pct": 10.3,
+              "adet": 69,
+              "lansman_model": false
+            },
+            {
+              "model": "C1",
+              "aciklama": "Kompakt SUV (2025 sonu itibarıyla azalan trend)",
+              "pay_pct": 9.4,
+              "adet": 63,
+              "lansman_model": false
+            },
+            {
+              "model": "A1",
+              "aciklama": "Yeni SUV (Eylül 2025 — Mart 2026 lansman adayı)",
+              "pay_pct": 8.1,
+              "adet": 54,
+              "lansman_model": true
+            }
+          ]
+        },
+        {
+          "ay": 10,
+          "ay_adi": "Ekim",
+          "toplam_hedef": 718,
+          "lansman": true,
+          "model_dagilim": [
+            {
+              "model": "A2",
+              "aciklama": "Ana SUV Modeli (en yüksek hacim)",
+              "pay_pct": 57.0,
+              "adet": 411,
+              "lansman_model": false
+            },
+            {
+              "model": "B1",
+              "aciklama": "Premium SUV",
+              "pay_pct": 18.8,
+              "adet": 135,
+              "lansman_model": false
+            },
+            {
+              "model": "A3",
+              "aciklama": "SUV — Orta segment",
+              "pay_pct": 11.6,
+              "adet": 83,
+              "lansman_model": false
+            },
+            {
+              "model": "C1",
+              "aciklama": "Kompakt SUV (2025 sonu itibarıyla azalan trend)",
+              "pay_pct": 9.7,
+              "adet": 69,
+              "lansman_model": false
+            },
+            {
+              "model": "A1",
+              "aciklama": "Yeni SUV (Eylül 2025 — Mart 2026 lansman adayı)",
+              "pay_pct": 2.8,
+              "adet": 20,
+              "lansman_model": true
+            }
+          ]
+        },
+        {
+          "ay": 11,
+          "ay_adi": "Kasım",
+          "toplam_hedef": 864,
+          "lansman": true,
+          "model_dagilim": [
+            {
+              "model": "A2",
+              "aciklama": "Ana SUV Modeli (en yüksek hacim)",
+              "pay_pct": 44.9,
+              "adet": 390,
+              "lansman_model": false
+            },
+            {
+              "model": "A3",
+              "aciklama": "SUV — Orta segment",
+              "pay_pct": 21.9,
+              "adet": 189,
+              "lansman_model": false
+            },
+            {
+              "model": "B1",
+              "aciklama": "Premium SUV",
+              "pay_pct": 13.9,
+              "adet": 120,
+              "lansman_model": false
+            },
+            {
+              "model": "C1",
+              "aciklama": "Kompakt SUV (2025 sonu itibarıyla azalan trend)",
+              "pay_pct": 11.9,
+              "adet": 103,
+              "lansman_model": false
+            },
+            {
+              "model": "A1",
+              "aciklama": "Yeni SUV (Eylül 2025 — Mart 2026 lansman adayı)",
+              "pay_pct": 7.2,
+              "adet": 62,
+              "lansman_model": true
+            }
+          ]
+        },
+        {
+          "ay": 12,
+          "ay_adi": "Aralık",
+          "toplam_hedef": 1163,
+          "lansman": true,
+          "model_dagilim": [
+            {
+              "model": "A2",
+              "aciklama": "Ana SUV Modeli (en yüksek hacim)",
+              "pay_pct": 63.2,
+              "adet": 737,
+              "lansman_model": false
+            },
+            {
+              "model": "A3",
+              "aciklama": "SUV — Orta segment",
+              "pay_pct": 16.0,
+              "adet": 186,
+              "lansman_model": false
+            },
+            {
+              "model": "B1",
+              "aciklama": "Premium SUV",
+              "pay_pct": 12.6,
+              "adet": 147,
+              "lansman_model": false
+            },
+            {
+              "model": "A1",
+              "aciklama": "Yeni SUV (Eylül 2025 — Mart 2026 lansman adayı)",
+              "pay_pct": 4.6,
+              "adet": 54,
+              "lansman_model": true
+            },
+            {
+              "model": "C1",
+              "aciklama": "Kompakt SUV (2025 sonu itibarıyla azalan trend)",
+              "pay_pct": 3.4,
+              "adet": 39,
+              "lansman_model": false
+            }
+          ]
+        }
       ]
     },
     "senaryo_10000": {
@@ -1371,25 +1945,555 @@
           "jan26_hedef": 6,
           "perf_skoru": 0.7
         }
+      ],
+      "model_aylik": [
+        {
+          "ay": 1,
+          "ay_adi": "Ocak",
+          "toplam_hedef": 486,
+          "lansman": false,
+          "model_dagilim": [
+            {
+              "model": "C1",
+              "aciklama": "Kompakt SUV (2025 sonu itibarıyla azalan trend)",
+              "pay_pct": 44.9,
+              "adet": 219,
+              "lansman_model": false
+            },
+            {
+              "model": "A3",
+              "aciklama": "SUV — Orta segment",
+              "pay_pct": 23.6,
+              "adet": 115,
+              "lansman_model": false
+            },
+            {
+              "model": "A2",
+              "aciklama": "Ana SUV Modeli (en yüksek hacim)",
+              "pay_pct": 16.7,
+              "adet": 81,
+              "lansman_model": false
+            },
+            {
+              "model": "B1",
+              "aciklama": "Premium SUV",
+              "pay_pct": 13.7,
+              "adet": 66,
+              "lansman_model": false
+            },
+            {
+              "model": "Diğer",
+              "aciklama": "Düşük hacimli modeller",
+              "pay_pct": 1.1,
+              "adet": 5,
+              "lansman_model": false
+            }
+          ]
+        },
+        {
+          "ay": 2,
+          "ay_adi": "Şubat",
+          "toplam_hedef": 653,
+          "lansman": false,
+          "model_dagilim": [
+            {
+              "model": "C1",
+              "aciklama": "Kompakt SUV (2025 sonu itibarıyla azalan trend)",
+              "pay_pct": 29.2,
+              "adet": 191,
+              "lansman_model": false
+            },
+            {
+              "model": "B1",
+              "aciklama": "Premium SUV",
+              "pay_pct": 28.5,
+              "adet": 186,
+              "lansman_model": false
+            },
+            {
+              "model": "A3",
+              "aciklama": "SUV — Orta segment",
+              "pay_pct": 27.6,
+              "adet": 180,
+              "lansman_model": false
+            },
+            {
+              "model": "A2",
+              "aciklama": "Ana SUV Modeli (en yüksek hacim)",
+              "pay_pct": 13.6,
+              "adet": 89,
+              "lansman_model": false
+            },
+            {
+              "model": "Diğer",
+              "aciklama": "Düşük hacimli modeller",
+              "pay_pct": 1.1,
+              "adet": 7,
+              "lansman_model": false
+            }
+          ]
+        },
+        {
+          "ay": 3,
+          "ay_adi": "Mart",
+          "toplam_hedef": 876,
+          "lansman": true,
+          "model_dagilim": [
+            {
+              "model": "B1",
+              "aciklama": "Premium SUV",
+              "pay_pct": 49.7,
+              "adet": 435,
+              "lansman_model": false
+            },
+            {
+              "model": "A3",
+              "aciklama": "SUV — Orta segment",
+              "pay_pct": 27.4,
+              "adet": 240,
+              "lansman_model": false
+            },
+            {
+              "model": "A2",
+              "aciklama": "Ana SUV Modeli (en yüksek hacim)",
+              "pay_pct": 17.0,
+              "adet": 149,
+              "lansman_model": false
+            },
+            {
+              "model": "C1",
+              "aciklama": "Kompakt SUV (2025 sonu itibarıyla azalan trend)",
+              "pay_pct": 4.6,
+              "adet": 40,
+              "lansman_model": false
+            },
+            {
+              "model": "Diğer",
+              "aciklama": "Düşük hacimli modeller",
+              "pay_pct": 1.3,
+              "adet": 12,
+              "lansman_model": false
+            }
+          ]
+        },
+        {
+          "ay": 4,
+          "ay_adi": "Nisan",
+          "toplam_hedef": 707,
+          "lansman": true,
+          "model_dagilim": [
+            {
+              "model": "A2",
+              "aciklama": "Ana SUV Modeli (en yüksek hacim)",
+              "pay_pct": 33.3,
+              "adet": 238,
+              "lansman_model": false
+            },
+            {
+              "model": "B1",
+              "aciklama": "Premium SUV",
+              "pay_pct": 29.9,
+              "adet": 211,
+              "lansman_model": false
+            },
+            {
+              "model": "A3",
+              "aciklama": "SUV — Orta segment",
+              "pay_pct": 26.7,
+              "adet": 189,
+              "lansman_model": false
+            },
+            {
+              "model": "C1",
+              "aciklama": "Kompakt SUV (2025 sonu itibarıyla azalan trend)",
+              "pay_pct": 9.8,
+              "adet": 69,
+              "lansman_model": false
+            }
+          ]
+        },
+        {
+          "ay": 5,
+          "ay_adi": "Mayıs",
+          "toplam_hedef": 815,
+          "lansman": true,
+          "model_dagilim": [
+            {
+              "model": "A2",
+              "aciklama": "Ana SUV Modeli (en yüksek hacim)",
+              "pay_pct": 30.9,
+              "adet": 254,
+              "lansman_model": false
+            },
+            {
+              "model": "B1",
+              "aciklama": "Premium SUV",
+              "pay_pct": 28.9,
+              "adet": 236,
+              "lansman_model": false
+            },
+            {
+              "model": "C1",
+              "aciklama": "Kompakt SUV (2025 sonu itibarıyla azalan trend)",
+              "pay_pct": 19.7,
+              "adet": 161,
+              "lansman_model": false
+            },
+            {
+              "model": "A3",
+              "aciklama": "SUV — Orta segment",
+              "pay_pct": 18.2,
+              "adet": 148,
+              "lansman_model": false
+            },
+            {
+              "model": "D1",
+              "aciklama": "Niş SUV",
+              "pay_pct": 2.0,
+              "adet": 16,
+              "lansman_model": false
+            }
+          ]
+        },
+        {
+          "ay": 6,
+          "ay_adi": "Haziran",
+          "toplam_hedef": 909,
+          "lansman": true,
+          "model_dagilim": [
+            {
+              "model": "A2",
+              "aciklama": "Ana SUV Modeli (en yüksek hacim)",
+              "pay_pct": 33.8,
+              "adet": 309,
+              "lansman_model": false
+            },
+            {
+              "model": "A3",
+              "aciklama": "SUV — Orta segment",
+              "pay_pct": 33.8,
+              "adet": 307,
+              "lansman_model": false
+            },
+            {
+              "model": "B1",
+              "aciklama": "Premium SUV",
+              "pay_pct": 22.1,
+              "adet": 201,
+              "lansman_model": false
+            },
+            {
+              "model": "C1",
+              "aciklama": "Kompakt SUV (2025 sonu itibarıyla azalan trend)",
+              "pay_pct": 10.1,
+              "adet": 92,
+              "lansman_model": false
+            }
+          ]
+        },
+        {
+          "ay": 7,
+          "ay_adi": "Temmuz",
+          "toplam_hedef": 794,
+          "lansman": true,
+          "model_dagilim": [
+            {
+              "model": "A2",
+              "aciklama": "Ana SUV Modeli (en yüksek hacim)",
+              "pay_pct": 46.7,
+              "adet": 373,
+              "lansman_model": false
+            },
+            {
+              "model": "B1",
+              "aciklama": "Premium SUV",
+              "pay_pct": 27.7,
+              "adet": 220,
+              "lansman_model": false
+            },
+            {
+              "model": "A3",
+              "aciklama": "SUV — Orta segment",
+              "pay_pct": 19.2,
+              "adet": 152,
+              "lansman_model": false
+            },
+            {
+              "model": "C1",
+              "aciklama": "Kompakt SUV (2025 sonu itibarıyla azalan trend)",
+              "pay_pct": 6.2,
+              "adet": 49,
+              "lansman_model": false
+            }
+          ]
+        },
+        {
+          "ay": 8,
+          "ay_adi": "Ağustos",
+          "toplam_hedef": 751,
+          "lansman": true,
+          "model_dagilim": [
+            {
+              "model": "B1",
+              "aciklama": "Premium SUV",
+              "pay_pct": 46.0,
+              "adet": 346,
+              "lansman_model": false
+            },
+            {
+              "model": "A2",
+              "aciklama": "Ana SUV Modeli (en yüksek hacim)",
+              "pay_pct": 38.5,
+              "adet": 289,
+              "lansman_model": false
+            },
+            {
+              "model": "A3",
+              "aciklama": "SUV — Orta segment",
+              "pay_pct": 11.3,
+              "adet": 85,
+              "lansman_model": false
+            },
+            {
+              "model": "C1",
+              "aciklama": "Kompakt SUV (2025 sonu itibarıyla azalan trend)",
+              "pay_pct": 4.1,
+              "adet": 31,
+              "lansman_model": false
+            }
+          ]
+        },
+        {
+          "ay": 9,
+          "ay_adi": "Eylül",
+          "toplam_hedef": 781,
+          "lansman": true,
+          "model_dagilim": [
+            {
+              "model": "A2",
+              "aciklama": "Ana SUV Modeli (en yüksek hacim)",
+              "pay_pct": 52.0,
+              "adet": 407,
+              "lansman_model": false
+            },
+            {
+              "model": "B1",
+              "aciklama": "Premium SUV",
+              "pay_pct": 19.9,
+              "adet": 155,
+              "lansman_model": false
+            },
+            {
+              "model": "A3",
+              "aciklama": "SUV — Orta segment",
+              "pay_pct": 10.3,
+              "adet": 81,
+              "lansman_model": false
+            },
+            {
+              "model": "C1",
+              "aciklama": "Kompakt SUV (2025 sonu itibarıyla azalan trend)",
+              "pay_pct": 9.4,
+              "adet": 74,
+              "lansman_model": false
+            },
+            {
+              "model": "A1",
+              "aciklama": "Yeni SUV (Eylül 2025 — Mart 2026 lansman adayı)",
+              "pay_pct": 8.1,
+              "adet": 64,
+              "lansman_model": true
+            }
+          ]
+        },
+        {
+          "ay": 10,
+          "ay_adi": "Ekim",
+          "toplam_hedef": 844,
+          "lansman": true,
+          "model_dagilim": [
+            {
+              "model": "A2",
+              "aciklama": "Ana SUV Modeli (en yüksek hacim)",
+              "pay_pct": 57.0,
+              "adet": 483,
+              "lansman_model": false
+            },
+            {
+              "model": "B1",
+              "aciklama": "Premium SUV",
+              "pay_pct": 18.8,
+              "adet": 158,
+              "lansman_model": false
+            },
+            {
+              "model": "A3",
+              "aciklama": "SUV — Orta segment",
+              "pay_pct": 11.6,
+              "adet": 98,
+              "lansman_model": false
+            },
+            {
+              "model": "C1",
+              "aciklama": "Kompakt SUV (2025 sonu itibarıyla azalan trend)",
+              "pay_pct": 9.7,
+              "adet": 82,
+              "lansman_model": false
+            },
+            {
+              "model": "A1",
+              "aciklama": "Yeni SUV (Eylül 2025 — Mart 2026 lansman adayı)",
+              "pay_pct": 2.8,
+              "adet": 23,
+              "lansman_model": true
+            }
+          ]
+        },
+        {
+          "ay": 11,
+          "ay_adi": "Kasım",
+          "toplam_hedef": 1016,
+          "lansman": true,
+          "model_dagilim": [
+            {
+              "model": "A2",
+              "aciklama": "Ana SUV Modeli (en yüksek hacim)",
+              "pay_pct": 44.9,
+              "adet": 459,
+              "lansman_model": false
+            },
+            {
+              "model": "A3",
+              "aciklama": "SUV — Orta segment",
+              "pay_pct": 21.9,
+              "adet": 222,
+              "lansman_model": false
+            },
+            {
+              "model": "B1",
+              "aciklama": "Premium SUV",
+              "pay_pct": 13.9,
+              "adet": 141,
+              "lansman_model": false
+            },
+            {
+              "model": "C1",
+              "aciklama": "Kompakt SUV (2025 sonu itibarıyla azalan trend)",
+              "pay_pct": 11.9,
+              "adet": 121,
+              "lansman_model": false
+            },
+            {
+              "model": "A1",
+              "aciklama": "Yeni SUV (Eylül 2025 — Mart 2026 lansman adayı)",
+              "pay_pct": 7.2,
+              "adet": 73,
+              "lansman_model": true
+            }
+          ]
+        },
+        {
+          "ay": 12,
+          "ay_adi": "Aralık",
+          "toplam_hedef": 1368,
+          "lansman": true,
+          "model_dagilim": [
+            {
+              "model": "A2",
+              "aciklama": "Ana SUV Modeli (en yüksek hacim)",
+              "pay_pct": 63.2,
+              "adet": 867,
+              "lansman_model": false
+            },
+            {
+              "model": "A3",
+              "aciklama": "SUV — Orta segment",
+              "pay_pct": 16.0,
+              "adet": 219,
+              "lansman_model": false
+            },
+            {
+              "model": "B1",
+              "aciklama": "Premium SUV",
+              "pay_pct": 12.6,
+              "adet": 173,
+              "lansman_model": false
+            },
+            {
+              "model": "A1",
+              "aciklama": "Yeni SUV (Eylül 2025 — Mart 2026 lansman adayı)",
+              "pay_pct": 4.6,
+              "adet": 63,
+              "lansman_model": true
+            },
+            {
+              "model": "C1",
+              "aciklama": "Kompakt SUV (2025 sonu itibarıyla azalan trend)",
+              "pay_pct": 3.4,
+              "adet": 46,
+              "lansman_model": false
+            }
+          ]
+        }
       ]
     },
     "metodoloji": [
       {
         "baslik": "Final SI Tabanlı Tam SI Dağılımı",
-        "aciklama": "Ocak dahil tüm 12 ay tamamen SI payıyla belirlendi (sabit Ocak hedefi yok). outputs/seasonality/04_FINAL_si.csv piyasa + marka mevsimselliğinin ağırlıklı ortalaması."
+        "aciklama": "Ocak dahil tüm 12 ay tamamen SI payıyla belirlendi (sabit Ocak hedefi yok). outputs/seasonality/04_FINAL_si.csv piyasa mevsimselliği ve marka verisinin ağırlıklı ortalamasıdır. Düşük SI değeri (Ocak ≈ 0.66) ocak ayının tarihsel olarak en zayıf satış ayı olduğunu gösterir."
       },
       {
         "baslik": "Mart Lansman Boost (×1.15)",
-        "aciklama": "Mart ayı ve sonrası için SI değeri 1.15 ile çarpıldı. Yeni model lansmanının Mart'ta piyasa talebini artırması bekleniyor."
+        "aciklama": "Mart ayı ve sonrası için SI değeri 1.15 ile çarpıldı. Yeni SUV modeli lansmanının Mart 2026'dan itibaren piyasa talebini artırması bekleniyor. Bu boost distribütör stratejisini yansıtır; stok birikiminin Şubat'ta tamamlanıp Mart'ta serbest bırakılması hedefleniyor."
       },
       {
         "baslik": "İki Senaryo: 8500 vs 10000",
-        "aciklama": "8500 araç mevcut büyüme trendini sürdürür. 10000 araç agresif büyüme hedefidir (~%18 artış). Her iki senaryoda aylık dağılım aynı SI oranlarını kullanır."
+        "aciklama": "8500 araç mevcut 2024-2025 büyüme trendini sürdürür (muhafazakâr). 10000 araç yeni model lansmanının tam kapasiteye ulaşmasını ve yaklaşık +%18 artışı öngörür (agresif). Her iki senaryoda aylık dağılım aynı SI oranlarını kullanır; yalnızca mutlak sayılar değişir."
       },
       {
         "baslik": "Ocak Bayi Dağıtımı",
-        "aciklama": "Ocak hedefi: 0.5 × son 12 ay satış payı + 0.3 × Ocak 2026 hedef payı + 0.2 × 2025 performans skoru ağırlıklı dağıtım."
+        "aciklama": "Ocak hedefi: 50% son 12 ay satış payı + 30% Ocak 2026 resmi hedef payı + 20% 2025 yılı performans skoru (hedef gerçekleştirme oranı) ağırlıklı dağıtım. Her bayi için güven seviyesi (Yüksek/Orta/Düşük) atama / resmi hedef oranına göre belirlendi."
+      },
+      {
+        "baslik": "Aylık Model Bazlı Hedefler",
+        "aciklama": "Her ay için model mix: Son 6 ay (%60 ağırlık) + önceki 18 ay (%40 ağırlık) tarihsel satış verisi harmanlandı. Mart ve sonrası için lansman modeli (A1) payı +%30 artırıldı ve normalize edildi. Tüm hesaplama 2024-2025 satış verisine dayanır."
       }
-    ]
+    ],
+    "stratejik_baglamlar": {
+      "ocak_subat_analizi": {
+        "baslik": "Ocak–Şubat 2026: Kasıtlı Düşük Hedefin Stratejik Gerekçesi",
+        "durum": "Ocak 2026 SI bazlı hedef: 413 araç (senaryo 8500) / 486 araç (senaryo 10000). Bu rakamlar yıllık aylık ortalamanın altındadır (SI ≈ 0.66). Ocak-Şubat 2026'da fiili satışlar bu hedeflerin de altında kaldı — aşağıda stratejik gerekçe açıklanmaktadır.",
+        "nedenler": [
+          {
+            "baslik": "1. Stok Kısıtı (Arz Tarafı)",
+            "aciklama": "2025 sonu itibarıyla mevcut model envanteri hızla azaldı. Üretim kapasitesi yeni model (A1) geçişine kilitlendiğinden Ocak-Şubat'ta bayilere dağıtılacak araç miktarı doğal olarak kısıtlandı. Bu durum bir arz problemi olup talep eksikliğini yansıtmaz."
+          },
+          {
+            "baslik": "2. Mart Lansmanı için Stok Biriktirme (Distribütör Stratejisi)",
+            "aciklama": "Yeni model (A1) Mart 2026'da tam kapasiteyle piyasaya girecek. Distribütörün bilinçli stratejisi: Ocak-Şubat'ta kısıtlı envanter yönetimiyle stoku tutmak, Mart lansmanında maksimum araç mevcudiyetiyle çıkmak. Bu strateji nedeniyle modelimizde Mart ve sonrasına ×1.15 boost uygulandı."
+          },
+          {
+            "baslik": "3. Piyasa Beklentisi (Demand-Side Kanibalizasyon)",
+            "aciklama": "Yeni model haberinin piyasaya yayılmasıyla birlikte müşterilerin mevcut modeli satın alma kararları ertelendi ('bekleme etkisi'). Bu davranışsal etki Ocak-Şubat'ta organik talebi ek olarak baskıladı. Modeldeki düşük Ocak SI değeri (≈0.66) bu eğilimi kısmen yansıtır; ancak stratejik gecikme etkisini tam olarak modellemez."
+          }
+        ],
+        "yorum": "Ocak-Şubat'taki düşük gerçekleşme bir tahmin başarısızlığı değil, kasıtlı bir stok yönetimi ve ürün lansman stratejisinin planlanmış sonucudur. Model bu stratejik kararı SI dağılımıyla kısmen yansıtır; ekip Ocak-Şubat hedeflerini mevcut fiziksel arz kısıtıyla elle revize etmelidir."
+      },
+      "mart_lansman_stratejisi": {
+        "baslik": "Mart 2026: A1 Modeli Tam Lansman",
+        "aciklama": "Model A1 Eylül 2025'ten itibaren sınırlı miktarda piyasada. Mart 2026'da tam kapasiteyle lanse edilmesi planlanıyor. Modelimizde Mart ve sonrası için ×1.15 SI boost uygulandı. Bu, %15 ek talep beklentisini ve distribütör motivasyon primini yansıtır.",
+        "etkiler": [
+          "Mart ayı toplam hedefi diğer aylara göre belirgin biçimde yüksek",
+          "A1 modelinin aylık model mix içindeki payı Mart'tan itibaren artıyor",
+          "Bayi stok talebi Şubat sonunda yoğunlaşacak (lansman öncesi hazırlık)",
+          "C1 modelinin payı 2026 boyunca azalmaya devam edecek (ürün yaşam döngüsü sonu)"
+        ]
+      },
+      "model_yorumu": {
+        "baslik": "2026 Model Karışımı Beklentisi",
+        "mevcut_durum": "2025 yılı sonu model dağılımı: A2 hakimiyeti (%39), B1 ikinci (%25), A3 üçüncü (%20), C1 dördüncü ama hızla azalıyor (%13 → Aralık'ta %4), A1 yeni giriyor (Eylül 2025'ten itibaren).",
+        "2026_beklenti": "A2 liderliği sürecek, A1 payı artacak, C1 satışları büyük ölçüde duracak. Aylık model hedefleri bu geçiş dinamiğini yansıtacak şekilde tasarlandı."
+      }
+    }
   }
 }

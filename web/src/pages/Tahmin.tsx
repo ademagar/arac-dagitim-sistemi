@@ -49,12 +49,30 @@ interface Metodoloji {
   aciklama: string
 }
 
+interface VeriKaynagi {
+  dosya: string
+  icerik: string
+  kullanim: string | string[]
+  not?: string
+}
+
+interface ModelAralikAnalizSatir {
+  model: string
+  aciklama: string
+  gercek_adet: number
+  gercek_pay: number
+  son6_pay: number
+  lansman_model: boolean
+}
+
 interface AralikTahmin {
   ozet: AralikOzet
   tier_ozet: TierOzet[]
   bayi_tahmin: BayiTahmin[]
   aylik_trend: AylikTrend[]
   metodoloji: Metodoloji[]
+  model_aralik_analiz: ModelAralikAnalizSatir[]
+  veri_kaynaklari: VeriKaynagi[]
 }
 
 interface Plan2026Ozet {
@@ -85,16 +103,64 @@ interface OcakBayiDagilim {
   perf_skoru: number
 }
 
+interface ModelDagilim {
+  model: string
+  aciklama: string
+  pay_pct: number
+  adet: number
+  lansman_model: boolean
+}
+
+interface ModelAylikSatir {
+  ay: number
+  ay_adi: string
+  toplam_hedef: number
+  lansman: boolean
+  model_dagilim: ModelDagilim[]
+}
+
 interface Senaryo {
   ozet: Plan2026Ozet
   aylik: AylikPlan[]
   ocak_bayi_dagilim: OcakBayiDagilim[]
+  model_aylik: ModelAylikSatir[]
+}
+
+interface StratejikNeden {
+  baslik: string
+  aciklama: string
+}
+
+interface StratejikBaglamOcakSubat {
+  baslik: string
+  durum: string
+  nedenler: StratejikNeden[]
+  yorum: string
+}
+
+interface StratejikBaglamMart {
+  baslik: string
+  aciklama: string
+  etkiler: string[]
+}
+
+interface StratejikBaglamModel {
+  baslik: string
+  mevcut_durum: string
+  '2026_beklenti': string
+}
+
+interface StratejikBaglamlar {
+  ocak_subat_analizi: StratejikBaglamOcakSubat
+  mart_lansman_stratejisi: StratejikBaglamMart
+  model_yorumu: StratejikBaglamModel
 }
 
 interface Plan2026 {
   senaryo_8500: Senaryo
   senaryo_10000: Senaryo
   metodoloji: Metodoloji[]
+  stratejik_baglamlar: StratejikBaglamlar
 }
 
 interface TahminData {
@@ -103,7 +169,7 @@ interface TahminData {
 }
 
 // ---------------------------------------------------------------------------
-// Yardımcı bileşenler
+// Ortak yardımcı bileşenler
 // ---------------------------------------------------------------------------
 
 function TabBar({ tabs, active, onChange }: {
@@ -130,9 +196,13 @@ function TabBar({ tabs, active, onChange }: {
   )
 }
 
-function Card({ title, children }: { title: string; children: React.ReactNode }) {
+function Card({ title, children, className }: {
+  title: string
+  children: React.ReactNode
+  className?: string
+}) {
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
+    <div className={`bg-white rounded-xl shadow-sm border border-slate-200 p-5 ${className ?? ''}`}>
       <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-4">{title}</h3>
       {children}
     </div>
@@ -155,10 +225,13 @@ function MetricCard({
 
 function ModelChips({ mix }: { mix: Record<string, number> }) {
   const MODEL_COLORS: Record<string, string> = {
-    A1: 'bg-blue-100 text-blue-700', A2: 'bg-green-100 text-green-700',
-    A3: 'bg-amber-100 text-amber-700', B1: 'bg-purple-100 text-purple-700',
-    B2: 'bg-pink-100 text-pink-700', C1: 'bg-cyan-100 text-cyan-700',
-    D1: 'bg-red-100 text-red-700',
+    A1: 'bg-violet-100 text-violet-700',
+    A2: 'bg-blue-100 text-blue-700',
+    A3: 'bg-sky-100 text-sky-700',
+    B1: 'bg-amber-100 text-amber-700',
+    B2: 'bg-orange-100 text-orange-700',
+    C1: 'bg-rose-100 text-rose-700',
+    D1: 'bg-slate-100 text-slate-600',
   }
   return (
     <div className="flex flex-wrap gap-1">
@@ -203,6 +276,94 @@ function GercekcilikBadge({ seviye }: { seviye: string }) {
 }
 
 // ---------------------------------------------------------------------------
+// Açıklama ve veri kaynağı bileşenleri
+// ---------------------------------------------------------------------------
+
+function BilgiKutusu({
+  baslik, renk = 'blue', children,
+}: {
+  baslik: string
+  renk?: 'blue' | 'amber' | 'green' | 'slate'
+  children: React.ReactNode
+}) {
+  const renkler = {
+    blue:  { bg: 'bg-blue-50',  border: 'border-blue-200',  title: 'text-blue-800',  body: 'text-blue-700' },
+    amber: { bg: 'bg-amber-50', border: 'border-amber-200', title: 'text-amber-800', body: 'text-amber-700' },
+    green: { bg: 'bg-green-50', border: 'border-green-200', title: 'text-green-800', body: 'text-green-700' },
+    slate: { bg: 'bg-slate-800', border: 'border-slate-700', title: 'text-white',    body: 'text-slate-300' },
+  }
+  const r = renkler[renk]
+  return (
+    <div className={`rounded-xl border ${r.bg} ${r.border} p-5`}>
+      <p className={`text-sm font-semibold ${r.title} mb-3`}>{baslik}</p>
+      <div className={`text-xs space-y-2 ${r.body}`}>{children}</div>
+    </div>
+  )
+}
+
+function VeriKaynaklariPanel({ kaynaklar }: { kaynaklar: VeriKaynagi[] }) {
+  const [acik, setAcik] = useState(false)
+  return (
+    <div className="rounded-xl border border-slate-200 bg-white overflow-hidden">
+      <button
+        onClick={() => setAcik(a => !a)}
+        className="w-full flex items-center justify-between px-5 py-3 hover:bg-slate-50 transition-colors"
+      >
+        <span className="text-xs font-semibold text-slate-500 uppercase tracking-wide">
+          Veri Kaynakları ({kaynaklar.length} dosya)
+        </span>
+        <span className="text-slate-400 text-sm">{acik ? '↑' : '↓'}</span>
+      </button>
+      {acik && (
+        <div className="px-5 pb-5 space-y-3 border-t border-slate-100 pt-4">
+          {kaynaklar.map(k => (
+            <div key={k.dosya} className="border border-slate-200 rounded-lg p-3">
+              <p className="text-xs font-mono font-semibold text-blue-700 mb-1">📄 {k.dosya}</p>
+              <p className="text-xs text-slate-600 mb-2">{k.icerik}</p>
+              {Array.isArray(k.kullanim) ? (
+                <ul className="space-y-0.5">
+                  {k.kullanim.map((u, i) => (
+                    <li key={i} className="text-xs text-slate-500">→ {u}</li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="text-xs text-slate-500">→ {k.kullanim}</p>
+              )}
+              {k.not && (
+                <p className="text-xs text-slate-400 italic mt-1 border-t border-slate-100 pt-1">
+                  Not: {k.not}
+                </p>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
+function MetodolojiBlogu({ maddeler }: { maddeler: Metodoloji[] }) {
+  return (
+    <div className="bg-blue-50 rounded-xl border border-blue-200 p-4">
+      <p className="text-sm font-semibold text-blue-800 mb-3">Metodoloji Adımları</p>
+      <ol className="space-y-2">
+        {maddeler.map((m, i) => (
+          <li key={m.baslik} className="flex gap-2">
+            <span className="flex-shrink-0 w-5 h-5 rounded-full bg-blue-600 text-white text-xs flex items-center justify-center font-bold mt-0.5">
+              {i + 1}
+            </span>
+            <div>
+              <p className="text-xs font-semibold text-blue-800">{m.baslik}</p>
+              <p className="text-xs text-blue-700 mt-0.5">{m.aciklama}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  )
+}
+
+// ---------------------------------------------------------------------------
 // Sekme 1: Aralık 2025 Tier Bazlı Tahmini
 // ---------------------------------------------------------------------------
 
@@ -222,12 +383,65 @@ const TIER_TEXT: Record<string, string> = {
   C: 'text-slate-700',
 }
 
+function ModelAralikAnaliz({ satirlar }: { satirlar: ModelAralikAnalizSatir[] }) {
+  const MODEL_COLORS: Record<string, string> = {
+    A1: 'bg-violet-600', A2: 'bg-blue-500', A3: 'bg-sky-400',
+    B1: 'bg-amber-500', B2: 'bg-orange-400', C1: 'bg-rose-400', D1: 'bg-slate-400',
+  }
+  return (
+    <Card title="Aralık 2025 Model Bazlı Gerçekleşme">
+      <p className="text-xs text-slate-500 mb-3">
+        Aşağıdaki tablo, Aralık 2025'te fiilen satılan araçların model dağılımını gösterir.
+        Son 6 ay payı ile karşılaştırarak hangi modelin akselerasyona girdiğini (A1) ve hangisinin
+        gerilediğini (C1) görebilirsiniz.
+      </p>
+      <div className="space-y-2">
+        {satirlar.map(row => (
+          <div key={row.model} className={`flex items-center gap-3 p-2 rounded-lg border ${
+            row.lansman_model ? 'bg-violet-50 border-violet-200' : 'bg-white border-slate-100'
+          }`}>
+            <div className="flex items-center gap-2 w-32 flex-shrink-0">
+              <span className={`w-2.5 h-2.5 rounded-full flex-shrink-0 ${MODEL_COLORS[row.model] ?? 'bg-slate-400'}`} />
+              <span className="text-xs font-bold text-slate-700">{row.model}</span>
+              {row.lansman_model && (
+                <span className="text-xs bg-violet-600 text-white px-1 py-0.5 rounded font-medium">YENİ</span>
+              )}
+            </div>
+            <div className="flex-1">
+              <p className="text-xs text-slate-500">{row.aciklama}</p>
+            </div>
+            <div className="text-right w-20 flex-shrink-0">
+              <p className="text-xs font-bold text-slate-800">{row.gercek_adet} araç</p>
+              <p className="text-xs text-slate-500">Ara'25: {row.gercek_pay}%</p>
+            </div>
+            <div className="text-right w-20 flex-shrink-0">
+              <p className="text-xs text-slate-500">Son 6 ay: {row.son6_pay}%</p>
+              <div className="w-full bg-slate-100 rounded-full h-1 mt-0.5">
+                <div
+                  className={`h-1 rounded-full ${MODEL_COLORS[row.model] ?? 'bg-slate-400'}`}
+                  style={{ width: `${Math.min(100, row.son6_pay * 1.5)}%` }}
+                />
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <p className="text-xs text-slate-400 mt-3">
+        <span className="text-violet-600 font-medium">YENİ</span> = A1 modeli Eylül 2025'ten itibaren piyasada —
+        Mart 2026 tam lansmanının hazırlık aşamasında.
+        C1 modelinin Aralık payı (%3) Ocak payına (%42) göre dramatik düşüş gösterdi.
+      </p>
+    </Card>
+  )
+}
+
 function AralikTab({ data }: { data: AralikTahmin }) {
   const [sortField, setSortField] = useState<'hata_pct' | 'gercek' | 'tahmin'>('hata_pct')
   const [sortDir, setSortDir] = useState<'asc' | 'desc'>('asc')
   const [filterTier, setFilterTier] = useState<'Tümü' | 'A' | 'B' | 'C'>('Tümü')
 
-  const { ozet, tier_ozet, bayi_tahmin, aylik_trend, metodoloji } = data
+  const { ozet, tier_ozet, bayi_tahmin, aylik_trend, metodoloji,
+          model_aralik_analiz, veri_kaynaklari } = data
 
   const filteredBayiler = bayi_tahmin.filter(
     r => filterTier === 'Tümü' || r.tier === filterTier,
@@ -249,11 +463,47 @@ function AralikTab({ data }: { data: AralikTahmin }) {
 
   return (
     <div className="space-y-6">
+
+      {/* Bağlam açıklaması */}
+      <BilgiKutusu baslik="Bu Sekme: Aralık 2025 Geriye Dönük Tahmin Doğrulaması" renk="slate">
+        <p>
+          <strong className="text-white">Amaç:</strong>{' '}
+          Modelimizin ne kadar doğru tahmin ürettiğini ölçmek için Aralık 2025 verisini
+          kullandık. Modeli Kasım 2025 verisine kadar eğittik, Aralık tahminini ürettik,
+          sonra gerçek Aralık satışlarıyla kıyasladık.
+        </p>
+        <p>
+          <strong className="text-white">Yaklaşım — A/B/C Tier Gruplandırması:</strong>{' '}
+          28 bayi, bölgesel satış potansiyeline göre 3 gruba ayrıldı.
+          Tier A (Marmara, Ege, İç Anadolu) yüksek hacimli 21 bayi,
+          Tier B (Akdeniz) 4 bayi,
+          Tier C (Güneydoğu, Karadeniz) 3 bayi.
+          Her tier için ayrı Seasonal Index ve ayrı trend düzeltmesi hesaplandı.
+          Tekli model MAPE'si %12.02'den tier bazlı modelde <strong className="text-green-400">%7.82</strong>'ye düştü.
+        </p>
+        <p>
+          <strong className="text-white">Seasonal Index (SI) Nedir?</strong>{' '}
+          SI, ilgili ayın yıl boyunca diğer aylara kıyasla ne kadar satış aldığını gösteren orandır.
+          SI=1.32 (Aralık) → o ay yıllık ortalamanın %32 üzerinde satış yapıldığı anlamına gelir.
+          Tier bazlı SI, her grup için 2024-2025 verisiyle hesaplandı ve global SI ile harmanlandı.
+        </p>
+        <p>
+          <strong className="text-white">Trend Düzeltmesi:</strong>{' '}
+          Son 6 ay ortalaması / önceki 6 ay ortalaması oranı, [0.80, 1.35] aralığında sınırlandırıldı.
+          2025'te gerçek büyüme oranı 1.247 olduğundan üst sınır 1.20'den 1.35'e yükseltildi.
+        </p>
+        <p>
+          <strong className="text-white">Önemli Sınır:</strong>{' '}
+          Model istatistiksel bir araçtır. Stok kısıtı, lansman stratejisi ve bayi davranışı
+          gibi operasyonel faktörleri tam olarak yansıtamaz.
+        </p>
+      </BilgiKutusu>
+
       {/* Özet metrik kartlar */}
       <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
         <MetricCard label="Tahmin" value={ozet.toplam_tahmin.toLocaleString('tr')} sub="araç"
           colorClass="bg-blue-50 border-blue-200" />
-        <MetricCard label="Gerçek" value={ozet.toplam_gercek.toLocaleString('tr')} sub="araç (Dec 2025)"
+        <MetricCard label="Gerçek" value={ozet.toplam_gercek.toLocaleString('tr')} sub="araç (Ara 2025)"
           colorClass="bg-slate-50 border-slate-200" />
         <MetricCard label="MAPE" value={`${ozet.mape.toFixed(1)}%`} sub={hataYonu}
           colorClass={ozet.mape < 10 ? 'bg-green-50 border-green-200' : ozet.mape < 20 ? 'bg-amber-50 border-amber-200' : 'bg-red-50 border-red-200'} />
@@ -268,6 +518,10 @@ function AralikTab({ data }: { data: AralikTahmin }) {
         <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-3">
           A / B / C Tier Bazlı Tahmin Doğrulaması
         </h3>
+        <p className="text-xs text-slate-400 mb-3">
+          Her tier için bağımsız SI ve trend hesaplandı. Tier içindeki toplam araç sayısı tahmin edildi;
+          ardından o tierin bayileri arasında son 12 aylık satış payına göre dağıtıldı.
+        </p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {tier_ozet.map(t => (
             <div key={t.tier} className={`rounded-xl border p-4 ${TIER_BG[t.tier]}`}>
@@ -297,16 +551,19 @@ function AralikTab({ data }: { data: AralikTahmin }) {
               </div>
               <div className="mt-3 pt-3 border-t border-slate-200 grid grid-cols-3 gap-1 text-center">
                 <div>
-                  <p className="text-xs text-slate-400">SI</p>
-                  <p className="text-xs font-mono text-slate-600">{t.si.toFixed(3)}</p>
+                  <p className="text-xs text-slate-400">SI (Aralık)</p>
+                  <p className="text-xs font-mono font-semibold text-slate-700">{t.si.toFixed(3)}</p>
+                  <p className="text-xs text-slate-400">mevsimsel idx</p>
                 </div>
                 <div>
                   <p className="text-xs text-slate-400">Trend</p>
-                  <p className="text-xs font-mono text-slate-600">{t.trend.toFixed(3)}</p>
+                  <p className="text-xs font-mono font-semibold text-slate-700">{t.trend.toFixed(3)}</p>
+                  <p className="text-xs text-slate-400">son6/önceki6</p>
                 </div>
                 <div>
-                  <p className="text-xs text-slate-400">Son12 Ort.</p>
-                  <p className="text-xs font-mono text-slate-600">{t.son12_ort.toFixed(0)}</p>
+                  <p className="text-xs text-slate-400">Son 12 ay ort.</p>
+                  <p className="text-xs font-mono font-semibold text-slate-700">{t.son12_ort.toFixed(0)}</p>
+                  <p className="text-xs text-slate-400">araç/ay</p>
                 </div>
               </div>
             </div>
@@ -314,22 +571,17 @@ function AralikTab({ data }: { data: AralikTahmin }) {
         </div>
       </div>
 
-      {/* Metodoloji kutusu */}
-      <div className="bg-blue-50 rounded-xl border border-blue-200 p-4">
-        <p className="text-sm font-semibold text-blue-800 mb-2">Tahmin Metodolojisi — Tier Bazlı Yaklaşım</p>
-        <ul className="space-y-1">
-          {metodoloji.map(m => (
-            <li key={m.baslik} className="text-xs text-blue-700">
-              <span className="font-medium">{m.baslik}:</span> {m.aciklama}
-            </li>
-          ))}
-        </ul>
-        <p className="text-xs font-mono mt-3 text-blue-600 break-words">{ozet.yontem}</p>
-      </div>
+      {/* Metodoloji */}
+      <MetodolojiBlogu maddeler={metodoloji} />
 
       {/* Aylık trend grafiği */}
       <Card title="Aylık Satış Trendi (Ocak 2024 – Aralık 2025)">
-        <ResponsiveContainer width="100%" height={320}>
+        <p className="text-xs text-slate-500 mb-3">
+          Mavi çizgi: 2024-2025 boyunca gerçekleşen aylık araç satışları.
+          Kırmızı nokta: Modelimizin Aralık 2025 için ürettiği tahmin (460 araç).
+          Gerçek: 499 araç — MAPE %7.82.
+        </p>
+        <ResponsiveContainer width="100%" height={300}>
           <LineChart data={chartData} margin={{ left: 0, right: 20, top: 10, bottom: 5 }}>
             <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
             <XAxis dataKey="ym" tick={{ fontSize: 10 }} tickFormatter={v => v.slice(2)} interval={1} />
@@ -337,7 +589,7 @@ function AralikTab({ data }: { data: AralikTahmin }) {
             <Tooltip
               formatter={(v: number, name: string) => [
                 v?.toLocaleString('tr'),
-                name === 'gercek' ? 'Gerçek Satış' : 'Tahmin (Dec 2025)',
+                name === 'gercek' ? 'Gerçek Satış' : 'Tahmin (Ara 2025)',
               ]}
             />
             <Legend formatter={v => v === 'gercek' ? 'Gerçek Satış' : 'Tahmin (Aralık 2025)'} />
@@ -349,15 +601,20 @@ function AralikTab({ data }: { data: AralikTahmin }) {
               strokeDasharray="6 3" dot={{ r: 6, fill: '#ef4444', strokeWidth: 2 }} connectNulls={false} />
           </LineChart>
         </ResponsiveContainer>
-        <p className="text-xs text-slate-400 text-center mt-1">
-          Kırmızı nokta = Aralık 2025 tahmini · Mavi çizgi = gerçek satışlar
-        </p>
       </Card>
+
+      {/* Model bazlı Aralık analizi */}
+      {model_aralik_analiz && model_aralik_analiz.length > 0 && (
+        <ModelAralikAnaliz satirlar={model_aralik_analiz} />
+      )}
 
       {/* Bayi tahmin tablosu */}
       <Card title="Bayi Bazında Tahmin vs Gerçek">
         <div className="flex items-center gap-3 mb-3 flex-wrap">
-          <p className="text-xs text-slate-500">Sütun başlıklarına tıklayarak sıralayabilirsiniz.</p>
+          <p className="text-xs text-slate-500">
+            Her bayinin tahmini = tier tahmini × bayinin tier içindeki son 12 ay satış payı.
+            Sütun başlıklarına tıklayarak sıralayabilirsiniz.
+          </p>
           <div className="flex gap-1 ml-auto">
             {(['Tümü', 'A', 'B', 'C'] as const).map(t => (
               <button key={t} onClick={() => setFilterTier(t)}
@@ -390,7 +647,7 @@ function AralikTab({ data }: { data: AralikTahmin }) {
                   onClick={() => toggleSort('hata_pct')}>
                   Hata% {sortField === 'hata_pct' ? (sortDir === 'asc' ? '↑' : '↓') : ''}
                 </th>
-                <th className="text-left py-2 px-3 font-medium text-slate-500">Model Karışımı</th>
+                <th className="text-left py-2 px-3 font-medium text-slate-500">Son 12 Ay Model Mix</th>
               </tr>
             </thead>
             <tbody>
@@ -432,6 +689,255 @@ function AralikTab({ data }: { data: AralikTahmin }) {
           Renk: yeşil &lt;10% · sarı 10–20% · kırmızı &gt;20% mutlak hata
         </p>
       </Card>
+
+      {/* Veri kaynakları */}
+      <VeriKaynaklariPanel kaynaklar={veri_kaynaklari} />
+    </div>
+  )
+}
+
+// ---------------------------------------------------------------------------
+// Aylık Model Hedefleri Tablosu
+// ---------------------------------------------------------------------------
+
+const MODEL_BG: Record<string, string> = {
+  A1: 'bg-violet-100 text-violet-800',
+  A2: 'bg-blue-100 text-blue-800',
+  A3: 'bg-sky-100 text-sky-800',
+  B1: 'bg-amber-100 text-amber-800',
+  B2: 'bg-orange-100 text-orange-800',
+  C1: 'bg-rose-100 text-rose-800',
+  D1: 'bg-slate-100 text-slate-600',
+  'Diğer': 'bg-slate-100 text-slate-500',
+}
+
+function AylikModelTablosu({
+  modelAylik, yillikHedef, lansman_ay,
+}: {
+  modelAylik: ModelAylikSatir[]
+  yillikHedef: number
+  lansman_ay: number
+}) {
+  const allModels = [...new Set(
+    modelAylik.flatMap(ay => ay.model_dagilim.map(m => m.model))
+  )]
+  const modelTotals: Record<string, number> = {}
+  for (const ay of modelAylik) {
+    for (const m of ay.model_dagilim) {
+      modelTotals[m.model] = (modelTotals[m.model] || 0) + m.adet
+    }
+  }
+  const sortedModels = allModels
+    .filter(m => m !== 'Diğer')
+    .sort((a, b) => (modelTotals[b] || 0) - (modelTotals[a] || 0))
+  if (allModels.includes('Diğer')) sortedModels.push('Diğer')
+
+  const getAdet = (ay: ModelAylikSatir, model: string): number =>
+    ay.model_dagilim.find(m => m.model === model)?.adet || 0
+
+  const getLansmanModel = (ay: ModelAylikSatir): string | null => {
+    const lm = ay.model_dagilim.find(m => m.lansman_model)
+    return lm ? lm.model : null
+  }
+
+  return (
+    <div>
+      <div className="mb-4">
+        <BilgiKutusu baslik="Aylık Model Bazlı Hedef Tablosu — Nasıl Okunur?" renk="blue">
+          <p>
+            <strong>Yöntem:</strong> Her ayın toplam araç hedefi, o ayın tarihsel model karışımına
+            (model mix) göre modellere dağıtıldı.
+            Son 6 ay verisi %60, önceki 18 ay %40 ağırlıkla harmanlandı.
+            Bu, A1 gibi yeni giren modellere daha fazla ağırlık verir.
+          </p>
+          <p>
+            <strong>Lansman Etkisi:</strong> Mart ve sonrası için A1 (yeni model)
+            payı +%30 artırıldı ve toplam normalize edildi.
+            Bu, distribütörün lansman stratejisini yansıtır.
+          </p>
+          <p>
+            <strong>Dikkat — C1 Trendi:</strong> Ocak 2026 için C1 payı historik Ocak verisine
+            göre yüksek görünüyor. Gerçekte C1, 2025 sonunda ciddi geriledi
+            (Ocak %42 → Aralık %3). Bu tabloyu kullanırken C1 hedeflerini
+            aşağı revize etmenizi öneririz.
+          </p>
+        </BilgiKutusu>
+      </div>
+
+      {/* Model göstergesi */}
+      <div className="flex flex-wrap gap-2 mb-4">
+        {sortedModels.map(m => {
+          const info = modelAylik[0]?.model_dagilim.find(md => md.model === m)
+          return (
+            <div key={m} className={`px-2 py-1 rounded-lg text-xs font-medium flex items-center gap-1.5 ${MODEL_BG[m] ?? 'bg-slate-100 text-slate-600'}`}>
+              {m === 'A1' && <span className="text-xs">🚀</span>}
+              <span className="font-bold">{m}</span>
+              {info?.aciklama && <span className="opacity-70">{info.aciklama}</span>}
+              <span className="font-bold">— {(modelTotals[m] || 0).toLocaleString('tr')} araç/yıl</span>
+            </div>
+          )
+        })}
+      </div>
+
+      <div className="overflow-x-auto rounded-xl border border-slate-200">
+        <table className="w-full text-xs border-collapse">
+          <thead>
+            <tr className="bg-slate-800 text-white">
+              <th className="text-left py-3 px-3 font-semibold sticky left-0 bg-slate-800 z-10 min-w-[90px]">
+                Ay
+              </th>
+              <th className="text-right py-3 px-3 font-semibold min-w-[70px] border-r border-slate-600">
+                Toplam
+              </th>
+              {sortedModels.map(m => (
+                <th key={m} className={`text-right py-3 px-3 font-semibold min-w-[75px] ${
+                  m === 'A1' ? 'bg-violet-800' : ''
+                }`}>
+                  {m}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {modelAylik.map((ay, idx) => {
+              const isLansman = ay.ay === lansman_ay
+              const lansmanModel = getLansmanModel(ay)
+              return (
+                <tr key={ay.ay}
+                  className={`border-b border-slate-100 ${
+                    isLansman ? 'bg-green-50 font-semibold' :
+                    idx % 2 === 0 ? 'bg-white' : 'bg-slate-50/50'
+                  }`}
+                >
+                  <td className={`py-2.5 px-3 sticky left-0 z-10 font-semibold ${
+                    isLansman ? 'bg-green-50 text-green-800' : 'bg-inherit text-slate-700'
+                  }`}>
+                    <div className="flex items-center gap-1">
+                      {ay.ay_adi}
+                      {isLansman && (
+                        <span className="text-xs bg-green-600 text-white px-1 rounded font-medium">LANSMAN</span>
+                      )}
+                      {!isLansman && ay.lansman && lansmanModel && (
+                        <span className="text-xs text-green-600">+A1</span>
+                      )}
+                    </div>
+                  </td>
+                  <td className={`py-2.5 px-3 text-right font-bold border-r border-slate-200 ${
+                    isLansman ? 'text-green-800' : 'text-slate-800'
+                  }`}>
+                    {ay.toplam_hedef.toLocaleString('tr')}
+                  </td>
+                  {sortedModels.map(m => {
+                    const adet = getAdet(ay, m)
+                    const isLansmanModelCol = m === 'A1'
+                    return (
+                      <td key={m} className={`py-2.5 px-3 text-right font-mono ${
+                        isLansmanModelCol && adet > 0 ? 'text-violet-700 font-semibold' :
+                        adet === 0 ? 'text-slate-300' : 'text-slate-600'
+                      }`}>
+                        {adet > 0 ? adet.toLocaleString('tr') : '—'}
+                      </td>
+                    )
+                  })}
+                </tr>
+              )
+            })}
+          </tbody>
+          <tfoot>
+            <tr className="bg-slate-100 font-bold border-t-2 border-slate-300">
+              <td className="py-3 px-3 text-slate-800 sticky left-0 bg-slate-100">YIL TOPLAMI</td>
+              <td className="py-3 px-3 text-right text-blue-700 border-r border-slate-300">
+                {yillikHedef.toLocaleString('tr')}
+              </td>
+              {sortedModels.map(m => (
+                <td key={m} className={`py-3 px-3 text-right font-mono ${
+                  m === 'A1' ? 'text-violet-700' : 'text-slate-700'
+                }`}>
+                  {(modelTotals[m] || 0).toLocaleString('tr')}
+                  <span className="block text-xs font-normal text-slate-400">
+                    {yillikHedef > 0 ? `${((modelTotals[m] || 0) / yillikHedef * 100).toFixed(1)}%` : ''}
+                  </span>
+                </td>
+              ))}
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+      <p className="text-xs text-slate-400 mt-2">
+        🚀 A1 = Lansman modeli · LANSMAN satırı = Mart 2026 (×1.15 boost aylık toplama uygulandı)
+        · Sütun altları: model bazında yıllık pay
+      </p>
+    </div>
+  )
+}
+
+// ---------------------------------------------------------------------------
+// Stratejik Bağlam Paneli
+// ---------------------------------------------------------------------------
+
+function StratejikBaglamPanel({ baglam }: { baglam: StratejikBaglamlar }) {
+  const [expanded, setExpanded] = useState(false)
+  const { ocak_subat_analizi: osa, mart_lansman_stratejisi: mls, model_yorumu: my } = baglam
+
+  return (
+    <div className="bg-amber-50 rounded-xl border border-amber-200 p-5">
+      <div className="flex items-start justify-between gap-3">
+        <div className="flex-1">
+          <p className="text-sm font-semibold text-amber-800 mb-1">
+            ⚠️ Stratejik Bağlam — Neden Ocak-Şubat Düşük?
+          </p>
+          <p className="text-xs text-amber-700">{osa.durum}</p>
+        </div>
+        <button onClick={() => setExpanded(e => !e)}
+          className="text-xs text-amber-600 hover:text-amber-800 flex-shrink-0 font-semibold border border-amber-300 px-3 py-1 rounded-lg"
+        >
+          {expanded ? 'Kapat ↑' : 'Detay ↓'}
+        </button>
+      </div>
+
+      {expanded && (
+        <div className="mt-5 space-y-4">
+          <div>
+            <p className="text-xs font-semibold text-amber-800 mb-2 uppercase tracking-wide">
+              {osa.baslik}
+            </p>
+            <div className="space-y-2">
+              {osa.nedenler.map(n => (
+                <div key={n.baslik} className="bg-white rounded-lg border border-amber-200 p-3">
+                  <p className="text-xs font-semibold text-amber-800 mb-1">{n.baslik}</p>
+                  <p className="text-xs text-amber-700">{n.aciklama}</p>
+                </div>
+              ))}
+            </div>
+            <div className="bg-amber-100 rounded-lg p-3 mt-2">
+              <p className="text-xs font-semibold text-amber-800 mb-1">Sonuç / Yorum</p>
+              <p className="text-xs text-amber-700">{osa.yorum}</p>
+            </div>
+          </div>
+
+          <div className="bg-green-50 rounded-lg border border-green-200 p-4">
+            <p className="text-xs font-semibold text-green-800 mb-1">{mls.baslik}</p>
+            <p className="text-xs text-green-700 mb-2">{mls.aciklama}</p>
+            <ul className="space-y-1">
+              {mls.etkiler.map((e, i) => (
+                <li key={i} className="text-xs text-green-600 flex gap-1">
+                  <span className="text-green-400">•</span> {e}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="bg-violet-50 rounded-lg border border-violet-200 p-4">
+            <p className="text-xs font-semibold text-violet-800 mb-1">{my.baslik}</p>
+            <p className="text-xs text-violet-700 mb-1">
+              <strong>Mevcut Durum (2025 sonu):</strong> {my.mevcut_durum}
+            </p>
+            <p className="text-xs text-violet-700">
+              <strong>2026 Beklentisi:</strong> {my['2026_beklenti']}
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
@@ -440,125 +946,225 @@ function AralikTab({ data }: { data: AralikTahmin }) {
 // Sekme 2: 2026 Yıllık Plan — İki Senaryo
 // ---------------------------------------------------------------------------
 
-function SenaryoView({ senaryo, metodoloji }: { senaryo: Senaryo; metodoloji: Metodoloji[] }) {
-  const { ozet, aylik, ocak_bayi_dagilim } = senaryo
+function SenaryoView({
+  senaryo, metodoloji, stratejikBaglam,
+}: {
+  senaryo: Senaryo
+  metodoloji: Metodoloji[]
+  stratejikBaglam: StratejikBaglamlar
+}) {
+  const [subTab, setSubTab] = useState(0)
+  const { ozet, aylik, ocak_bayi_dagilim, model_aylik } = senaryo
   const LANSMAN_AY = ozet.lansman_ay
   const barRenk = (ay: number) =>
     ay === LANSMAN_AY ? '#22c55e' : ay >= LANSMAN_AY ? '#3b82f6' : '#94a3b8'
   const ocakToplam = ocak_bayi_dagilim.reduce((s, r) => s + r.adet, 0)
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-5">
       {/* Özet kartlar */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         <MetricCard label="Yıllık Hedef" value={ozet.yillik_hedef.toLocaleString('tr')} sub="araç (2026)"
           colorClass="bg-blue-50 border-blue-200" />
         <MetricCard label="Ocak 2026" value={ozet.ocak_hedef.toLocaleString('tr')} sub="araç (SI bazlı)"
           colorClass="bg-slate-50 border-slate-200" />
-        <MetricCard label="Lansman Ayı" value="Mart 2026" sub={`×${ozet.lansman_boost} boost`}
+        <MetricCard label="Lansman Ayı" value="Mart 2026" sub={`×${ozet.lansman_boost} SI boost`}
           colorClass="bg-green-50 border-green-200" />
         <MetricCard label="Doğrulama" value={ozet.toplam_kontrol.toLocaleString('tr')}
           sub={ozet.toplam_kontrol === ozet.yillik_hedef ? '= hedef ✓' : '≠ hedef!'}
           colorClass={ozet.toplam_kontrol === ozet.yillik_hedef ? 'bg-green-50 border-green-200' : 'bg-red-50 border-red-200'} />
       </div>
 
-      {/* Aylık bar chart */}
-      <Card title={`${ozet.yillik_hedef.toLocaleString('tr')} Araç — Aylık Dağıtım Hedefi`}>
-        <ResponsiveContainer width="100%" height={300}>
-          <BarChart data={aylik} margin={{ left: 0, right: 10, top: 5, bottom: 5 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
-            <XAxis dataKey="ay_adi" tick={{ fontSize: 11 }} />
-            <YAxis tick={{ fontSize: 11 }} />
-            <Tooltip
-              formatter={(v: number) => [`${v.toLocaleString('tr')} araç`, 'Hedef']}
-              labelFormatter={label => `${label} 2026`}
-            />
-            <ReferenceLine y={ozet.yillik_hedef / 12} stroke="#94a3b8" strokeDasharray="4 4"
-              label={{ value: 'Aylık ort.', fontSize: 10, fill: '#94a3b8' }} />
-            <Bar dataKey="hedef" name="Hedef" radius={[4, 4, 0, 0]}>
-              {aylik.map(row => <Cell key={row.ay} fill={barRenk(row.ay)} />)}
-            </Bar>
-          </BarChart>
-        </ResponsiveContainer>
-        <div className="flex gap-4 mt-2 justify-center text-xs text-slate-500">
-          <span><span className="inline-block w-3 h-3 rounded bg-slate-300 mr-1" />Ocak–Şubat</span>
-          <span><span className="inline-block w-3 h-3 rounded bg-green-500 mr-1" />Mart (lansman ×{ozet.lansman_boost})</span>
-          <span><span className="inline-block w-3 h-3 rounded bg-blue-500 mr-1" />Nisan–Aralık</span>
-        </div>
-      </Card>
+      {/* Stratejik bağlam */}
+      <StratejikBaglamPanel baglam={stratejikBaglam} />
 
-      {/* Metodoloji */}
-      <div className="bg-green-50 rounded-xl border border-green-200 p-4">
-        <p className="text-sm font-semibold text-green-800 mb-2">Metodoloji</p>
-        <ul className="space-y-1">
-          {metodoloji.map(m => (
-            <li key={m.baslik} className="text-xs text-green-700">
-              <span className="font-medium">{m.baslik}:</span> {m.aciklama}
-            </li>
-          ))}
-        </ul>
-      </div>
+      {/* Sub-tab: Aylık Plan vs Model Hedefleri */}
+      <TabBar
+        tabs={['Aylık Plan', 'Model Hedefleri (Oca–Ara)']}
+        active={subTab}
+        onChange={setSubTab}
+      />
 
-      {/* Ocak 2026 Bayi Dağılımı */}
-      <Card title={`Ocak 2026 Bayi Dağılımı (Toplam: ${ocakToplam} araç)`}>
-        <div className="flex gap-4 mb-3 text-xs text-slate-500 flex-wrap">
-          <span>Ağırlık: <strong>50%</strong> son 12 ay satış payı</span>
-          <span>+ <strong>30%</strong> Ocak 2026 hedef payı</span>
-          <span>+ <strong>20%</strong> performans skoru</span>
+      {subTab === 0 && (
+        <div className="space-y-5">
+          {/* Aylık bar chart */}
+          <Card title={`${ozet.yillik_hedef.toLocaleString('tr')} Araç — Aylık Dağıtım Hedefi`}>
+            <p className="text-xs text-slate-500 mb-3">
+              Her ayın hedefi = Yıllık hedef × (o ayın SI payı). Mart+ için SI ×{ozet.lansman_boost} boost uygulandı.
+              Ocak SI ≈ 0.66 → yılın en düşük hedefi. Aralık SI ≈ 1.62 → yılın en yüksek hedefi.
+            </p>
+            <ResponsiveContainer width="100%" height={280}>
+              <BarChart data={aylik} margin={{ left: 0, right: 10, top: 5, bottom: 5 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
+                <XAxis dataKey="ay_adi" tick={{ fontSize: 10 }} />
+                <YAxis tick={{ fontSize: 10 }} />
+                <Tooltip
+                  formatter={(v: number, _: string, props: { payload?: { si?: number; lansman_boost?: number } }) => [
+                    `${v.toLocaleString('tr')} araç`,
+                    `Hedef (SI=${props.payload?.si?.toFixed(3) ?? ''}${props.payload?.lansman_boost && props.payload.lansman_boost > 1 ? ' ×' + props.payload.lansman_boost : ''})`,
+                  ]}
+                  labelFormatter={label => `${label} 2026`}
+                />
+                <ReferenceLine y={ozet.yillik_hedef / 12} stroke="#94a3b8" strokeDasharray="4 4"
+                  label={{ value: 'Aylık ort.', fontSize: 9, fill: '#94a3b8' }} />
+                <Bar dataKey="hedef" name="Hedef" radius={[4, 4, 0, 0]}>
+                  {aylik.map(row => <Cell key={row.ay} fill={barRenk(row.ay)} />)}
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+            <div className="flex gap-4 mt-2 justify-center text-xs text-slate-500">
+              <span><span className="inline-block w-3 h-3 rounded bg-slate-300 mr-1" />Ocak–Şubat</span>
+              <span><span className="inline-block w-3 h-3 rounded bg-green-500 mr-1" />Mart (lansman ×{ozet.lansman_boost})</span>
+              <span><span className="inline-block w-3 h-3 rounded bg-blue-500 mr-1" />Nisan–Aralık</span>
+            </div>
+          </Card>
+
+          {/* Aylık detay tablosu */}
+          <Card title="Aylık Hedef Detayı">
+            <div className="overflow-x-auto">
+              <table className="w-full text-xs">
+                <thead>
+                  <tr className="border-b border-slate-200">
+                    <th className="text-left py-2 px-2 font-medium text-slate-500">Ay</th>
+                    <th className="text-right py-2 px-2 font-medium text-slate-500">Hedef</th>
+                    <th className="text-right py-2 px-2 font-medium text-slate-500">Pay%</th>
+                    <th className="text-right py-2 px-2 font-medium text-slate-500">SI</th>
+                    <th className="text-left py-2 px-2 font-medium text-slate-500">SI Bar</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {aylik.map(row => (
+                    <tr key={row.ay} className={`border-b border-slate-100 ${
+                      row.ay === LANSMAN_AY ? 'bg-green-50 font-semibold' : 'hover:bg-slate-50'
+                    }`}>
+                      <td className="py-1.5 px-2 text-slate-700">
+                        {row.ay_adi}
+                        {row.ay === LANSMAN_AY && (
+                          <span className="ml-1 text-xs bg-green-600 text-white px-1 rounded">LANSMAN</span>
+                        )}
+                      </td>
+                      <td className="py-1.5 px-2 text-right font-bold text-slate-800 font-mono">
+                        {row.hedef.toLocaleString('tr')}
+                      </td>
+                      <td className="py-1.5 px-2 text-right text-slate-500 font-mono">
+                        %{row.pay_pct.toFixed(1)}
+                      </td>
+                      <td className="py-1.5 px-2 text-right text-slate-500 font-mono">
+                        {row.si.toFixed(3)}
+                        {row.lansman_boost > 1 && (
+                          <span className="text-green-600"> ×{row.lansman_boost}</span>
+                        )}
+                      </td>
+                      <td className="py-1.5 px-2">
+                        <div className="w-24 bg-slate-100 rounded-full h-1.5">
+                          <div
+                            className={`h-1.5 rounded-full ${row.ay >= LANSMAN_AY ? 'bg-blue-500' : 'bg-slate-400'}`}
+                            style={{ width: `${Math.min(100, row.pay_pct * 7)}%` }}
+                          />
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+                <tfoot>
+                  <tr className="border-t-2 border-slate-300 bg-slate-50 font-bold">
+                    <td className="py-2 px-2 text-slate-800">TOPLAM</td>
+                    <td className="py-2 px-2 text-right text-blue-700 font-mono">
+                      {ozet.yillik_hedef.toLocaleString('tr')}
+                    </td>
+                    <td className="py-2 px-2 text-right text-slate-600 font-mono">%100</td>
+                    <td colSpan={2} />
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </Card>
+
+          {/* Metodoloji */}
+          <MetodolojiBlogu maddeler={metodoloji} />
+
+          {/* Ocak 2026 Bayi Dağılımı */}
+          <Card title={`Ocak 2026 Bayi Dağılımı (Toplam: ${ocakToplam} araç)`}>
+            <div className="mb-4">
+              <BilgiKutusu baslik="Dağıtım Yöntemi" renk="blue">
+                <p>
+                  <strong>%50 Son 12 ay satış payı</strong> (Ara 2024 – Kas 2025):
+                  En güçlü geçmiş performansı olan bayilere daha fazla araç.
+                </p>
+                <p>
+                  <strong>%30 Ocak 2026 resmi hedef payı</strong>:
+                  Distribütörün belirlediği resmi bayi hedefleri baz alındı.
+                </p>
+                <p>
+                  <strong>%20 Performans skoru</strong>:
+                  2025 yılı boyunca hedef gerçekleştirme oranı (normalized 0–1).
+                  Tutarlı yüksek performans gösteren bayiler öne çıkıyor.
+                </p>
+                <p>
+                  <strong>Güven seviyesi</strong>:
+                  Yüksek = atama/resmi hedef oranı 0.8–1.25 · Orta = 0.6–1.5 · Düşük = dışında.
+                </p>
+              </BilgiKutusu>
+            </div>
+            <div className="overflow-x-auto">
+              <table className="w-full text-xs">
+                <thead>
+                  <tr className="border-b border-slate-200">
+                    <th className="text-left py-2 px-2 font-medium text-slate-500">Bayi</th>
+                    <th className="text-center py-2 px-2 font-medium text-slate-500">Tier</th>
+                    <th className="text-right py-2 px-2 font-medium text-slate-500">Adet</th>
+                    <th className="text-right py-2 px-2 font-medium text-slate-500">Pay%</th>
+                    <th className="text-right py-2 px-2 font-medium text-slate-500">Jan26 Hedef</th>
+                    <th className="text-right py-2 px-2 font-medium text-slate-500">Perf.</th>
+                    <th className="text-center py-2 px-2 font-medium text-slate-500">Güven</th>
+                    <th className="text-left py-2 px-3 font-medium text-slate-500">Son 6 Ay Mix</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {ocak_bayi_dagilim.map(row => (
+                    <tr key={row.dealer} className="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+                      <td className="py-1.5 px-2 font-medium text-slate-700">{row.dealer}</td>
+                      <td className="py-1.5 px-2 text-center"><TierBadge tier={row.tier} /></td>
+                      <td className="py-1.5 px-2 text-right font-mono font-bold text-blue-700">{row.adet}</td>
+                      <td className="py-1.5 px-2 text-right font-mono text-slate-500">
+                        {row.pay_pct.toFixed(1)}%
+                      </td>
+                      <td className="py-1.5 px-2 text-right font-mono text-slate-500">{row.jan26_hedef}</td>
+                      <td className="py-1.5 px-2 text-right font-mono text-slate-500">
+                        {(row.perf_skoru * 100).toFixed(0)}%
+                      </td>
+                      <td className="py-1.5 px-2 text-center"><GercekcilikBadge seviye={row.gercekci_mi} /></td>
+                      <td className="py-1.5 px-3"><ModelChips mix={row.model_mix} /></td>
+                    </tr>
+                  ))}
+                </tbody>
+                <tfoot>
+                  <tr className="border-t-2 border-slate-300 bg-slate-50 font-bold">
+                    <td className="py-2 px-2 text-slate-800">TOPLAM</td>
+                    <td />
+                    <td className="py-2 px-2 text-right font-mono text-blue-700">{ocakToplam}</td>
+                    <td className="py-2 px-2 text-right font-mono text-slate-600">%100</td>
+                    <td className="py-2 px-2 text-right font-mono text-slate-500">
+                      {ocak_bayi_dagilim.reduce((s, r) => s + r.jan26_hedef, 0)}
+                    </td>
+                    <td colSpan={3} className="py-2 px-2 text-xs text-slate-400 text-center">
+                      {ocakToplam === ozet.ocak_hedef ? `✓ ${ozet.ocak_hedef} araç` : `${ocakToplam} ≠ ${ozet.ocak_hedef}!`}
+                    </td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </Card>
         </div>
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-slate-200">
-                <th className="text-left py-2 px-2 font-medium text-slate-500">Bayi</th>
-                <th className="text-center py-2 px-2 font-medium text-slate-500">Tier</th>
-                <th className="text-right py-2 px-2 font-medium text-slate-500">Adet</th>
-                <th className="text-right py-2 px-2 font-medium text-slate-500">Pay%</th>
-                <th className="text-right py-2 px-2 font-medium text-slate-500">Jan26 Hedef</th>
-                <th className="text-right py-2 px-2 font-medium text-slate-500">Perf.</th>
-                <th className="text-center py-2 px-2 font-medium text-slate-500">Güven</th>
-                <th className="text-left py-2 px-3 font-medium text-slate-500">Model Mix</th>
-              </tr>
-            </thead>
-            <tbody>
-              {ocak_bayi_dagilim.map(row => (
-                <tr key={row.dealer} className="border-b border-slate-100 hover:bg-slate-50 transition-colors">
-                  <td className="py-2 px-2 font-medium text-slate-700">{row.dealer}</td>
-                  <td className="py-2 px-2 text-center"><TierBadge tier={row.tier} /></td>
-                  <td className="py-2 px-2 text-right font-mono font-semibold text-blue-700">{row.adet}</td>
-                  <td className="py-2 px-2 text-right font-mono text-slate-600">
-                    {row.pay_pct.toFixed(1)}%
-                    <div className="w-full bg-slate-100 rounded-full h-1 mt-0.5">
-                      <div className="h-1 rounded-full bg-blue-400" style={{ width: `${Math.min(100, row.pay_pct * 4)}%` }} />
-                    </div>
-                  </td>
-                  <td className="py-2 px-2 text-right font-mono text-slate-500">{row.jan26_hedef}</td>
-                  <td className="py-2 px-2 text-right font-mono text-slate-500">{(row.perf_skoru * 100).toFixed(0)}%</td>
-                  <td className="py-2 px-2 text-center"><GercekcilikBadge seviye={row.gercekci_mi} /></td>
-                  <td className="py-2 px-3"><ModelChips mix={row.model_mix} /></td>
-                </tr>
-              ))}
-            </tbody>
-            <tfoot>
-              <tr className="border-t-2 border-slate-300 bg-slate-50">
-                <td className="py-2 px-2 font-bold text-slate-800">TOPLAM</td>
-                <td />
-                <td className="py-2 px-2 text-right font-bold font-mono text-blue-700">{ocakToplam}</td>
-                <td className="py-2 px-2 text-right font-mono font-bold text-slate-600">100%</td>
-                <td className="py-2 px-2 text-right font-mono text-slate-500">
-                  {ocak_bayi_dagilim.reduce((s, r) => s + r.jan26_hedef, 0)}
-                </td>
-                <td colSpan={3} className="py-2 px-2 text-xs text-slate-400 text-center">
-                  {ocakToplam === ozet.ocak_hedef ? `✓ ${ozet.ocak_hedef} araç` : `${ocakToplam} ≠ ${ozet.ocak_hedef}!`}
-                </td>
-              </tr>
-            </tfoot>
-          </table>
-        </div>
-        <p className="text-xs text-slate-400 mt-2">
-          Güven: Yüksek = tahmin/hedef 0.8–1.25 · Orta = 0.6–1.5 · Düşük = dışında
-        </p>
-      </Card>
+      )}
+
+      {subTab === 1 && model_aylik && (
+        <AylikModelTablosu
+          modelAylik={model_aylik}
+          yillikHedef={ozet.yillik_hedef}
+          lansman_ay={LANSMAN_AY}
+        />
+      )}
     </div>
   )
 }
@@ -566,53 +1172,92 @@ function SenaryoView({ senaryo, metodoloji }: { senaryo: Senaryo; metodoloji: Me
 function Plan2026Tab({ data }: { data: Plan2026 }) {
   const [aktifSenaryo, setAktifSenaryo] = useState<8500 | 10000>(8500)
   const senaryo = aktifSenaryo === 8500 ? data.senaryo_8500 : data.senaryo_10000
-
-  const s8 = data.senaryo_8500.ozet
+  const s8  = data.senaryo_8500.ozet
   const s10 = data.senaryo_10000.ozet
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-5">
+      {/* Bağlam açıklaması */}
+      <BilgiKutusu baslik="Bu Sekme: 2026 Yıllık Araç Dağıtım Planı" renk="slate">
+        <p>
+          <strong className="text-white">Amaç:</strong>{' '}
+          2026 yılı için aylık araç dağıtım hedeflerini belirlemek.
+          İki farklı büyüme senaryosu (8500 ve 10000 araç) sunulmaktadır.
+          Her senaryo için: (1) aylık toplam hedef, (2) bayi bazında Ocak dağıtımı,
+          (3) aylık × model bazında hedef tablosu hesaplanmıştır.
+        </p>
+        <p>
+          <strong className="text-white">Temel Araç — Seasonal Index (SI):</strong>{' '}
+          outputs/seasonality/04_FINAL_si.csv dosyasındaki SI değerleri, piyasa geneli otomobil
+          mevsimselliği ve marka verisinin ağırlıklı ortalamasından türetildi.
+          Ocak SI ≈ 0.66 (yılın en zayıf ayı), Aralık SI ≈ 1.62 (yılın en güçlü ayı).
+          Yıllık hedef, bu SI oranlarıyla 12 aya dağıtıldı.
+        </p>
+        <p>
+          <strong className="text-white">Mart Lansman Boostı:</strong>{' '}
+          Mart ve sonrası için SI ×1.15 uygulandı. Yeni A1 modelinin tam lansmanı Mart 2026'da.
+          Bu boost distribütörün satış stratejisini ve lansman dönemindeki talep artışını yansıtır.
+        </p>
+        <p>
+          <strong className="text-white">Senaryo Seçimi:</strong>{' '}
+          8500 → mevcut 2024-2025 büyüme trendini sürdürür (muhafazakâr).
+          10000 → A1 lansmanı ve pazar genişlemesiyle agresif büyüme (+%18).
+        </p>
+      </BilgiKutusu>
+
       {/* Senaryo seçici */}
       <div className="bg-slate-50 rounded-xl border border-slate-200 p-4">
-        <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-3">2026 Hedef Senaryosu</p>
+        <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-3">
+          2026 Hedef Senaryosu Seçin
+        </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          {([8500, 10000] as const).map(h => (
-            <button key={h} onClick={() => setAktifSenaryo(h)}
-              className={`p-4 rounded-xl border-2 text-left transition-all ${
-                aktifSenaryo === h
-                  ? 'border-blue-500 bg-blue-50'
-                  : 'border-slate-200 bg-white hover:border-slate-300'
-              }`}
-            >
-              <div className="flex items-center justify-between mb-1">
-                <span className={`text-lg font-bold ${aktifSenaryo === h ? 'text-blue-700' : 'text-slate-700'}`}>
-                  {h.toLocaleString('tr')} Araç
-                </span>
-                {aktifSenaryo === h && (
-                  <span className="text-xs bg-blue-600 text-white px-2 py-0.5 rounded-full font-medium">Aktif</span>
-                )}
-              </div>
-              <p className="text-xs text-slate-500">
-                {h === 8500
-                  ? `Mevcut büyüme trendi · Ocak: ${s8.ocak_hedef} araç (SI bazlı)`
-                  : `Agresif büyüme (~+%${Math.round((10000 / 8500 - 1) * 100)}) · Ocak: ${s10.ocak_hedef} araç (SI bazlı)`}
-              </p>
-              <div className="mt-2 grid grid-cols-3 gap-2 text-center">
-                {(h === 8500 ? data.senaryo_8500 : data.senaryo_10000).aylik
-                  .filter(r => [1, 3, 12].includes(r.ay))
-                  .map(r => (
-                    <div key={r.ay}>
-                      <p className="text-xs text-slate-400">{r.ay_adi}</p>
-                      <p className="text-sm font-semibold text-slate-700">{r.hedef}</p>
-                    </div>
-                  ))}
-              </div>
-            </button>
-          ))}
+          {([8500, 10000] as const).map(h => {
+            const s = h === 8500 ? s8 : s10
+            return (
+              <button key={h} onClick={() => setAktifSenaryo(h)}
+                className={`p-4 rounded-xl border-2 text-left transition-all ${
+                  aktifSenaryo === h
+                    ? 'border-blue-500 bg-blue-50'
+                    : 'border-slate-200 bg-white hover:border-slate-300'
+                }`}
+              >
+                <div className="flex items-center justify-between mb-1">
+                  <span className={`text-lg font-bold ${aktifSenaryo === h ? 'text-blue-700' : 'text-slate-700'}`}>
+                    {h.toLocaleString('tr')} Araç
+                  </span>
+                  {aktifSenaryo === h && (
+                    <span className="text-xs bg-blue-600 text-white px-2 py-0.5 rounded-full font-medium">Aktif</span>
+                  )}
+                </div>
+                <p className="text-xs text-slate-500 mb-2">
+                  {h === 8500
+                    ? 'Mevcut büyüme trendi · Muhafazakâr büyüme'
+                    : `Agresif büyüme (~+%${Math.round((10000 / 8500 - 1) * 100)}) · A1 tam kapasiteye ulaşır`}
+                </p>
+                <div className="grid grid-cols-4 gap-1 text-center">
+                  {(h === 8500 ? data.senaryo_8500 : data.senaryo_10000).aylik
+                    .filter(r => [1, 3, 6, 12].includes(r.ay))
+                    .map(r => (
+                      <div key={r.ay} className="bg-white rounded border border-slate-200 p-1">
+                        <p className="text-xs text-slate-400">{r.ay_adi}</p>
+                        <p className="text-sm font-bold text-slate-700">{r.hedef}</p>
+                      </div>
+                    ))}
+                </div>
+                <p className="text-xs text-slate-400 mt-2">
+                  Ocak: <strong>{s.ocak_hedef}</strong> araç (SI bazlı, sabit değil)
+                </p>
+              </button>
+            )
+          })}
         </div>
       </div>
 
-      <SenaryoView senaryo={senaryo} metodoloji={data.metodoloji} />
+      <SenaryoView
+        senaryo={senaryo}
+        metodoloji={data.metodoloji}
+        stratejikBaglam={data.stratejik_baglamlar}
+      />
     </div>
   )
 }
@@ -644,12 +1289,12 @@ export default function Tahmin() {
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-slate-900">Tahmin & Plan</h1>
         <p className="text-slate-500 text-sm mt-1">
-          Aralık 2025 geriye dönük tahmin doğrulaması (A/B/C tier bazlı) · 2026 yıllık iki senaryo
+          Aralık 2025 tier bazlı geriye dönük doğrulama · 2026 yıllık plan (8500 / 10000 araç) · Ocak–Aralık model bazlı hedefler
         </p>
       </div>
 
       <TabBar
-        tabs={['Aralık 2025 Tahmini', '2026 Yıllık Plan']}
+        tabs={['Aralık 2025 Tahmini', '2026 Yıllık Plan & Model Hedefleri']}
         active={tab}
         onChange={setTab}
       />
