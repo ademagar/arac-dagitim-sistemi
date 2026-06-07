@@ -1,0 +1,2130 @@
+{
+  "model": [
+    {
+      "model": "A2",
+      "satis": 2517,
+      "pay": 39.1
+    },
+    {
+      "model": "B1",
+      "satis": 1629,
+      "pay": 25.3
+    },
+    {
+      "model": "A3",
+      "satis": 1300,
+      "pay": 20.2
+    },
+    {
+      "model": "C1",
+      "satis": 847,
+      "pay": 13.2
+    },
+    {
+      "model": "A1",
+      "satis": 108,
+      "pay": 1.7
+    },
+    {
+      "model": "D1",
+      "satis": 22,
+      "pay": 0.3
+    },
+    {
+      "model": "B2",
+      "satis": 16,
+      "pay": 0.2
+    }
+  ],
+  "renk": [
+    {
+      "Unnamed: 0": 0,
+      "renk": "Grey3",
+      "satis": 913,
+      "pay": 14.2
+    },
+    {
+      "Unnamed: 0": 1,
+      "renk": "Grey2",
+      "satis": 758,
+      "pay": 11.8
+    },
+    {
+      "Unnamed: 0": 2,
+      "renk": "Black1",
+      "satis": 739,
+      "pay": 11.5
+    },
+    {
+      "Unnamed: 0": 3,
+      "renk": "Black2",
+      "satis": 709,
+      "pay": 11.0
+    },
+    {
+      "Unnamed: 0": 4,
+      "renk": "Beige",
+      "satis": 677,
+      "pay": 10.5
+    },
+    {
+      "Unnamed: 0": 5,
+      "renk": "White2",
+      "satis": 671,
+      "pay": 10.4
+    },
+    {
+      "Unnamed: 0": 6,
+      "renk": "Blue",
+      "satis": 448,
+      "pay": 7.0
+    },
+    {
+      "Unnamed: 0": 7,
+      "renk": "White1",
+      "satis": 412,
+      "pay": 6.4
+    },
+    {
+      "Unnamed: 0": 8,
+      "renk": "Grey1",
+      "satis": 373,
+      "pay": 5.8
+    },
+    {
+      "Unnamed: 0": 9,
+      "renk": "Green1",
+      "satis": 196,
+      "pay": 3.0
+    },
+    {
+      "Unnamed: 0": 10,
+      "renk": "Yellow",
+      "satis": 194,
+      "pay": 3.0
+    },
+    {
+      "Unnamed: 0": 11,
+      "renk": "Red2",
+      "satis": 192,
+      "pay": 3.0
+    },
+    {
+      "Unnamed: 0": 12,
+      "renk": "Red1",
+      "satis": 73,
+      "pay": 1.1
+    },
+    {
+      "Unnamed: 0": 13,
+      "renk": "Green3",
+      "satis": 71,
+      "pay": 1.1
+    },
+    {
+      "Unnamed: 0": 14,
+      "renk": "Grey4",
+      "satis": 5,
+      "pay": 0.1
+    },
+    {
+      "Unnamed: 0": 15,
+      "renk": "Silver",
+      "satis": 4,
+      "pay": 0.1
+    },
+    {
+      "Unnamed: 0": 16,
+      "renk": "Green2",
+      "satis": 2,
+      "pay": 0.0
+    },
+    {
+      "Unnamed: 0": 17,
+      "renk": "Grey5",
+      "satis": 2,
+      "pay": 0.0
+    }
+  ],
+  "bayi": [
+    {
+      "Unnamed: 0": 1,
+      "dealer": "DEALER 1",
+      "satis": 582
+    },
+    {
+      "Unnamed: 0": 12,
+      "dealer": "DEALER 2",
+      "satis": 202
+    },
+    {
+      "Unnamed: 0": 9,
+      "dealer": "DEALER 3",
+      "satis": 266
+    },
+    {
+      "Unnamed: 0": 10,
+      "dealer": "DEALER 4",
+      "satis": 240
+    },
+    {
+      "Unnamed: 0": 13,
+      "dealer": "DEALER 5",
+      "satis": 196
+    },
+    {
+      "Unnamed: 0": 6,
+      "dealer": "DEALER 6",
+      "satis": 380
+    },
+    {
+      "Unnamed: 0": 2,
+      "dealer": "DEALER 7",
+      "satis": 529
+    },
+    {
+      "Unnamed: 0": 11,
+      "dealer": "DEALER 8",
+      "satis": 208
+    },
+    {
+      "Unnamed: 0": 21,
+      "dealer": "DEALER 9",
+      "satis": 69
+    },
+    {
+      "Unnamed: 0": 17,
+      "dealer": "DEALER 10",
+      "satis": 166
+    },
+    {
+      "Unnamed: 0": 19,
+      "dealer": "DEALER 11",
+      "satis": 85
+    },
+    {
+      "Unnamed: 0": 14,
+      "dealer": "DEALER 12",
+      "satis": 194
+    },
+    {
+      "Unnamed: 0": 5,
+      "dealer": "DEALER 13",
+      "satis": 380
+    },
+    {
+      "Unnamed: 0": 8,
+      "dealer": "DEALER 14",
+      "satis": 347
+    },
+    {
+      "Unnamed: 0": 4,
+      "dealer": "DEALER 15",
+      "satis": 407
+    },
+    {
+      "Unnamed: 0": 3,
+      "dealer": "DEALER 16",
+      "satis": 421
+    },
+    {
+      "Unnamed: 0": 0,
+      "dealer": "DEALER 17",
+      "satis": 838
+    },
+    {
+      "Unnamed: 0": 7,
+      "dealer": "DEALER 18",
+      "satis": 356
+    },
+    {
+      "Unnamed: 0": 15,
+      "dealer": "DEALER 19",
+      "satis": 176
+    },
+    {
+      "Unnamed: 0": 20,
+      "dealer": "DEALER 20",
+      "satis": 80
+    },
+    {
+      "Unnamed: 0": 16,
+      "dealer": "DEALER 21",
+      "satis": 169
+    },
+    {
+      "Unnamed: 0": 18,
+      "dealer": "DEALER 22",
+      "satis": 148
+    }
+  ],
+  "aylik": [
+    {
+      "period": "2024 Oca",
+      "satis": 397,
+      "year_month": "2024-01"
+    },
+    {
+      "period": "2024 Şub",
+      "satis": 365,
+      "year_month": "2024-02"
+    },
+    {
+      "period": "2024 Mar",
+      "satis": 271,
+      "year_month": "2024-03"
+    },
+    {
+      "period": "2024 Nis",
+      "satis": 113,
+      "year_month": "2024-04"
+    },
+    {
+      "period": "2024 May",
+      "satis": 196,
+      "year_month": "2024-05"
+    },
+    {
+      "period": "2024 Haz",
+      "satis": 286,
+      "year_month": "2024-06"
+    },
+    {
+      "period": "2024 Tem",
+      "satis": 226,
+      "year_month": "2024-07"
+    },
+    {
+      "period": "2024 Ağu",
+      "satis": 305,
+      "year_month": "2024-08"
+    },
+    {
+      "period": "2024 Eyl",
+      "satis": 208,
+      "year_month": "2024-09"
+    },
+    {
+      "period": "2024 Eki",
+      "satis": 185,
+      "year_month": "2024-10"
+    },
+    {
+      "period": "2024 Kas",
+      "satis": 162,
+      "year_month": "2024-11"
+    },
+    {
+      "period": "2024 Ara",
+      "satis": 307,
+      "year_month": "2024-12"
+    },
+    {
+      "period": "2025 Oca",
+      "satis": 166,
+      "year_month": "2025-01"
+    },
+    {
+      "period": "2025 Şub",
+      "satis": 179,
+      "year_month": "2025-02"
+    },
+    {
+      "period": "2025 Mar",
+      "satis": 254,
+      "year_month": "2025-03"
+    },
+    {
+      "period": "2025 Nis",
+      "satis": 235,
+      "year_month": "2025-04"
+    },
+    {
+      "period": "2025 May",
+      "satis": 250,
+      "year_month": "2025-05"
+    },
+    {
+      "period": "2025 Haz",
+      "satis": 238,
+      "year_month": "2025-06"
+    },
+    {
+      "period": "2025 Tem",
+      "satis": 302,
+      "year_month": "2025-07"
+    },
+    {
+      "period": "2025 Ağu",
+      "satis": 317,
+      "year_month": "2025-08"
+    },
+    {
+      "period": "2025 Eyl",
+      "satis": 348,
+      "year_month": "2025-09"
+    },
+    {
+      "period": "2025 Eki",
+      "satis": 310,
+      "year_month": "2025-10"
+    },
+    {
+      "period": "2025 Kas",
+      "satis": 320,
+      "year_month": "2025-11"
+    },
+    {
+      "period": "2025 Ara",
+      "satis": 499,
+      "year_month": "2025-12"
+    }
+  ],
+  "bayi_renk": [
+    {
+      "dealer": "DEALER 1",
+      "renk": "Beige",
+      "n": 64
+    },
+    {
+      "dealer": "DEALER 1",
+      "renk": "Black1",
+      "n": 61
+    },
+    {
+      "dealer": "DEALER 1",
+      "renk": "Black2",
+      "n": 67
+    },
+    {
+      "dealer": "DEALER 1",
+      "renk": "Blue",
+      "n": 41
+    },
+    {
+      "dealer": "DEALER 1",
+      "renk": "Green1",
+      "n": 27
+    },
+    {
+      "dealer": "DEALER 1",
+      "renk": "Green3",
+      "n": 10
+    },
+    {
+      "dealer": "DEALER 1",
+      "renk": "Grey1",
+      "n": 23
+    },
+    {
+      "dealer": "DEALER 1",
+      "renk": "Grey2",
+      "n": 72
+    },
+    {
+      "dealer": "DEALER 1",
+      "renk": "Grey3",
+      "n": 76
+    },
+    {
+      "dealer": "DEALER 1",
+      "renk": "Grey5",
+      "n": 1
+    },
+    {
+      "dealer": "DEALER 1",
+      "renk": "Red1",
+      "n": 10
+    },
+    {
+      "dealer": "DEALER 1",
+      "renk": "Red2",
+      "n": 32
+    },
+    {
+      "dealer": "DEALER 1",
+      "renk": "Silver",
+      "n": 1
+    },
+    {
+      "dealer": "DEALER 1",
+      "renk": "White1",
+      "n": 49
+    },
+    {
+      "dealer": "DEALER 1",
+      "renk": "White2",
+      "n": 53
+    },
+    {
+      "dealer": "DEALER 1",
+      "renk": "Yellow",
+      "n": 18
+    },
+    {
+      "dealer": "DEALER 2",
+      "renk": "Beige",
+      "n": 30
+    },
+    {
+      "dealer": "DEALER 2",
+      "renk": "Black1",
+      "n": 13
+    },
+    {
+      "dealer": "DEALER 2",
+      "renk": "Black2",
+      "n": 29
+    },
+    {
+      "dealer": "DEALER 2",
+      "renk": "Blue",
+      "n": 14
+    },
+    {
+      "dealer": "DEALER 2",
+      "renk": "Green1",
+      "n": 4
+    },
+    {
+      "dealer": "DEALER 2",
+      "renk": "Green3",
+      "n": 1
+    },
+    {
+      "dealer": "DEALER 2",
+      "renk": "Grey1",
+      "n": 14
+    },
+    {
+      "dealer": "DEALER 2",
+      "renk": "Grey2",
+      "n": 24
+    },
+    {
+      "dealer": "DEALER 2",
+      "renk": "Grey3",
+      "n": 26
+    },
+    {
+      "dealer": "DEALER 2",
+      "renk": "Red1",
+      "n": 1
+    },
+    {
+      "dealer": "DEALER 2",
+      "renk": "Red2",
+      "n": 4
+    },
+    {
+      "dealer": "DEALER 2",
+      "renk": "White1",
+      "n": 13
+    },
+    {
+      "dealer": "DEALER 2",
+      "renk": "White2",
+      "n": 33
+    },
+    {
+      "dealer": "DEALER 2",
+      "renk": "Yellow",
+      "n": 4
+    },
+    {
+      "dealer": "DEALER 3",
+      "renk": "Beige",
+      "n": 34
+    },
+    {
+      "dealer": "DEALER 3",
+      "renk": "Black1",
+      "n": 42
+    },
+    {
+      "dealer": "DEALER 3",
+      "renk": "Black2",
+      "n": 24
+    },
+    {
+      "dealer": "DEALER 3",
+      "renk": "Blue",
+      "n": 25
+    },
+    {
+      "dealer": "DEALER 3",
+      "renk": "Green1",
+      "n": 11
+    },
+    {
+      "dealer": "DEALER 3",
+      "renk": "Green3",
+      "n": 1
+    },
+    {
+      "dealer": "DEALER 3",
+      "renk": "Grey1",
+      "n": 14
+    },
+    {
+      "dealer": "DEALER 3",
+      "renk": "Grey2",
+      "n": 35
+    },
+    {
+      "dealer": "DEALER 3",
+      "renk": "Grey3",
+      "n": 35
+    },
+    {
+      "dealer": "DEALER 3",
+      "renk": "Red1",
+      "n": 1
+    },
+    {
+      "dealer": "DEALER 3",
+      "renk": "Red2",
+      "n": 6
+    },
+    {
+      "dealer": "DEALER 3",
+      "renk": "White1",
+      "n": 15
+    },
+    {
+      "dealer": "DEALER 3",
+      "renk": "White2",
+      "n": 25
+    },
+    {
+      "dealer": "DEALER 3",
+      "renk": "Yellow",
+      "n": 8
+    },
+    {
+      "dealer": "DEALER 4",
+      "renk": "Beige",
+      "n": 31
+    },
+    {
+      "dealer": "DEALER 4",
+      "renk": "Black1",
+      "n": 43
+    },
+    {
+      "dealer": "DEALER 4",
+      "renk": "Black2",
+      "n": 29
+    },
+    {
+      "dealer": "DEALER 4",
+      "renk": "Blue",
+      "n": 20
+    },
+    {
+      "dealer": "DEALER 4",
+      "renk": "Green1",
+      "n": 6
+    },
+    {
+      "dealer": "DEALER 4",
+      "renk": "Green3",
+      "n": 4
+    },
+    {
+      "dealer": "DEALER 4",
+      "renk": "Grey1",
+      "n": 14
+    },
+    {
+      "dealer": "DEALER 4",
+      "renk": "Grey2",
+      "n": 28
+    },
+    {
+      "dealer": "DEALER 4",
+      "renk": "Grey3",
+      "n": 31
+    },
+    {
+      "dealer": "DEALER 4",
+      "renk": "Red1",
+      "n": 2
+    },
+    {
+      "dealer": "DEALER 4",
+      "renk": "Red2",
+      "n": 2
+    },
+    {
+      "dealer": "DEALER 4",
+      "renk": "White1",
+      "n": 17
+    },
+    {
+      "dealer": "DEALER 4",
+      "renk": "White2",
+      "n": 19
+    },
+    {
+      "dealer": "DEALER 4",
+      "renk": "Yellow",
+      "n": 5
+    },
+    {
+      "dealer": "DEALER 5",
+      "renk": "Beige",
+      "n": 19
+    },
+    {
+      "dealer": "DEALER 5",
+      "renk": "Black1",
+      "n": 45
+    },
+    {
+      "dealer": "DEALER 5",
+      "renk": "Black2",
+      "n": 33
+    },
+    {
+      "dealer": "DEALER 5",
+      "renk": "Blue",
+      "n": 15
+    },
+    {
+      "dealer": "DEALER 5",
+      "renk": "Green1",
+      "n": 7
+    },
+    {
+      "dealer": "DEALER 5",
+      "renk": "Green3",
+      "n": 6
+    },
+    {
+      "dealer": "DEALER 5",
+      "renk": "Grey1",
+      "n": 13
+    },
+    {
+      "dealer": "DEALER 5",
+      "renk": "Grey2",
+      "n": 18
+    },
+    {
+      "dealer": "DEALER 5",
+      "renk": "Grey3",
+      "n": 23
+    },
+    {
+      "dealer": "DEALER 5",
+      "renk": "Red1",
+      "n": 2
+    },
+    {
+      "dealer": "DEALER 5",
+      "renk": "Red2",
+      "n": 3
+    },
+    {
+      "dealer": "DEALER 5",
+      "renk": "White1",
+      "n": 9
+    },
+    {
+      "dealer": "DEALER 5",
+      "renk": "White2",
+      "n": 9
+    },
+    {
+      "dealer": "DEALER 5",
+      "renk": "Yellow",
+      "n": 4
+    },
+    {
+      "dealer": "DEALER 6",
+      "renk": "Beige",
+      "n": 53
+    },
+    {
+      "dealer": "DEALER 6",
+      "renk": "Black1",
+      "n": 36
+    },
+    {
+      "dealer": "DEALER 6",
+      "renk": "Black2",
+      "n": 25
+    },
+    {
+      "dealer": "DEALER 6",
+      "renk": "Blue",
+      "n": 44
+    },
+    {
+      "dealer": "DEALER 6",
+      "renk": "Green1",
+      "n": 12
+    },
+    {
+      "dealer": "DEALER 6",
+      "renk": "Green2",
+      "n": 1
+    },
+    {
+      "dealer": "DEALER 6",
+      "renk": "Green3",
+      "n": 4
+    },
+    {
+      "dealer": "DEALER 6",
+      "renk": "Grey1",
+      "n": 15
+    },
+    {
+      "dealer": "DEALER 6",
+      "renk": "Grey2",
+      "n": 54
+    },
+    {
+      "dealer": "DEALER 6",
+      "renk": "Grey3",
+      "n": 45
+    },
+    {
+      "dealer": "DEALER 6",
+      "renk": "Red1",
+      "n": 4
+    },
+    {
+      "dealer": "DEALER 6",
+      "renk": "Red2",
+      "n": 9
+    },
+    {
+      "dealer": "DEALER 6",
+      "renk": "White1",
+      "n": 42
+    },
+    {
+      "dealer": "DEALER 6",
+      "renk": "White2",
+      "n": 38
+    },
+    {
+      "dealer": "DEALER 6",
+      "renk": "Yellow",
+      "n": 17
+    },
+    {
+      "dealer": "DEALER 7",
+      "renk": "Beige",
+      "n": 37
+    },
+    {
+      "dealer": "DEALER 7",
+      "renk": "Black1",
+      "n": 67
+    },
+    {
+      "dealer": "DEALER 7",
+      "renk": "Black2",
+      "n": 73
+    },
+    {
+      "dealer": "DEALER 7",
+      "renk": "Blue",
+      "n": 51
+    },
+    {
+      "dealer": "DEALER 7",
+      "renk": "Green1",
+      "n": 9
+    },
+    {
+      "dealer": "DEALER 7",
+      "renk": "Green3",
+      "n": 5
+    },
+    {
+      "dealer": "DEALER 7",
+      "renk": "Grey1",
+      "n": 44
+    },
+    {
+      "dealer": "DEALER 7",
+      "renk": "Grey2",
+      "n": 57
+    },
+    {
+      "dealer": "DEALER 7",
+      "renk": "Grey3",
+      "n": 69
+    },
+    {
+      "dealer": "DEALER 7",
+      "renk": "Red1",
+      "n": 3
+    },
+    {
+      "dealer": "DEALER 7",
+      "renk": "Red2",
+      "n": 13
+    },
+    {
+      "dealer": "DEALER 7",
+      "renk": "White1",
+      "n": 37
+    },
+    {
+      "dealer": "DEALER 7",
+      "renk": "White2",
+      "n": 62
+    },
+    {
+      "dealer": "DEALER 7",
+      "renk": "Yellow",
+      "n": 23
+    },
+    {
+      "dealer": "DEALER 8",
+      "renk": "Beige",
+      "n": 11
+    },
+    {
+      "dealer": "DEALER 8",
+      "renk": "Black1",
+      "n": 41
+    },
+    {
+      "dealer": "DEALER 8",
+      "renk": "Black2",
+      "n": 31
+    },
+    {
+      "dealer": "DEALER 8",
+      "renk": "Blue",
+      "n": 12
+    },
+    {
+      "dealer": "DEALER 8",
+      "renk": "Green1",
+      "n": 6
+    },
+    {
+      "dealer": "DEALER 8",
+      "renk": "Green3",
+      "n": 2
+    },
+    {
+      "dealer": "DEALER 8",
+      "renk": "Grey1",
+      "n": 15
+    },
+    {
+      "dealer": "DEALER 8",
+      "renk": "Grey2",
+      "n": 26
+    },
+    {
+      "dealer": "DEALER 8",
+      "renk": "Grey3",
+      "n": 23
+    },
+    {
+      "dealer": "DEALER 8",
+      "renk": "Grey4",
+      "n": 1
+    },
+    {
+      "dealer": "DEALER 8",
+      "renk": "Red1",
+      "n": 2
+    },
+    {
+      "dealer": "DEALER 8",
+      "renk": "Red2",
+      "n": 9
+    },
+    {
+      "dealer": "DEALER 8",
+      "renk": "White1",
+      "n": 17
+    },
+    {
+      "dealer": "DEALER 8",
+      "renk": "White2",
+      "n": 14
+    },
+    {
+      "dealer": "DEALER 8",
+      "renk": "Yellow",
+      "n": 7
+    },
+    {
+      "dealer": "DEALER 9",
+      "renk": "Black1",
+      "n": 10
+    },
+    {
+      "dealer": "DEALER 9",
+      "renk": "Black2",
+      "n": 11
+    },
+    {
+      "dealer": "DEALER 9",
+      "renk": "Blue",
+      "n": 6
+    },
+    {
+      "dealer": "DEALER 9",
+      "renk": "Green1",
+      "n": 2
+    },
+    {
+      "dealer": "DEALER 9",
+      "renk": "Grey1",
+      "n": 4
+    },
+    {
+      "dealer": "DEALER 9",
+      "renk": "Grey2",
+      "n": 9
+    },
+    {
+      "dealer": "DEALER 9",
+      "renk": "Grey3",
+      "n": 10
+    },
+    {
+      "dealer": "DEALER 9",
+      "renk": "Red2",
+      "n": 2
+    },
+    {
+      "dealer": "DEALER 9",
+      "renk": "White1",
+      "n": 4
+    },
+    {
+      "dealer": "DEALER 9",
+      "renk": "White2",
+      "n": 10
+    },
+    {
+      "dealer": "DEALER 9",
+      "renk": "Yellow",
+      "n": 2
+    },
+    {
+      "dealer": "DEALER 10",
+      "renk": "Beige",
+      "n": 23
+    },
+    {
+      "dealer": "DEALER 10",
+      "renk": "Black1",
+      "n": 19
+    },
+    {
+      "dealer": "DEALER 10",
+      "renk": "Black2",
+      "n": 11
+    },
+    {
+      "dealer": "DEALER 10",
+      "renk": "Blue",
+      "n": 18
+    },
+    {
+      "dealer": "DEALER 10",
+      "renk": "Green1",
+      "n": 3
+    },
+    {
+      "dealer": "DEALER 10",
+      "renk": "Green3",
+      "n": 1
+    },
+    {
+      "dealer": "DEALER 10",
+      "renk": "Grey1",
+      "n": 16
+    },
+    {
+      "dealer": "DEALER 10",
+      "renk": "Grey2",
+      "n": 14
+    },
+    {
+      "dealer": "DEALER 10",
+      "renk": "Grey3",
+      "n": 19
+    },
+    {
+      "dealer": "DEALER 10",
+      "renk": "Red1",
+      "n": 4
+    },
+    {
+      "dealer": "DEALER 10",
+      "renk": "Red2",
+      "n": 5
+    },
+    {
+      "dealer": "DEALER 10",
+      "renk": "White1",
+      "n": 10
+    },
+    {
+      "dealer": "DEALER 10",
+      "renk": "White2",
+      "n": 17
+    },
+    {
+      "dealer": "DEALER 10",
+      "renk": "Yellow",
+      "n": 8
+    },
+    {
+      "dealer": "DEALER 11",
+      "renk": "Beige",
+      "n": 10
+    },
+    {
+      "dealer": "DEALER 11",
+      "renk": "Black1",
+      "n": 12
+    },
+    {
+      "dealer": "DEALER 11",
+      "renk": "Black2",
+      "n": 7
+    },
+    {
+      "dealer": "DEALER 11",
+      "renk": "Blue",
+      "n": 5
+    },
+    {
+      "dealer": "DEALER 11",
+      "renk": "Green3",
+      "n": 1
+    },
+    {
+      "dealer": "DEALER 11",
+      "renk": "Grey1",
+      "n": 10
+    },
+    {
+      "dealer": "DEALER 11",
+      "renk": "Grey2",
+      "n": 10
+    },
+    {
+      "dealer": "DEALER 11",
+      "renk": "Grey3",
+      "n": 14
+    },
+    {
+      "dealer": "DEALER 11",
+      "renk": "White1",
+      "n": 10
+    },
+    {
+      "dealer": "DEALER 11",
+      "renk": "White2",
+      "n": 10
+    },
+    {
+      "dealer": "DEALER 11",
+      "renk": "Yellow",
+      "n": 4
+    },
+    {
+      "dealer": "DEALER 12",
+      "renk": "Beige",
+      "n": 23
+    },
+    {
+      "dealer": "DEALER 12",
+      "renk": "Black1",
+      "n": 27
+    },
+    {
+      "dealer": "DEALER 12",
+      "renk": "Black2",
+      "n": 23
+    },
+    {
+      "dealer": "DEALER 12",
+      "renk": "Blue",
+      "n": 16
+    },
+    {
+      "dealer": "DEALER 12",
+      "renk": "Green1",
+      "n": 5
+    },
+    {
+      "dealer": "DEALER 12",
+      "renk": "Green3",
+      "n": 3
+    },
+    {
+      "dealer": "DEALER 12",
+      "renk": "Grey1",
+      "n": 15
+    },
+    {
+      "dealer": "DEALER 12",
+      "renk": "Grey2",
+      "n": 20
+    },
+    {
+      "dealer": "DEALER 12",
+      "renk": "Grey3",
+      "n": 24
+    },
+    {
+      "dealer": "DEALER 12",
+      "renk": "Red1",
+      "n": 1
+    },
+    {
+      "dealer": "DEALER 12",
+      "renk": "Red2",
+      "n": 2
+    },
+    {
+      "dealer": "DEALER 12",
+      "renk": "White1",
+      "n": 19
+    },
+    {
+      "dealer": "DEALER 12",
+      "renk": "White2",
+      "n": 21
+    },
+    {
+      "dealer": "DEALER 12",
+      "renk": "Yellow",
+      "n": 5
+    },
+    {
+      "dealer": "DEALER 13",
+      "renk": "Beige",
+      "n": 46
+    },
+    {
+      "dealer": "DEALER 13",
+      "renk": "Black1",
+      "n": 54
+    },
+    {
+      "dealer": "DEALER 13",
+      "renk": "Black2",
+      "n": 51
+    },
+    {
+      "dealer": "DEALER 13",
+      "renk": "Blue",
+      "n": 30
+    },
+    {
+      "dealer": "DEALER 13",
+      "renk": "Green1",
+      "n": 11
+    },
+    {
+      "dealer": "DEALER 13",
+      "renk": "Green3",
+      "n": 8
+    },
+    {
+      "dealer": "DEALER 13",
+      "renk": "Grey1",
+      "n": 23
+    },
+    {
+      "dealer": "DEALER 13",
+      "renk": "Grey2",
+      "n": 62
+    },
+    {
+      "dealer": "DEALER 13",
+      "renk": "Grey3",
+      "n": 43
+    },
+    {
+      "dealer": "DEALER 13",
+      "renk": "Grey4",
+      "n": 2
+    },
+    {
+      "dealer": "DEALER 13",
+      "renk": "Grey5",
+      "n": 1
+    },
+    {
+      "dealer": "DEALER 13",
+      "renk": "Red1",
+      "n": 2
+    },
+    {
+      "dealer": "DEALER 13",
+      "renk": "Red2",
+      "n": 11
+    },
+    {
+      "dealer": "DEALER 13",
+      "renk": "Silver",
+      "n": 2
+    },
+    {
+      "dealer": "DEALER 13",
+      "renk": "White1",
+      "n": 12
+    },
+    {
+      "dealer": "DEALER 13",
+      "renk": "White2",
+      "n": 31
+    },
+    {
+      "dealer": "DEALER 13",
+      "renk": "Yellow",
+      "n": 11
+    },
+    {
+      "dealer": "DEALER 14",
+      "renk": "Beige",
+      "n": 30
+    },
+    {
+      "dealer": "DEALER 14",
+      "renk": "Black1",
+      "n": 43
+    },
+    {
+      "dealer": "DEALER 14",
+      "renk": "Black2",
+      "n": 42
+    },
+    {
+      "dealer": "DEALER 14",
+      "renk": "Blue",
+      "n": 29
+    },
+    {
+      "dealer": "DEALER 14",
+      "renk": "Green1",
+      "n": 14
+    },
+    {
+      "dealer": "DEALER 14",
+      "renk": "Green3",
+      "n": 2
+    },
+    {
+      "dealer": "DEALER 14",
+      "renk": "Grey1",
+      "n": 25
+    },
+    {
+      "dealer": "DEALER 14",
+      "renk": "Grey2",
+      "n": 42
+    },
+    {
+      "dealer": "DEALER 14",
+      "renk": "Grey3",
+      "n": 47
+    },
+    {
+      "dealer": "DEALER 14",
+      "renk": "Red1",
+      "n": 2
+    },
+    {
+      "dealer": "DEALER 14",
+      "renk": "Red2",
+      "n": 16
+    },
+    {
+      "dealer": "DEALER 14",
+      "renk": "White1",
+      "n": 17
+    },
+    {
+      "dealer": "DEALER 14",
+      "renk": "White2",
+      "n": 40
+    },
+    {
+      "dealer": "DEALER 14",
+      "renk": "Yellow",
+      "n": 12
+    },
+    {
+      "dealer": "DEALER 15",
+      "renk": "Beige",
+      "n": 46
+    },
+    {
+      "dealer": "DEALER 15",
+      "renk": "Black1",
+      "n": 29
+    },
+    {
+      "dealer": "DEALER 15",
+      "renk": "Black2",
+      "n": 29
+    },
+    {
+      "dealer": "DEALER 15",
+      "renk": "Blue",
+      "n": 22
+    },
+    {
+      "dealer": "DEALER 15",
+      "renk": "Green1",
+      "n": 19
+    },
+    {
+      "dealer": "DEALER 15",
+      "renk": "Green3",
+      "n": 2
+    },
+    {
+      "dealer": "DEALER 15",
+      "renk": "Grey1",
+      "n": 20
+    },
+    {
+      "dealer": "DEALER 15",
+      "renk": "Grey2",
+      "n": 49
+    },
+    {
+      "dealer": "DEALER 15",
+      "renk": "Grey3",
+      "n": 66
+    },
+    {
+      "dealer": "DEALER 15",
+      "renk": "Red1",
+      "n": 6
+    },
+    {
+      "dealer": "DEALER 15",
+      "renk": "Red2",
+      "n": 14
+    },
+    {
+      "dealer": "DEALER 15",
+      "renk": "White1",
+      "n": 54
+    },
+    {
+      "dealer": "DEALER 15",
+      "renk": "White2",
+      "n": 59
+    },
+    {
+      "dealer": "DEALER 15",
+      "renk": "Yellow",
+      "n": 13
+    },
+    {
+      "dealer": "DEALER 16",
+      "renk": "Beige",
+      "n": 39
+    },
+    {
+      "dealer": "DEALER 16",
+      "renk": "Black1",
+      "n": 78
+    },
+    {
+      "dealer": "DEALER 16",
+      "renk": "Black2",
+      "n": 43
+    },
+    {
+      "dealer": "DEALER 16",
+      "renk": "Blue",
+      "n": 34
+    },
+    {
+      "dealer": "DEALER 16",
+      "renk": "Green1",
+      "n": 19
+    },
+    {
+      "dealer": "DEALER 16",
+      "renk": "Green3",
+      "n": 7
+    },
+    {
+      "dealer": "DEALER 16",
+      "renk": "Grey1",
+      "n": 17
+    },
+    {
+      "dealer": "DEALER 16",
+      "renk": "Grey2",
+      "n": 70
+    },
+    {
+      "dealer": "DEALER 16",
+      "renk": "Grey3",
+      "n": 43
+    },
+    {
+      "dealer": "DEALER 16",
+      "renk": "Grey4",
+      "n": 1
+    },
+    {
+      "dealer": "DEALER 16",
+      "renk": "Red1",
+      "n": 9
+    },
+    {
+      "dealer": "DEALER 16",
+      "renk": "Red2",
+      "n": 16
+    },
+    {
+      "dealer": "DEALER 16",
+      "renk": "Silver",
+      "n": 1
+    },
+    {
+      "dealer": "DEALER 16",
+      "renk": "White1",
+      "n": 34
+    },
+    {
+      "dealer": "DEALER 16",
+      "renk": "White2",
+      "n": 35
+    },
+    {
+      "dealer": "DEALER 16",
+      "renk": "Yellow",
+      "n": 7
+    },
+    {
+      "dealer": "DEALER 17",
+      "renk": "Beige",
+      "n": 75
+    },
+    {
+      "dealer": "DEALER 17",
+      "renk": "Black1",
+      "n": 85
+    },
+    {
+      "dealer": "DEALER 17",
+      "renk": "Black2",
+      "n": 59
+    },
+    {
+      "dealer": "DEALER 17",
+      "renk": "Blue",
+      "n": 63
+    },
+    {
+      "dealer": "DEALER 17",
+      "renk": "Green1",
+      "n": 22
+    },
+    {
+      "dealer": "DEALER 17",
+      "renk": "Green2",
+      "n": 1
+    },
+    {
+      "dealer": "DEALER 17",
+      "renk": "Green3",
+      "n": 4
+    },
+    {
+      "dealer": "DEALER 17",
+      "renk": "Grey1",
+      "n": 46
+    },
+    {
+      "dealer": "DEALER 17",
+      "renk": "Grey2",
+      "n": 115
+    },
+    {
+      "dealer": "DEALER 17",
+      "renk": "Grey3",
+      "n": 188
+    },
+    {
+      "dealer": "DEALER 17",
+      "renk": "Red1",
+      "n": 18
+    },
+    {
+      "dealer": "DEALER 17",
+      "renk": "Red2",
+      "n": 19
+    },
+    {
+      "dealer": "DEALER 17",
+      "renk": "White1",
+      "n": 34
+    },
+    {
+      "dealer": "DEALER 17",
+      "renk": "White2",
+      "n": 106
+    },
+    {
+      "dealer": "DEALER 17",
+      "renk": "Yellow",
+      "n": 28
+    },
+    {
+      "dealer": "DEALER 18",
+      "renk": "Beige",
+      "n": 49
+    },
+    {
+      "dealer": "DEALER 18",
+      "renk": "Black1",
+      "n": 43
+    },
+    {
+      "dealer": "DEALER 18",
+      "renk": "Black2",
+      "n": 43
+    },
+    {
+      "dealer": "DEALER 18",
+      "renk": "Blue",
+      "n": 38
+    },
+    {
+      "dealer": "DEALER 18",
+      "renk": "Green1",
+      "n": 9
+    },
+    {
+      "dealer": "DEALER 18",
+      "renk": "Green3",
+      "n": 5
+    },
+    {
+      "dealer": "DEALER 18",
+      "renk": "Grey1",
+      "n": 14
+    },
+    {
+      "dealer": "DEALER 18",
+      "renk": "Grey2",
+      "n": 62
+    },
+    {
+      "dealer": "DEALER 18",
+      "renk": "Grey3",
+      "n": 42
+    },
+    {
+      "dealer": "DEALER 18",
+      "renk": "Grey4",
+      "n": 1
+    },
+    {
+      "dealer": "DEALER 18",
+      "renk": "Red1",
+      "n": 5
+    },
+    {
+      "dealer": "DEALER 18",
+      "renk": "Red2",
+      "n": 13
+    },
+    {
+      "dealer": "DEALER 18",
+      "renk": "White1",
+      "n": 17
+    },
+    {
+      "dealer": "DEALER 18",
+      "renk": "White2",
+      "n": 28
+    },
+    {
+      "dealer": "DEALER 18",
+      "renk": "Yellow",
+      "n": 5
+    },
+    {
+      "dealer": "DEALER 19",
+      "renk": "Beige",
+      "n": 13
+    },
+    {
+      "dealer": "DEALER 19",
+      "renk": "Black1",
+      "n": 30
+    },
+    {
+      "dealer": "DEALER 19",
+      "renk": "Black2",
+      "n": 26
+    },
+    {
+      "dealer": "DEALER 19",
+      "renk": "Blue",
+      "n": 4
+    },
+    {
+      "dealer": "DEALER 19",
+      "renk": "Green1",
+      "n": 1
+    },
+    {
+      "dealer": "DEALER 19",
+      "renk": "Grey1",
+      "n": 11
+    },
+    {
+      "dealer": "DEALER 19",
+      "renk": "Grey2",
+      "n": 24
+    },
+    {
+      "dealer": "DEALER 19",
+      "renk": "Grey3",
+      "n": 20
+    },
+    {
+      "dealer": "DEALER 19",
+      "renk": "Red1",
+      "n": 1
+    },
+    {
+      "dealer": "DEALER 19",
+      "renk": "Red2",
+      "n": 1
+    },
+    {
+      "dealer": "DEALER 19",
+      "renk": "White1",
+      "n": 32
+    },
+    {
+      "dealer": "DEALER 19",
+      "renk": "White2",
+      "n": 18
+    },
+    {
+      "dealer": "DEALER 19",
+      "renk": "Yellow",
+      "n": 1
+    },
+    {
+      "dealer": "DEALER 20",
+      "renk": "Beige",
+      "n": 3
+    },
+    {
+      "dealer": "DEALER 20",
+      "renk": "Black1",
+      "n": 8
+    },
+    {
+      "dealer": "DEALER 20",
+      "renk": "Black2",
+      "n": 15
+    },
+    {
+      "dealer": "DEALER 20",
+      "renk": "Blue",
+      "n": 2
+    },
+    {
+      "dealer": "DEALER 20",
+      "renk": "Green3",
+      "n": 1
+    },
+    {
+      "dealer": "DEALER 20",
+      "renk": "Grey1",
+      "n": 5
+    },
+    {
+      "dealer": "DEALER 20",
+      "renk": "Grey2",
+      "n": 9
+    },
+    {
+      "dealer": "DEALER 20",
+      "renk": "Grey3",
+      "n": 13
+    },
+    {
+      "dealer": "DEALER 20",
+      "renk": "Red2",
+      "n": 7
+    },
+    {
+      "dealer": "DEALER 20",
+      "renk": "White1",
+      "n": 6
+    },
+    {
+      "dealer": "DEALER 20",
+      "renk": "White2",
+      "n": 11
+    },
+    {
+      "dealer": "DEALER 20",
+      "renk": "Yellow",
+      "n": 2
+    },
+    {
+      "dealer": "DEALER 21",
+      "renk": "Beige",
+      "n": 23
+    },
+    {
+      "dealer": "DEALER 21",
+      "renk": "Black1",
+      "n": 19
+    },
+    {
+      "dealer": "DEALER 21",
+      "renk": "Black2",
+      "n": 15
+    },
+    {
+      "dealer": "DEALER 21",
+      "renk": "Blue",
+      "n": 14
+    },
+    {
+      "dealer": "DEALER 21",
+      "renk": "Green1",
+      "n": 5
+    },
+    {
+      "dealer": "DEALER 21",
+      "renk": "Green3",
+      "n": 2
+    },
+    {
+      "dealer": "DEALER 21",
+      "renk": "Grey1",
+      "n": 11
+    },
+    {
+      "dealer": "DEALER 21",
+      "renk": "Grey2",
+      "n": 14
+    },
+    {
+      "dealer": "DEALER 21",
+      "renk": "Grey3",
+      "n": 33
+    },
+    {
+      "dealer": "DEALER 21",
+      "renk": "Red2",
+      "n": 2
+    },
+    {
+      "dealer": "DEALER 21",
+      "renk": "White1",
+      "n": 12
+    },
+    {
+      "dealer": "DEALER 21",
+      "renk": "White2",
+      "n": 20
+    },
+    {
+      "dealer": "DEALER 21",
+      "renk": "Yellow",
+      "n": 4
+    },
+    {
+      "dealer": "DEALER 22",
+      "renk": "Beige",
+      "n": 18
+    },
+    {
+      "dealer": "DEALER 22",
+      "renk": "Black1",
+      "n": 19
+    },
+    {
+      "dealer": "DEALER 22",
+      "renk": "Black2",
+      "n": 23
+    },
+    {
+      "dealer": "DEALER 22",
+      "renk": "Blue",
+      "n": 6
+    },
+    {
+      "dealer": "DEALER 22",
+      "renk": "Green1",
+      "n": 4
+    },
+    {
+      "dealer": "DEALER 22",
+      "renk": "Green3",
+      "n": 2
+    },
+    {
+      "dealer": "DEALER 22",
+      "renk": "Grey1",
+      "n": 4
+    },
+    {
+      "dealer": "DEALER 22",
+      "renk": "Grey2",
+      "n": 17
+    },
+    {
+      "dealer": "DEALER 22",
+      "renk": "Grey3",
+      "n": 23
+    },
+    {
+      "dealer": "DEALER 22",
+      "renk": "Red1",
+      "n": 1
+    },
+    {
+      "dealer": "DEALER 22",
+      "renk": "Red2",
+      "n": 6
+    },
+    {
+      "dealer": "DEALER 22",
+      "renk": "White1",
+      "n": 11
+    },
+    {
+      "dealer": "DEALER 22",
+      "renk": "White2",
+      "n": 12
+    },
+    {
+      "dealer": "DEALER 22",
+      "renk": "Yellow",
+      "n": 6
+    }
+  ],
+  "top3_renk": [
+    {
+      "dealer": "DEALER 1",
+      "renk1": "Grey3",
+      "adet1": 76,
+      "renk2": "Grey2",
+      "adet2": 72,
+      "renk3": "Black2",
+      "adet3": 67
+    },
+    {
+      "dealer": "DEALER 2",
+      "renk1": "White2",
+      "adet1": 33,
+      "renk2": "Beige",
+      "adet2": 30,
+      "renk3": "Black2",
+      "adet3": 29
+    },
+    {
+      "dealer": "DEALER 3",
+      "renk1": "Black1",
+      "adet1": 42,
+      "renk2": "Grey2",
+      "adet2": 35,
+      "renk3": "Grey3",
+      "adet3": 35
+    },
+    {
+      "dealer": "DEALER 4",
+      "renk1": "Black1",
+      "adet1": 43,
+      "renk2": "Beige",
+      "adet2": 31,
+      "renk3": "Grey3",
+      "adet3": 31
+    },
+    {
+      "dealer": "DEALER 5",
+      "renk1": "Black1",
+      "adet1": 45,
+      "renk2": "Black2",
+      "adet2": 33,
+      "renk3": "Grey3",
+      "adet3": 23
+    },
+    {
+      "dealer": "DEALER 6",
+      "renk1": "Grey2",
+      "adet1": 54,
+      "renk2": "Beige",
+      "adet2": 53,
+      "renk3": "Grey3",
+      "adet3": 45
+    },
+    {
+      "dealer": "DEALER 7",
+      "renk1": "Black2",
+      "adet1": 73,
+      "renk2": "Grey3",
+      "adet2": 69,
+      "renk3": "Black1",
+      "adet3": 67
+    },
+    {
+      "dealer": "DEALER 8",
+      "renk1": "Black1",
+      "adet1": 41,
+      "renk2": "Black2",
+      "adet2": 31,
+      "renk3": "Grey2",
+      "adet3": 26
+    },
+    {
+      "dealer": "DEALER 9",
+      "renk1": "Black2",
+      "adet1": 11,
+      "renk2": "Black1",
+      "adet2": 10,
+      "renk3": "Grey3",
+      "adet3": 10
+    },
+    {
+      "dealer": "DEALER 10",
+      "renk1": "Beige",
+      "adet1": 23,
+      "renk2": "Black1",
+      "adet2": 19,
+      "renk3": "Grey3",
+      "adet3": 19
+    },
+    {
+      "dealer": "DEALER 11",
+      "renk1": "Grey3",
+      "adet1": 14,
+      "renk2": "Black1",
+      "adet2": 12,
+      "renk3": "Beige",
+      "adet3": 10
+    },
+    {
+      "dealer": "DEALER 12",
+      "renk1": "Black1",
+      "adet1": 27,
+      "renk2": "Grey3",
+      "adet2": 24,
+      "renk3": "Beige",
+      "adet3": 23
+    },
+    {
+      "dealer": "DEALER 13",
+      "renk1": "Grey2",
+      "adet1": 62,
+      "renk2": "Black1",
+      "adet2": 54,
+      "renk3": "Black2",
+      "adet3": 51
+    },
+    {
+      "dealer": "DEALER 14",
+      "renk1": "Grey3",
+      "adet1": 47,
+      "renk2": "Black1",
+      "adet2": 43,
+      "renk3": "Black2",
+      "adet3": 42
+    },
+    {
+      "dealer": "DEALER 15",
+      "renk1": "Grey3",
+      "adet1": 66,
+      "renk2": "White2",
+      "adet2": 59,
+      "renk3": "White1",
+      "adet3": 54
+    },
+    {
+      "dealer": "DEALER 16",
+      "renk1": "Black1",
+      "adet1": 78,
+      "renk2": "Grey2",
+      "adet2": 70,
+      "renk3": "Black2",
+      "adet3": 43
+    },
+    {
+      "dealer": "DEALER 17",
+      "renk1": "Grey3",
+      "adet1": 188,
+      "renk2": "Grey2",
+      "adet2": 115,
+      "renk3": "White2",
+      "adet3": 106
+    },
+    {
+      "dealer": "DEALER 18",
+      "renk1": "Grey2",
+      "adet1": 62,
+      "renk2": "Beige",
+      "adet2": 49,
+      "renk3": "Black1",
+      "adet3": 43
+    },
+    {
+      "dealer": "DEALER 19",
+      "renk1": "White1",
+      "adet1": 32,
+      "renk2": "Black1",
+      "adet2": 30,
+      "renk3": "Black2",
+      "adet3": 26
+    },
+    {
+      "dealer": "DEALER 20",
+      "renk1": "Black2",
+      "adet1": 15,
+      "renk2": "Grey3",
+      "adet2": 13,
+      "renk3": "White2",
+      "adet3": 11
+    },
+    {
+      "dealer": "DEALER 21",
+      "renk1": "Grey3",
+      "adet1": 33,
+      "renk2": "Beige",
+      "adet2": 23,
+      "renk3": "White2",
+      "adet3": 20
+    },
+    {
+      "dealer": "DEALER 22",
+      "renk1": "Black2",
+      "adet1": 23,
+      "renk2": "Grey3",
+      "adet2": 23,
+      "renk3": "Black1",
+      "adet3": 19
+    }
+  ]
+}

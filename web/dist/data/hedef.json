@@ -1,0 +1,296 @@
+{
+  "2024": [
+    {
+      "period": "Oca",
+      "hedef": 311.0,
+      "gercek": 355.0,
+      "pct": 114.1
+    },
+    {
+      "period": "Şub",
+      "hedef": 318.0,
+      "gercek": 296.0,
+      "pct": 93.1
+    },
+    {
+      "period": "Mar",
+      "hedef": 267.0,
+      "gercek": 261.0,
+      "pct": 97.8
+    },
+    {
+      "period": "Nis",
+      "hedef": 158.0,
+      "gercek": 112.0,
+      "pct": 70.9
+    },
+    {
+      "period": "May",
+      "hedef": 190.0,
+      "gercek": 147.0,
+      "pct": 77.4
+    },
+    {
+      "period": "Haz",
+      "hedef": 210.0,
+      "gercek": 223.0,
+      "pct": 106.2
+    },
+    {
+      "period": "Tem",
+      "hedef": 272.0,
+      "gercek": 240.0,
+      "pct": 88.2
+    },
+    {
+      "period": "Ağu",
+      "hedef": 320.0,
+      "gercek": 315.0,
+      "pct": 98.4
+    },
+    {
+      "period": "Eyl",
+      "hedef": 266.0,
+      "gercek": 224.0,
+      "pct": 84.2
+    },
+    {
+      "period": "Eki",
+      "hedef": 249.0,
+      "gercek": 230.0,
+      "pct": 92.4
+    },
+    {
+      "period": "Kas",
+      "hedef": 250.0,
+      "gercek": 213.0,
+      "pct": 85.2
+    },
+    {
+      "period": "Ara",
+      "hedef": 288.0,
+      "gercek": 330.0,
+      "pct": 114.6
+    }
+  ],
+  "2025": [
+    {
+      "period": "Oca",
+      "hedef": 196.0,
+      "gercek": 195.0,
+      "pct": 99.5
+    },
+    {
+      "period": "Şub",
+      "hedef": 221.0,
+      "gercek": 176.0,
+      "pct": 79.6
+    },
+    {
+      "period": "Mar",
+      "hedef": 220.0,
+      "gercek": 221.0,
+      "pct": 100.5
+    },
+    {
+      "period": "Nis",
+      "hedef": 213.0,
+      "gercek": 225.0,
+      "pct": 105.6
+    },
+    {
+      "period": "May",
+      "hedef": 190.0,
+      "gercek": 219.0,
+      "pct": 115.3
+    },
+    {
+      "period": "Haz",
+      "hedef": 207.0,
+      "gercek": 237.0,
+      "pct": 114.5
+    },
+    {
+      "period": "Tem",
+      "hedef": 218.0,
+      "gercek": 258.0,
+      "pct": 118.3
+    },
+    {
+      "period": "Ağu",
+      "hedef": 258.0,
+      "gercek": 294.0,
+      "pct": 114.0
+    },
+    {
+      "period": "Eyl",
+      "hedef": 234.0,
+      "gercek": 306.0,
+      "pct": 130.8
+    },
+    {
+      "period": "Eki",
+      "hedef": 251.0,
+      "gercek": 270.0,
+      "pct": 107.6
+    },
+    {
+      "period": "Kas",
+      "hedef": 332.0,
+      "gercek": 295.0,
+      "pct": 88.9
+    },
+    {
+      "period": "Ara",
+      "hedef": 361.0,
+      "gercek": 409.0,
+      "pct": 113.3
+    }
+  ],
+  "all": [
+    {
+      "period": "2024 Oca",
+      "hedef": 311.0,
+      "gercek": 355.0,
+      "pct": 114.1
+    },
+    {
+      "period": "2024 Şub",
+      "hedef": 318.0,
+      "gercek": 296.0,
+      "pct": 93.1
+    },
+    {
+      "period": "2024 Mar",
+      "hedef": 267.0,
+      "gercek": 261.0,
+      "pct": 97.8
+    },
+    {
+      "period": "2024 Nis",
+      "hedef": 158.0,
+      "gercek": 112.0,
+      "pct": 70.9
+    },
+    {
+      "period": "2024 May",
+      "hedef": 190.0,
+      "gercek": 147.0,
+      "pct": 77.4
+    },
+    {
+      "period": "2024 Haz",
+      "hedef": 210.0,
+      "gercek": 223.0,
+      "pct": 106.2
+    },
+    {
+      "period": "2024 Tem",
+      "hedef": 272.0,
+      "gercek": 240.0,
+      "pct": 88.2
+    },
+    {
+      "period": "2024 Ağu",
+      "hedef": 320.0,
+      "gercek": 315.0,
+      "pct": 98.4
+    },
+    {
+      "period": "2024 Eyl",
+      "hedef": 266.0,
+      "gercek": 224.0,
+      "pct": 84.2
+    },
+    {
+      "period": "2024 Eki",
+      "hedef": 249.0,
+      "gercek": 230.0,
+      "pct": 92.4
+    },
+    {
+      "period": "2024 Kas",
+      "hedef": 250.0,
+      "gercek": 213.0,
+      "pct": 85.2
+    },
+    {
+      "period": "2024 Ara",
+      "hedef": 288.0,
+      "gercek": 330.0,
+      "pct": 114.6
+    },
+    {
+      "period": "2025 Oca",
+      "hedef": 196.0,
+      "gercek": 195.0,
+      "pct": 99.5
+    },
+    {
+      "period": "2025 Şub",
+      "hedef": 221.0,
+      "gercek": 176.0,
+      "pct": 79.6
+    },
+    {
+      "period": "2025 Mar",
+      "hedef": 220.0,
+      "gercek": 221.0,
+      "pct": 100.5
+    },
+    {
+      "period": "2025 Nis",
+      "hedef": 213.0,
+      "gercek": 225.0,
+      "pct": 105.6
+    },
+    {
+      "period": "2025 May",
+      "hedef": 190.0,
+      "gercek": 219.0,
+      "pct": 115.3
+    },
+    {
+      "period": "2025 Haz",
+      "hedef": 207.0,
+      "gercek": 237.0,
+      "pct": 114.5
+    },
+    {
+      "period": "2025 Tem",
+      "hedef": 218.0,
+      "gercek": 258.0,
+      "pct": 118.3
+    },
+    {
+      "period": "2025 Ağu",
+      "hedef": 258.0,
+      "gercek": 294.0,
+      "pct": 114.0
+    },
+    {
+      "period": "2025 Eyl",
+      "hedef": 234.0,
+      "gercek": 306.0,
+      "pct": 130.8
+    },
+    {
+      "period": "2025 Eki",
+      "hedef": 251.0,
+      "gercek": 270.0,
+      "pct": 107.6
+    },
+    {
+      "period": "2025 Kas",
+      "hedef": 332.0,
+      "gercek": 295.0,
+      "pct": 88.9
+    },
+    {
+      "period": "2025 Ara",
+      "hedef": 361.0,
+      "gercek": 409.0,
+      "pct": 113.3
+    }
+  ]
+}
