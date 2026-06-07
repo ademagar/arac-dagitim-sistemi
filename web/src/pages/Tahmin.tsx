@@ -1358,6 +1358,398 @@ function Plan2026Tab({ data }: { data: Plan2026 }) {
 }
 
 // ---------------------------------------------------------------------------
+// Sekme 3: Bayi Bazlı Hedefler (Oca–Ara)
+// ---------------------------------------------------------------------------
+
+const SEGMENT_MODELLER: Record<string, string[]> = {
+  A: ['A1', 'A2', 'A3'],
+  B: ['B1', 'B2'],
+  C: ['C1'],
+  D: ['D1'],
+}
+
+const SEGMENT_RENK: Record<string, string> = {
+  A: 'text-blue-700 bg-blue-50',
+  B: 'text-amber-700 bg-amber-50',
+  C: 'text-rose-700 bg-rose-50',
+  D: 'text-slate-600 bg-slate-100',
+}
+
+function BayiHedefleriTab({ data }: {
+  data: {
+    senaryo_8500: BayiAylikHedefler
+    senaryo_10000: BayiAylikHedefler
+  }
+}) {
+  const [aktifSenaryo, setAktifSenaryo] = useState<8500 | 10000>(8500)
+  const senaryoData = aktifSenaryo === 8500 ? data.senaryo_8500 : data.senaryo_10000
+
+  const bayiler = Object.keys(senaryoData).sort((a, b) => {
+    const aNum = parseInt(a.split(' ').pop() || '0', 10)
+    const bNum = parseInt(b.split(' ').pop() || '0', 10)
+    return aNum - bNum
+  })
+
+  const [secilenBayi, setSecilenBayi] = useState<string>(bayiler[0] ?? '')
+
+  // Senaryo değişince bayiyi reset et
+  const bayiHedef: BayiHedef | null = senaryoData[secilenBayi] ?? null
+
+  const BILINEN_MODELLER = ['A1', 'A2', 'A3', 'B1', 'B2', 'C1', 'D1']
+  const LANSMAN_AY = 3
+
+  return (
+    <div className="space-y-6">
+      {/* Açıklama */}
+      <BilgiKutusu baslik="Bayi Bazlı Aylık Model Hedefleri — Nasıl Hesaplandı?" renk="blue">
+        <p>
+          Bu sekmede her bayi için Ocak–Aralık 2026 aylık model bazlı satış hedefleri gösterilmektedir.
+        </p>
+        <p>
+          <strong>Yöntem:</strong> Plan sekmesinde hesaplanan aylık model toplamları, her modelde
+          bayi bazındaki tarihsel satış paylarıyla (son 12 ay, 2024-12 ile 2025-11) çarpılarak
+          bayi bazına indirgendi.
+        </p>
+        <p>
+          <strong>Segment Notu:</strong> A1/A2/A3 aynı A Segmenti aracının versiyonlarıdır (farklı modeller değil).
+          B1/B2 aynı B Segmenti aracının versiyonlarıdır.
+        </p>
+        <p>
+          <strong>Sıfır Hedef:</strong> Bir bayinin modeline ait hedefi 0 ise, o bayi bu modeli
+          son 12 ayda hiç satmamış demektir — distribütör onayıyla eklenmesi önerilir.
+        </p>
+        <p>
+          <strong>Yuvarlama Notu:</strong> Her bayi hedefi ayrı ayrı yuvarlandığından, bayi
+          toplamları senaryo genel toplamıyla tam olarak örtüşmeyebilir.
+        </p>
+      </BilgiKutusu>
+
+      {/* Senaryo seçici */}
+      <div className="flex gap-2">
+        {([8500, 10000] as const).map(h => (
+          <button key={h} onClick={() => setAktifSenaryo(h)}
+            className={`px-5 py-2 rounded-lg text-sm font-semibold border-2 transition-all ${
+              aktifSenaryo === h
+                ? 'border-blue-500 bg-blue-50 text-blue-800'
+                : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300'
+            }`}
+          >
+            {h.toLocaleString('tr')} Araç Senaryosu
+            {aktifSenaryo === h && (
+              <span className="ml-2 text-xs bg-blue-600 text-white px-1.5 py-0.5 rounded-full">Aktif</span>
+            )}
+          </button>
+        ))}
+      </div>
+
+      {/* Bayi seçici */}
+      <div className="flex items-center gap-3 flex-wrap">
+        <label className="text-xs font-semibold text-slate-500 uppercase tracking-wide">Bayi Seçin:</label>
+        <select
+          value={secilenBayi}
+          onChange={e => setSecilenBayi(e.target.value)}
+          className="border border-slate-300 rounded-lg px-3 py-1.5 text-sm text-slate-700 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          {bayiler.map(b => {
+            const tier = senaryoData[b]?.tier ?? 'C'
+            return (
+              <option key={b} value={b}>
+                {b} — Tier {tier}
+              </option>
+            )
+          })}
+        </select>
+        {bayiHedef && (
+          <TierBadge tier={bayiHedef.tier} />
+        )}
+      </div>
+
+      {/* Seçili bayi detay */}
+      {bayiHedef && (
+        <div className="space-y-5">
+          {/* Özet kartlar */}
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+            <MetricCard
+              label="Yıllık Toplam"
+              value={bayiHedef.yillik_toplam.toLocaleString('tr')}
+              sub="araç (2026)"
+              colorClass="bg-blue-50 border-blue-200"
+            />
+            {Object.entries(bayiHedef.yillik_segmentler).sort().map(([seg, adet]) => (
+              <MetricCard
+                key={seg}
+                label={`${seg} Segmenti`}
+                value={adet.toLocaleString('tr')}
+                sub="araç"
+                colorClass={
+                  seg === 'A' ? 'bg-blue-50 border-blue-200' :
+                  seg === 'B' ? 'bg-amber-50 border-amber-200' :
+                  seg === 'C' ? 'bg-rose-50 border-rose-200' :
+                  'bg-slate-50 border-slate-200'
+                }
+              />
+            ))}
+          </div>
+
+          {/* Aylık × Model Matrisi */}
+          <Card title={`${secilenBayi} — 2026 Aylık Model Hedefleri`}>
+            <div className="overflow-x-auto rounded-lg border border-slate-200">
+              <table className="w-full text-xs border-collapse">
+                <thead>
+                  {/* Segment grup başlıkları */}
+                  <tr className="bg-slate-700 text-white">
+                    <th className="text-left py-2 px-3 font-semibold sticky left-0 bg-slate-700 z-10 min-w-[90px]" rowSpan={2}>
+                      Ay
+                    </th>
+                    <th className="text-right py-2 px-3 font-semibold min-w-[70px] border-r border-slate-500" rowSpan={2}>
+                      Toplam
+                    </th>
+                    <th className="text-center py-2 px-3 font-semibold border-r border-slate-500 bg-blue-800" colSpan={3}>
+                      A Segmenti
+                    </th>
+                    <th className="text-center py-2 px-3 font-semibold border-r border-slate-500 bg-amber-800" colSpan={2}>
+                      B Segmenti
+                    </th>
+                    <th className="text-center py-2 px-3 font-semibold border-r border-slate-500 bg-rose-800" colSpan={1}>
+                      C Segmenti
+                    </th>
+                    <th className="text-center py-2 px-3 font-semibold bg-slate-600" colSpan={1}>
+                      D Segmenti
+                    </th>
+                  </tr>
+                  <tr className="bg-slate-800 text-white">
+                    {BILINEN_MODELLER.map((m, i) => {
+                      const seg = m[0]
+                      const isLastInSeg = i === BILINEN_MODELLER.length - 1
+                        || BILINEN_MODELLER[i + 1]?.[0] !== seg
+                      return (
+                        <th key={m}
+                          className={`text-right py-2 px-3 font-semibold min-w-[65px] ${
+                            isLastInSeg ? 'border-r border-slate-600' : ''
+                          } ${MODEL_COLORS[m] ? '' : ''}`}
+                        >
+                          <span className={`px-1.5 py-0.5 rounded text-xs ${MODEL_COLORS[m] ?? 'bg-slate-600 text-white'}`}>
+                            {m}
+                          </span>
+                        </th>
+                      )
+                    })}
+                  </tr>
+                </thead>
+                <tbody>
+                  {bayiHedef.aylik.map((ayRow, idx) => {
+                    const isLansman = ayRow.ay === LANSMAN_AY
+                    return (
+                      <tr key={ayRow.ay}
+                        className={`border-b border-slate-100 ${
+                          isLansman ? 'bg-green-50 font-semibold' :
+                          idx % 2 === 0 ? 'bg-white' : 'bg-slate-50/40'
+                        }`}
+                      >
+                        <td className={`py-2 px-3 sticky left-0 z-10 font-semibold ${
+                          isLansman ? 'bg-green-50 text-green-800' : 'bg-inherit text-slate-700'
+                        }`}>
+                          <div className="flex items-center gap-1">
+                            {ayRow.ay_adi}
+                            {isLansman && (
+                              <span className="text-xs bg-green-600 text-white px-1 rounded">LANSMAN</span>
+                            )}
+                          </div>
+                        </td>
+                        <td className={`py-2 px-3 text-right font-bold border-r border-slate-200 ${
+                          isLansman ? 'text-green-800' : 'text-slate-800'
+                        }`}>
+                          {ayRow.toplam.toLocaleString('tr')}
+                        </td>
+                        {BILINEN_MODELLER.map((m, i) => {
+                          const adet = ayRow.modeller[m] ?? 0
+                          const seg = m[0]
+                          const isLastInSeg = i === BILINEN_MODELLER.length - 1
+                            || BILINEN_MODELLER[i + 1]?.[0] !== seg
+                          const isNoSale = adet === 0
+                          return (
+                            <td key={m}
+                              className={`py-2 px-3 text-right font-mono ${
+                                isLastInSeg ? 'border-r border-slate-200' : ''
+                              } ${
+                                isNoSale ? 'text-slate-300' :
+                                m === 'B1' ? 'text-amber-700 font-semibold' :
+                                m.startsWith('A') ? 'text-blue-700' :
+                                m === 'C1' ? 'text-rose-700' :
+                                'text-slate-600'
+                              }`}
+                              title={isNoSale ? 'Bu bayi bu modeli tarihsel olarak satmamıştır — distribütör onayıyla eklenmeli' : undefined}
+                            >
+                              {adet > 0 ? adet.toLocaleString('tr') : '—'}
+                            </td>
+                          )
+                        })}
+                      </tr>
+                    )
+                  })}
+                </tbody>
+                <tfoot>
+                  <tr className="bg-slate-100 font-bold border-t-2 border-slate-300">
+                    <td className="py-3 px-3 text-slate-800 sticky left-0 bg-slate-100">YIL TOPLAMI</td>
+                    <td className="py-3 px-3 text-right text-blue-700 border-r border-slate-300 font-mono">
+                      {bayiHedef.yillik_toplam.toLocaleString('tr')}
+                    </td>
+                    {BILINEN_MODELLER.map((m, i) => {
+                      const adet = bayiHedef.yillik_modeller[m] ?? 0
+                      const seg = m[0]
+                      const isLastInSeg = i === BILINEN_MODELLER.length - 1
+                        || BILINEN_MODELLER[i + 1]?.[0] !== seg
+                      return (
+                        <td key={m}
+                          className={`py-3 px-3 text-right font-mono ${
+                            isLastInSeg ? 'border-r border-slate-300' : ''
+                          } ${adet === 0 ? 'text-slate-300' : 'text-slate-700'}`}
+                        >
+                          {adet > 0 ? adet.toLocaleString('tr') : '—'}
+                          {adet > 0 && bayiHedef.yillik_toplam > 0 && (
+                            <span className="block text-xs font-normal text-slate-400">
+                              %{((adet / bayiHedef.yillik_toplam) * 100).toFixed(1)}
+                            </span>
+                          )}
+                        </td>
+                      )
+                    })}
+                  </tr>
+                  {/* Segment toplamları */}
+                  <tr className="bg-slate-50 border-t border-slate-200 text-xs">
+                    <td className="py-2 px-3 text-slate-500 sticky left-0 bg-slate-50 italic">Seg. Toplamı</td>
+                    <td className="py-2 px-3 border-r border-slate-200" />
+                    {BILINEN_MODELLER.map((m, i) => {
+                      const seg = m[0]
+                      const segToplam = bayiHedef.yillik_segmentler[seg] ?? 0
+                      const isLastInSeg = i === BILINEN_MODELLER.length - 1
+                        || BILINEN_MODELLER[i + 1]?.[0] !== seg
+                      // Sadece her segmentin son sütununda segment toplam göster
+                      const segModels = SEGMENT_MODELLER[seg] ?? []
+                      const isFirstInSeg = m === segModels[0]
+                      return (
+                        <td key={m}
+                          className={`py-2 px-3 text-center font-semibold ${
+                            isLastInSeg ? 'border-r border-slate-200' : ''
+                          } ${SEGMENT_RENK[seg] ?? 'text-slate-600'}`}
+                          colSpan={isFirstInSeg ? segModels.length : undefined}
+                          style={!isFirstInSeg ? { display: 'none' } : undefined}
+                        >
+                          {isFirstInSeg ? `${segToplam.toLocaleString('tr')} araç` : ''}
+                        </td>
+                      )
+                    })}
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+            <p className="text-xs text-slate-400 mt-2">
+              — = bu bayi bu modeli tarihsel olarak satmamıştır (0 hedef) ·
+              LANSMAN = Mart 2026 (×1.15 boost uygulandı) ·
+              Yuvarlama nedeniyle toplam tam eşleşmeyebilir
+            </p>
+          </Card>
+        </div>
+      )}
+
+      {/* Tüm bayiler özet tablosu */}
+      <Card title="Tüm Bayiler Özet — Yıllık Hedefler">
+        <p className="text-xs text-slate-500 mb-3">
+          Bir bayiye tıklayarak yukarıdaki detay tablosunu görüntüleyebilirsiniz.
+          Yuvarlama nedeniyle bayi toplamları senaryo genel toplamına tam eşit gelmeyebilir.
+        </p>
+        <div className="overflow-x-auto">
+          <table className="w-full text-xs">
+            <thead>
+              <tr className="border-b border-slate-200 bg-slate-50">
+                <th className="text-left py-2 px-2 font-semibold text-slate-600">Bayi</th>
+                <th className="text-center py-2 px-2 font-semibold text-slate-600">Tier</th>
+                <th className="text-right py-2 px-2 font-semibold text-slate-600">Yıllık</th>
+                <th className="text-right py-2 px-2 font-semibold text-blue-700">A Seg.</th>
+                <th className="text-right py-2 px-2 font-semibold text-amber-700">B Seg.</th>
+                <th className="text-right py-2 px-2 font-semibold text-rose-700">C Seg.</th>
+                <th className="text-right py-2 px-2 font-semibold text-slate-500">Ocak</th>
+                <th className="text-right py-2 px-2 font-semibold text-slate-500">Şubat</th>
+                <th className="text-right py-2 px-2 font-semibold text-green-700">Mart ✦</th>
+              </tr>
+            </thead>
+            <tbody>
+              {bayiler.map(bayi => {
+                const bh = senaryoData[bayi]
+                if (!bh) return null
+                const ocak = bh.aylik.find(a => a.ay === 1)?.toplam ?? 0
+                const subat = bh.aylik.find(a => a.ay === 2)?.toplam ?? 0
+                const mart = bh.aylik.find(a => a.ay === 3)?.toplam ?? 0
+                const isSecili = bayi === secilenBayi
+                return (
+                  <tr key={bayi}
+                    onClick={() => setSecilenBayi(bayi)}
+                    className={`border-b border-slate-100 cursor-pointer transition-colors ${
+                      isSecili ? 'bg-blue-50' : 'hover:bg-slate-50'
+                    }`}
+                  >
+                    <td className={`py-1.5 px-2 font-medium ${isSecili ? 'text-blue-700' : 'text-slate-700'}`}>
+                      {bayi}
+                    </td>
+                    <td className="py-1.5 px-2 text-center">
+                      <TierBadge tier={bh.tier} />
+                    </td>
+                    <td className="py-1.5 px-2 text-right font-bold font-mono text-slate-800">
+                      {bh.yillik_toplam.toLocaleString('tr')}
+                    </td>
+                    <td className="py-1.5 px-2 text-right font-mono text-blue-700">
+                      {(bh.yillik_segmentler['A'] ?? 0).toLocaleString('tr')}
+                    </td>
+                    <td className="py-1.5 px-2 text-right font-mono text-amber-700">
+                      {(bh.yillik_segmentler['B'] ?? 0).toLocaleString('tr')}
+                    </td>
+                    <td className="py-1.5 px-2 text-right font-mono text-rose-700">
+                      {(bh.yillik_segmentler['C'] ?? 0).toLocaleString('tr')}
+                    </td>
+                    <td className="py-1.5 px-2 text-right font-mono text-slate-500">{ocak}</td>
+                    <td className="py-1.5 px-2 text-right font-mono text-slate-500">{subat}</td>
+                    <td className="py-1.5 px-2 text-right font-mono font-semibold text-green-700">{mart}</td>
+                  </tr>
+                )
+              })}
+            </tbody>
+            <tfoot>
+              <tr className="border-t-2 border-slate-300 bg-slate-100 font-bold">
+                <td className="py-2 px-2 text-slate-800" colSpan={2}>TOPLAM</td>
+                <td className="py-2 px-2 text-right font-mono text-blue-700">
+                  {bayiler.reduce((s, b) => s + (senaryoData[b]?.yillik_toplam ?? 0), 0).toLocaleString('tr')}
+                </td>
+                <td className="py-2 px-2 text-right font-mono text-blue-700">
+                  {bayiler.reduce((s, b) => s + (senaryoData[b]?.yillik_segmentler['A'] ?? 0), 0).toLocaleString('tr')}
+                </td>
+                <td className="py-2 px-2 text-right font-mono text-amber-700">
+                  {bayiler.reduce((s, b) => s + (senaryoData[b]?.yillik_segmentler['B'] ?? 0), 0).toLocaleString('tr')}
+                </td>
+                <td className="py-2 px-2 text-right font-mono text-rose-700">
+                  {bayiler.reduce((s, b) => s + (senaryoData[b]?.yillik_segmentler['C'] ?? 0), 0).toLocaleString('tr')}
+                </td>
+                <td className="py-2 px-2 text-right font-mono text-slate-500">
+                  {bayiler.reduce((s, b) => s + (senaryoData[b]?.aylik.find(a => a.ay === 1)?.toplam ?? 0), 0).toLocaleString('tr')}
+                </td>
+                <td className="py-2 px-2 text-right font-mono text-slate-500">
+                  {bayiler.reduce((s, b) => s + (senaryoData[b]?.aylik.find(a => a.ay === 2)?.toplam ?? 0), 0).toLocaleString('tr')}
+                </td>
+                <td className="py-2 px-2 text-right font-mono text-green-700">
+                  {bayiler.reduce((s, b) => s + (senaryoData[b]?.aylik.find(a => a.ay === 3)?.toplam ?? 0), 0).toLocaleString('tr')}
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+        <p className="text-xs text-slate-400 mt-2">
+          ✦ Mart = Lansman ayı (×1.15 boost) · Satıra tıklayarak bayi detayını görüntüleyin
+        </p>
+      </Card>
+    </div>
+  )
+}
+
+// ---------------------------------------------------------------------------
 // Ana bileşen
 // ---------------------------------------------------------------------------
 
@@ -1384,18 +1776,21 @@ export default function Tahmin() {
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-slate-900">Tahmin & Plan</h1>
         <p className="text-slate-500 text-sm mt-1">
-          Aralık 2025 tier bazlı geriye dönük doğrulama · 2026 yıllık plan (8500 / 10000 araç) · Ocak–Aralık model bazlı hedefler
+          Aralık 2025 tier bazlı geriye dönük doğrulama · 2026 yıllık plan (8500 / 10000 araç) · Ocak–Aralık model bazlı hedefler · Bayi bazlı aylık hedefler
         </p>
       </div>
 
       <TabBar
-        tabs={['Aralık 2025 Tahmini', '2026 Yıllık Plan & Model Hedefleri']}
+        tabs={['Aralık 2025 Tahmini', '2026 Yıllık Plan & Model Hedefleri', 'Bayi Bazlı Hedefler (Oca–Ara)']}
         active={tab}
         onChange={setTab}
       />
 
       {tab === 0 && <AralikTab data={data.aralik_tahmin} />}
       {tab === 1 && <Plan2026Tab data={data.plan_2026} />}
+      {tab === 2 && data.bayi_aylik_hedefler && (
+        <BayiHedefleriTab data={data.bayi_aylik_hedefler} />
+      )}
     </div>
   )
 }
