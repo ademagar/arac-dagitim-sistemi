@@ -18,23 +18,23 @@ _ROOT = Path(__file__).parents[2]
 if str(_ROOT) not in sys.path:
     sys.path.insert(0, str(_ROOT))
 
-from src.allocation.data_prep import inventory_summary, load_inventory, load_targets
-from src.allocation.optimizer import run_optimizer
-from src.allocation.scorer import (
+from src.allocation.data_prep import inventory_summary, load_inventory, load_targets  # noqa: E402
+from src.allocation.optimizer import run_optimizer  # noqa: E402
+from src.allocation.scorer import (  # noqa: E402
     compute_composite_scores,
     compute_h_scores,
     compute_lp_affinity,
     compute_p_scores,
     compute_s_scores,
 )
-from src.allocation.visualizations import (
+from src.allocation.visualizations import (  # noqa: E402
     plot_allocation_heatmap,
     plot_dealer_summary,
     plot_inventory_usage,
     plot_model_distribution,
     plot_score_breakdown,
 )
-from src.analysis.data_loader import load_monthly_performance, load_sales
+from src.analysis.data_loader import load_monthly_performance, load_sales  # noqa: E402
 
 logging.basicConfig(
     level=logging.INFO,
@@ -207,15 +207,15 @@ def run() -> pd.DataFrame:
     print(f"{'TOPLAM':<30} {total_demand:>7} {total_allocated:>7} {'':>6} {total_fill:>7}%")
 
     print(f"\nÇıktı dizini: {OUTPUT_DIR}")
-    print(f"  • allocation_january2026.csv")
-    print(f"  • dealer_summary.csv")
-    print(f"  • dealer_scores.csv")
-    print(f"  • inventory_usage.csv")
-    print(f"  • 01_allocation_heatmap.png")
-    print(f"  • 02_dealer_summary.png")
-    print(f"  • 03_model_distribution.png")
-    print(f"  • 04_score_breakdown.png")
-    print(f"  • 05_inventory_usage.png")
+    print("  • allocation_january2026.csv")
+    print("  • dealer_summary.csv")
+    print("  • dealer_scores.csv")
+    print("  • inventory_usage.csv")
+    print("  • 01_allocation_heatmap.png")
+    print("  • 02_dealer_summary.png")
+    print("  • 03_model_distribution.png")
+    print("  • 04_score_breakdown.png")
+    print("  • 05_inventory_usage.png")
 
     return allocation
 

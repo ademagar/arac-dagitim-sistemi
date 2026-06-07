@@ -4,7 +4,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
-import matplotlib
+import matplotlib  # noqa: E402
+
 matplotlib.use("Agg")
 
 import matplotlib.pyplot as plt
@@ -92,9 +93,9 @@ def plot_model_distribution(allocation: pd.DataFrame, output_dir: Path) -> None:
         vals = pivot[col].values
         ax.barh(range(len(pivot)), vals, left=left,
                 color=color, label=col, alpha=0.88, edgecolor="white")
-        for i, (v, l) in enumerate(zip(vals, left)):
+        for i, (v, lft) in enumerate(zip(vals, left)):
             if v > 0:
-                ax.text(l + v / 2, i, str(int(v)),
+                ax.text(lft + v / 2, i, str(int(v)),
                         ha="center", va="center", fontsize=7.5, color="white", fontweight="bold")
         left += vals
 

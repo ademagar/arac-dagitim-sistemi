@@ -100,7 +100,7 @@ def run_optimizer(
 
     # ---------- Çöz ----------
     solver = pulp.PULP_CBC_CMD(msg=0)
-    status = prob.solve(solver)
+    prob.solve(solver)
 
     status_str = pulp.LpStatus[prob.status]
     logger.info("Solver durumu: %s", status_str)
