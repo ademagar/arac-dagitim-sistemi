@@ -1,6 +1,5 @@
 {
-  "buildCommand": "echo pre-built",
-  "installCommand": "echo skip",
+  "buildCommand": "cd web && npm install && npm run build",
   "outputDirectory": "web/dist",
   "framework": null,
   "rewrites": [
