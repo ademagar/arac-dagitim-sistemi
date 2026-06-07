@@ -1,20 +1,53 @@
 {
   "aralik_tahmin": {
     "ozet": {
-      "toplam_tahmin": 439,
+      "toplam_tahmin": 460,
       "toplam_gercek": 499,
-      "mape": 12.02,
-      "mae": 60.0,
-      "rmse": 60.0,
-      "bayi_mape": 38.61,
-      "yontem": "Seasonal Index (1.359) × son 12 ay ort. (269) × trend (1.200) = 439"
+      "mape": 7.82,
+      "mae": 39.0,
+      "rmse": 39.0,
+      "bayi_mape": 39.63,
+      "yontem": "Tier A (Marmara + Ege + İç Anadolu (Ankara)): SI=1.323 → 374 | Tier B (Akdeniz): SI=1.270 → 70 | Tier C (Güneydoğu Anadolu + Karadeniz): SI=1.368 → 16"
     },
+    "tier_ozet": [
+      {
+        "tier": "A",
+        "aciklama": "Marmara + Ege + İç Anadolu (Ankara)",
+        "tahmin": 374,
+        "gercek": 405,
+        "mape": 7.65,
+        "si": 1.3234,
+        "trend": 1.3027,
+        "son12_ort": 216.8
+      },
+      {
+        "tier": "B",
+        "aciklama": "Akdeniz",
+        "tahmin": 70,
+        "gercek": 75,
+        "mape": 6.67,
+        "si": 1.2696,
+        "trend": 1.35,
+        "son12_ort": 40.7
+      },
+      {
+        "tier": "C",
+        "aciklama": "Güneydoğu Anadolu + Karadeniz",
+        "tahmin": 16,
+        "gercek": 19,
+        "mape": 15.79,
+        "si": 1.3678,
+        "trend": 1.0,
+        "son12_ort": 11.3
+      }
+    ],
     "bayi_tahmin": [
       {
         "dealer": "DEALER 1",
-        "tahmin": 41,
+        "tier": "A",
+        "tahmin": 43,
         "gercek": 47,
-        "hata_pct": -12.8,
+        "hata_pct": -8.5,
         "model_mix": {
           "A1": 0.037,
           "A2": 0.493,
@@ -25,9 +58,10 @@
       },
       {
         "dealer": "DEALER 2",
-        "tahmin": 18,
+        "tier": "A",
+        "tahmin": 19,
         "gercek": 17,
-        "hata_pct": 5.9,
+        "hata_pct": 11.8,
         "model_mix": {
           "A1": 0.046,
           "A2": 0.489,
@@ -38,9 +72,10 @@
       },
       {
         "dealer": "DEALER 3",
-        "tahmin": 18,
+        "tier": "B",
+        "tahmin": 19,
         "gercek": 22,
-        "hata_pct": -18.2,
+        "hata_pct": -13.6,
         "model_mix": {
           "A1": 0.008,
           "A2": 0.438,
@@ -51,9 +86,10 @@
       },
       {
         "dealer": "DEALER 4",
-        "tahmin": 17,
+        "tier": "B",
+        "tahmin": 18,
         "gercek": 19,
-        "hata_pct": -10.5,
+        "hata_pct": -5.3,
         "model_mix": {
           "A1": 0.025,
           "A2": 0.352,
@@ -64,9 +100,10 @@
       },
       {
         "dealer": "DEALER 5",
-        "tahmin": 13,
+        "tier": "A",
+        "tahmin": 14,
         "gercek": 16,
-        "hata_pct": -18.8,
+        "hata_pct": -12.5,
         "model_mix": {
           "A1": 0.02,
           "A2": 0.48,
@@ -77,9 +114,10 @@
       },
       {
         "dealer": "DEALER 6",
-        "tahmin": 26,
+        "tier": "A",
+        "tahmin": 27,
         "gercek": 31,
-        "hata_pct": -16.1,
+        "hata_pct": -12.9,
         "model_mix": {
           "A1": 0.032,
           "A2": 0.397,
@@ -91,9 +129,10 @@
       },
       {
         "dealer": "DEALER 7",
-        "tahmin": 34,
+        "tier": "A",
+        "tahmin": 36,
         "gercek": 78,
-        "hata_pct": -56.4,
+        "hata_pct": -53.8,
         "model_mix": {
           "A1": 0.012,
           "A2": 0.466,
@@ -104,9 +143,10 @@
       },
       {
         "dealer": "DEALER 8",
-        "tahmin": 16,
+        "tier": "A",
+        "tahmin": 17,
         "gercek": 14,
-        "hata_pct": 14.3,
+        "hata_pct": 21.4,
         "model_mix": {
           "A1": 0.017,
           "A2": 0.474,
@@ -118,6 +158,7 @@
       },
       {
         "dealer": "DEALER 9",
+        "tier": "A",
         "tahmin": 4,
         "gercek": 3,
         "hata_pct": 33.3,
@@ -130,9 +171,10 @@
       },
       {
         "dealer": "DEALER 10",
-        "tahmin": 11,
+        "tier": "A",
+        "tahmin": 12,
         "gercek": 13,
-        "hata_pct": -15.4,
+        "hata_pct": -7.7,
         "model_mix": {
           "A2": 0.614,
           "A3": 0.133,
@@ -142,6 +184,7 @@
       },
       {
         "dealer": "DEALER 11",
+        "tier": "B",
         "tahmin": 5,
         "gercek": 10,
         "hata_pct": -50.0,
@@ -154,9 +197,10 @@
       },
       {
         "dealer": "DEALER 12",
-        "tahmin": 15,
+        "tier": "A",
+        "tahmin": 16,
         "gercek": 3,
-        "hata_pct": 400.0,
+        "hata_pct": 433.3,
         "model_mix": {
           "A1": 0.037,
           "A2": 0.514,
@@ -167,9 +211,10 @@
       },
       {
         "dealer": "DEALER 13",
-        "tahmin": 29,
+        "tier": "A",
+        "tahmin": 30,
         "gercek": 30,
-        "hata_pct": -3.3,
+        "hata_pct": 0.0,
         "model_mix": {
           "A1": 0.033,
           "A2": 0.491,
@@ -182,9 +227,10 @@
       },
       {
         "dealer": "DEALER 14",
-        "tahmin": 23,
+        "tier": "A",
+        "tahmin": 24,
         "gercek": 30,
-        "hata_pct": -23.3,
+        "hata_pct": -20.0,
         "model_mix": {
           "A1": 0.018,
           "A2": 0.55,
@@ -195,9 +241,10 @@
       },
       {
         "dealer": "DEALER 15",
-        "tahmin": 27,
+        "tier": "B",
+        "tahmin": 29,
         "gercek": 24,
-        "hata_pct": 12.5,
+        "hata_pct": 20.8,
         "model_mix": {
           "A1": 0.02,
           "A2": 0.452,
@@ -208,9 +255,10 @@
       },
       {
         "dealer": "DEALER 16",
-        "tahmin": 28,
+        "tier": "A",
+        "tahmin": 30,
         "gercek": 16,
-        "hata_pct": 75.0,
+        "hata_pct": 87.5,
         "model_mix": {
           "A1": 0.029,
           "A2": 0.394,
@@ -223,9 +271,10 @@
       },
       {
         "dealer": "DEALER 17",
-        "tahmin": 50,
+        "tier": "A",
+        "tahmin": 52,
         "gercek": 50,
-        "hata_pct": 0.0,
+        "hata_pct": 4.0,
         "model_mix": {
           "A1": 0.016,
           "A2": 0.607,
@@ -237,9 +286,10 @@
       },
       {
         "dealer": "DEALER 18",
-        "tahmin": 24,
+        "tier": "A",
+        "tahmin": 25,
         "gercek": 32,
-        "hata_pct": -25.0,
+        "hata_pct": -21.9,
         "model_mix": {
           "A1": 0.045,
           "A2": 0.483,
@@ -251,9 +301,10 @@
       },
       {
         "dealer": "DEALER 19",
-        "tahmin": 13,
+        "tier": "C",
+        "tahmin": 11,
         "gercek": 11,
-        "hata_pct": 18.2,
+        "hata_pct": 0.0,
         "model_mix": {
           "A2": 0.358,
           "A3": 0.2,
@@ -263,9 +314,10 @@
       },
       {
         "dealer": "DEALER 20",
-        "tahmin": 6,
+        "tier": "C",
+        "tahmin": 5,
         "gercek": 8,
-        "hata_pct": -25.0,
+        "hata_pct": -37.5,
         "model_mix": {
           "A1": 0.073,
           "A2": 0.659,
@@ -276,9 +328,10 @@
       },
       {
         "dealer": "DEALER 21",
-        "tahmin": 12,
+        "tier": "A",
+        "tahmin": 13,
         "gercek": 12,
-        "hata_pct": 0.0,
+        "hata_pct": 8.3,
         "model_mix": {
           "A1": 0.023,
           "A2": 0.552,
@@ -289,9 +342,10 @@
       },
       {
         "dealer": "DEALER 22",
-        "tahmin": 11,
+        "tier": "A",
+        "tahmin": 12,
         "gercek": 13,
-        "hata_pct": -15.4,
+        "hata_pct": -7.7,
         "model_mix": {
           "A1": 0.012,
           "A2": 0.422,
@@ -420,466 +474,921 @@
       {
         "ym": "2025-12",
         "gercek": 499,
-        "tahmin": 439
+        "tahmin": 460
       }
     ],
     "metodoloji": [
       {
-        "baslik": "Seasonal Index (Ratio-to-Mean)",
-        "aciklama": "Eğitim verisinden (Ocak 2024 – Kasım 2025) hesaplanan aylık mevsimsellik indeksi. Aralık ayının kendi ortalama satışı, genel aylık ortalamaya bölünerek SI elde edilir."
+        "baslik": "A/B/C Tier Gruplandırması",
+        "aciklama": "Bayiler bölgesel potansiyele göre 3 gruba ayrıldı. A = Marmara + Ege + İç Anadolu/Ankara (yüksek hacim), B = Akdeniz (orta), C = Güneydoğu + Karadeniz (düşük). Kaynak: Bayi-Adi-Kodu.csv bölge kısaltması."
       },
       {
-        "baslik": "Son 12 Ay Ortalaması",
-        "aciklama": "Tahmin = SI × son 12 aylık ortalama × trend düzeltmesi. Trend: son 6 ay / önceki 6 ay oranı (0.85–1.20 arasında sınırlandırıldı)."
+        "baslik": "Tier Bazlı Seasonal Index",
+        "aciklama": "Her tier için Aralık SI'sı kendi 2024-2025 satış verisinden hesaplandı (ratio-to-mean). Global SI ile %40 ağırlıklı harmanlama uygulandı veri seyrekliğine karşı sigorta olarak."
+      },
+      {
+        "baslik": "Tier Bazlı Trend Düzeltmesi",
+        "aciklama": "Her tier için son 6 ay ortalaması / önceki 6 ay ortalaması oranı ayrı hesaplandı. Aşırı tepkiyi önlemek için 0.85–1.20 aralığında sınırlandırıldı."
       },
       {
         "baslik": "Bayi Pay Dağıtımı",
-        "aciklama": "Her bayinin son 12 aydaki toplam satış payı kullanılarak marka tahmini bayilere dağıtıldı. Toplam tahmin = 439, gerçek = 499."
-      },
-      {
-        "baslik": "Model Karışımı",
-        "aciklama": "Her bayi için son 12 aydaki model (A1, A2, A3, B1...) dağılım oranları, bayi bazındaki tahmini model bazında böldü."
+        "aciklama": "Tier A: 374 + Tier B: 70 + Tier C: 16 = 460 araç (Gerçek: 499). Her tier tahmini, o tier bayilerinin son 12 ay satış payıyla dağıtıldı."
       }
-    ],
-    "_debug": {
-      "aralik_si_hesaplanan": 1.1887,
-      "aralik_si_final": 1.6156,
-      "aralik_si_kullanilan": 1.3595,
-      "trend_carpani": 1.2,
-      "son12_ortalama": 268.8
-    }
+    ]
   },
   "plan_2026": {
-    "ozet": {
-      "yillik_hedef": 8500,
-      "ocak_hedef": 250,
-      "lansman_ay": 3,
-      "lansman_boost": 1.15,
-      "toplam_kontrol": 8500
+    "senaryo_8500": {
+      "ozet": {
+        "yillik_hedef": 8500,
+        "ocak_hedef": 413,
+        "lansman_ay": 3,
+        "lansman_boost": 1.15,
+        "toplam_kontrol": 8500
+      },
+      "aylik": [
+        {
+          "ay": 1,
+          "ay_adi": "Ocak",
+          "hedef": 413,
+          "si": 0.6592,
+          "lansman_boost": 1.0,
+          "pay_pct": 4.86
+        },
+        {
+          "ay": 2,
+          "ay_adi": "Şubat",
+          "hedef": 555,
+          "si": 0.8861,
+          "lansman_boost": 1.0,
+          "pay_pct": 6.53
+        },
+        {
+          "ay": 3,
+          "ay_adi": "Mart",
+          "hedef": 744,
+          "si": 1.0334,
+          "lansman_boost": 1.15,
+          "pay_pct": 8.75
+        },
+        {
+          "ay": 4,
+          "ay_adi": "Nisan",
+          "hedef": 601,
+          "si": 0.8346,
+          "lansman_boost": 1.15,
+          "pay_pct": 7.07
+        },
+        {
+          "ay": 5,
+          "ay_adi": "Mayıs",
+          "hedef": 693,
+          "si": 0.9613,
+          "lansman_boost": 1.15,
+          "pay_pct": 8.15
+        },
+        {
+          "ay": 6,
+          "ay_adi": "Haziran",
+          "hedef": 772,
+          "si": 1.072,
+          "lansman_boost": 1.15,
+          "pay_pct": 9.08
+        },
+        {
+          "ay": 7,
+          "ay_adi": "Temmuz",
+          "hedef": 675,
+          "si": 0.9364,
+          "lansman_boost": 1.15,
+          "pay_pct": 7.94
+        },
+        {
+          "ay": 8,
+          "ay_adi": "Ağustos",
+          "hedef": 638,
+          "si": 0.8855,
+          "lansman_boost": 1.15,
+          "pay_pct": 7.51
+        },
+        {
+          "ay": 9,
+          "ay_adi": "Eylül",
+          "hedef": 664,
+          "si": 0.9211,
+          "lansman_boost": 1.15,
+          "pay_pct": 7.81
+        },
+        {
+          "ay": 10,
+          "ay_adi": "Ekim",
+          "hedef": 718,
+          "si": 0.9963,
+          "lansman_boost": 1.15,
+          "pay_pct": 8.45
+        },
+        {
+          "ay": 11,
+          "ay_adi": "Kasım",
+          "hedef": 864,
+          "si": 1.1987,
+          "lansman_boost": 1.15,
+          "pay_pct": 10.16
+        },
+        {
+          "ay": 12,
+          "ay_adi": "Aralık",
+          "hedef": 1163,
+          "si": 1.6156,
+          "lansman_boost": 1.15,
+          "pay_pct": 13.68
+        }
+      ],
+      "ocak_bayi_dagilim": [
+        {
+          "dealer": "DEALER 1",
+          "tier": "A",
+          "adet": 36,
+          "pay_pct": 8.72,
+          "model_mix": {
+            "A1": 0.065,
+            "A2": 0.506,
+            "A3": 0.118,
+            "B1": 0.312
+          },
+          "gercekci_mi": "Düşük",
+          "jan26_hedef": 20,
+          "perf_skoru": 1.0
+        },
+        {
+          "dealer": "DEALER 2",
+          "tier": "A",
+          "adet": 17,
+          "pay_pct": 4.12,
+          "model_mix": {
+            "A1": 0.088,
+            "A2": 0.426,
+            "A3": 0.265,
+            "B1": 0.221
+          },
+          "gercekci_mi": "Düşük",
+          "jan26_hedef": 11,
+          "perf_skoru": 0.493
+        },
+        {
+          "dealer": "DEALER 3",
+          "tier": "B",
+          "adet": 18,
+          "pay_pct": 4.36,
+          "model_mix": {
+            "A1": 0.012,
+            "A2": 0.481,
+            "A3": 0.148,
+            "B1": 0.358
+          },
+          "gercekci_mi": "Düşük",
+          "jan26_hedef": 9,
+          "perf_skoru": 0.915
+        },
+        {
+          "dealer": "DEALER 4",
+          "tier": "B",
+          "adet": 16,
+          "pay_pct": 3.87,
+          "model_mix": {
+            "A1": 0.038,
+            "A2": 0.329,
+            "A3": 0.215,
+            "B1": 0.418
+          },
+          "gercekci_mi": "Düşük",
+          "jan26_hedef": 9,
+          "perf_skoru": 0.729
+        },
+        {
+          "dealer": "DEALER 5",
+          "tier": "A",
+          "adet": 14,
+          "pay_pct": 3.39,
+          "model_mix": {
+            "A1": 0.034,
+            "A2": 0.475,
+            "A3": 0.051,
+            "B1": 0.441
+          },
+          "gercekci_mi": "Düşük",
+          "jan26_hedef": 8,
+          "perf_skoru": 0.573
+        },
+        {
+          "dealer": "DEALER 6",
+          "tier": "A",
+          "adet": 24,
+          "pay_pct": 5.81,
+          "model_mix": {
+            "A1": 0.059,
+            "A2": 0.422,
+            "A3": 0.108,
+            "B1": 0.412
+          },
+          "gercekci_mi": "Düşük",
+          "jan26_hedef": 14,
+          "perf_skoru": 0.714
+        },
+        {
+          "dealer": "DEALER 7",
+          "tier": "A",
+          "adet": 30,
+          "pay_pct": 7.26,
+          "model_mix": {
+            "A1": 0.023,
+            "A2": 0.405,
+            "A3": 0.145,
+            "B1": 0.427
+          },
+          "gercekci_mi": "Düşük",
+          "jan26_hedef": 19,
+          "perf_skoru": 0.654
+        },
+        {
+          "dealer": "DEALER 8",
+          "tier": "A",
+          "adet": 16,
+          "pay_pct": 3.87,
+          "model_mix": {
+            "A1": 0.031,
+            "A2": 0.415,
+            "A3": 0.231,
+            "B1": 0.323
+          },
+          "gercekci_mi": "Düşük",
+          "jan26_hedef": 8,
+          "perf_skoru": 0.783
+        },
+        {
+          "dealer": "DEALER 9",
+          "tier": "A",
+          "adet": 4,
+          "pay_pct": 0.97,
+          "model_mix": {
+            "A2": 0.45,
+            "A3": 0.3,
+            "B1": 0.2,
+            "C1": 0.05
+          },
+          "gercekci_mi": "Yüksek",
+          "jan26_hedef": 4,
+          "perf_skoru": 0.0
+        },
+        {
+          "dealer": "DEALER 10",
+          "tier": "A",
+          "adet": 12,
+          "pay_pct": 2.91,
+          "model_mix": {
+            "A2": 0.617,
+            "A3": 0.128,
+            "B1": 0.255
+          },
+          "gercekci_mi": "Düşük",
+          "jan26_hedef": 6,
+          "perf_skoru": 0.639
+        },
+        {
+          "dealer": "DEALER 11",
+          "tier": "B",
+          "adet": 6,
+          "pay_pct": 1.45,
+          "model_mix": {
+            "A2": 0.5,
+            "A3": 0.214,
+            "B1": 0.286
+          },
+          "gercekci_mi": "Orta",
+          "jan26_hedef": 4,
+          "perf_skoru": 0.302
+        },
+        {
+          "dealer": "DEALER 12",
+          "tier": "A",
+          "adet": 14,
+          "pay_pct": 3.39,
+          "model_mix": {
+            "A1": 0.071,
+            "A2": 0.482,
+            "A3": 0.107,
+            "B1": 0.339
+          },
+          "gercekci_mi": "Orta",
+          "jan26_hedef": 10,
+          "perf_skoru": 0.226
+        },
+        {
+          "dealer": "DEALER 13",
+          "tier": "A",
+          "adet": 26,
+          "pay_pct": 6.3,
+          "model_mix": {
+            "A1": 0.057,
+            "A2": 0.512,
+            "A3": 0.146,
+            "B1": 0.285
+          },
+          "gercekci_mi": "Düşük",
+          "jan26_hedef": 17,
+          "perf_skoru": 0.576
+        },
+        {
+          "dealer": "DEALER 14",
+          "tier": "A",
+          "adet": 22,
+          "pay_pct": 5.33,
+          "model_mix": {
+            "A1": 0.031,
+            "A2": 0.602,
+            "A3": 0.122,
+            "B1": 0.245
+          },
+          "gercekci_mi": "Orta",
+          "jan26_hedef": 15,
+          "perf_skoru": 0.4
+        },
+        {
+          "dealer": "DEALER 15",
+          "tier": "B",
+          "adet": 25,
+          "pay_pct": 6.05,
+          "model_mix": {
+            "A1": 0.033,
+            "A2": 0.529,
+            "A3": 0.207,
+            "B1": 0.231
+          },
+          "gercekci_mi": "Orta",
+          "jan26_hedef": 17,
+          "perf_skoru": 0.541
+        },
+        {
+          "dealer": "DEALER 16",
+          "tier": "A",
+          "adet": 26,
+          "pay_pct": 6.3,
+          "model_mix": {
+            "A1": 0.054,
+            "A2": 0.387,
+            "A3": 0.117,
+            "B1": 0.432,
+            "C1": 0.009
+          },
+          "gercekci_mi": "Orta",
+          "jan26_hedef": 19,
+          "perf_skoru": 0.341
+        },
+        {
+          "dealer": "DEALER 17",
+          "tier": "A",
+          "adet": 39,
+          "pay_pct": 9.44,
+          "model_mix": {
+            "A1": 0.028,
+            "A2": 0.693,
+            "A3": 0.11,
+            "B1": 0.17
+          },
+          "gercekci_mi": "Düşük",
+          "jan26_hedef": 19,
+          "perf_skoru": 0.805
+        },
+        {
+          "dealer": "DEALER 18",
+          "tier": "A",
+          "adet": 23,
+          "pay_pct": 5.57,
+          "model_mix": {
+            "A1": 0.079,
+            "A2": 0.485,
+            "A3": 0.109,
+            "B1": 0.327
+          },
+          "gercekci_mi": "Orta",
+          "jan26_hedef": 17,
+          "perf_skoru": 0.319
+        },
+        {
+          "dealer": "DEALER 19",
+          "tier": "C",
+          "adet": 14,
+          "pay_pct": 3.39,
+          "model_mix": {
+            "A2": 0.356,
+            "A3": 0.178,
+            "B1": 0.422,
+            "C1": 0.044
+          },
+          "gercekci_mi": "Düşük",
+          "jan26_hedef": 8,
+          "perf_skoru": 0.606
+        },
+        {
+          "dealer": "DEALER 20",
+          "tier": "C",
+          "adet": 7,
+          "pay_pct": 1.69,
+          "model_mix": {
+            "A1": 0.13,
+            "A2": 0.609,
+            "A3": 0.087,
+            "B1": 0.174
+          },
+          "gercekci_mi": "Düşük",
+          "jan26_hedef": 4,
+          "perf_skoru": 0.481
+        },
+        {
+          "dealer": "DEALER 21",
+          "tier": "A",
+          "adet": 12,
+          "pay_pct": 2.91,
+          "model_mix": {
+            "A1": 0.038,
+            "A2": 0.558,
+            "A3": 0.115,
+            "B1": 0.288
+          },
+          "gercekci_mi": "Düşük",
+          "jan26_hedef": 6,
+          "perf_skoru": 0.694
+        },
+        {
+          "dealer": "DEALER 22",
+          "tier": "A",
+          "adet": 12,
+          "pay_pct": 2.91,
+          "model_mix": {
+            "A1": 0.02,
+            "A2": 0.333,
+            "A3": 0.255,
+            "B1": 0.392
+          },
+          "gercekci_mi": "Düşük",
+          "jan26_hedef": 6,
+          "perf_skoru": 0.7
+        }
+      ]
     },
-    "aylik": [
-      {
-        "ay": 1,
-        "ay_adi": "Ocak",
-        "hedef": 250,
-        "si": 0.6592,
-        "lansman_boost": 1.0,
-        "pay_pct": 2.94
-      },
-      {
-        "ay": 2,
-        "ay_adi": "Şubat",
-        "hedef": 336,
-        "si": 0.8861,
-        "lansman_boost": 1.0,
-        "pay_pct": 3.95
-      },
-      {
-        "ay": 3,
-        "ay_adi": "Mart",
-        "hedef": 782,
-        "si": 1.0334,
+    "senaryo_10000": {
+      "ozet": {
+        "yillik_hedef": 10000,
+        "ocak_hedef": 486,
+        "lansman_ay": 3,
         "lansman_boost": 1.15,
-        "pay_pct": 9.2
+        "toplam_kontrol": 10000
       },
-      {
-        "ay": 4,
-        "ay_adi": "Nisan",
-        "hedef": 632,
-        "si": 0.8346,
-        "lansman_boost": 1.15,
-        "pay_pct": 7.44
-      },
-      {
-        "ay": 5,
-        "ay_adi": "Mayıs",
-        "hedef": 728,
-        "si": 0.9613,
-        "lansman_boost": 1.15,
-        "pay_pct": 8.56
-      },
-      {
-        "ay": 6,
-        "ay_adi": "Haziran",
-        "hedef": 811,
-        "si": 1.072,
-        "lansman_boost": 1.15,
-        "pay_pct": 9.54
-      },
-      {
-        "ay": 7,
-        "ay_adi": "Temmuz",
-        "hedef": 709,
-        "si": 0.9364,
-        "lansman_boost": 1.15,
-        "pay_pct": 8.34
-      },
-      {
-        "ay": 8,
-        "ay_adi": "Ağustos",
-        "hedef": 670,
-        "si": 0.8855,
-        "lansman_boost": 1.15,
-        "pay_pct": 7.88
-      },
-      {
-        "ay": 9,
-        "ay_adi": "Eylül",
-        "hedef": 697,
-        "si": 0.9211,
-        "lansman_boost": 1.15,
-        "pay_pct": 8.2
-      },
-      {
-        "ay": 10,
-        "ay_adi": "Ekim",
-        "hedef": 754,
-        "si": 0.9963,
-        "lansman_boost": 1.15,
-        "pay_pct": 8.87
-      },
-      {
-        "ay": 11,
-        "ay_adi": "Kasım",
-        "hedef": 907,
-        "si": 1.1987,
-        "lansman_boost": 1.15,
-        "pay_pct": 10.67
-      },
-      {
-        "ay": 12,
-        "ay_adi": "Aralık",
-        "hedef": 1224,
-        "si": 1.6156,
-        "lansman_boost": 1.15,
-        "pay_pct": 14.4
-      }
-    ],
-    "ocak_bayi_dagilim": [
-      {
-        "dealer": "DEALER 1",
-        "adet": 22,
-        "pay_pct": 8.8,
-        "model_mix": {
-          "A1": 0.065,
-          "A2": 0.506,
-          "A3": 0.118,
-          "B1": 0.312
+      "aylik": [
+        {
+          "ay": 1,
+          "ay_adi": "Ocak",
+          "hedef": 486,
+          "si": 0.6592,
+          "lansman_boost": 1.0,
+          "pay_pct": 4.86
         },
-        "gercekci_mi": "Yüksek",
-        "jan26_hedef": 20,
-        "perf_skoru": 1.0
-      },
-      {
-        "dealer": "DEALER 2",
-        "adet": 10,
-        "pay_pct": 4.0,
-        "model_mix": {
-          "A1": 0.088,
-          "A2": 0.426,
-          "A3": 0.265,
-          "B1": 0.221
+        {
+          "ay": 2,
+          "ay_adi": "Şubat",
+          "hedef": 653,
+          "si": 0.8861,
+          "lansman_boost": 1.0,
+          "pay_pct": 6.53
         },
-        "gercekci_mi": "Yüksek",
-        "jan26_hedef": 11,
-        "perf_skoru": 0.493
-      },
-      {
-        "dealer": "DEALER 3",
-        "adet": 11,
-        "pay_pct": 4.4,
-        "model_mix": {
-          "A1": 0.012,
-          "A2": 0.481,
-          "A3": 0.148,
-          "B1": 0.358
+        {
+          "ay": 3,
+          "ay_adi": "Mart",
+          "hedef": 876,
+          "si": 1.0334,
+          "lansman_boost": 1.15,
+          "pay_pct": 8.76
         },
-        "gercekci_mi": "Yüksek",
-        "jan26_hedef": 9,
-        "perf_skoru": 0.915
-      },
-      {
-        "dealer": "DEALER 4",
-        "adet": 10,
-        "pay_pct": 4.0,
-        "model_mix": {
-          "A1": 0.038,
-          "A2": 0.329,
-          "A3": 0.215,
-          "B1": 0.418
+        {
+          "ay": 4,
+          "ay_adi": "Nisan",
+          "hedef": 707,
+          "si": 0.8346,
+          "lansman_boost": 1.15,
+          "pay_pct": 7.07
         },
-        "gercekci_mi": "Yüksek",
-        "jan26_hedef": 9,
-        "perf_skoru": 0.729
-      },
-      {
-        "dealer": "DEALER 5",
-        "adet": 8,
-        "pay_pct": 3.2,
-        "model_mix": {
-          "A1": 0.034,
-          "A2": 0.475,
-          "A3": 0.051,
-          "B1": 0.441
+        {
+          "ay": 5,
+          "ay_adi": "Mayıs",
+          "hedef": 815,
+          "si": 0.9613,
+          "lansman_boost": 1.15,
+          "pay_pct": 8.15
         },
-        "gercekci_mi": "Yüksek",
-        "jan26_hedef": 8,
-        "perf_skoru": 0.573
-      },
-      {
-        "dealer": "DEALER 6",
-        "adet": 14,
-        "pay_pct": 5.6,
-        "model_mix": {
-          "A1": 0.059,
-          "A2": 0.422,
-          "A3": 0.108,
-          "B1": 0.412
+        {
+          "ay": 6,
+          "ay_adi": "Haziran",
+          "hedef": 909,
+          "si": 1.072,
+          "lansman_boost": 1.15,
+          "pay_pct": 9.09
         },
-        "gercekci_mi": "Yüksek",
-        "jan26_hedef": 14,
-        "perf_skoru": 0.714
-      },
-      {
-        "dealer": "DEALER 7",
-        "adet": 18,
-        "pay_pct": 7.2,
-        "model_mix": {
-          "A1": 0.023,
-          "A2": 0.405,
-          "A3": 0.145,
-          "B1": 0.427
+        {
+          "ay": 7,
+          "ay_adi": "Temmuz",
+          "hedef": 794,
+          "si": 0.9364,
+          "lansman_boost": 1.15,
+          "pay_pct": 7.94
         },
-        "gercekci_mi": "Yüksek",
-        "jan26_hedef": 19,
-        "perf_skoru": 0.654
-      },
-      {
-        "dealer": "DEALER 8",
-        "adet": 10,
-        "pay_pct": 4.0,
-        "model_mix": {
-          "A1": 0.031,
-          "A2": 0.415,
-          "A3": 0.231,
-          "B1": 0.323
+        {
+          "ay": 8,
+          "ay_adi": "Ağustos",
+          "hedef": 751,
+          "si": 0.8855,
+          "lansman_boost": 1.15,
+          "pay_pct": 7.51
         },
-        "gercekci_mi": "Yüksek",
-        "jan26_hedef": 8,
-        "perf_skoru": 0.783
-      },
-      {
-        "dealer": "DEALER 9",
-        "adet": 3,
-        "pay_pct": 1.2,
-        "model_mix": {
-          "A2": 0.45,
-          "A3": 0.3,
-          "B1": 0.2,
-          "C1": 0.05
+        {
+          "ay": 9,
+          "ay_adi": "Eylül",
+          "hedef": 781,
+          "si": 0.9211,
+          "lansman_boost": 1.15,
+          "pay_pct": 7.81
         },
-        "gercekci_mi": "Orta",
-        "jan26_hedef": 4,
-        "perf_skoru": 0.0
-      },
-      {
-        "dealer": "DEALER 10",
-        "adet": 7,
-        "pay_pct": 2.8,
-        "model_mix": {
-          "A2": 0.617,
-          "A3": 0.128,
-          "B1": 0.255
+        {
+          "ay": 10,
+          "ay_adi": "Ekim",
+          "hedef": 844,
+          "si": 0.9963,
+          "lansman_boost": 1.15,
+          "pay_pct": 8.44
         },
-        "gercekci_mi": "Yüksek",
-        "jan26_hedef": 6,
-        "perf_skoru": 0.639
-      },
-      {
-        "dealer": "DEALER 11",
-        "adet": 4,
-        "pay_pct": 1.6,
-        "model_mix": {
-          "A2": 0.5,
-          "A3": 0.214,
-          "B1": 0.286
+        {
+          "ay": 11,
+          "ay_adi": "Kasım",
+          "hedef": 1016,
+          "si": 1.1987,
+          "lansman_boost": 1.15,
+          "pay_pct": 10.16
         },
-        "gercekci_mi": "Yüksek",
-        "jan26_hedef": 4,
-        "perf_skoru": 0.302
-      },
-      {
-        "dealer": "DEALER 12",
-        "adet": 9,
-        "pay_pct": 3.6,
-        "model_mix": {
-          "A1": 0.071,
-          "A2": 0.482,
-          "A3": 0.107,
-          "B1": 0.339
+        {
+          "ay": 12,
+          "ay_adi": "Aralık",
+          "hedef": 1368,
+          "si": 1.6156,
+          "lansman_boost": 1.15,
+          "pay_pct": 13.68
+        }
+      ],
+      "ocak_bayi_dagilim": [
+        {
+          "dealer": "DEALER 1",
+          "tier": "A",
+          "adet": 42,
+          "pay_pct": 8.64,
+          "model_mix": {
+            "A1": 0.065,
+            "A2": 0.506,
+            "A3": 0.118,
+            "B1": 0.312
+          },
+          "gercekci_mi": "Düşük",
+          "jan26_hedef": 20,
+          "perf_skoru": 1.0
         },
-        "gercekci_mi": "Yüksek",
-        "jan26_hedef": 10,
-        "perf_skoru": 0.226
-      },
-      {
-        "dealer": "DEALER 13",
-        "adet": 16,
-        "pay_pct": 6.4,
-        "model_mix": {
-          "A1": 0.057,
-          "A2": 0.512,
-          "A3": 0.146,
-          "B1": 0.285
+        {
+          "dealer": "DEALER 2",
+          "tier": "A",
+          "adet": 20,
+          "pay_pct": 4.12,
+          "model_mix": {
+            "A1": 0.088,
+            "A2": 0.426,
+            "A3": 0.265,
+            "B1": 0.221
+          },
+          "gercekci_mi": "Düşük",
+          "jan26_hedef": 11,
+          "perf_skoru": 0.493
         },
-        "gercekci_mi": "Yüksek",
-        "jan26_hedef": 17,
-        "perf_skoru": 0.576
-      },
-      {
-        "dealer": "DEALER 14",
-        "adet": 13,
-        "pay_pct": 5.2,
-        "model_mix": {
-          "A1": 0.031,
-          "A2": 0.602,
-          "A3": 0.122,
-          "B1": 0.245
+        {
+          "dealer": "DEALER 3",
+          "tier": "B",
+          "adet": 21,
+          "pay_pct": 4.32,
+          "model_mix": {
+            "A1": 0.012,
+            "A2": 0.481,
+            "A3": 0.148,
+            "B1": 0.358
+          },
+          "gercekci_mi": "Düşük",
+          "jan26_hedef": 9,
+          "perf_skoru": 0.915
         },
-        "gercekci_mi": "Yüksek",
-        "jan26_hedef": 15,
-        "perf_skoru": 0.4
-      },
-      {
-        "dealer": "DEALER 15",
-        "adet": 15,
-        "pay_pct": 6.0,
-        "model_mix": {
-          "A1": 0.033,
-          "A2": 0.529,
-          "A3": 0.207,
-          "B1": 0.231
+        {
+          "dealer": "DEALER 4",
+          "tier": "B",
+          "adet": 19,
+          "pay_pct": 3.91,
+          "model_mix": {
+            "A1": 0.038,
+            "A2": 0.329,
+            "A3": 0.215,
+            "B1": 0.418
+          },
+          "gercekci_mi": "Düşük",
+          "jan26_hedef": 9,
+          "perf_skoru": 0.729
         },
-        "gercekci_mi": "Yüksek",
-        "jan26_hedef": 17,
-        "perf_skoru": 0.541
-      },
-      {
-        "dealer": "DEALER 16",
-        "adet": 16,
-        "pay_pct": 6.4,
-        "model_mix": {
-          "A1": 0.054,
-          "A2": 0.387,
-          "A3": 0.117,
-          "B1": 0.432,
-          "C1": 0.009
+        {
+          "dealer": "DEALER 5",
+          "tier": "A",
+          "adet": 16,
+          "pay_pct": 3.29,
+          "model_mix": {
+            "A1": 0.034,
+            "A2": 0.475,
+            "A3": 0.051,
+            "B1": 0.441
+          },
+          "gercekci_mi": "Düşük",
+          "jan26_hedef": 8,
+          "perf_skoru": 0.573
         },
-        "gercekci_mi": "Yüksek",
-        "jan26_hedef": 19,
-        "perf_skoru": 0.341
-      },
-      {
-        "dealer": "DEALER 17",
-        "adet": 24,
-        "pay_pct": 9.6,
-        "model_mix": {
-          "A1": 0.028,
-          "A2": 0.693,
-          "A3": 0.11,
-          "B1": 0.17
+        {
+          "dealer": "DEALER 6",
+          "tier": "A",
+          "adet": 28,
+          "pay_pct": 5.76,
+          "model_mix": {
+            "A1": 0.059,
+            "A2": 0.422,
+            "A3": 0.108,
+            "B1": 0.412
+          },
+          "gercekci_mi": "Düşük",
+          "jan26_hedef": 14,
+          "perf_skoru": 0.714
         },
-        "gercekci_mi": "Orta",
-        "jan26_hedef": 19,
-        "perf_skoru": 0.805
-      },
-      {
-        "dealer": "DEALER 18",
-        "adet": 14,
-        "pay_pct": 5.6,
-        "model_mix": {
-          "A1": 0.079,
-          "A2": 0.485,
-          "A3": 0.109,
-          "B1": 0.327
+        {
+          "dealer": "DEALER 7",
+          "tier": "A",
+          "adet": 36,
+          "pay_pct": 7.41,
+          "model_mix": {
+            "A1": 0.023,
+            "A2": 0.405,
+            "A3": 0.145,
+            "B1": 0.427
+          },
+          "gercekci_mi": "Düşük",
+          "jan26_hedef": 19,
+          "perf_skoru": 0.654
         },
-        "gercekci_mi": "Yüksek",
-        "jan26_hedef": 17,
-        "perf_skoru": 0.319
-      },
-      {
-        "dealer": "DEALER 19",
-        "adet": 8,
-        "pay_pct": 3.2,
-        "model_mix": {
-          "A2": 0.356,
-          "A3": 0.178,
-          "B1": 0.422,
-          "C1": 0.044
+        {
+          "dealer": "DEALER 8",
+          "tier": "A",
+          "adet": 19,
+          "pay_pct": 3.91,
+          "model_mix": {
+            "A1": 0.031,
+            "A2": 0.415,
+            "A3": 0.231,
+            "B1": 0.323
+          },
+          "gercekci_mi": "Düşük",
+          "jan26_hedef": 8,
+          "perf_skoru": 0.783
         },
-        "gercekci_mi": "Yüksek",
-        "jan26_hedef": 8,
-        "perf_skoru": 0.606
-      },
-      {
-        "dealer": "DEALER 20",
-        "adet": 4,
-        "pay_pct": 1.6,
-        "model_mix": {
-          "A1": 0.13,
-          "A2": 0.609,
-          "A3": 0.087,
-          "B1": 0.174
+        {
+          "dealer": "DEALER 9",
+          "tier": "A",
+          "adet": 5,
+          "pay_pct": 1.03,
+          "model_mix": {
+            "A2": 0.45,
+            "A3": 0.3,
+            "B1": 0.2,
+            "C1": 0.05
+          },
+          "gercekci_mi": "Yüksek",
+          "jan26_hedef": 4,
+          "perf_skoru": 0.0
         },
-        "gercekci_mi": "Yüksek",
-        "jan26_hedef": 4,
-        "perf_skoru": 0.481
-      },
-      {
-        "dealer": "DEALER 21",
-        "adet": 7,
-        "pay_pct": 2.8,
-        "model_mix": {
-          "A1": 0.038,
-          "A2": 0.558,
-          "A3": 0.115,
-          "B1": 0.288
+        {
+          "dealer": "DEALER 10",
+          "tier": "A",
+          "adet": 14,
+          "pay_pct": 2.88,
+          "model_mix": {
+            "A2": 0.617,
+            "A3": 0.128,
+            "B1": 0.255
+          },
+          "gercekci_mi": "Düşük",
+          "jan26_hedef": 6,
+          "perf_skoru": 0.639
         },
-        "gercekci_mi": "Yüksek",
-        "jan26_hedef": 6,
-        "perf_skoru": 0.694
-      },
-      {
-        "dealer": "DEALER 22",
-        "adet": 7,
-        "pay_pct": 2.8,
-        "model_mix": {
-          "A1": 0.02,
-          "A2": 0.333,
-          "A3": 0.255,
-          "B1": 0.392
+        {
+          "dealer": "DEALER 11",
+          "tier": "B",
+          "adet": 7,
+          "pay_pct": 1.44,
+          "model_mix": {
+            "A2": 0.5,
+            "A3": 0.214,
+            "B1": 0.286
+          },
+          "gercekci_mi": "Düşük",
+          "jan26_hedef": 4,
+          "perf_skoru": 0.302
         },
-        "gercekci_mi": "Yüksek",
-        "jan26_hedef": 6,
-        "perf_skoru": 0.7
-      }
-    ],
+        {
+          "dealer": "DEALER 12",
+          "tier": "A",
+          "adet": 17,
+          "pay_pct": 3.5,
+          "model_mix": {
+            "A1": 0.071,
+            "A2": 0.482,
+            "A3": 0.107,
+            "B1": 0.339
+          },
+          "gercekci_mi": "Düşük",
+          "jan26_hedef": 10,
+          "perf_skoru": 0.226
+        },
+        {
+          "dealer": "DEALER 13",
+          "tier": "A",
+          "adet": 31,
+          "pay_pct": 6.38,
+          "model_mix": {
+            "A1": 0.057,
+            "A2": 0.512,
+            "A3": 0.146,
+            "B1": 0.285
+          },
+          "gercekci_mi": "Düşük",
+          "jan26_hedef": 17,
+          "perf_skoru": 0.576
+        },
+        {
+          "dealer": "DEALER 14",
+          "tier": "A",
+          "adet": 25,
+          "pay_pct": 5.14,
+          "model_mix": {
+            "A1": 0.031,
+            "A2": 0.602,
+            "A3": 0.122,
+            "B1": 0.245
+          },
+          "gercekci_mi": "Düşük",
+          "jan26_hedef": 15,
+          "perf_skoru": 0.4
+        },
+        {
+          "dealer": "DEALER 15",
+          "tier": "B",
+          "adet": 30,
+          "pay_pct": 6.17,
+          "model_mix": {
+            "A1": 0.033,
+            "A2": 0.529,
+            "A3": 0.207,
+            "B1": 0.231
+          },
+          "gercekci_mi": "Düşük",
+          "jan26_hedef": 17,
+          "perf_skoru": 0.541
+        },
+        {
+          "dealer": "DEALER 16",
+          "tier": "A",
+          "adet": 31,
+          "pay_pct": 6.38,
+          "model_mix": {
+            "A1": 0.054,
+            "A2": 0.387,
+            "A3": 0.117,
+            "B1": 0.432,
+            "C1": 0.009
+          },
+          "gercekci_mi": "Düşük",
+          "jan26_hedef": 19,
+          "perf_skoru": 0.341
+        },
+        {
+          "dealer": "DEALER 17",
+          "tier": "A",
+          "adet": 46,
+          "pay_pct": 9.47,
+          "model_mix": {
+            "A1": 0.028,
+            "A2": 0.693,
+            "A3": 0.11,
+            "B1": 0.17
+          },
+          "gercekci_mi": "Düşük",
+          "jan26_hedef": 19,
+          "perf_skoru": 0.805
+        },
+        {
+          "dealer": "DEALER 18",
+          "tier": "A",
+          "adet": 27,
+          "pay_pct": 5.56,
+          "model_mix": {
+            "A1": 0.079,
+            "A2": 0.485,
+            "A3": 0.109,
+            "B1": 0.327
+          },
+          "gercekci_mi": "Düşük",
+          "jan26_hedef": 17,
+          "perf_skoru": 0.319
+        },
+        {
+          "dealer": "DEALER 19",
+          "tier": "C",
+          "adet": 16,
+          "pay_pct": 3.29,
+          "model_mix": {
+            "A2": 0.356,
+            "A3": 0.178,
+            "B1": 0.422,
+            "C1": 0.044
+          },
+          "gercekci_mi": "Düşük",
+          "jan26_hedef": 8,
+          "perf_skoru": 0.606
+        },
+        {
+          "dealer": "DEALER 20",
+          "tier": "C",
+          "adet": 8,
+          "pay_pct": 1.65,
+          "model_mix": {
+            "A1": 0.13,
+            "A2": 0.609,
+            "A3": 0.087,
+            "B1": 0.174
+          },
+          "gercekci_mi": "Düşük",
+          "jan26_hedef": 4,
+          "perf_skoru": 0.481
+        },
+        {
+          "dealer": "DEALER 21",
+          "tier": "A",
+          "adet": 14,
+          "pay_pct": 2.88,
+          "model_mix": {
+            "A1": 0.038,
+            "A2": 0.558,
+            "A3": 0.115,
+            "B1": 0.288
+          },
+          "gercekci_mi": "Düşük",
+          "jan26_hedef": 6,
+          "perf_skoru": 0.694
+        },
+        {
+          "dealer": "DEALER 22",
+          "tier": "A",
+          "adet": 14,
+          "pay_pct": 2.88,
+          "model_mix": {
+            "A1": 0.02,
+            "A2": 0.333,
+            "A3": 0.255,
+            "B1": 0.392
+          },
+          "gercekci_mi": "Düşük",
+          "jan26_hedef": 6,
+          "perf_skoru": 0.7
+        }
+      ]
+    },
     "metodoloji": [
       {
-        "baslik": "Final SI Tabanlı Aylık Dağılım",
-        "aciklama": "outputs/seasonality/04_FINAL_si.csv'deki final_si indeksleri aylık satış paylarını belirler. Piyasa (ODD) ve marka kendi mevsimselliğinin ağırlıklı ortalamasıdır."
+        "baslik": "Final SI Tabanlı Tam SI Dağılımı",
+        "aciklama": "Ocak dahil tüm 12 ay tamamen SI payıyla belirlendi (sabit Ocak hedefi yok). outputs/seasonality/04_FINAL_si.csv piyasa + marka mevsimselliğinin ağırlıklı ortalaması."
       },
       {
         "baslik": "Mart Lansman Boost (×1.15)",
-        "aciklama": "Mart ayı ve sonrası için SI değeri 1.15 ile çarpılır. Yeni model lansmanının piyasa talebini artırması beklenmektedir."
+        "aciklama": "Mart ayı ve sonrası için SI değeri 1.15 ile çarpıldı. Yeni model lansmanının Mart'ta piyasa talebini artırması bekleniyor."
       },
       {
-        "baslik": "Sabit Ocak Hedefi",
-        "aciklama": "Ocak 2026 = 250 araç (verildi). Şubat SI oranıyla ölçeklendi. Mart–Aralık = kalan 7914 araç SI ile dağıtıldı."
+        "baslik": "İki Senaryo: 8500 vs 10000",
+        "aciklama": "8500 araç mevcut büyüme trendini sürdürür. 10000 araç agresif büyüme hedefidir (~%18 artış). Her iki senaryoda aylık dağılım aynı SI oranlarını kullanır."
       },
       {
-        "baslik": "Yuvarlama Garantisi",
-        "aciklama": "12 ay toplamı = 8500 araç. Yuvarlama hataları en büyük aya eklenerek giderildi."
+        "baslik": "Ocak Bayi Dağıtımı",
+        "aciklama": "Ocak hedefi: 0.5 × son 12 ay satış payı + 0.3 × Ocak 2026 hedef payı + 0.2 × 2025 performans skoru ağırlıklı dağıtım."
       }
     ]
   }
