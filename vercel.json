@@ -1,5 +1,6 @@
 {
-  "buildCommand": "",
+  "buildCommand": "echo pre-built",
+  "installCommand": "echo skip",
   "outputDirectory": "web/dist",
   "framework": null,
   "rewrites": [
