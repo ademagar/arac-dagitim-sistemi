@@ -150,10 +150,25 @@ interface StratejikBaglamModel {
   '2026_beklenti': string
 }
 
+interface BoostJustifikasyon {
+  b1_2024_mart_satis: number
+  b1_2024_aylik_ort: number
+  b1_mart_si_2024: number
+  b1_2025_mart_satis: number
+  b1_2025_aylik_ort: number
+  b1_mart_si_2025: number
+  b1_lansman_etkisi: number
+  b1_market_payi: number
+  hesaplanan_boost: number
+  uygulanan_boost: number
+  muhafazakarlik: string
+}
+
 interface StratejikBaglamlar {
   ocak_subat_analizi: StratejikBaglamOcakSubat
   mart_lansman_stratejisi: StratejikBaglamMart
   model_yorumu: StratejikBaglamModel
+  boost_justifikasyon?: BoostJustifikasyon
 }
 
 interface Plan2026 {
@@ -163,9 +178,32 @@ interface Plan2026 {
   stratejik_baglamlar: StratejikBaglamlar
 }
 
+interface BayiAylikModelHedef {
+  ay: number
+  ay_adi: string
+  toplam: number
+  modeller: Record<string, number>
+}
+
+interface BayiHedef {
+  tier: 'A' | 'B' | 'C'
+  aylik: BayiAylikModelHedef[]
+  yillik_toplam: number
+  yillik_modeller: Record<string, number>
+  yillik_segmentler: Record<string, number>
+}
+
+interface BayiAylikHedefler {
+  [dealer: string]: BayiHedef
+}
+
 interface TahminData {
   aralik_tahmin: AralikTahmin
   plan_2026: Plan2026
+  bayi_aylik_hedefler: {
+    senaryo_8500: BayiAylikHedefler
+    senaryo_10000: BayiAylikHedefler
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -223,16 +261,21 @@ function MetricCard({
   )
 }
 
+const MODEL_COLORS: Record<string, string> = {
+  // A Segmenti versiyonları - mavi tonlar
+  A1: 'bg-blue-50 text-blue-700 border border-blue-200',
+  A2: 'bg-blue-200 text-blue-900 border border-blue-300',
+  A3: 'bg-blue-100 text-blue-800 border border-blue-300',
+  // B Segmenti versiyonları - amber/turuncu tonlar
+  B1: 'bg-amber-100 text-amber-900 border border-amber-300',
+  B2: 'bg-amber-50 text-amber-700 border border-amber-200',
+  // C Segmenti - rose/kırmızı
+  C1: 'bg-rose-100 text-rose-800 border border-rose-200',
+  // D Segmenti - slate
+  D1: 'bg-slate-100 text-slate-600 border border-slate-200',
+}
+
 function ModelChips({ mix }: { mix: Record<string, number> }) {
-  const MODEL_COLORS: Record<string, string> = {
-    A1: 'bg-violet-100 text-violet-700',
-    A2: 'bg-blue-100 text-blue-700',
-    A3: 'bg-sky-100 text-sky-700',
-    B1: 'bg-amber-100 text-amber-700',
-    B2: 'bg-orange-100 text-orange-700',
-    C1: 'bg-rose-100 text-rose-700',
-    D1: 'bg-slate-100 text-slate-600',
-  }
   return (
     <div className="flex flex-wrap gap-1">
       {Object.entries(mix)
@@ -248,6 +291,7 @@ function ModelChips({ mix }: { mix: Record<string, number> }) {
     </div>
   )
 }
+
 
 function TierBadge({ tier }: { tier: 'A' | 'B' | 'C' }) {
   const TIER_STYLE: Record<string, string> = {
@@ -427,8 +471,9 @@ function ModelAralikAnaliz({ satirlar }: { satirlar: ModelAralikAnalizSatir[] })
         ))}
       </div>
       <p className="text-xs text-slate-400 mt-3">
-        <span className="text-violet-600 font-medium">YENİ</span> = A1 modeli Eylül 2025'ten itibaren piyasada —
-        Mart 2026 tam lansmanının hazırlık aşamasında.
+        <span className="text-violet-600 font-medium">YENİ</span> = A1 modeli Eylül 2025'ten itibaren piyasada.
+        <span className="text-amber-600 font-medium ml-2">LANSMAN</span> = B1 (Premium SUV) yeni versiyon
+        Mart 2026'da çıkıyor — Aralık'ta B1 payı (%11) düşmüş görünse de lansman öncesi stok yönetimi etkisi.
         C1 modelinin Aralık payı (%3) Ocak payına (%42) göre dramatik düşüş gösterdi.
       </p>
     </Card>
@@ -751,9 +796,9 @@ function AylikModelTablosu({
             Bu, A1 gibi yeni giren modellere daha fazla ağırlık verir.
           </p>
           <p>
-            <strong>Lansman Etkisi:</strong> Mart ve sonrası için A1 (yeni model)
+            <strong>Lansman Etkisi:</strong> Mart ve sonrası için B1 (yeni versiyon)
             payı +%30 artırıldı ve toplam normalize edildi.
-            Bu, distribütörün lansman stratejisini yansıtır.
+            Bu, B1 yeni versiyonunun Mart 2026 lansmanındaki talep artışını yansıtır.
           </p>
           <p>
             <strong>Dikkat — C1 Trendi:</strong> Ocak 2026 için C1 payı historik Ocak verisine
@@ -770,7 +815,7 @@ function AylikModelTablosu({
           const info = modelAylik[0]?.model_dagilim.find(md => md.model === m)
           return (
             <div key={m} className={`px-2 py-1 rounded-lg text-xs font-medium flex items-center gap-1.5 ${MODEL_BG[m] ?? 'bg-slate-100 text-slate-600'}`}>
-              {m === 'A1' && <span className="text-xs">🚀</span>}
+              {m === 'B1' && <span className="text-xs">🚀</span>}
               <span className="font-bold">{m}</span>
               {info?.aciklama && <span className="opacity-70">{info.aciklama}</span>}
               <span className="font-bold">— {(modelTotals[m] || 0).toLocaleString('tr')} araç/yıl</span>
@@ -791,7 +836,7 @@ function AylikModelTablosu({
               </th>
               {sortedModels.map(m => (
                 <th key={m} className={`text-right py-3 px-3 font-semibold min-w-[75px] ${
-                  m === 'A1' ? 'bg-violet-800' : ''
+                  m === 'B1' ? 'bg-amber-900' : ''
                 }`}>
                   {m}
                 </th>
@@ -829,7 +874,7 @@ function AylikModelTablosu({
                   </td>
                   {sortedModels.map(m => {
                     const adet = getAdet(ay, m)
-                    const isLansmanModelCol = m === 'A1'
+                    const isLansmanModelCol = m === 'B1'
                     return (
                       <td key={m} className={`py-2.5 px-3 text-right font-mono ${
                         isLansmanModelCol && adet > 0 ? 'text-violet-700 font-semibold' :
@@ -851,7 +896,7 @@ function AylikModelTablosu({
               </td>
               {sortedModels.map(m => (
                 <td key={m} className={`py-3 px-3 text-right font-mono ${
-                  m === 'A1' ? 'text-violet-700' : 'text-slate-700'
+                  m === 'B1' ? 'text-amber-700' : 'text-slate-700'
                 }`}>
                   {(modelTotals[m] || 0).toLocaleString('tr')}
                   <span className="block text-xs font-normal text-slate-400">
@@ -864,7 +909,8 @@ function AylikModelTablosu({
         </table>
       </div>
       <p className="text-xs text-slate-400 mt-2">
-        🚀 A1 = Lansman modeli · LANSMAN satırı = Mart 2026 (×1.15 boost aylık toplama uygulandı)
+        🚀 B1 = Lansman modeli (yeni versiyon Mart 2026) · LANSMAN satırı = Mart 2026 (×1.15 boost aylık toplama uygulandı)
+        · A1 = Eylül 2025'ten itibaren organik büyüyen yeni model
         · Sütun altları: model bazında yıllık pay
       </p>
     </div>
@@ -874,6 +920,51 @@ function AylikModelTablosu({
 // ---------------------------------------------------------------------------
 // Stratejik Bağlam Paneli
 // ---------------------------------------------------------------------------
+
+function BoostJustifikasyonPanel({ bj }: { bj: BoostJustifikasyon }) {
+  return (
+    <div className="bg-indigo-50 rounded-lg border border-indigo-200 p-4 mt-3">
+      <p className="text-xs font-semibold text-indigo-800 mb-2 uppercase tracking-wide">
+        1.15 Boost — İstatistiksel Gerekçe
+      </p>
+      <ul className="space-y-1.5 text-xs text-indigo-700">
+        <li>
+          <span className="font-semibold">B1 Mart SI (2024 — lansman yılı):</span>{' '}
+          {bj.b1_mart_si_2024.toFixed(3)}{' '}
+          <span className="text-indigo-500">
+            ({bj.b1_2024_mart_satis} araç / aylık ort. {bj.b1_2024_aylik_ort} araç)
+          </span>
+        </li>
+        <li>
+          <span className="font-semibold">B1 Mart SI (2025 — normal yıl):</span>{' '}
+          {bj.b1_mart_si_2025.toFixed(3)}{' '}
+          <span className="text-indigo-500">
+            ({bj.b1_2025_mart_satis} araç / aylık ort. {bj.b1_2025_aylik_ort} araç)
+          </span>
+        </li>
+        <li>
+          <span className="font-semibold">Yeni versiyon lansmanının B1 üzerindeki etki:</span>{' '}
+          {bj.b1_mart_si_2024.toFixed(3)} / {bj.b1_mart_si_2025.toFixed(3)}{' '}
+          = <strong className="text-indigo-900">{bj.b1_lansman_etkisi.toFixed(3)}</strong>{' '}
+          <span className="text-indigo-500">(+%{((bj.b1_lansman_etkisi - 1) * 100).toFixed(0)})</span>
+        </li>
+        <li>
+          <span className="font-semibold">B1 market payı (2024–2025 toplam satışlar):</span>{' '}
+          %{(bj.b1_market_payi * 100).toFixed(1)}
+        </li>
+        <li>
+          <span className="font-semibold">Aggregate hesaplama:</span>{' '}
+          1 + ({bj.b1_market_payi.toFixed(3)} × {(bj.b1_lansman_etkisi - 1).toFixed(3)}){' '}
+          = <strong className="text-indigo-900">{bj.hesaplanan_boost.toFixed(3)}</strong>
+        </li>
+        <li className="bg-indigo-100 rounded px-2 py-1">
+          <span className="font-semibold">Muhafazakârlık:</span>{' '}
+          {bj.muhafazakarlik}
+        </li>
+      </ul>
+    </div>
+  )
+}
 
 function StratejikBaglamPanel({ baglam }: { baglam: StratejikBaglamlar }) {
   const [expanded, setExpanded] = useState(false)
@@ -936,6 +1027,10 @@ function StratejikBaglamPanel({ baglam }: { baglam: StratejikBaglamlar }) {
               <strong>2026 Beklentisi:</strong> {my['2026_beklenti']}
             </p>
           </div>
+
+          {baglam.boost_justifikasyon && (
+            <BoostJustifikasyonPanel bj={baglam.boost_justifikasyon} />
+          )}
         </div>
       )}
     </div>

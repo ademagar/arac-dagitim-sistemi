@@ -39,7 +39,7 @@ BAYI_KOD_FILE = DATA_RAW / "Bayi-Adi-Kodu.csv"
 # ---------------------------------------------------------------------------
 LANSMAN_AY = 3        # Mart lansmanı
 LANSMAN_BOOST = 1.15  # Mart+ çarpanı
-LANSMAN_MODEL = "A1"  # Eylül 2025'ten itibaren piyasaya giren yeni model
+LANSMAN_MODEL = "B1"  # Mart 2026'da yeni versiyon lansmanı yapılacak model
 
 PLAN_HEDEFLER = [8500, 10000]  # İki senaryo
 
@@ -73,14 +73,23 @@ PERFORMANS_AY_NO = {
 }
 
 # Model açıklamaları (SUV segmenti — gizleme nedeniyle A1/A2 formatı)
+# NOT: A1/A2/A3 aynı A segmenti aracının versiyonlarıdır (ayrı model değil)
+# B1/B2 aynı B segmenti aracının versiyonlarıdır
 MODEL_ACIKLAMALAR = {
-    "A1": "Yeni SUV (Eylül 2025 — Mart 2026 lansman adayı)",
-    "A2": "Ana SUV Modeli (en yüksek hacim)",
-    "A3": "SUV — Orta segment",
-    "B1": "Premium SUV",
-    "B2": "Premium SUV — Özel versiyon",
-    "C1": "Kompakt SUV (2025 sonu itibarıyla azalan trend)",
-    "D1": "Niş SUV",
+    "A1": "A Segmenti — Versiyon 1 (Eylül 2025'ten itibaren)",
+    "A2": "A Segmenti — Versiyon 2 (en yüksek hacim)",
+    "A3": "A Segmenti — Versiyon 3",
+    "B1": "B Segmenti — Versiyon 1 (Mart 2026 yeni versiyon lansmanı)",
+    "B2": "B Segmenti — Versiyon 2",
+    "C1": "C Segmenti — Versiyon 1 (azalan trend)",
+    "D1": "D Segmenti — Versiyon 1",
+}
+
+MODEL_SEGMENT = {
+    "A1": "A", "A2": "A", "A3": "A",
+    "B1": "B", "B2": "B",
+    "C1": "C",
+    "D1": "D",
 }
 
 
@@ -162,6 +171,191 @@ def load_2025_perf_targets() -> pd.DataFrame:
                 target = 0.0
             rows.append({"month": month_no, "dealer": dealer_name, "target": int(target)})
     return pd.DataFrame(rows)
+
+
+# ---------------------------------------------------------------------------
+# Yeni fonksiyon: Lansman boost istatistiksel gerekçesi
+# ---------------------------------------------------------------------------
+
+def compute_lansman_boost_justifikasyon(
+    df: pd.DataFrame,
+    si_df: pd.DataFrame,  # noqa: ARG001
+) -> dict:
+    """1.15 boost'un istatistiksel gerekçesini hesaplar.
+
+    B1 modelinin 2024 ve 2025 Mart SI değerleri karşılaştırılarak
+    yeni versiyon lansmanının aggregate satış etkisi tahmin edilir.
+    Hesaplanan etki muhafazakâr olarak 1.234 → 1.15 olarak uygulandı.
+    """
+    df_b1 = df[df["Model Description"] == "B1"].copy()
+
+    # 2024 yılı B1 satışları
+    b1_2024 = df_b1[df_b1["year"] == 2024]
+    b1_2024_mart = len(b1_2024[b1_2024["month"] == 3])
+    b1_2024_aylik_ort = len(b1_2024) / 12 if len(b1_2024) > 0 else 1.0
+    si_2024_mart = b1_2024_mart / b1_2024_aylik_ort if b1_2024_aylik_ort > 0 else 1.0
+
+    # 2025 yılı B1 satışları
+    b1_2025 = df_b1[df_b1["year"] == 2025]
+    b1_2025_mart = len(b1_2025[b1_2025["month"] == 3])
+    b1_2025_aylik_ort = len(b1_2025) / 12 if len(b1_2025) > 0 else 1.0
+    si_2025_mart = b1_2025_mart / b1_2025_aylik_ort if b1_2025_aylik_ort > 0 else 1.0
+
+    # Lansman etkisi (yeni versiyon lansmanı 2024 SI / normal yıl 2025 SI)
+    lansman_etkisi = si_2024_mart / si_2025_mart if si_2025_mart > 0 else 1.0
+
+    # B1 market payı (tüm 2024-2025 satışları içinde)
+    toplam_satis = len(df[df["year"].isin([2024, 2025])])
+    b1_toplam = len(df_b1[df_b1["year"].isin([2024, 2025])])
+    b1_market_payi = b1_toplam / toplam_satis if toplam_satis > 0 else 0.0
+
+    # Aggregate etki: 1 + market_payi × (lansman_etkisi - 1)
+    hesaplanan_boost = 1.0 + b1_market_payi * (lansman_etkisi - 1.0)
+
+    return {
+        "b1_2024_mart_satis": b1_2024_mart,
+        "b1_2024_aylik_ort": round(b1_2024_aylik_ort, 1),
+        "b1_mart_si_2024": round(si_2024_mart, 3),
+        "b1_2025_mart_satis": b1_2025_mart,
+        "b1_2025_aylik_ort": round(b1_2025_aylik_ort, 1),
+        "b1_mart_si_2025": round(si_2025_mart, 3),
+        "b1_lansman_etkisi": round(lansman_etkisi, 3),
+        "b1_market_payi": round(b1_market_payi, 3),
+        "hesaplanan_boost": round(hesaplanan_boost, 3),
+        "uygulanan_boost": LANSMAN_BOOST,
+        "muhafazakarlik": (
+            f"Hesaplanan {hesaplanan_boost:.2f} yerine {LANSMAN_BOOST} uygulandı "
+            f"(%{round((hesaplanan_boost - 1) * 100)}'lık piyasa tahmini yerine "
+            f"%{round((LANSMAN_BOOST - 1) * 100)} ile muhafazakâr kalındı)"
+        ),
+    }
+
+
+# ---------------------------------------------------------------------------
+# Yeni fonksiyon: Bayi aylık model hedefleri
+# ---------------------------------------------------------------------------
+
+def compute_bayi_aylik_model_hedefleri(
+    df: pd.DataFrame,
+    plan_sonuc: dict,
+) -> dict:
+    """Her bayi için Ocak–Aralık aylık model bazlı hedefleri hesaplar.
+
+    Yöntem:
+    - Her model için bayi paylarını son 12 ay (2024-12 ile 2025-11) verisiyle hesapla
+    - Her ayın model toplam hedefini bu paylara çarp
+    - Sonuç: her bayi için 12 ay × 7 model matris
+
+    Returns:
+        {
+            "senaryo_8500": {
+                "DEALER 1": {
+                    "tier": "A",
+                    "aylik": [...],
+                    "yillik_toplam": int,
+                    "yillik_modeller": {...},
+                    "yillik_segmentler": {...}
+                },
+                ...
+            },
+            "senaryo_10000": {...}
+        }
+    """
+    dealer_tiers = load_dealer_tiers()
+
+    if "period" not in df.columns:
+        df = df.copy()
+        df["period"] = df["ym"].apply(lambda x: pd.Period(x, freq="M"))
+
+    LAST12_START = pd.Period("2024-12", freq="M")
+    LAST12_END   = pd.Period("2025-11", freq="M")
+    last12 = df[(df["period"] >= LAST12_START) & (df["period"] <= LAST12_END)].copy()
+    last12["model_desc"] = last12["Model Description"].astype(str).str.strip()
+
+    # Bilinen modeller listesi
+    bilinen_modeller = list(MODEL_ACIKLAMALAR.keys())
+
+    # Her model için bayi pay dağılımı (son 12 ay)
+    model_dealer_share: dict[str, dict[str, float]] = {}
+    for model in bilinen_modeller:
+        model_df = last12[last12["model_desc"] == model]
+        if len(model_df) == 0:
+            model_dealer_share[model] = {}
+            continue
+        dealer_counts = model_df.groupby("Dealer Name").size()
+        total = dealer_counts.sum()
+        model_dealer_share[model] = {
+            d: float(c) / total for d, c in dealer_counts.items()
+        }
+
+    # Tüm aktif bayiler (son 12 ayda satışı olan)
+    aktif_bayiler = sorted(
+        last12["Dealer Name"].unique().tolist(),
+        key=lambda x: int(x.split()[-1]) if x.split()[-1].isdigit() else 99,
+    )
+
+    result: dict[str, dict] = {}
+
+    for hedef in PLAN_HEDEFLER:
+        key = f"senaryo_{hedef}"
+        senaryo = plan_sonuc[key]
+
+        # Model_aylik verisi: ay → model → adet
+        model_aylik_data = senaryo.get("model_aylik", [])
+        ay_model_hedef: dict[int, dict[str, int]] = {}
+        for ay_row in model_aylik_data:
+            ay_no = ay_row["ay"]
+            ay_model_hedef[ay_no] = {}
+            for m_row in ay_row["model_dagilim"]:
+                m_adi = m_row["model"]
+                if m_adi in bilinen_modeller:
+                    ay_model_hedef[ay_no][m_adi] = m_row["adet"]
+
+        bayi_sonuc: dict[str, dict] = {}
+        for dealer in aktif_bayiler:
+            tier = dealer_tiers.get(dealer, "C")
+            aylik_liste = []
+
+            for ay in range(1, 13):
+                ay_modeller: dict[str, int] = {}
+                for model in bilinen_modeller:
+                    model_hedef_ay = ay_model_hedef.get(ay, {}).get(model, 0)
+                    dealer_pay = model_dealer_share.get(model, {}).get(dealer, 0.0)
+                    adet_float = model_hedef_ay * dealer_pay
+                    ay_modeller[model] = round(adet_float)
+
+                toplam = sum(ay_modeller.values())
+                aylik_liste.append({
+                    "ay": ay,
+                    "ay_adi": AY_ADLARI[ay - 1],
+                    "toplam": toplam,
+                    "modeller": ay_modeller,
+                })
+
+            # Yıllık toplamlar
+            yillik_modeller: dict[str, int] = {m: 0 for m in bilinen_modeller}
+            for ay_entry in aylik_liste:
+                for m, adet in ay_entry["modeller"].items():
+                    yillik_modeller[m] = yillik_modeller.get(m, 0) + adet
+            yillik_toplam = sum(yillik_modeller.values())
+
+            # Segment toplamları
+            yillik_segmentler: dict[str, int] = {}
+            for m, adet in yillik_modeller.items():
+                seg = MODEL_SEGMENT.get(m, "Diğer")
+                yillik_segmentler[seg] = yillik_segmentler.get(seg, 0) + adet
+
+            bayi_sonuc[dealer] = {
+                "tier": tier,
+                "aylik": aylik_liste,
+                "yillik_toplam": yillik_toplam,
+                "yillik_modeller": yillik_modeller,
+                "yillik_segmentler": yillik_segmentler,
+            }
+
+        result[key] = bayi_sonuc
+
+    return result
 
 
 # ---------------------------------------------------------------------------
@@ -813,12 +1007,15 @@ def _compute_ocak_dagitim(df: pd.DataFrame, ocak_hedef: int) -> list[dict]:
 # Stratejik bağlam ve veri kaynakları
 # ---------------------------------------------------------------------------
 
-def _build_stratejik_baglamlar(plan_sonuc: dict) -> dict:
+def _build_stratejik_baglamlar(
+    plan_sonuc: dict,
+    boost_justifikasyon: dict | None = None,
+) -> dict:
     """Ocak-Şubat düşük hedef ve Mart lansman stratejisini açıklar."""
     s8  = plan_sonuc["senaryo_8500"]["ozet"]
     s10 = plan_sonuc["senaryo_10000"]["ozet"]
 
-    return {
+    baglam: dict = {
         "ocak_subat_analizi": {
             "baslik": "Ocak–Şubat 2026: Kasıtlı Düşük Hedefin Stratejik Gerekçesi",
             "durum": (
@@ -866,17 +1063,18 @@ def _build_stratejik_baglamlar(plan_sonuc: dict) -> dict:
             ),
         },
         "mart_lansman_stratejisi": {
-            "baslik": f"Mart 2026: {LANSMAN_MODEL} Modeli Tam Lansman",
+            "baslik": f"Mart 2026: {LANSMAN_MODEL} Modeli Yeni Versiyon Lansmanı",
             "aciklama": (
-                f"Model {LANSMAN_MODEL} Eylül 2025'ten itibaren sınırlı miktarda piyasada. "
-                "Mart 2026'da tam kapasiteyle lanse edilmesi planlanıyor. "
+                f"B1 (Premium SUV) modelinin yeni versiyonu Mart 2026'da piyasaya çıkıyor. "
                 f"Modelimizde Mart ve sonrası için ×{LANSMAN_BOOST} SI boost uygulandı. "
-                "Bu, %15 ek talep beklentisini ve distribütör motivasyon primini yansıtır."
+                "Bu, %15 ek talep beklentisini ve yeni versiyon dönemindeki "
+                "distribütör motivasyon primini yansıtır."
             ),
             "etkiler": [
                 "Mart ayı toplam hedefi diğer aylara göre belirgin biçimde yüksek",
-                f"{LANSMAN_MODEL} modelinin aylık model mix içindeki payı Mart'tan itibaren artıyor",
+                "B1 yeni versiyon talebi Mart–Haziran döneminde pik yapması bekleniyor",
                 "Bayi stok talebi Şubat sonunda yoğunlaşacak (lansman öncesi hazırlık)",
+                "A1 modelinin payı 2026 boyunca organik olarak artmaya devam edecek",
                 "C1 modelinin payı 2026 boyunca azalmaya devam edecek (ürün yaşam döngüsü sonu)",
             ],
         },
@@ -885,15 +1083,21 @@ def _build_stratejik_baglamlar(plan_sonuc: dict) -> dict:
             "mevcut_durum": (
                 "2025 yılı sonu model dağılımı: A2 hakimiyeti (%39), B1 ikinci (%25), "
                 "A3 üçüncü (%20), C1 dördüncü ama hızla azalıyor (%13 → Aralık'ta %4), "
-                f"{LANSMAN_MODEL} yeni giriyor (Eylül 2025'ten itibaren)."
+                "A1 yeni giriyor (Eylül 2025'ten itibaren, %4)."
             ),
             "2026_beklenti": (
-                f"A2 liderliği sürecek, {LANSMAN_MODEL} payı artacak, "
+                "B1 yeni versiyon lansmanıyla Mart–Haziran döneminde B1 payı güçlü yükselecek. "
+                "A2 liderliği sürecek, A1 organik büyümeyle pay artıracak, "
                 "C1 satışları büyük ölçüde duracak. "
                 "Aylık model hedefleri bu geçiş dinamiğini yansıtacak şekilde tasarlandı."
             ),
         },
     }
+
+    if boost_justifikasyon is not None:
+        baglam["boost_justifikasyon"] = boost_justifikasyon
+
+    return baglam
 
 
 def _build_veri_kaynaklari() -> list[dict]:
@@ -1012,7 +1216,21 @@ def main() -> None:
         key = f"senaryo_{hedef}"
         plan_sonuc[key]["model_aylik"] = model_aylik[key]
 
-    stratejik_baglamlar = _build_stratejik_baglamlar(plan_sonuc)
+    print("\nLansman boost istatistiksel gerekçesi hesaplanıyor...")
+    boost_just = compute_lansman_boost_justifikasyon(df, si_df)
+    print(f"  B1 Mart SI 2024: {boost_just['b1_mart_si_2024']}, SI 2025: {boost_just['b1_mart_si_2025']}")
+    print(f"  Lansman etkisi (B1 bazlı): {boost_just['b1_lansman_etkisi']}")
+    print(f"  B1 market payı: %{boost_just['b1_market_payi']*100:.1f}")
+    print(f"  Hesaplanan boost: {boost_just['hesaplanan_boost']}, Uygulanan: {boost_just['uygulanan_boost']}")
+
+    print("\nBayi aylık model hedefleri hesaplanıyor...")
+    bayi_hedefler = compute_bayi_aylik_model_hedefleri(df, plan_sonuc)
+    for hedef in PLAN_HEDEFLER:
+        key = f"senaryo_{hedef}"
+        toplam_bayi = len(bayi_hedefler[key])
+        print(f"  {hedef} senaryosu — {toplam_bayi} bayi için hesaplandı")
+
+    stratejik_baglamlar = _build_stratejik_baglamlar(plan_sonuc, boost_just)
     veri_kaynaklari = _build_veri_kaynaklari()
 
     # --- JSON çıktısı ---
@@ -1030,6 +1248,7 @@ def main() -> None:
             **plan_sonuc,
             "stratejik_baglamlar": stratejik_baglamlar,
         },
+        "bayi_aylik_hedefler": bayi_hedefler,
     }
 
     OUT_JSON.parent.mkdir(parents=True, exist_ok=True)
