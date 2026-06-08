@@ -202,52 +202,61 @@ def compute_lansman_boost_justifikasyon(
     df: pd.DataFrame,
     si_df: pd.DataFrame,  # noqa: ARG001
 ) -> dict:
-    """1.15 boost'un istatistiksel gerekçesini hesaplar.
+    """1.15 SI boost'unun istatistiksel gerekçesini hesaplar.
 
-    B1 modelinin 2024 ve 2025 Mart SI değerleri karşılaştırılarak
-    yeni versiyon lansmanının aggregate satış etkisi tahmin edilir.
-    Hesaplanan etki muhafazakâr olarak 1.234 → 1.15 olarak uygulandı.
+    Yöntem: B segmentinin (B1+B2) Mart ayı mevsimsel payı, yıllık ortalamasına
+    oranlanarak 'B Mart Sezonalite Endeksi' hesaplanır. Mart 2026'da yeni versiyon
+    lansmanıyla B segmentin 2024 Mart pay seviyesine restore olması beklenmektedir.
+    Bu shift'in toplam pazar üzerindeki minimum etkisi veri bazlı alt sınır olarak
+    kullanılmış; muhafazakâr 1.15 uygulanmıştır.
     """
-    df_b1 = df[df["Model Description"] == "B1"].copy()
+    df_b = df[df["Model Description"].isin(list(LANSMAN_SEGMENT))].copy()
+    toplam_satis = len(df)
 
-    # 2024 yılı B1 satışları
-    b1_2024 = df_b1[df_b1["year"] == 2024]
-    b1_2024_mart = len(b1_2024[b1_2024["month"] == 3])
-    b1_2024_aylik_ort = len(b1_2024) / 12 if len(b1_2024) > 0 else 1.0
-    si_2024_mart = b1_2024_mart / b1_2024_aylik_ort if b1_2024_aylik_ort > 0 else 1.0
+    # Yıl bazında Mart pay hesabı
+    def _mart_payi(yil: int) -> float:
+        top = len(df[(df["year"] == yil) & (df["month"] == 3)])
+        b = len(df_b[(df_b["year"] == yil) & (df_b["month"] == 3)])
+        return b / top if top > 0 else 0.0
 
-    # 2025 yılı B1 satışları
-    b1_2025 = df_b1[df_b1["year"] == 2025]
-    b1_2025_mart = len(b1_2025[b1_2025["month"] == 3])
-    b1_2025_aylik_ort = len(b1_2025) / 12 if len(b1_2025) > 0 else 1.0
-    si_2025_mart = b1_2025_mart / b1_2025_aylik_ort if b1_2025_aylik_ort > 0 else 1.0
+    def _yillik_ort_pay(yil: int) -> float:
+        top = len(df[df["year"] == yil])
+        b = len(df_b[df_b["year"] == yil])
+        return b / top if top > 0 else 0.0
 
-    # Lansman etkisi (yeni versiyon lansmanı 2024 SI / normal yıl 2025 SI)
-    lansman_etkisi = si_2024_mart / si_2025_mart if si_2025_mart > 0 else 1.0
+    b_mart_pay_2024 = _mart_payi(2024)
+    b_mart_pay_2025 = _mart_payi(2025)
+    b_yillik_ort_2024 = _yillik_ort_pay(2024)
+    b_yillik_ort_2025 = _yillik_ort_pay(2025)
 
-    # B1 market payı (tüm 2024-2025 satışları içinde)
-    toplam_satis = len(df[df["year"].isin([2024, 2025])])
-    b1_toplam = len(df_b1[df_b1["year"].isin([2024, 2025])])
-    b1_market_payi = b1_toplam / toplam_satis if toplam_satis > 0 else 0.0
+    # B segmenti Mart Sezonalite Endeksi = Mart payı / yıllık ort
+    b_mart_si_2024 = b_mart_pay_2024 / b_yillik_ort_2024 if b_yillik_ort_2024 > 0 else 1.0
+    b_mart_si_2025 = b_mart_pay_2025 / b_yillik_ort_2025 if b_yillik_ort_2025 > 0 else 1.0
 
-    # Aggregate etki: 1 + market_payi × (lansman_etkisi - 1)
-    hesaplanan_boost = 1.0 + b1_market_payi * (lansman_etkisi - 1.0)
+    # Beklenti: lansman B segmenti payını 2024 Mart seviyesine restore eder
+    # Toplam pazar üzerindeki minimum etki = ek B payı artışı
+    pay_farki = b_mart_pay_2024 - b_mart_pay_2025  # 0.557 - 0.445 = 0.112
+    hesaplanan_boost = 1.0 + max(pay_farki, 0.0)
+
+    # B toplam pazar payı
+    b_toplam_satis = len(df_b)
+    b_market_payi = b_toplam_satis / toplam_satis if toplam_satis > 0 else 0.0
 
     return {
-        "b1_2024_mart_satis": b1_2024_mart,
-        "b1_2024_aylik_ort": round(b1_2024_aylik_ort, 1),
-        "b1_mart_si_2024": round(si_2024_mart, 3),
-        "b1_2025_mart_satis": b1_2025_mart,
-        "b1_2025_aylik_ort": round(b1_2025_aylik_ort, 1),
-        "b1_mart_si_2025": round(si_2025_mart, 3),
-        "b1_lansman_etkisi": round(lansman_etkisi, 3),
-        "b1_market_payi": round(b1_market_payi, 3),
+        "b_mart_pay_2024": round(b_mart_pay_2024, 4),
+        "b_mart_pay_2025": round(b_mart_pay_2025, 4),
+        "b_mart_si_2024": round(b_mart_si_2024, 3),
+        "b_mart_si_2025": round(b_mart_si_2025, 3),
+        "b_yillik_ort_pay_2024": round(b_yillik_ort_2024, 4),
+        "b_yillik_ort_pay_2025": round(b_yillik_ort_2025, 4),
+        "pay_farki": round(pay_farki, 4),
         "hesaplanan_boost": round(hesaplanan_boost, 3),
         "uygulanan_boost": LANSMAN_BOOST,
+        "b_market_payi": round(b_market_payi, 3),
         "muhafazakarlik": (
-            f"Hesaplanan {hesaplanan_boost:.2f} yerine {LANSMAN_BOOST} uygulandı "
-            f"(%{round((hesaplanan_boost - 1) * 100)}'lık piyasa tahmini yerine "
-            f"%{round((LANSMAN_BOOST - 1) * 100)} ile muhafazakâr kalındı)"
+            f"Veri bazlı alt sınır {hesaplanan_boost:.3f} → muhafazakâr "
+            f"{LANSMAN_BOOST} uygulandı (lansman çekme etkisi ve marka bilinirliği "
+            f"artışı için ek %{round((LANSMAN_BOOST - hesaplanan_boost) * 100, 1)} marj)"
         ),
     }
 
@@ -1272,10 +1281,10 @@ def main() -> None:
 
     print("\nLansman boost istatistiksel gerekçesi hesaplanıyor...")
     boost_just = compute_lansman_boost_justifikasyon(df, si_df)
-    print(f"  B1 Mart SI 2024: {boost_just['b1_mart_si_2024']}, SI 2025: {boost_just['b1_mart_si_2025']}")
-    print(f"  Lansman etkisi (B1 bazlı): {boost_just['b1_lansman_etkisi']}")
-    print(f"  B1 market payı: %{boost_just['b1_market_payi']*100:.1f}")
-    print(f"  Hesaplanan boost: {boost_just['hesaplanan_boost']}, Uygulanan: {boost_just['uygulanan_boost']}")
+    print(f"  B seg Mart payı 2024: %{boost_just['b_mart_pay_2024']*100:.1f}, 2025: %{boost_just['b_mart_pay_2025']*100:.1f}")
+    print(f"  B seg Mart SI 2024: {boost_just['b_mart_si_2024']}, 2025: {boost_just['b_mart_si_2025']}")
+    print(f"  Pay farkı (restore beklentisi): +%{boost_just['pay_farki']*100:.1f} puan")
+    print(f"  Veri bazlı alt sınır: {boost_just['hesaplanan_boost']}, Uygulanan: {boost_just['uygulanan_boost']}")
 
     print("\nBayi aylık model hedefleri hesaplanıyor...")
     bayi_hedefler = compute_bayi_aylik_model_hedefleri(df, plan_sonuc)

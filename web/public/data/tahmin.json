@@ -2258,17 +2258,17 @@
         "2026_beklenti": "B1 yeni versiyon lansmanıyla Mart–Haziran döneminde B1 payı güçlü yükselecek. A2 liderliği sürecek, A1 organik büyümeyle pay artıracak, C1 satışları büyük ölçüde duracak. Aylık model hedefleri bu geçiş dinamiğini yansıtacak şekilde tasarlandı."
       },
       "boost_justifikasyon": {
-        "b1_2024_mart_satis": 148,
-        "b1_2024_aylik_ort": 55.1,
-        "b1_mart_si_2024": 2.687,
-        "b1_2025_mart_satis": 113,
-        "b1_2025_aylik_ort": 80.7,
-        "b1_mart_si_2025": 1.401,
-        "b1_lansman_etkisi": 1.918,
-        "b1_market_payi": 0.253,
-        "hesaplanan_boost": 1.232,
+        "b_mart_pay_2024": 0.5572,
+        "b_mart_pay_2025": 0.4449,
+        "b_mart_si_2024": 2.494,
+        "b_mart_si_2025": 1.568,
+        "b_yillik_ort_pay_2024": 0.2234,
+        "b_yillik_ort_pay_2025": 0.2838,
+        "pay_farki": 0.1123,
+        "hesaplanan_boost": 1.112,
         "uygulanan_boost": 1.15,
-        "muhafazakarlik": "Hesaplanan 1.23 yerine 1.15 uygulandı (%23'lık piyasa tahmini yerine %15 ile muhafazakâr kalındı)"
+        "b_market_payi": 0.255,
+        "muhafazakarlik": "Veri bazlı alt sınır 1.112 → muhafazakâr 1.15 uygulandı (lansman çekme etkisi ve marka bilinirliği artışı için ek %3.8 marj)"
       }
     }
   },

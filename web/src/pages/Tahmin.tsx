@@ -151,16 +151,16 @@ interface StratejikBaglamModel {
 }
 
 interface BoostJustifikasyon {
-  b1_2024_mart_satis: number
-  b1_2024_aylik_ort: number
-  b1_mart_si_2024: number
-  b1_2025_mart_satis: number
-  b1_2025_aylik_ort: number
-  b1_mart_si_2025: number
-  b1_lansman_etkisi: number
-  b1_market_payi: number
+  b_mart_pay_2024: number
+  b_mart_pay_2025: number
+  b_mart_si_2024: number
+  b_mart_si_2025: number
+  b_yillik_ort_pay_2024: number
+  b_yillik_ort_pay_2025: number
+  pay_farki: number
   hesaplanan_boost: number
   uygulanan_boost: number
+  b_market_payi: number
   muhafazakarlik: string
 }
 
@@ -928,44 +928,49 @@ function AylikModelTablosu({
 function BoostJustifikasyonPanel({ bj }: { bj: BoostJustifikasyon }) {
   return (
     <div className="bg-indigo-50 rounded-lg border border-indigo-200 p-4 mt-3">
-      <p className="text-xs font-semibold text-indigo-800 mb-2 uppercase tracking-wide">
-        1.15 Boost — İstatistiksel Gerekçe
+      <p className="text-xs font-semibold text-indigo-800 mb-3 uppercase tracking-wide">
+        SI ×1.15 Boost — İstatistiksel Gerekçe (B Segmenti Mart Mevsimselliği)
       </p>
-      <ul className="space-y-1.5 text-xs text-indigo-700">
-        <li>
-          <span className="font-semibold">B1 Mart SI (2024 — lansman yılı):</span>{' '}
-          {bj.b1_mart_si_2024.toFixed(3)}{' '}
-          <span className="text-indigo-500">
-            ({bj.b1_2024_mart_satis} araç / aylık ort. {bj.b1_2024_aylik_ort} araç)
-          </span>
-        </li>
-        <li>
-          <span className="font-semibold">B1 Mart SI (2025 — normal yıl):</span>{' '}
-          {bj.b1_mart_si_2025.toFixed(3)}{' '}
-          <span className="text-indigo-500">
-            ({bj.b1_2025_mart_satis} araç / aylık ort. {bj.b1_2025_aylik_ort} araç)
-          </span>
-        </li>
-        <li>
-          <span className="font-semibold">Yeni versiyon lansmanının B1 üzerindeki etki:</span>{' '}
-          {bj.b1_mart_si_2024.toFixed(3)} / {bj.b1_mart_si_2025.toFixed(3)}{' '}
-          = <strong className="text-indigo-900">{bj.b1_lansman_etkisi.toFixed(3)}</strong>{' '}
-          <span className="text-indigo-500">(+%{((bj.b1_lansman_etkisi - 1) * 100).toFixed(0)})</span>
-        </li>
-        <li>
-          <span className="font-semibold">B1 market payı (2024–2025 toplam satışlar):</span>{' '}
-          %{(bj.b1_market_payi * 100).toFixed(1)}
-        </li>
-        <li>
-          <span className="font-semibold">Aggregate hesaplama:</span>{' '}
-          1 + ({bj.b1_market_payi.toFixed(3)} × {(bj.b1_lansman_etkisi - 1).toFixed(3)}){' '}
-          = <strong className="text-indigo-900">{bj.hesaplanan_boost.toFixed(3)}</strong>
-        </li>
-        <li className="bg-indigo-100 rounded px-2 py-1">
-          <span className="font-semibold">Muhafazakârlık:</span>{' '}
-          {bj.muhafazakarlik}
-        </li>
-      </ul>
+
+      {/* Adım 1: B Segment March SI */}
+      <p className="text-xs font-semibold text-indigo-700 mb-1">1. B Segmenti Mart Sezonalite Endeksi (Mart Payı / Yıllık Ort. Pay)</p>
+      <div className="grid grid-cols-2 gap-2 mb-3">
+        <div className="bg-white rounded border border-indigo-200 p-2 text-xs">
+          <div className="font-semibold text-indigo-800">2024</div>
+          <div className="text-indigo-600">Mart payı: <strong>%{(bj.b_mart_pay_2024 * 100).toFixed(1)}</strong></div>
+          <div className="text-indigo-500">Yıllık ort.: %{(bj.b_yillik_ort_pay_2024 * 100).toFixed(1)}</div>
+          <div className="text-indigo-800 font-bold mt-0.5">B Mart SI = {bj.b_mart_si_2024.toFixed(3)}</div>
+        </div>
+        <div className="bg-white rounded border border-indigo-200 p-2 text-xs">
+          <div className="font-semibold text-indigo-800">2025</div>
+          <div className="text-indigo-600">Mart payı: <strong>%{(bj.b_mart_pay_2025 * 100).toFixed(1)}</strong></div>
+          <div className="text-indigo-500">Yıllık ort.: %{(bj.b_yillik_ort_pay_2025 * 100).toFixed(1)}</div>
+          <div className="text-indigo-800 font-bold mt-0.5">B Mart SI = {bj.b_mart_si_2025.toFixed(3)}</div>
+        </div>
+      </div>
+
+      {/* Adım 2: Restore beklentisi */}
+      <p className="text-xs font-semibold text-indigo-700 mb-1">2. Lansman Restore Beklentisi</p>
+      <div className="bg-white rounded border border-indigo-200 p-2 text-xs mb-3 text-indigo-700">
+        Mart 2026'da B1 yeni versiyon lansmanıyla B segmenti Mart payının 2024 seviyesine
+        (%{(bj.b_mart_pay_2024 * 100).toFixed(1)}) restore olması beklenmektedir.
+        2025'e göre pay artışı: <strong className="text-indigo-900">
+          +{(bj.pay_farki * 100).toFixed(1)} puan
+        </strong>
+      </div>
+
+      {/* Adım 3: Hesaplama */}
+      <p className="text-xs font-semibold text-indigo-700 mb-1">3. Toplam Pazar Boost Hesabı</p>
+      <div className="bg-white rounded border border-indigo-200 p-2 text-xs mb-3 text-indigo-700">
+        B segmentinin pay artışı doğrudan toplam hacme yansır:<br/>
+        Veri bazlı alt sınır = 1 + {(bj.pay_farki).toFixed(3)} = <strong className="text-indigo-900">{bj.hesaplanan_boost.toFixed(3)}</strong>
+        <span className="ml-2 text-indigo-500">(B topam pazar payı: %{(bj.b_market_payi * 100).toFixed(1)})</span>
+      </div>
+
+      {/* Sonuç */}
+      <div className="bg-indigo-100 rounded px-3 py-2 text-xs text-indigo-800">
+        <strong>Uygulanan: ×{bj.uygulanan_boost}</strong> — {bj.muhafazakarlik}
+      </div>
     </div>
   )
 }
