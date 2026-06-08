@@ -187,6 +187,7 @@ interface BayiAylikModelHedef {
 
 interface BayiHedef {
   tier: 'A' | 'B' | 'C'
+  yeni_bayi?: boolean
   aylik: BayiAylikModelHedef[]
   yillik_toplam: number
   yillik_modeller: Record<string, number>
@@ -1399,7 +1400,8 @@ function BayiHedefleriTab({ data }: {
   // Senaryo değişince bayiyi reset et
   const bayiHedef: BayiHedef | null = senaryoData[secilenBayi] ?? null
 
-  const BILINEN_MODELLER = ['A1', 'A2', 'A3', 'B1', 'B2', 'C1', 'D1']
+  // 2026 aktif modeller — A1, C1, D1 üretimden kalktı
+  const BILINEN_MODELLER = ['A2', 'A3', 'B1', 'B2']
   const LANSMAN_AY = 3
 
   return (
@@ -1415,8 +1417,14 @@ function BayiHedefleriTab({ data }: {
           bayi bazına indirgendi.
         </p>
         <p>
-          <strong>Segment Notu:</strong> A1/A2/A3 aynı A Segmenti aracının versiyonlarıdır (farklı modeller değil).
-          B1/B2 aynı B Segmenti aracının versiyonlarıdır.
+          <strong>2026 Model Kadrosu:</strong> A1, C1 ve D1 modelleri 2025 sonu itibarıyla
+          üretimden kalkmıştır. 2026 yılında yalnızca <strong>A2, A3, B1, B2</strong> aktiftir.
+          A2/A3 aynı A Segmenti aracının versiyonlarıdır; B1/B2 aynı B Segmenti aracının versiyonlarıdır.
+        </p>
+        <p>
+          <strong>Yeni Bayiler:</strong> Tarihsel satış verisi bulunmayan yeni bayiler (Bayi 23–28),
+          kendi tier grubundaki mevcut bayilerin ortalama payının %60'ı ile başlangıç hedefi almaktadır
+          (muhafazakâr ilk yıl tahmini). Bu paylar distribütör kararıyla revize edilebilir.
         </p>
         <p>
           <strong>Sıfır Hedef:</strong> Bir bayinin modeline ait hedefi 0 ise, o bayi bu modeli
@@ -1455,16 +1463,25 @@ function BayiHedefleriTab({ data }: {
           className="border border-slate-300 rounded-lg px-3 py-1.5 text-sm text-slate-700 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           {bayiler.map(b => {
-            const tier = senaryoData[b]?.tier ?? 'C'
+            const bh = senaryoData[b]
+            const tier = bh?.tier ?? 'C'
+            const yeni = bh?.yeni_bayi ? ' 🆕' : ''
             return (
               <option key={b} value={b}>
-                {b} — Tier {tier}
+                {b} — Tier {tier}{yeni}
               </option>
             )
           })}
         </select>
         {bayiHedef && (
-          <TierBadge tier={bayiHedef.tier} />
+          <>
+            <TierBadge tier={bayiHedef.tier} />
+            {bayiHedef.yeni_bayi && (
+              <span className="text-xs bg-emerald-100 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded-full font-medium">
+                Yeni Bayi
+              </span>
+            )}
+          </>
         )}
       </div>
 
@@ -1693,7 +1710,10 @@ function BayiHedefleriTab({ data }: {
                     }`}
                   >
                     <td className={`py-1.5 px-2 font-medium ${isSecili ? 'text-blue-700' : 'text-slate-700'}`}>
-                      {bayi}
+                      <span>{bayi}</span>
+                      {bh.yeni_bayi && (
+                        <span className="ml-1.5 text-xs bg-emerald-100 text-emerald-700 border border-emerald-200 px-1.5 py-0.5 rounded-full">YENİ</span>
+                      )}
                     </td>
                     <td className="py-1.5 px-2 text-center">
                       <TierBadge tier={bh.tier} />

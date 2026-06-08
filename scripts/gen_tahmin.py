@@ -61,6 +61,9 @@ B_SEGMENT_BOOST_BY_AY: dict[int, float] = {
 
 PLAN_HEDEFLER = [8500, 10000]  # İki senaryo
 
+# 2026'da aktif olacak modeller — A1, C1, D1 üretimden kalkıyor
+MODELLER_2026: frozenset[str] = frozenset({"A2", "A3", "B1", "B2"})
+
 AY_ADLARI = [
     "Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran",
     "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık",
@@ -94,13 +97,13 @@ PERFORMANS_AY_NO = {
 # NOT: A1/A2/A3 aynı A segmenti aracının versiyonlarıdır (ayrı model değil)
 # B1/B2 aynı B segmenti aracının versiyonlarıdır
 MODEL_ACIKLAMALAR = {
-    "A1": "A Segmenti — Versiyon 1 (Eylül 2025'ten itibaren)",
-    "A2": "A Segmenti — Versiyon 2 (en yüksek hacim)",
-    "A3": "A Segmenti — Versiyon 3",
+    "A1": "A Segmenti — Versiyon 1 (2025 sonu itibarıyla üretimden kalktı)",
+    "A2": "A Segmenti — Versiyon 2 (2026 ana hacim modeli)",
+    "A3": "A Segmenti — Versiyon 3 (2026 ana hacim modeli)",
     "B1": "B Segmenti — Versiyon 1 (Mart 2026 yeni versiyon lansmanı)",
-    "B2": "B Segmenti — Versiyon 2",
-    "C1": "C Segmenti — Versiyon 1 (azalan trend)",
-    "D1": "D Segmenti — Versiyon 1",
+    "B2": "B Segmenti — Versiyon 2 (2026 aktif)",
+    "C1": "C Segmenti — Versiyon 1 (2025 sonu itibarıyla üretimden kalktı)",
+    "D1": "D Segmenti — Versiyon 1 (2025 sonu itibarıyla üretimden kalktı)",
 }
 
 MODEL_SEGMENT = {
@@ -290,10 +293,18 @@ def compute_bayi_aylik_model_hedefleri(
     last12 = df[(df["period"] >= LAST12_START) & (df["period"] <= LAST12_END)].copy()
     last12["model_desc"] = last12["Model Description"].astype(str).str.strip()
 
-    # Bilinen modeller listesi
-    bilinen_modeller = list(MODEL_ACIKLAMALAR.keys())
+    # 2026'da aktif modeller (A1, C1, D1 üretimden kalktı)
+    bilinen_modeller = sorted(MODELLER_2026)
 
-    # Her model için bayi pay dağılımı (son 12 ay)
+    # Tüm 28 bayi (CSV'den) — yeni bayiler tarihsel veri olmadan eklenir
+    aktif_bayiler = sorted(
+        dealer_tiers.keys(),
+        key=lambda x: int(x.split()[-1]) if x.split()[-1].isdigit() else 99,
+    )
+    tarihsel_bayiler = set(last12["Dealer Name"].unique().tolist())
+    yeni_bayiler = set(aktif_bayiler) - tarihsel_bayiler
+
+    # Her model için bayi pay dağılımı (son 12 ay) — önce tarihsel bayiler
     model_dealer_share: dict[str, dict[str, float]] = {}
     for model in bilinen_modeller:
         model_df = last12[last12["model_desc"] == model]
@@ -302,15 +313,32 @@ def compute_bayi_aylik_model_hedefleri(
             continue
         dealer_counts = model_df.groupby("Dealer Name").size()
         total = dealer_counts.sum()
-        model_dealer_share[model] = {
+        shares: dict[str, float] = {
             d: float(c) / total for d, c in dealer_counts.items()
         }
 
-    # Tüm aktif bayiler (son 12 ayda satışı olan)
-    aktif_bayiler = sorted(
-        last12["Dealer Name"].unique().tolist(),
-        key=lambda x: int(x.split()[-1]) if x.split()[-1].isdigit() else 99,
-    )
+        # Yeni bayilere tier bazlı ortalama payın %60'ı verilir (muhafazakâr başlangıç)
+        if yeni_bayiler:
+            tier_avgs: dict[str, float] = {}
+            for tier_kod in ("A", "B", "C"):
+                tier_dealers_hist = [
+                    d for d in tarihsel_bayiler
+                    if dealer_tiers.get(d) == tier_kod and d in shares
+                ]
+                tier_avgs[tier_kod] = (
+                    sum(shares[d] for d in tier_dealers_hist) / len(tier_dealers_hist)
+                    if tier_dealers_hist else 0.0
+                )
+            for nd in yeni_bayiler:
+                nd_tier = dealer_tiers.get(nd, "C")
+                shares[nd] = tier_avgs.get(nd_tier, 0.0) * 0.60
+
+            # Yeniden normalize et (toplam 1.0)
+            s_toplam = sum(shares.values())
+            if s_toplam > 0:
+                shares = {d: v / s_toplam for d, v in shares.items()}
+
+        model_dealer_share[model] = shares
 
     result: dict[str, dict] = {}
 
@@ -326,12 +354,13 @@ def compute_bayi_aylik_model_hedefleri(
             ay_model_hedef[ay_no] = {}
             for m_row in ay_row["model_dagilim"]:
                 m_adi = m_row["model"]
-                if m_adi in bilinen_modeller:
+                if m_adi in MODELLER_2026:
                     ay_model_hedef[ay_no][m_adi] = m_row["adet"]
 
         bayi_sonuc: dict[str, dict] = {}
         for dealer in aktif_bayiler:
             tier = dealer_tiers.get(dealer, "C")
+            is_yeni = dealer in yeni_bayiler
             aylik_liste = []
 
             for ay in range(1, 13):
@@ -365,6 +394,7 @@ def compute_bayi_aylik_model_hedefleri(
 
             bayi_sonuc[dealer] = {
                 "tier": tier,
+                "yeni_bayi": is_yeni,
                 "aylik": aylik_liste,
                 "yillik_toplam": yillik_toplam,
                 "yillik_modeller": yillik_modeller,
@@ -690,7 +720,11 @@ def compute_model_aylik_hedefler(
         son6_sum  = son6_cnt.sum()
         geri_sum  = geri_cnt.sum()
 
-        tum_modeller = sorted(set(list(son6_cnt.index) + list(geri_cnt.index)))
+        # Yalnızca 2026'da aktif olan modeller dahil edilir (A1, C1, D1 üretimden kalktı)
+        tum_modeller = sorted(
+            m for m in set(list(son6_cnt.index) + list(geri_cnt.index))
+            if m in MODELLER_2026
+        )
         mix: dict[str, float] = {}
         for m in tum_modeller:
             son6_pay = float(son6_cnt.get(m, 0)) / son6_sum if son6_sum > 0 else 0.0
@@ -716,8 +750,8 @@ def compute_model_aylik_hedefler(
             mix = _ay_model_mix(ay)
 
             if not mix:
-                # Genel mix
-                tum_cnt = df_hist.groupby("model_desc").size()
+                # Genel mix — yalnızca 2026 aktif modeller
+                tum_cnt = df_hist[df_hist["model_desc"].isin(MODELLER_2026)].groupby("model_desc").size()
                 mix = (tum_cnt / tum_cnt.sum()).to_dict()
 
             # Mart+ için tüm B segmentini (B1+B2) aylık kademeli boost ile artır
