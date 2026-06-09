@@ -69,15 +69,25 @@ AY_ADLARI = [
     "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık",
 ]
 
-# Tier tanımları (bayi kodu içindeki bölge kısaltmasına göre)
-TIER_A_BOLGELER = {"MAR", "EGE", "ICA"}   # Marmara, Ege, İç Anadolu/Ankara
-TIER_B_BOLGELER = {"AKD"}                  # Akdeniz
-# Tier C: GDA, KAR ve bilinmeyen diğerleri
+# ---------------------------------------------------------------------------
+# Pazar büyüklüğü bazlı tier grupları (il bazında, TÜİK araç stoku proxy)
+# ---------------------------------------------------------------------------
+# A — Büyük Metro: Türkiye'nin en yüksek araç yoğunluklu 4 ili.
+#     TÜİK catchment toplamı ~45%+. Güçlü trend, yüksek SI varyansı.
+TIER_A_ILLER: frozenset[str] = frozenset({"İSTANBUL", "ANKARA", "İZMİR", "BURSA"})
+
+# B — Bölgesel Merkez: Orta büyüklükte pazar, köklü bayi tabanı, catchment ~2–5%.
+TIER_B_ILLER: frozenset[str] = frozenset({
+    "ANTALYA", "KOCAELİ", "GAZİANTEP",
+    "TEKİRDAĞ", "KONYA", "MUĞLA", "DENİZLİ",
+})
+# C — Gelişen Pazar: Daha küçük catchment, yüksek büyüme potansiyeli, düşük baz.
+# (ADANA, MERSİN, KAYSERİ, KAHRAMANMARAŞ, SAMSUN, TRABZON, SİVAS)
 
 TIER_ACIKLAMALAR = {
-    "A": "Marmara + Ege + İç Anadolu (Ankara)",
-    "B": "Akdeniz",
-    "C": "Güneydoğu Anadolu + Karadeniz",
+    "A": "Büyük Metro (İstanbul · Ankara · İzmir · Bursa)",
+    "B": "Bölgesel Merkez (Antalya · Kocaeli · Gaziantep · Tekirdağ · Konya · Muğla · Denizli)",
+    "C": "Gelişen Pazar (Adana · Mersin · Kayseri · K.Maraş · Samsun · Trabzon · Sivas)",
 }
 
 # ---------------------------------------------------------------------------
@@ -203,24 +213,19 @@ def load_dealer_jan26_targets() -> dict[str, int]:
 
 
 def load_dealer_tiers() -> dict[str, str]:
-    """Bayi-Adi-Kodu.csv'den bayi → tier (A/B/C) eşlemesi döndürür.
+    """BAYI_IL_ILCE sabitindeki il verisine göre bayi → tier (A/B/C) döndürür.
 
-    Kod formatı: BA-3-MAR-01 → bölge kısaltması = MAR
-    A: MAR + EGE + ICA  |  B: AKD  |  C: diğerleri (GDA, KAR ...)
+    Tier kriterleri (TÜİK 2024 araç stoku bazlı pazar büyüklüğü):
+      A — Büyük Metro : İSTANBUL, ANKARA, İZMİR, BURSA   (catchment ~45%)
+      B — Bölgesel Merkez: ANTALYA, KOCAELİ, GAZİANTEP,  (catchment ~2–5% her il)
+                            TEKİRDAĞ, KONYA, MUĞLA, DENİZLİ
+      C — Gelişen Pazar : diğer iller                     (catchment <2.5%)
     """
-    df = pd.read_csv(BAYI_KOD_FILE, sep=";", encoding="utf-8-sig")
-    df.columns = [c.strip() for c in df.columns]
-    df = df.rename(columns={"Unnamed: 0": "dealer", "BAYİ-KODU": "kod"})
-
     tiers: dict[str, str] = {}
-    for _, row in df.iterrows():
-        dealer = str(row["dealer"]).strip()
-        kod = str(row["kod"]).strip()
-        parts = kod.split("-")
-        bolge = parts[2] if len(parts) >= 3 else "UNK"
-        if bolge in TIER_A_BOLGELER:
+    for dealer, (il, _) in BAYI_IL_ILCE.items():
+        if il in TIER_A_ILLER:
             tiers[dealer] = "A"
-        elif bolge in TIER_B_BOLGELER:
+        elif il in TIER_B_ILLER:
             tiers[dealer] = "B"
         else:
             tiers[dealer] = "C"

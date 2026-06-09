@@ -1,53 +1,53 @@
 {
   "aralik_tahmin": {
     "ozet": {
-      "toplam_tahmin": 460,
+      "toplam_tahmin": 459,
       "toplam_gercek": 499,
-      "mape": 7.82,
-      "mae": 39.0,
-      "rmse": 39.0,
-      "bayi_mape": 39.63,
-      "yontem": "Tier A (Marmara + Ege + İç Anadolu (Ankara)): SI=1.323 → 374 | Tier B (Akdeniz): SI=1.270 → 70 | Tier C (Güneydoğu Anadolu + Karadeniz): SI=1.368 → 16"
+      "mape": 8.02,
+      "mae": 40.0,
+      "rmse": 40.0,
+      "bayi_mape": 38.63,
+      "yontem": "Tier A (Büyük Metro (İstanbul · Ankara · İzmir · Bursa)): SI=1.315 → 293 | Tier B (Bölgesel Merkez (Antalya · Kocaeli · Gaziantep · Tekirdağ · Konya · Muğla · Denizli)): SI=1.356 → 116 | Tier C (Gelişen Pazar (Adana · Mersin · Kayseri · K.Maraş · Samsun · Trabzon · Sivas)): SI=1.245 → 50"
     },
     "tier_ozet": [
       {
         "tier": "A",
-        "aciklama": "Marmara + Ege + İç Anadolu (Ankara)",
-        "tahmin": 374,
-        "gercek": 405,
-        "mape": 7.65,
-        "si": 1.3234,
-        "trend": 1.3027,
-        "son12_ort": 216.8
+        "aciklama": "Büyük Metro (İstanbul · Ankara · İzmir · Bursa)",
+        "tahmin": 293,
+        "gercek": 334,
+        "mape": 12.28,
+        "si": 1.3155,
+        "trend": 1.2708,
+        "son12_ort": 175.4
       },
       {
         "tier": "B",
-        "aciklama": "Akdeniz",
-        "tahmin": 70,
-        "gercek": 75,
-        "mape": 6.67,
-        "si": 1.2696,
+        "aciklama": "Bölgesel Merkez (Antalya · Kocaeli · Gaziantep · Tekirdağ · Konya · Muğla · Denizli)",
+        "tahmin": 116,
+        "gercek": 103,
+        "mape": 12.62,
+        "si": 1.3562,
         "trend": 1.35,
-        "son12_ort": 40.7
+        "son12_ort": 63.4
       },
       {
         "tier": "C",
-        "aciklama": "Güneydoğu Anadolu + Karadeniz",
-        "tahmin": 16,
-        "gercek": 19,
-        "mape": 15.79,
-        "si": 1.3678,
-        "trend": 1.0,
-        "son12_ort": 11.3
+        "aciklama": "Gelişen Pazar (Adana · Mersin · Kayseri · K.Maraş · Samsun · Trabzon · Sivas)",
+        "tahmin": 50,
+        "gercek": 62,
+        "mape": 19.35,
+        "si": 1.2446,
+        "trend": 1.35,
+        "son12_ort": 30.0
       }
     ],
     "bayi_tahmin": [
       {
         "dealer": "DEALER 1",
         "tier": "A",
-        "tahmin": 43,
+        "tahmin": 42,
         "gercek": 47,
-        "hata_pct": -8.5,
+        "hata_pct": -10.6,
         "model_mix": {
           "A1": 0.037,
           "A2": 0.493,
@@ -59,9 +59,9 @@
       {
         "dealer": "DEALER 2",
         "tier": "A",
-        "tahmin": 19,
+        "tahmin": 18,
         "gercek": 17,
-        "hata_pct": 11.8,
+        "hata_pct": 5.9,
         "model_mix": {
           "A1": 0.046,
           "A2": 0.489,
@@ -72,10 +72,10 @@
       },
       {
         "dealer": "DEALER 3",
-        "tier": "B",
-        "tahmin": 19,
+        "tier": "C",
+        "tahmin": 18,
         "gercek": 22,
-        "hata_pct": -13.6,
+        "hata_pct": -18.2,
         "model_mix": {
           "A1": 0.008,
           "A2": 0.438,
@@ -86,10 +86,10 @@
       },
       {
         "dealer": "DEALER 4",
-        "tier": "B",
-        "tahmin": 18,
+        "tier": "C",
+        "tahmin": 17,
         "gercek": 19,
-        "hata_pct": -5.3,
+        "hata_pct": -10.5,
         "model_mix": {
           "A1": 0.025,
           "A2": 0.352,
@@ -100,10 +100,10 @@
       },
       {
         "dealer": "DEALER 5",
-        "tier": "A",
-        "tahmin": 14,
+        "tier": "B",
+        "tahmin": 15,
         "gercek": 16,
-        "hata_pct": -12.5,
+        "hata_pct": -6.2,
         "model_mix": {
           "A1": 0.02,
           "A2": 0.48,
@@ -115,9 +115,9 @@
       {
         "dealer": "DEALER 6",
         "tier": "A",
-        "tahmin": 27,
+        "tahmin": 26,
         "gercek": 31,
-        "hata_pct": -12.9,
+        "hata_pct": -16.1,
         "model_mix": {
           "A1": 0.032,
           "A2": 0.397,
@@ -130,9 +130,9 @@
       {
         "dealer": "DEALER 7",
         "tier": "A",
-        "tahmin": 36,
+        "tahmin": 34,
         "gercek": 78,
-        "hata_pct": -53.8,
+        "hata_pct": -56.4,
         "model_mix": {
           "A1": 0.012,
           "A2": 0.466,
@@ -143,10 +143,10 @@
       },
       {
         "dealer": "DEALER 8",
-        "tier": "A",
-        "tahmin": 17,
+        "tier": "B",
+        "tahmin": 18,
         "gercek": 14,
-        "hata_pct": 21.4,
+        "hata_pct": 28.6,
         "model_mix": {
           "A1": 0.017,
           "A2": 0.474,
@@ -158,7 +158,7 @@
       },
       {
         "dealer": "DEALER 9",
-        "tier": "A",
+        "tier": "C",
         "tahmin": 4,
         "gercek": 3,
         "hata_pct": 33.3,
@@ -171,10 +171,10 @@
       },
       {
         "dealer": "DEALER 10",
-        "tier": "A",
-        "tahmin": 12,
+        "tier": "B",
+        "tahmin": 13,
         "gercek": 13,
-        "hata_pct": -7.7,
+        "hata_pct": 0.0,
         "model_mix": {
           "A2": 0.614,
           "A3": 0.133,
@@ -184,7 +184,7 @@
       },
       {
         "dealer": "DEALER 11",
-        "tier": "B",
+        "tier": "C",
         "tahmin": 5,
         "gercek": 10,
         "hata_pct": -50.0,
@@ -198,9 +198,9 @@
       {
         "dealer": "DEALER 12",
         "tier": "A",
-        "tahmin": 16,
+        "tahmin": 15,
         "gercek": 3,
-        "hata_pct": 433.3,
+        "hata_pct": 400.0,
         "model_mix": {
           "A1": 0.037,
           "A2": 0.514,
@@ -242,9 +242,9 @@
       {
         "dealer": "DEALER 15",
         "tier": "B",
-        "tahmin": 29,
+        "tahmin": 30,
         "gercek": 24,
-        "hata_pct": 20.8,
+        "hata_pct": 25.0,
         "model_mix": {
           "A1": 0.02,
           "A2": 0.452,
@@ -256,9 +256,9 @@
       {
         "dealer": "DEALER 16",
         "tier": "A",
-        "tahmin": 30,
+        "tahmin": 29,
         "gercek": 16,
-        "hata_pct": 87.5,
+        "hata_pct": 81.2,
         "model_mix": {
           "A1": 0.029,
           "A2": 0.394,
@@ -272,9 +272,9 @@
       {
         "dealer": "DEALER 17",
         "tier": "A",
-        "tahmin": 52,
+        "tahmin": 51,
         "gercek": 50,
-        "hata_pct": 4.0,
+        "hata_pct": 2.0,
         "model_mix": {
           "A1": 0.016,
           "A2": 0.607,
@@ -287,9 +287,9 @@
       {
         "dealer": "DEALER 18",
         "tier": "A",
-        "tahmin": 25,
+        "tahmin": 24,
         "gercek": 32,
-        "hata_pct": -21.9,
+        "hata_pct": -25.0,
         "model_mix": {
           "A1": 0.045,
           "A2": 0.483,
@@ -301,10 +301,10 @@
       },
       {
         "dealer": "DEALER 19",
-        "tier": "C",
-        "tahmin": 11,
+        "tier": "B",
+        "tahmin": 14,
         "gercek": 11,
-        "hata_pct": 0.0,
+        "hata_pct": 27.3,
         "model_mix": {
           "A2": 0.358,
           "A3": 0.2,
@@ -315,9 +315,9 @@
       {
         "dealer": "DEALER 20",
         "tier": "C",
-        "tahmin": 5,
+        "tahmin": 6,
         "gercek": 8,
-        "hata_pct": -37.5,
+        "hata_pct": -25.0,
         "model_mix": {
           "A1": 0.073,
           "A2": 0.659,
@@ -328,7 +328,7 @@
       },
       {
         "dealer": "DEALER 21",
-        "tier": "A",
+        "tier": "B",
         "tahmin": 13,
         "gercek": 12,
         "hata_pct": 8.3,
@@ -342,10 +342,10 @@
       },
       {
         "dealer": "DEALER 22",
-        "tier": "A",
-        "tahmin": 12,
+        "tier": "B",
+        "tahmin": 13,
         "gercek": 13,
-        "hata_pct": -7.7,
+        "hata_pct": 0.0,
         "model_mix": {
           "A1": 0.012,
           "A2": 0.422,
@@ -474,7 +474,7 @@
       {
         "ym": "2025-12",
         "gercek": 499,
-        "tahmin": 460
+        "tahmin": 459
       }
     ],
     "metodoloji": [
@@ -492,7 +492,7 @@
       },
       {
         "baslik": "Bayi Pay Dağıtımı",
-        "aciklama": "Tier A: 374 + Tier B: 70 + Tier C: 16 = 460 araç (Gerçek: 499). Her tier tahmini, o tier bayilerinin son 12 ay (Ara 2024 – Kas 2025) satış payıyla dağıtıldı."
+        "aciklama": "Tier A: 293 + Tier B: 116 + Tier C: 50 = 459 araç (Gerçek: 499). Her tier tahmini, o tier bayilerinin son 12 ay (Ara 2024 – Kas 2025) satış payıyla dağıtıldı."
       },
       {
         "baslik": "Model Karışımı (Model Mix)",
@@ -720,7 +720,7 @@
         },
         {
           "dealer": "DEALER 3",
-          "tier": "B",
+          "tier": "C",
           "adet": 18,
           "pay_pct": 4.36,
           "model_mix": {
@@ -735,7 +735,7 @@
         },
         {
           "dealer": "DEALER 4",
-          "tier": "B",
+          "tier": "C",
           "adet": 16,
           "pay_pct": 3.87,
           "model_mix": {
@@ -750,7 +750,7 @@
         },
         {
           "dealer": "DEALER 5",
-          "tier": "A",
+          "tier": "B",
           "adet": 14,
           "pay_pct": 3.39,
           "model_mix": {
@@ -795,7 +795,7 @@
         },
         {
           "dealer": "DEALER 8",
-          "tier": "A",
+          "tier": "B",
           "adet": 16,
           "pay_pct": 3.87,
           "model_mix": {
@@ -810,7 +810,7 @@
         },
         {
           "dealer": "DEALER 9",
-          "tier": "A",
+          "tier": "C",
           "adet": 4,
           "pay_pct": 0.97,
           "model_mix": {
@@ -825,7 +825,7 @@
         },
         {
           "dealer": "DEALER 10",
-          "tier": "A",
+          "tier": "B",
           "adet": 12,
           "pay_pct": 2.91,
           "model_mix": {
@@ -839,7 +839,7 @@
         },
         {
           "dealer": "DEALER 11",
-          "tier": "B",
+          "tier": "C",
           "adet": 6,
           "pay_pct": 1.45,
           "model_mix": {
@@ -959,7 +959,7 @@
         },
         {
           "dealer": "DEALER 19",
-          "tier": "C",
+          "tier": "B",
           "adet": 14,
           "pay_pct": 3.39,
           "model_mix": {
@@ -989,7 +989,7 @@
         },
         {
           "dealer": "DEALER 21",
-          "tier": "A",
+          "tier": "B",
           "adet": 12,
           "pay_pct": 2.91,
           "model_mix": {
@@ -1004,7 +1004,7 @@
         },
         {
           "dealer": "DEALER 22",
-          "tier": "A",
+          "tier": "B",
           "adet": 12,
           "pay_pct": 2.91,
           "model_mix": {
@@ -1529,7 +1529,7 @@
         },
         {
           "dealer": "DEALER 3",
-          "tier": "B",
+          "tier": "C",
           "adet": 21,
           "pay_pct": 4.32,
           "model_mix": {
@@ -1544,7 +1544,7 @@
         },
         {
           "dealer": "DEALER 4",
-          "tier": "B",
+          "tier": "C",
           "adet": 19,
           "pay_pct": 3.91,
           "model_mix": {
@@ -1559,7 +1559,7 @@
         },
         {
           "dealer": "DEALER 5",
-          "tier": "A",
+          "tier": "B",
           "adet": 16,
           "pay_pct": 3.29,
           "model_mix": {
@@ -1604,7 +1604,7 @@
         },
         {
           "dealer": "DEALER 8",
-          "tier": "A",
+          "tier": "B",
           "adet": 19,
           "pay_pct": 3.91,
           "model_mix": {
@@ -1619,7 +1619,7 @@
         },
         {
           "dealer": "DEALER 9",
-          "tier": "A",
+          "tier": "C",
           "adet": 5,
           "pay_pct": 1.03,
           "model_mix": {
@@ -1634,7 +1634,7 @@
         },
         {
           "dealer": "DEALER 10",
-          "tier": "A",
+          "tier": "B",
           "adet": 14,
           "pay_pct": 2.88,
           "model_mix": {
@@ -1648,7 +1648,7 @@
         },
         {
           "dealer": "DEALER 11",
-          "tier": "B",
+          "tier": "C",
           "adet": 7,
           "pay_pct": 1.44,
           "model_mix": {
@@ -1768,7 +1768,7 @@
         },
         {
           "dealer": "DEALER 19",
-          "tier": "C",
+          "tier": "B",
           "adet": 16,
           "pay_pct": 3.29,
           "model_mix": {
@@ -1798,7 +1798,7 @@
         },
         {
           "dealer": "DEALER 21",
-          "tier": "A",
+          "tier": "B",
           "adet": 14,
           "pay_pct": 2.88,
           "model_mix": {
@@ -1813,7 +1813,7 @@
         },
         {
           "dealer": "DEALER 22",
-          "tier": "A",
+          "tier": "B",
           "adet": 14,
           "pay_pct": 2.88,
           "model_mix": {
@@ -3290,7 +3290,7 @@
         }
       },
       "DEALER 3": {
-        "tier": "B",
+        "tier": "C",
         "il": "ADANA",
         "ilce": "SEYHAN",
         "brand_pay_2025": 4.154,
@@ -3445,7 +3445,7 @@
         }
       },
       "DEALER 4": {
-        "tier": "B",
+        "tier": "C",
         "il": "MERSİN",
         "ilce": "TOROSLAR",
         "brand_pay_2025": 3.833,
@@ -3600,7 +3600,7 @@
         }
       },
       "DEALER 5": {
-        "tier": "A",
+        "tier": "B",
         "il": "KOCAELİ",
         "ilce": "GEBZE",
         "brand_pay_2025": 3.013,
@@ -4065,7 +4065,7 @@
         }
       },
       "DEALER 8": {
-        "tier": "A",
+        "tier": "B",
         "il": "TEKİRDAĞ",
         "ilce": "MERKEZ",
         "brand_pay_2025": 3.54,
@@ -4220,7 +4220,7 @@
         }
       },
       "DEALER 9": {
-        "tier": "A",
+        "tier": "C",
         "il": "KAYSERİ",
         "ilce": "KOCASİNAN",
         "brand_pay_2025": 0.936,
@@ -4375,7 +4375,7 @@
         }
       },
       "DEALER 10": {
-        "tier": "A",
+        "tier": "B",
         "il": "KONYA",
         "ilce": "KARATAY",
         "brand_pay_2025": 2.516,
@@ -4530,7 +4530,7 @@
         }
       },
       "DEALER 11": {
-        "tier": "B",
+        "tier": "C",
         "il": "KAHRAMANMARAŞ",
         "ilce": "DULKADİROĞLU",
         "brand_pay_2025": 1.17,
@@ -5770,7 +5770,7 @@
         }
       },
       "DEALER 19": {
-        "tier": "C",
+        "tier": "B",
         "il": "GAZİANTEP",
         "ilce": "ŞEHİTKAMİL",
         "brand_pay_2025": 2.838,
@@ -6080,7 +6080,7 @@
         }
       },
       "DEALER 21": {
-        "tier": "A",
+        "tier": "B",
         "il": "MUĞLA",
         "ilce": "MİLAS",
         "brand_pay_2025": 2.633,
@@ -6235,7 +6235,7 @@
         }
       },
       "DEALER 22": {
-        "tier": "A",
+        "tier": "B",
         "il": "DENİZLİ",
         "ilce": "MERKEZEFENDİ",
         "brand_pay_2025": 2.575,
@@ -6545,7 +6545,7 @@
         }
       },
       "DEALER 24": {
-        "tier": "A",
+        "tier": "C",
         "il": "SAMSUN",
         "ilce": "TEKKEKÖY",
         "brand_pay_2025": 0.0,
@@ -6700,7 +6700,7 @@
         }
       },
       "DEALER 25": {
-        "tier": "C",
+        "tier": "A",
         "il": "İSTANBUL",
         "ilce": "BAĞCILAR",
         "brand_pay_2025": 0.0,
@@ -6855,7 +6855,7 @@
         }
       },
       "DEALER 26": {
-        "tier": "A",
+        "tier": "B",
         "il": "TEKİRDAĞ",
         "ilce": "ÇORLU",
         "brand_pay_2025": 0.0,
@@ -7165,7 +7165,7 @@
         }
       },
       "DEALER 28": {
-        "tier": "A",
+        "tier": "C",
         "il": "SİVAS",
         "ilce": "MERKEZEFENDİ",
         "brand_pay_2025": 0.0,
@@ -7632,7 +7632,7 @@
         }
       },
       "DEALER 3": {
-        "tier": "B",
+        "tier": "C",
         "il": "ADANA",
         "ilce": "SEYHAN",
         "brand_pay_2025": 4.154,
@@ -7787,7 +7787,7 @@
         }
       },
       "DEALER 4": {
-        "tier": "B",
+        "tier": "C",
         "il": "MERSİN",
         "ilce": "TOROSLAR",
         "brand_pay_2025": 3.833,
@@ -7942,7 +7942,7 @@
         }
       },
       "DEALER 5": {
-        "tier": "A",
+        "tier": "B",
         "il": "KOCAELİ",
         "ilce": "GEBZE",
         "brand_pay_2025": 3.013,
@@ -8407,7 +8407,7 @@
         }
       },
       "DEALER 8": {
-        "tier": "A",
+        "tier": "B",
         "il": "TEKİRDAĞ",
         "ilce": "MERKEZ",
         "brand_pay_2025": 3.54,
@@ -8562,7 +8562,7 @@
         }
       },
       "DEALER 9": {
-        "tier": "A",
+        "tier": "C",
         "il": "KAYSERİ",
         "ilce": "KOCASİNAN",
         "brand_pay_2025": 0.936,
@@ -8717,7 +8717,7 @@
         }
       },
       "DEALER 10": {
-        "tier": "A",
+        "tier": "B",
         "il": "KONYA",
         "ilce": "KARATAY",
         "brand_pay_2025": 2.516,
@@ -8872,7 +8872,7 @@
         }
       },
       "DEALER 11": {
-        "tier": "B",
+        "tier": "C",
         "il": "KAHRAMANMARAŞ",
         "ilce": "DULKADİROĞLU",
         "brand_pay_2025": 1.17,
@@ -10112,7 +10112,7 @@
         }
       },
       "DEALER 19": {
-        "tier": "C",
+        "tier": "B",
         "il": "GAZİANTEP",
         "ilce": "ŞEHİTKAMİL",
         "brand_pay_2025": 2.838,
@@ -10422,7 +10422,7 @@
         }
       },
       "DEALER 21": {
-        "tier": "A",
+        "tier": "B",
         "il": "MUĞLA",
         "ilce": "MİLAS",
         "brand_pay_2025": 2.633,
@@ -10577,7 +10577,7 @@
         }
       },
       "DEALER 22": {
-        "tier": "A",
+        "tier": "B",
         "il": "DENİZLİ",
         "ilce": "MERKEZEFENDİ",
         "brand_pay_2025": 2.575,
@@ -10887,7 +10887,7 @@
         }
       },
       "DEALER 24": {
-        "tier": "A",
+        "tier": "C",
         "il": "SAMSUN",
         "ilce": "TEKKEKÖY",
         "brand_pay_2025": 0.0,
@@ -11042,7 +11042,7 @@
         }
       },
       "DEALER 25": {
-        "tier": "C",
+        "tier": "A",
         "il": "İSTANBUL",
         "ilce": "BAĞCILAR",
         "brand_pay_2025": 0.0,
@@ -11197,7 +11197,7 @@
         }
       },
       "DEALER 26": {
-        "tier": "A",
+        "tier": "B",
         "il": "TEKİRDAĞ",
         "ilce": "ÇORLU",
         "brand_pay_2025": 0.0,
@@ -11507,7 +11507,7 @@
         }
       },
       "DEALER 28": {
-        "tier": "A",
+        "tier": "C",
         "il": "SİVAS",
         "ilce": "MERKEZEFENDİ",
         "brand_pay_2025": 0.0,
