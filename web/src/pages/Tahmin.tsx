@@ -1312,9 +1312,7 @@ function SenaryoView({
 }
 
 function Plan2026Tab({ data }: { data: Plan2026 }) {
-  const [aktifSenaryo, setAktifSenaryo] = useState<8500 | 10000>(10000)
-  const senaryo = aktifSenaryo === 8500 ? data.senaryo_8500 : data.senaryo_10000
-  const s8  = data.senaryo_8500.ozet
+  const senaryo = data.senaryo_10000
   const s10 = data.senaryo_10000.ozet
 
   return (
@@ -1324,8 +1322,8 @@ function Plan2026Tab({ data }: { data: Plan2026 }) {
         <p>
           <strong className="text-white">Amaç:</strong>{' '}
           2026 yılı için aylık araç dağıtım hedeflerini belirlemek.
-          İki farklı büyüme senaryosu (8500 ve 10000 araç) sunulmaktadır.
-          Her senaryo için: (1) aylık toplam hedef, (2) bayi bazında Ocak dağıtımı,
+          10.000 araç hedefi temel alınmıştır: B1 lansmanı ve pazar genişlemesiyle agresif büyüme (+%18).
+          Her ay için: (1) aylık toplam hedef, (2) bayi bazında Ocak dağıtımı,
           (3) aylık × model bazında hedef tablosu hesaplanmıştır.
         </p>
         <p>
@@ -1336,65 +1334,37 @@ function Plan2026Tab({ data }: { data: Plan2026 }) {
           Yıllık hedef, bu SI oranlarıyla 12 aya dağıtıldı.
         </p>
         <p>
-          <strong className="text-white">Mart Lansman Boostı:</strong>{' '}
-          Mart ve sonrası için SI ×1.15 uygulandı. B1'in (B Segmenti Versiyon 1) yeni versiyon
-          lansmanı Mart 2026'da gerçekleşti. Bu boost distribütörün satış stratejisini ve
-          lansman dönemindeki toplam pazar talebindeki artışı yansıtır.
-        </p>
-        <p>
-          <strong className="text-white">Senaryo Seçimi:</strong>{' '}
-          8500 → mevcut 2024-2025 büyüme trendini sürdürür (muhafazakâr).
-          10000 → B1 lansmanı ve pazar genişlemesiyle agresif büyüme (+%18).
+          <strong className="text-white">Mart Lansman Boostı (×1.11):</strong>{' '}
+          Mart ve sonrası için SI ×1.11 uygulandı. Bu çarpan tamamen veriden türetilmiştir:
+          B segmenti Mart 2024/2025 pay analizi → 1 + (0.557 − 0.445) = 1.112, muhafazakâr
+          yuvarlamayla 1.11. B1 lansmanının SI üzerindeki ölçülmüş etkisini yansıtır.
         </p>
       </BilgiKutusu>
 
-      {/* Senaryo seçici */}
-      <div className="bg-slate-50 rounded-xl border border-slate-200 p-4">
-        <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-3">
-          2026 Hedef Senaryosu Seçin
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          {([8500, 10000] as const).map(h => {
-            const s = h === 8500 ? s8 : s10
-            return (
-              <button key={h} onClick={() => setAktifSenaryo(h)}
-                className={`p-4 rounded-xl border-2 text-left transition-all ${
-                  aktifSenaryo === h
-                    ? 'border-blue-500 bg-blue-50'
-                    : 'border-slate-200 bg-white hover:border-slate-300'
-                }`}
-              >
-                <div className="flex items-center justify-between mb-1">
-                  <span className={`text-lg font-bold ${aktifSenaryo === h ? 'text-blue-700' : 'text-slate-700'}`}>
-                    {h.toLocaleString('tr')} Araç
-                  </span>
-                  {aktifSenaryo === h && (
-                    <span className="text-xs bg-blue-600 text-white px-2 py-0.5 rounded-full font-medium">Aktif</span>
-                  )}
-                </div>
-                <p className="text-xs text-slate-500 mb-2">
-                  {h === 8500
-                    ? 'Mevcut büyüme trendi · Muhafazakâr büyüme'
-                    : `Agresif büyüme (~+%${Math.round((10000 / 8500 - 1) * 100)}) · A1 tam kapasiteye ulaşır`}
-                </p>
-                <div className="grid grid-cols-4 gap-1 text-center">
-                  {(h === 8500 ? data.senaryo_8500 : data.senaryo_10000).aylik
-                    .filter(r => [1, 3, 6, 12].includes(r.ay))
-                    .map(r => (
-                      <div key={r.ay} className="bg-white rounded border border-slate-200 p-1">
-                        <p className="text-xs text-slate-400">{r.ay_adi}</p>
-                        <p className="text-sm font-bold text-slate-700">{r.hedef}</p>
-                      </div>
-                    ))}
-                </div>
-                <p className="text-xs text-slate-400 mt-2">
-                  Ocak: <strong>{s.ocak_hedef}</strong> araç (SI bazlı, sabit değil)
-                </p>
-              </button>
-            )
-          })}
+      {/* 10.000 senaryo özet kartı */}
+      <div className="bg-blue-50 rounded-xl border-2 border-blue-500 p-4">
+        <div className="flex items-center justify-between mb-3">
+          <span className="text-xl font-bold text-blue-700">10.000 Araç — 2026 Planı</span>
+          <span className="text-xs bg-blue-600 text-white px-3 py-1 rounded-full font-medium">Aktif Senaryo</span>
         </div>
+        <p className="text-xs text-slate-600 mb-3">
+          B1 lansmanı ve pazar genişlemesiyle agresif büyüme (+%18)
+        </p>
+        <div className="grid grid-cols-4 gap-2 text-center">
+          {senaryo.aylik
+            .filter(r => [1, 3, 6, 12].includes(r.ay))
+            .map(r => (
+              <div key={r.ay} className="bg-white rounded-xl border border-blue-200 p-2">
+                <p className="text-xs text-slate-400">{r.ay_adi}</p>
+                <p className="text-lg font-bold text-blue-700">{r.hedef}</p>
+              </div>
+            ))}
+        </div>
+        <p className="text-xs text-slate-400 mt-2">
+          Ocak: <strong>{s10.ocak_hedef}</strong> araç (SI bazlı, sabit değil)
+        </p>
       </div>
+
 
       <SenaryoView
         senaryo={senaryo}
@@ -1429,8 +1399,7 @@ function BayiHedefleriTab({ data }: {
     senaryo_10000: BayiAylikHedefler
   }
 }) {
-  const [aktifSenaryo, setAktifSenaryo] = useState<8500 | 10000>(10000)
-  const senaryoData = aktifSenaryo === 8500 ? data.senaryo_8500 : data.senaryo_10000
+  const senaryoData = data.senaryo_10000
 
   const bayiler = Object.keys(senaryoData).sort((a, b) => {
     const aNum = parseInt(a.split(' ').pop() || '0', 10)
@@ -1440,7 +1409,6 @@ function BayiHedefleriTab({ data }: {
 
   const [secilenBayi, setSecilenBayi] = useState<string>(bayiler[0] ?? '')
 
-  // Senaryo değişince bayiyi reset et
   const bayiHedef: BayiHedef | null = senaryoData[secilenBayi] ?? null
 
   // 2026 aktif modeller — A1, C1, D1 üretimden kalktı
@@ -1478,24 +1446,6 @@ function BayiHedefleriTab({ data }: {
           toplamları senaryo genel toplamıyla tam olarak örtüşmeyebilir.
         </p>
       </BilgiKutusu>
-
-      {/* Senaryo seçici */}
-      <div className="flex gap-2">
-        {([8500, 10000] as const).map(h => (
-          <button key={h} onClick={() => setAktifSenaryo(h)}
-            className={`px-5 py-2 rounded-lg text-sm font-semibold border-2 transition-all ${
-              aktifSenaryo === h
-                ? 'border-blue-500 bg-blue-50 text-blue-800'
-                : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300'
-            }`}
-          >
-            {h.toLocaleString('tr')} Araç Senaryosu
-            {aktifSenaryo === h && (
-              <span className="ml-2 text-xs bg-blue-600 text-white px-1.5 py-0.5 rounded-full">Aktif</span>
-            )}
-          </button>
-        ))}
-      </div>
 
       {/* Bayi seçici */}
       <div className="flex items-center gap-3 flex-wrap">
