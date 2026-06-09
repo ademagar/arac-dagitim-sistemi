@@ -123,13 +123,13 @@ export default function Ozet() {
             Otomotiv Bayi Araç Dağıtım Sistemi
           </h1>
           <p className="text-slate-300 text-base leading-relaxed max-w-3xl">
-            Bir otomotiv markasının SUV segmentindeki araçlarını, 30 bayiye adil ve veri odaklı biçimde
+            Bir otomotiv markasının SUV segmentindeki araçlarını, 28 bayiye adil ve veri odaklı biçimde
             dağıtmayı otomatize eden, Endüstri Mühendisliği bitirme tezi kapsamında geliştirilen karar destek sistemi.
             2026 Ocak itibarıyla aylık çalışacak şekilde tasarlanmıştır.
           </p>
           <div className="mt-5 grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
-              { val: '30', lbl: 'Bayi' },
+              { val: '28', lbl: 'Bayi' },
               { val: '10.000', lbl: '2026 Araç Hedefi' },
               { val: '7', lbl: 'Modül' },
               { val: '12', lbl: 'Aylık Döngü' },
@@ -155,7 +155,7 @@ export default function Ozet() {
             </p>
             <ul className="mt-2 space-y-1 text-slate-300 text-sm">
               <li className="flex items-start gap-2"><ArrowRight size={13} className="text-blue-400 mt-0.5 flex-shrink-0" />Ürünler: model × versiyon × renk kombinasyonları</li>
-              <li className="flex items-start gap-2"><ArrowRight size={13} className="text-blue-400 mt-0.5 flex-shrink-0" />Lokasyonlar: 30 bayi</li>
+              <li className="flex items-start gap-2"><ArrowRight size={13} className="text-blue-400 mt-0.5 flex-shrink-0" />Lokasyonlar: 28 bayi</li>
               <li className="flex items-start gap-2"><ArrowRight size={13} className="text-blue-400 mt-0.5 flex-shrink-0" />Kısıt: Aylık toplam envanter (300–1500 araç)</li>
             </ul>
           </InfoCard>
@@ -198,7 +198,7 @@ export default function Ozet() {
           <InfoCard title="CSV Dosyaları (data/raw/)" color="emerald">
             {[
               { dosya: 'sales_2024_2025.csv', icerik: 'Geçmiş satışlar – bayi × model × versiyon × renk × tarih' },
-              { dosya: 'dealer_targets_2026.csv', icerik: '30 bayinin 2026 yıllık araç hedefi' },
+              { dosya: 'dealer_targets_2026.csv', icerik: '28 bayinin 2026 yıllık araç hedefi' },
               { dosya: 'dealer_locations.csv', icerik: 'Bayi il/ilçe, enlem/boylam bilgisi' },
               { dosya: 'monthly_performance_2025.csv', icerik: '2025 aylık hedef, gerçekleşme, yüzde' },
               { dosya: 'competitor_sales.csv', icerik: 'Rakip marka il bazında satışları (upper mainstream)' },
@@ -311,7 +311,7 @@ export default function Ozet() {
           </Accordion>
           <Accordion title="Hiyerarşik yapı — bayiden toplama reconciliation" icon={GitBranch}>
             <p className="text-slate-300 text-sm leading-relaxed">
-              Önce toplam pazar (30 bayi toplamı) tahmin edilir, ardından bayi bazına indirgenir.
+              Önce toplam pazar (28 bayi toplamı) tahmin edilir, ardından bayi bazına indirgenir.
               Bu top-down yaklaşım, alt seviye tahminlerin birbirine eklenmesiyle toplam hedefi
               aşma riskini ortadan kaldırır. Alternatif bottom-up tahmin, bayi başına aşırı
               uyum (overfitting) riskini artırırdı çünkü bazı bayilerin yeterince uzun tarihsel
@@ -428,7 +428,7 @@ export default function Ozet() {
               <span className="text-emerald-400 font-semibold">PuLP</span>, Python için açık kaynak LP/MIP modelleme kütüphanesidir.
               Üretim ortamında Gurobi veya CPLEX daha hızlıdır; ancak akademik/demo bağlamında
               ücretsiz olan <span className="text-emerald-400 font-semibold">CBC (COIN-OR Branch and Cut)</span> solver yeterlidir.
-              1.500 araç × 30 bayi problemini saniyeler içinde çözer.
+              1.500 araç × 28 bayi problemini saniyeler içinde çözer.
               Cloud deployment için ek lisans gerekmez; GitHub Actions'ta da çalışır.
             </p>
           </Accordion>
