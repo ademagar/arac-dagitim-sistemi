@@ -119,7 +119,7 @@ const MODEL_RENK: Record<string, string> = {
 
 export default function AylikBayiHedef() {
   const [data, setData] = useState<TahminData | null>(null)
-  const [senaryo, setSenaryo] = useState<8500 | 10000>(8500)
+  const [senaryo, setSenaryo] = useState<8500 | 10000>(10000)
   const [secili, setSecili] = useState('')
 
   useEffect(() => {

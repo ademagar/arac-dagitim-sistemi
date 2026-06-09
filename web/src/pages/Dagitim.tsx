@@ -13,6 +13,12 @@ interface BayiHedefRow { dealer: string; code: string; target: number | null }
 // reason: 'A grubu min.' | 'B grubu min.' | 'Orantılı'
 interface AllocVehicle extends Vehicle { dealer: string; reason: string }
 interface SummaryRow { dealer: string; target: number; allocated: number; gap: number; fill_rate: number }
+interface TahminBayiHedef { aylik: { ay: number; toplam: number }[] }
+
+const AY_NO: Record<string, number> = {
+  'Ocak':1,'Şubat':2,'Mart':3,'Nisan':4,'Mayıs':5,'Haziran':6,
+  'Temmuz':7,'Ağustos':8,'Eylül':9,'Ekim':10,'Kasım':11,'Aralık':12,
+}
 
 const MONTHS = ['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık']
 const MONTH_TO_ACTIVITY: Record<string,string> = {
@@ -197,12 +203,17 @@ export default function Dagitim() {
   const [rawRows, setRawRows]       = useState<Record<string,string>[]>([])
   // Bayi renk tercihleri: geçmiş satışlardan top-3 renk (dealer → [renk1, renk2, renk3])
   const [colorPrefs, setColorPrefs] = useState<Record<string, string[]>>({})
+  const [tahmin10k, setTahmin10k]   = useState<Record<string, TahminBayiHedef>>({})
   const fileRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     const base = import.meta.env.BASE_URL
     fetch(`${base}data/dealers.json`).then(r => r.json()).then(setAllDealers)
     fetch(`${base}data/bayi-hedefleri.json`).then(r => r.json()).then(setBayiHedef)
+    fetch(`${base}data/tahmin.json`)
+      .then(r => r.json())
+      .then(d => setTahmin10k(d?.bayi_aylik_hedefler?.senaryo_10000 ?? {}))
+      .catch(() => {})
     fetch(`${base}data/sales-all.json`)
       .then(r => r.json())
       .then(d => {
@@ -558,19 +569,22 @@ export default function Dagitim() {
       <div className="flex flex-wrap justify-between items-center gap-3">
         <p className="text-sm font-medium text-slate-700">Bayi başına aylık hedef girin — {dealers.length} aktif bayi ({month})</p>
         <div className="flex gap-2 flex-wrap">
-          {bayiHedef[month] && (
+          {Object.keys(tahmin10k).length > 0 && (
             <button
               onClick={() => {
-                const rows = bayiHedef[month]
+                const ayNo = AY_NO[month]
                 setTargets(prev => {
                   const t = { ...prev }
-                  rows.forEach(r => { if (r.target !== null && t[r.dealer] !== undefined) t[r.dealer] = r.target })
+                  Object.entries(tahmin10k).forEach(([dealer, hedef]) => {
+                    const row = hedef.aylik.find(a => a.ay === ayNo)
+                    if (row && t[dealer] !== undefined) t[dealer] = row.toplam
+                  })
                   return t
                 })
               }}
               className="text-xs bg-blue-50 border border-blue-200 text-blue-700 hover:bg-blue-100 px-3 py-1.5 rounded-lg font-medium transition-colors"
             >
-              📋 {month} Hedeflerini Yükle
+              📋 10.000 Senaryo Hedeflerini Yükle
             </button>
           )}
           <button onClick={() => { const t: Record<string,number>={}; dealers.forEach(d=>{t[d.name]=0}); setTargets(t) }}
