@@ -227,7 +227,6 @@ function NarrativeSection() {
 
 export default function PazarHedefleri() {
   const [data, setData] = useState<TahminData | null>(null)
-  const [senaryo, setSenaryo] = useState<8500 | 10000>(10000)
   const [siralama, setSiralama] = useState<'dealer' | 'hedef' | 'catchment'>('hedef')
   const [siralamaYon, setSiralamaYon] = useState<'desc' | 'asc'>('desc')
 
@@ -269,8 +268,8 @@ export default function PazarHedefleri() {
     let av: number | string, bv: number | string
     if (siralama === 'dealer') { av = a.dealer; bv = b.dealer }
     else if (siralama === 'hedef') {
-      av = senaryo === 8500 ? a.hedef_8500 : a.hedef_10000
-      bv = senaryo === 8500 ? b.hedef_8500 : b.hedef_10000
+      av = a.hedef_10000
+      bv = b.hedef_10000
     } else {
       av = a.catchment_pay; bv = b.catchment_pay
     }
@@ -283,7 +282,6 @@ export default function PazarHedefleri() {
   const sortIkon = (alan: typeof siralama) =>
     siralama === alan ? (siralamaYon === 'desc' ? ' ↓' : ' ↑') : ''
 
-  const toplam8500  = tablo.reduce((s, r) => s + r.hedef_8500,  0)
   const toplam10000 = tablo.reduce((s, r) => s + r.hedef_10000, 0)
   const yeniBayi    = tablo.filter(r => r.yeni_bayi).length
 
@@ -313,15 +311,15 @@ export default function PazarHedefleri() {
           colorClass="bg-blue-50 border-blue-200"
         />
         <MetricCard
-          label="8.500 Senaryo"
-          value={toplam8500.toLocaleString('tr')}
-          sub="araç — muhafazakâr büyüme"
+          label="Ort. Hedef / Bayi"
+          value={Math.round(toplam10000 / (tablo.length || 1)).toLocaleString('tr')}
+          sub="araç/yıl — 10.000 senaryosu"
           colorClass="bg-slate-50 border-slate-200"
         />
         <MetricCard
-          label="10.000 Senaryo"
+          label="Yıllık Toplam Hedef"
           value={toplam10000.toLocaleString('tr')}
-          sub="araç — agresif büyüme"
+          sub="araç — 2026 planı"
           colorClass="bg-emerald-50 border-emerald-200"
         />
       </div>
@@ -372,22 +370,6 @@ export default function PazarHedefleri() {
             </span>
           </div>
 
-          {/* Senaryo seçici */}
-          <div className="flex gap-2">
-            {([8500, 10000] as const).map(h => (
-              <button
-                key={h}
-                onClick={() => setSenaryo(h)}
-                className={`px-4 py-1.5 rounded-lg text-xs font-semibold border-2 transition-all ${
-                  senaryo === h
-                    ? 'border-blue-500 bg-blue-50 text-blue-800'
-                    : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300'
-                }`}
-              >
-                {h.toLocaleString('tr')} araç
-              </button>
-            ))}
-          </div>
         </div>
 
         <div className="overflow-x-auto rounded-xl border border-slate-200 shadow-sm">
@@ -427,7 +409,7 @@ export default function PazarHedefleri() {
                   className={`${thKlasi} bg-slate-700`}
                   onClick={() => toggleSort('hedef')}
                 >
-                  {senaryo.toLocaleString('tr')} araç{sortIkon('hedef')}
+                  Hedef Araç{sortIkon('hedef')}
                 </th>
               </tr>
             </thead>
@@ -474,10 +456,8 @@ export default function PazarHedefleri() {
                   <td className="py-2.5 px-3 text-right font-mono text-emerald-700 font-bold border-r border-slate-200">
                     {row.target_pay_2026.toFixed(3)}%
                   </td>
-                  <td className="py-2.5 px-3 text-right font-mono font-bold text-slate-800">
-                    <span className={senaryo === 8500 ? '' : 'text-blue-700'}>
-                      {(senaryo === 8500 ? row.hedef_8500 : row.hedef_10000).toLocaleString('tr')}
-                    </span>
+                  <td className="py-2.5 px-3 text-right font-mono font-bold text-blue-700">
+                    {row.hedef_10000.toLocaleString('tr')}
                   </td>
                 </tr>
               ))}
@@ -497,11 +477,8 @@ export default function PazarHedefleri() {
                 <td className="py-3 px-3 text-right font-mono text-emerald-700 border-r border-slate-300">
                   {tablo.reduce((s, r) => s + r.target_pay_2026, 0).toFixed(2)}%
                 </td>
-                <td className="py-3 px-3 text-right font-mono text-slate-800">
-                  {(senaryo === 8500
-                    ? tablo.reduce((s, r) => s + r.hedef_8500,  0)
-                    : tablo.reduce((s, r) => s + r.hedef_10000, 0)
-                  ).toLocaleString('tr')}
+                <td className="py-3 px-3 text-right font-mono text-blue-700">
+                  {tablo.reduce((s, r) => s + r.hedef_10000, 0).toLocaleString('tr')}
                 </td>
               </tr>
             </tfoot>
@@ -535,9 +512,7 @@ export default function PazarHedefleri() {
               const ilDealers = tablo.filter(r => r.il === il)
               const firstRow = ilDealers[0]
               if (!firstRow) return null
-              const toplamHedef = ilDealers.reduce(
-                (s, d) => s + (senaryo === 8500 ? d.hedef_8500 : d.hedef_10000), 0
-              )
+              const toplamHedef = ilDealers.reduce((s, d) => s + d.hedef_10000, 0)
               return (
                 <div
                   key={il}
@@ -552,7 +527,7 @@ export default function PazarHedefleri() {
                       </p>
                     </div>
                     <div className="text-right">
-                      <p className="text-xs text-slate-400">{senaryo.toLocaleString('tr')}'de</p>
+                      <p className="text-xs text-slate-400">2026 hedefi</p>
                       <p className="text-sm font-bold text-slate-700">{toplamHedef.toLocaleString('tr')} araç</p>
                     </div>
                   </div>
@@ -567,7 +542,7 @@ export default function PazarHedefleri() {
                         </div>
                         <div className="flex items-center gap-2.5">
                           <span className="text-slate-500 font-mono">
-                            {(senaryo === 8500 ? d.hedef_8500 : d.hedef_10000).toLocaleString('tr')}
+                            {d.hedef_10000.toLocaleString('tr')}
                           </span>
                           <span className="font-mono font-semibold text-emerald-700 w-12 text-right">
                             %{d.target_pay_2026.toFixed(2)}

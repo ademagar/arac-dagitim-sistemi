@@ -1312,7 +1312,7 @@ function SenaryoView({
 }
 
 function Plan2026Tab({ data }: { data: Plan2026 }) {
-  const [aktifSenaryo, setAktifSenaryo] = useState<8500 | 10000>(8500)
+  const [aktifSenaryo, setAktifSenaryo] = useState<8500 | 10000>(10000)
   const senaryo = aktifSenaryo === 8500 ? data.senaryo_8500 : data.senaryo_10000
   const s8  = data.senaryo_8500.ozet
   const s10 = data.senaryo_10000.ozet
@@ -1429,7 +1429,7 @@ function BayiHedefleriTab({ data }: {
     senaryo_10000: BayiAylikHedefler
   }
 }) {
-  const [aktifSenaryo, setAktifSenaryo] = useState<8500 | 10000>(8500)
+  const [aktifSenaryo, setAktifSenaryo] = useState<8500 | 10000>(10000)
   const senaryoData = aktifSenaryo === 8500 ? data.senaryo_8500 : data.senaryo_10000
 
   const bayiler = Object.keys(senaryoData).sort((a, b) => {
@@ -2019,11 +2019,8 @@ function PazarKapasitesiTab({ data }: { data?: PazarKapasitesi }) {
                 <th className="text-right py-3 px-3 font-semibold min-w-[85px] bg-emerald-900 border-r border-slate-600">
                   2026 Hedef %
                 </th>
-                <th className="text-right py-3 px-3 font-semibold min-w-[80px] bg-slate-700">
-                  8.500 araç
-                </th>
-                <th className="text-right py-3 px-3 font-semibold min-w-[80px] bg-slate-600">
-                  10.000 araç
+                <th className="text-right py-3 px-3 font-semibold min-w-[80px] bg-blue-800">
+                  Hedef Araç
                 </th>
               </tr>
             </thead>
@@ -2070,9 +2067,6 @@ function PazarKapasitesiTab({ data }: { data?: PazarKapasitesi }) {
                   <td className="py-2.5 px-3 text-right font-mono text-emerald-700 font-bold border-r border-slate-200">
                     {row.target_pay_2026.toFixed(3)}%
                   </td>
-                  <td className="py-2.5 px-3 text-right font-mono font-bold text-slate-800">
-                    {row.hedef_8500.toLocaleString('tr')}
-                  </td>
                   <td className="py-2.5 px-3 text-right font-mono font-bold text-blue-700">
                     {row.hedef_10000.toLocaleString('tr')}
                   </td>
@@ -2096,9 +2090,6 @@ function PazarKapasitesiTab({ data }: { data?: PazarKapasitesi }) {
                 </td>
                 <td className="py-3 px-3 text-right font-mono text-emerald-700 border-r border-slate-300">
                   {tablo.reduce((s, r) => s + r.target_pay_2026, 0).toFixed(2)}%
-                </td>
-                <td className="py-3 px-3 text-right font-mono text-slate-800">
-                  {tablo.reduce((s, r) => s + r.hedef_8500, 0).toLocaleString('tr')}
                 </td>
                 <td className="py-3 px-3 text-right font-mono text-blue-700">
                   {tablo.reduce((s, r) => s + r.hedef_10000, 0).toLocaleString('tr')}
@@ -2129,7 +2120,7 @@ function PazarKapasitesiTab({ data }: { data?: PazarKapasitesi }) {
             const ilDealers = tablo.filter(r => r.il === il)
             const firstRow = ilDealers[0]
             if (!firstRow) return null
-            const toplam8500 = ilDealers.reduce((s, d) => s + d.hedef_8500, 0)
+            const toplam10000 = ilDealers.reduce((s, d) => s + d.hedef_10000, 0)
             return (
               <div
                 key={il}
@@ -2144,8 +2135,8 @@ function PazarKapasitesiTab({ data }: { data?: PazarKapasitesi }) {
                     </p>
                   </div>
                   <div className="text-right">
-                    <p className="text-xs text-slate-400">8.500'de</p>
-                    <p className="text-sm font-bold text-slate-700">{toplam8500} araç</p>
+                    <p className="text-xs text-slate-400">2026 hedefi</p>
+                    <p className="text-sm font-bold text-blue-700">{toplam10000.toLocaleString('tr')} araç</p>
                   </div>
                 </div>
                 <div className="space-y-1.5">
@@ -2158,7 +2149,7 @@ function PazarKapasitesiTab({ data }: { data?: PazarKapasitesi }) {
                         )}
                       </div>
                       <div className="flex items-center gap-2">
-                        <span className="text-slate-400 font-mono">{d.hedef_8500}</span>
+                        <span className="text-blue-600 font-mono font-semibold">{d.hedef_10000}</span>
                         <span className="font-mono font-semibold text-emerald-700">
                           %{d.target_pay_2026.toFixed(2)}
                         </span>

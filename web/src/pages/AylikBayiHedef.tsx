@@ -119,7 +119,6 @@ const MODEL_RENK: Record<string, string> = {
 
 export default function AylikBayiHedef() {
   const [data, setData] = useState<TahminData | null>(null)
-  const [senaryo, setSenaryo] = useState<8500 | 10000>(10000)
   const [secili, setSecili] = useState('')
 
   useEffect(() => {
@@ -128,7 +127,7 @@ export default function AylikBayiHedef() {
       .then(r => r.json())
       .then((d: TahminData) => {
         setData(d)
-        const bayiler = Object.keys(d.bayi_aylik_hedefler.senaryo_8500).sort(
+        const bayiler = Object.keys(d.bayi_aylik_hedefler.senaryo_10000).sort(
           (a, b) => parseInt(a.split(' ')[1]) - parseInt(b.split(' ')[1])
         )
         setSecili(bayiler[0] ?? '')
@@ -141,7 +140,7 @@ export default function AylikBayiHedef() {
   }
 
   const { aralik_tahmin, bayi_aylik_hedefler } = data
-  const senaryoData = senaryo === 8500 ? bayi_aylik_hedefler.senaryo_8500 : bayi_aylik_hedefler.senaryo_10000
+  const senaryoData = bayi_aylik_hedefler.senaryo_10000
   const bayiler = Object.keys(senaryoData).sort((a, b) => parseInt(a.split(' ')[1]) - parseInt(b.split(' ')[1]))
   const bayiHedef = senaryoData[secili]
   const BILINEN = ['A2', 'A3', 'B1', 'B2']
@@ -283,11 +282,7 @@ export default function AylikBayiHedef() {
           {(['A', 'B', 'C'] as const).map(tier => {
             const t = aralik_tahmin.tier_ozet.find(x => x.tier === tier)
             const s = TIER_STYLE[tier]
-            const bayiSayisi = Object.values(
-              senaryo === 8500
-                ? bayi_aylik_hedefler.senaryo_8500
-                : bayi_aylik_hedefler.senaryo_10000
-            ).filter(b => b.tier === tier).length
+            const bayiSayisi = Object.values(bayi_aylik_hedefler.senaryo_10000).filter(b => b.tier === tier).length
             return (
               <div key={tier} className={`rounded-xl border p-5 ${s.light}`}>
                 <div className="flex items-center gap-2 mb-3">
@@ -377,7 +372,7 @@ export default function AylikBayiHedef() {
             </p>
             <div className="flex flex-col md:flex-row items-start md:items-center gap-3 text-sm">
               {[
-                ['Yıllık Toplam', '8.500 veya 10.000 araç', 'bg-blue-600'],
+                ['Yıllık Toplam', '10.000 araç (2026 planı)', 'bg-blue-600'],
                 ['→'],
                 ['Aylık Toplam', 'Yıllık × SI(tier, ay)', 'bg-indigo-600'],
                 ['→'],
@@ -441,21 +436,8 @@ Bu yaklaşım collaborative filtering mantığına benzer: benzer profilden bilg
           </div>
         </div>
 
-        {/* Senaryo + bayi seçici */}
+        {/* Bayi seçici */}
         <div className="flex items-center gap-4 flex-wrap pt-2">
-          <div className="flex gap-2">
-            {([8500, 10000] as const).map(h => (
-              <button key={h} onClick={() => setSenaryo(h)}
-                className={`px-4 py-1.5 rounded-lg text-xs font-semibold border-2 transition-all ${
-                  senaryo === h
-                    ? 'border-blue-500 bg-blue-50 text-blue-800'
-                    : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300'
-                }`}
-              >
-                {h.toLocaleString('tr')} araç
-              </button>
-            ))}
-          </div>
           <div className="flex items-center gap-2">
             <label className="text-xs font-semibold text-slate-500 uppercase tracking-wide">Bayi:</label>
             <select
@@ -587,13 +569,13 @@ Bu yaklaşım collaborative filtering mantığına benzer: benzer profilden bilg
 
         <p className="text-xs text-slate-400">
           — = bu bayi bu modeli son 12 ayda satmamıştır (0 hedef, distribütör kararıyla eklenebilir) ·
-          LANSMAN = Mart 2026 (×1.15 SI boost) · Yuvarlama nedeniyle toplam küçük fark verebilir
+          LANSMAN = Mart 2026 (×1.11 SI boost) · Yuvarlama nedeniyle toplam küçük fark verebilir
         </p>
 
         {/* Tüm bayiler özet */}
         <div className="bg-white rounded-xl border border-slate-200 p-5">
           <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-3">
-            Tüm Bayiler — Yıllık Hedef Özeti ({senaryo.toLocaleString('tr')} araç senaryosu)
+            Tüm Bayiler — Yıllık Hedef Özeti (10.000 araç senaryosu)
           </p>
           <div className="overflow-x-auto">
             <table className="w-full text-xs">

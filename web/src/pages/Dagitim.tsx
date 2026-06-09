@@ -13,7 +13,7 @@ interface BayiHedefRow { dealer: string; code: string; target: number | null }
 // reason: 'A grubu min.' | 'B grubu min.' | 'Orantılı'
 interface AllocVehicle extends Vehicle { dealer: string; reason: string }
 interface SummaryRow { dealer: string; target: number; allocated: number; gap: number; fill_rate: number }
-interface TahminBayiHedef { aylik: { ay: number; toplam: number }[] }
+interface TahminBayiHedef { aylik: { ay: number; toplam: number; modeller?: Record<string, number> }[] }
 
 const AY_NO: Record<string, number> = {
   'Ocak':1,'Şubat':2,'Mart':3,'Nisan':4,'Mayıs':5,'Haziran':6,
@@ -193,7 +193,7 @@ export default function Dagitim() {
   const [allDealers, setAllDealers] = useState<Dealer[]>([])
   const [dealers, setDealers]       = useState<Dealer[]>([])
   const [bayiHedef, setBayiHedef]   = useState<Record<string, BayiHedefRow[]>>({})
-  const [targets, setTargets]       = useState<Record<string,number>>({})
+  const [targets, setTargets]       = useState<Record<string,Record<string,number>>>({})
   const [allocated, setAllocated]   = useState<AllocVehicle[]>([])
   const [summary, setSummary]       = useState<SummaryRow[]>([])
   const [resultTab, setResultTab]   = useState(0)
@@ -234,8 +234,8 @@ export default function Dagitim() {
       : allDealers.filter(d => d.active)
     setDealers(active)
     setTargets(prev => {
-      const t: Record<string,number> = {}
-      active.forEach(d => { t[d.name] = prev[d.name] ?? 0 })
+      const t: Record<string,Record<string,number>> = {}
+      active.forEach(d => { t[d.name] = prev[d.name] ?? {} })
       return t
     })
   }, [month, allDealers])
@@ -278,18 +278,47 @@ export default function Dagitim() {
     reader.readAsArrayBuffer(file)
   }
 
-  const totalTarget = Object.values(targets).reduce((s,v) => s+v, 0)
+  const totalTarget = Object.values(targets).reduce((s, grps) => s + Object.values(grps).reduce((a,b) => a+b, 0), 0)
   const overSupply  = totalTarget > rawPool.length
 
   function confirmAndCalculate() {
-    const tArr = Object.entries(targets).filter(([,v]) => v > 0).map(([dealer, target]) => ({ dealer, target }))
-    const { allocated: a, summary: s } = allocate(rawPool, tArr)
-    setAllocated(a); setSummary(s); setResultTab(0); setMF(''); setDF(''); setStep(2)
+    const groups = [...new Set(rawPool.map(v => modelGroup(v.model)))].sort()
+    const allAllocated: AllocVehicle[] = []
+    const summaryMap: Record<string, SummaryRow> = {}
+
+    groups.forEach(grp => {
+      const groupPool = rawPool.filter(v => modelGroup(v.model) === grp)
+      const tArr = Object.entries(targets)
+        .map(([dealer, grps]) => ({ dealer, target: grps[grp] ?? 0 }))
+        .filter(t => t.target > 0)
+      if (tArr.length === 0 || groupPool.length === 0) return
+      const { allocated: a, summary: s } = allocate(groupPool, tArr)
+      allAllocated.push(...a)
+      s.forEach(row => {
+        if (!summaryMap[row.dealer]) summaryMap[row.dealer] = { dealer: row.dealer, target: 0, allocated: 0, gap: 0, fill_rate: 0 }
+        summaryMap[row.dealer].target    += row.target
+        summaryMap[row.dealer].allocated += row.allocated
+      })
+    })
+
+    // Hedefi olan ama hiç araç almayan bayiler (stok sıfır durumu)
+    Object.entries(targets).forEach(([dealer, grps]) => {
+      const tot = Object.values(grps).reduce((a,b) => a+b, 0)
+      if (tot > 0 && !summaryMap[dealer]) summaryMap[dealer] = { dealer, target: tot, allocated: 0, gap: -tot, fill_rate: 0 }
+    })
+
+    Object.values(summaryMap).forEach(row => {
+      row.gap       = row.allocated - row.target
+      row.fill_rate = row.target > 0 ? Math.round(row.allocated / row.target * 1000) / 10 : 0
+    })
+
+    const sortedSummary = Object.values(summaryMap).sort((a,b) => numSort(a.dealer, b.dealer))
+    setAllocated(allAllocated); setSummary(sortedSummary); setResultTab(0); setMF(''); setDF(''); setStep(2)
   }
 
   function reset() {
     setStep(0); setRawPool([]); setRawRows([]); setFileName(''); setError('')
-    const t: Record<string,number> = {}; dealers.forEach(d => { t[d.name]=0 }); setTargets(t)
+    const t: Record<string,Record<string,number>> = {}; dealers.forEach(d => { t[d.name]={} }); setTargets(t)
     setAllocated([]); setSummary([])
     if (fileRef.current) fileRef.current.value = ''
   }
@@ -576,8 +605,15 @@ export default function Dagitim() {
                 setTargets(prev => {
                   const t = { ...prev }
                   Object.entries(tahmin10k).forEach(([dealer, hedef]) => {
+                    if (t[dealer] === undefined) return
                     const row = hedef.aylik.find(a => a.ay === ayNo)
-                    if (row && t[dealer] !== undefined) t[dealer] = row.toplam
+                    if (!row) return
+                    const grpMap: Record<string,number> = {}
+                    Object.entries(row.modeller ?? {}).forEach(([model, cnt]) => {
+                      const grp = modelGroup(model)
+                      grpMap[grp] = (grpMap[grp] ?? 0) + (cnt as number)
+                    })
+                    t[dealer] = grpMap
                   })
                   return t
                 })
@@ -587,7 +623,7 @@ export default function Dagitim() {
               📋 10.000 Senaryo Hedeflerini Yükle
             </button>
           )}
-          <button onClick={() => { const t: Record<string,number>={}; dealers.forEach(d=>{t[d.name]=0}); setTargets(t) }}
+          <button onClick={() => { const t: Record<string,Record<string,number>>= {}; dealers.forEach(d=>{t[d.name]={}}); setTargets(t) }}
             className="text-xs text-slate-400 hover:text-red-500 flex items-center gap-1">
             <RotateCcw size={12}/> Sıfırla
           </button>
@@ -597,17 +633,35 @@ export default function Dagitim() {
       {/* Bayi grid */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
         {[...dealers].sort((a,b) => numSort(a.name,b.name)).map(d => {
-          const val = targets[d.name] ?? 0
+          const grps  = targets[d.name] ?? {}
+          const aVal  = grps['A'] ?? 0
+          const bVal  = grps['B'] ?? 0
+          const total = Object.values(grps).reduce((s,v) => s+v, 0)
           return (
-            <div key={d.name} className={`bg-white rounded-xl border p-3 transition-colors ${val>0?'border-blue-300 bg-blue-50':'border-slate-200'}`}>
+            <div key={d.name} className={`bg-white rounded-xl border p-3 transition-colors ${total>0?'border-blue-300 bg-blue-50':'border-slate-200'}`}>
               <p className="text-xs font-semibold text-slate-700 truncate">{d.name}</p>
               <p className="text-xs text-slate-400 font-mono mb-2">{d.code}</p>
-              <input type="number" min={0} max={500}
-                value={val===0?'':val} placeholder="0"
-                onChange={e => setTargets(prev => ({ ...prev, [d.name]: Math.max(0, parseInt(e.target.value)||0) }))}
-                className="w-full text-center text-lg font-bold border border-slate-200 rounded-lg py-1.5 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400"
-              />
-              <p className="text-xs text-slate-400 text-center mt-1">araç/ay</p>
+              <div className="grid grid-cols-2 gap-1.5">
+                <div>
+                  <p className="text-xs text-blue-600 font-semibold text-center mb-1">A Grubu</p>
+                  <input type="number" min={0} max={500}
+                    value={aVal===0?'':aVal} placeholder="0"
+                    onChange={e => setTargets(prev => ({ ...prev, [d.name]: { ...(prev[d.name]??{}), A: Math.max(0, parseInt(e.target.value)||0) } }))}
+                    className="w-full text-center text-base font-bold border border-blue-200 rounded-lg py-1 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  />
+                </div>
+                <div>
+                  <p className="text-xs text-purple-600 font-semibold text-center mb-1">B Grubu</p>
+                  <input type="number" min={0} max={500}
+                    value={bVal===0?'':bVal} placeholder="0"
+                    onChange={e => setTargets(prev => ({ ...prev, [d.name]: { ...(prev[d.name]??{}), B: Math.max(0, parseInt(e.target.value)||0) } }))}
+                    className="w-full text-center text-base font-bold border border-purple-200 rounded-lg py-1 bg-white focus:outline-none focus:ring-2 focus:ring-purple-400"
+                  />
+                </div>
+              </div>
+              {total > 0 && (
+                <p className="text-xs text-slate-500 text-center mt-1.5 font-medium">Toplam: {total} araç</p>
+              )}
             </div>
           )
         })}
