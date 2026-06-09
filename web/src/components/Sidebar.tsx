@@ -1,12 +1,13 @@
 import { NavLink } from 'react-router-dom'
-import { BarChart2, Calendar, Map, TrendingUp, Truck, LineChart } from 'lucide-react'
+import { BarChart2, Calendar, Map, TrendingUp, Truck, LineChart, Target } from 'lucide-react'
 
 const NAV = [
-  { to: '/gecmis-analiz', label: 'Geçmiş Analiz', icon: BarChart2   },
-  { to: '/mevsimsellik',  label: 'Mevsimsellik',   icon: Calendar    },
-  { to: '/bayi-harita',   label: 'Bayi Harita',    icon: Map         },
-  { to: '/dagitim',       label: 'Dağıtım',        icon: Truck       },
-  { to: '/tahmin',        label: 'Tahmin & Plan',  icon: LineChart   },
+  { to: '/gecmis-analiz',   label: 'Geçmiş Analiz',     icon: BarChart2 },
+  { to: '/mevsimsellik',    label: 'Mevsimsellik',       icon: Calendar  },
+  { to: '/bayi-harita',     label: 'Bayi Harita',        icon: Map       },
+  { to: '/dagitim',         label: 'Dağıtım',            icon: Truck     },
+  { to: '/tahmin',          label: 'Tahmin & Plan',      icon: LineChart },
+  { to: '/pazar-hedefleri', label: 'Pazar Hedefleri',   icon: Target    },
 ]
 
 export default function Sidebar() {
