@@ -38,7 +38,7 @@ BAYI_KOD_FILE = DATA_RAW / "Bayi-Adi-Kodu.csv"
 # Sabitler
 # ---------------------------------------------------------------------------
 LANSMAN_AY = 3        # Mart lansmanı
-LANSMAN_BOOST = 1.15  # Mart+ çarpanı (aylık toplam hedefte)
+LANSMAN_BOOST = 1.11  # Mart+ çarpanı — B seg Mart 2024/2025 restore analizi bazlı
 LANSMAN_MODEL = "B1"  # Yeni versiyon lansmanı yapılacak model
 
 # B Segmenti tüm versiyonları lansmandan yararlanır (B1 yeni versiyon + B2 yan etki)
