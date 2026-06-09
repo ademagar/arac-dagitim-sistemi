@@ -620,17 +620,21 @@ export default function Ozet() {
         <div className="bg-slate-800/40 border border-slate-700/50 rounded-2xl p-6">
           <div className="space-y-3">
             {[
-              { num: 1, title: 'Veri Güncelleme', detail: 'Her ay kapandığında geçmiş satış CSV\'si, aylık gerçekleşme ve yeni envanter dosyası sisteme yüklenir. Python pipeline, CSV\'leri SQLite\'a aktarır.', color: 'blue' },
-              { num: 2, title: 'STL Decomposition', detail: 'Her bayinin aylık satış serisi trend + seasonal + residual bileşenlerine ayrılır. Seasonal_index değerleri hesaplanır.', color: 'violet' },
-              { num: 3, title: 'Prophet Tahmini', detail: 'Sonraki 12 aylık tahmin üretilir. Hiyerarşik reconciliation ile bayi bazına indirgenir. Lansman boost uygulanır.', color: 'sky' },
-              { num: 4, title: 'Pazar Payı Hesabı', detail: 'Penetrasyon × UpperMainstream formülü ile bayilerin 2026 yıllık hedef payları belirlenir.', color: 'amber' },
-              { num: 5, title: 'MCDM Skorlama', detail: 'P + LP + S + H skorları hesaplanır. Aylık kota, bu skora orantılı dağıtılır. ±%20 kısıtı uygulanır.', color: 'emerald' },
-              { num: 6, title: 'MILP Optimizasyon', detail: 'Envanter havuzu yüklenir. Her araç bir bayiye atanır, hedef sapmayı minimize eden çözüm CBC ile bulunur.', color: 'rose' },
-              { num: 7, title: 'Dashboard Görselleştirme', detail: 'Dağıtım sonuçları, fill rate, boşluk analizi ve harita üzerinde sunulur. Kullanıcı hedefleri manuel değiştirebilir ve yeniden hesaplayabilir.', color: 'teal' },
+              { num: 1, title: 'Veri Yükleme', detail: 'Her ay sonunda geçmiş satış CSV\'si, aylık gerçekleşme ve yeni envanter dosyası sisteme yüklenir. Python pipeline CSV\'leri SQLite\'a aktarır.', color: 'blue' },
+              { num: 2, title: 'SI Hesaplama (STL)', detail: 'Her bayinin 2024–2025 aylık satış serisi Trend × Mevsimsellik × Kalıntı olarak ayrıştırılır. Her bayi × ay kombinasyonu için Seasonal Index (SI) elde edilir. SI > 1 o ay güçlü, SI < 1 zayıf demektir.', color: 'violet' },
+              { num: 3, title: 'Bayi Satış Profili', detail: 'Her bayinin 2024–2025 satışları model bazında ayrıştırılır: A2 / A3 / B1 oranları hesaplanır. Bu "profil vektörü" hem LP skorunda hem aylık model grubu dağılımında kullanılır.', color: 'sky' },
+              { num: 4, title: 'Yıllık Pazar Payı', detail: '%50 bayinin 2025 satış payı + %50 TÜİK il bazlı araç stoku formülüyle her bayinin 10.000 araç içindeki yıllık hedef payı belirlenir. Yeni bayiler tamamen kapasite bazlı başlar.', color: 'amber' },
+              { num: 5, title: 'Aylık Tahmin (Prophet)', detail: 'Hiyerarşik yapıda toplam pazar için 12 aylık projeksiyon üretilir, ardından bayi bazına indirgenir. Lansman yılı için ×1.11 boost uygulanır.', color: 'indigo' },
+              { num: 6, title: 'LP Skoru (Cosine Similarity)', detail: 'Adım 3\'teki bayi profil vektörü ile o ayki envanter vektörü arasındaki cosine similarity hesaplanır. Bayinin sattığı modeller stoğa ne kadar benziyorsa LP skoru o kadar yüksek çıkar.', color: 'sky' },
+              { num: 7, title: 'MCDM Aylık Kota', detail: 'Dört kriter ağırlıklı toplanır: P (geçmiş performans, %25) + LP (lokasyon-ürün uyumu, %35) + S (SI\'dan gelen mevsimsel uyum, %20) + H (yıllık hedefe yakınlık, %20). Skor orantılı aylık kota dağıtılır, ±%20 kısıtı uygulanır.', color: 'emerald' },
+              { num: 8, title: 'Model Grubu Dağılımı', detail: 'Adım 7\'deki aylık kota, adım 3\'teki profil oranlarına göre A grubu ve B grubu olarak ikiye ayrılır. Örneğin Bayi 07\'nin kotası %55 A / %45 B ise hedefleri buna göre belirlenir.', color: 'amber' },
+              { num: 9, title: 'MILP Araç Atama', detail: 'Envanter havuzu yüklenir. Her araç için x[araç][bayi] ∈ {0,1} karar değişkeni tanımlanır. A ve B grupları bağımsız çözülür. Hedef sapmasını minimize eden çözüm CBC solver ile bulunur.', color: 'rose' },
+              { num: 10, title: 'Dashboard & Görselleştirme', detail: 'Dağıtım sonuçları, fill rate, boşluk analizi ve harita üzerinde sunulur. Kullanıcı hedefleri manuel değiştirebilir ve sistemi yeniden çalıştırabilir.', color: 'teal' },
             ].map(({ num, title, detail, color }) => {
               const dotColor: Record<string,string> = {
                 blue:'bg-blue-500',violet:'bg-violet-500',sky:'bg-sky-500',
-                amber:'bg-amber-500',emerald:'bg-emerald-500',rose:'bg-rose-500',teal:'bg-teal-500'
+                amber:'bg-amber-500',emerald:'bg-emerald-500',rose:'bg-rose-500',
+                teal:'bg-teal-500',indigo:'bg-indigo-500'
               }
               return (
                 <div key={num} className="flex gap-4 items-start">
