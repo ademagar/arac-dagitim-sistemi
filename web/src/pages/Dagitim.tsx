@@ -21,6 +21,22 @@ const AY_NO: Record<string, number> = {
 }
 
 const MONTHS = ['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık']
+
+const BULUNURLUK_DOSYALARI: Record<string, string> = {
+  'Ocak':    'bulunurluk-ocak.csv',
+  'Şubat':   'bulunurluk-subat.csv',
+  'Mart':    'bulunurluk-mart.csv',
+  'Nisan':   'bulunurluk-nisan.csv',
+  'Mayıs':   'bulunurluk-mayis.csv',
+  'Haziran': 'bulunurluk-haziran.csv',
+  'Temmuz':  'bulunurluk-temmuz.csv',
+}
+
+// Aylık toplam hedefler (15% tampon ile beklenen araç sayısı — bilgi amaçlı)
+const MONTHLY_TOTAL_TARGETS: Record<string, number> = {
+  'Ocak': 493, 'Şubat': 667, 'Mart': 863, 'Nisan': 703,
+  'Mayıs': 811, 'Haziran': 908, 'Temmuz': 791,
+}
 const MONTH_TO_ACTIVITY: Record<string,string> = {
   'Ocak':'Oca.26','Şubat':'Şub.26','Mart':'Mar.26','Nisan':'Nis.26','Mayıs':'May.26',
 }
@@ -39,6 +55,21 @@ function modelGroup(model: string) { return model.charAt(0).toUpperCase() }
 
 function numSort(a: string, b: string) {
   return parseInt(a.match(/\d+$/)?.[0]??'0') - parseInt(b.match(/\d+$/)?.[0]??'0')
+}
+
+// ─── CSV yükleyici (demo envanter dosyaları için) ─────────────────────────────
+function parseCsvInventory(csvText: string): Record<string, string>[] {
+  // UTF-8 BOM temizle
+  const text = csvText.startsWith('﻿') ? csvText.slice(1) : csvText
+  const lines = text.split(/\r?\n/).filter(l => l.trim() !== '')
+  if (lines.length < 2) return []
+  const headers = lines[0].split(';').map(h => h.trim())
+  return lines.slice(1).map(line => {
+    const cols = line.split(';')
+    const row: Record<string, string> = {}
+    headers.forEach((h, i) => { row[h] = (cols[i] ?? '').trim() })
+    return row
+  })
 }
 
 // ─── Allocation ───────────────────────────────────────────────────────────────
@@ -240,6 +271,45 @@ export default function Dagitim() {
     })
   }, [month, allDealers])
 
+  // ── Demo envanter otomatik yükleme ───────────────────────────────────────────
+  async function loadBulunurluk(mon: string) {
+    const dosya = BULUNURLUK_DOSYALARI[mon]
+    if (!dosya) return
+    setError('')
+    try {
+      const base = import.meta.env.BASE_URL
+      const res = await fetch(`${base}data/${dosya}`)
+      if (!res.ok) throw new Error(`HTTP ${res.status}`)
+      const csvText = await res.text()
+      const norm = parseCsvInventory(csvText)
+      const variants = MONTH_EN[mon] ?? [mon]
+      const pool = norm.filter(r =>
+        r['Dealer Code Processing'] === 'CENT-STOCK' &&
+        r['Dispatchable'] === 'Y' &&
+        variants.some(mv => r['Month Number']?.toLowerCase() === mv.toLowerCase())
+      )
+      if (pool.length === 0) {
+        const found = [...new Set(norm.map(r => r['Month Number']))].filter(Boolean).slice(0, 8).join(', ')
+        setError(`Demo dosyası filtre sonucu boş. Bulunan Month Number değerleri: ${found || '(bulunamadı)'}`)
+        return
+      }
+      const vehicles: Vehicle[] = pool.map((r, i) => ({
+        _idx:    i,
+        chassis: r['Long Chassis No'] ?? r['Long Chassis'] ?? r['Chassis No'] ?? r['Chassis Number'] ?? r['VIN'] ?? r['VIN No'] ?? '',
+        model:   r['Model Description'] ?? '',
+        version: r['Vehicle Version']   ?? '',
+        color:   r['Exterior Color']    ?? '',
+        vehicle_type: `${r['Model Description'] ?? ''} / ${r['Vehicle Version'] ?? ''} / ${r['Exterior Color'] ?? ''}`,
+      }))
+      setRawPool(vehicles)
+      setRawRows(pool)
+      setFileName(dosya)
+      setStep(1)
+    } catch (err) {
+      setError(`Demo envanter yüklenemedi: ${err}`)
+    }
+  }
+
   function handleFile(file: File) {
     setError('')
     const reader = new FileReader()
@@ -417,6 +487,24 @@ export default function Dagitim() {
         </div>
         <div>
           <label className="text-sm font-medium text-slate-700 block mb-2">Envanter Dosyası</label>
+          {BULUNURLUK_DOSYALARI[month] && (
+            <div className="mb-3 flex items-center gap-3 bg-blue-50 border border-blue-200 rounded-xl px-4 py-3">
+              <div className="flex-1">
+                <p className="text-sm font-semibold text-blue-800">Demo Envanter Hazır</p>
+                <p className="text-xs text-blue-600 mt-0.5">
+                  {month} için ~{Math.round((MONTHLY_TOTAL_TARGETS[month] ?? 0) * 1.15)} araç
+                  — kaynak dosya yüklenmeden kullanabilirsiniz
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => loadBulunurluk(month)}
+                className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors shrink-0"
+              >
+                📦 {month} Envanterini Yükle
+              </button>
+            </div>
+          )}
           <p className="text-xs text-slate-500 mb-3">
             Excel (.xlsx) veya CSV — Gerekli sütunlar:{' '}
             {['Dealer Code Processing','Dispatchable','Month Number','Long Chassis No','Model Description','Vehicle Version','Exterior Color'].map(c => (
