@@ -29,7 +29,7 @@ function SectionHeader({ icon: Icon, title, subtitle, color = 'blue' }: {
       </div>
       <div>
         <h2 className="text-white text-xl font-bold">{title}</h2>
-        <p className="text-slate-400 text-sm mt-0.5">{subtitle}</p>
+        <p className="text-slate-200 text-sm mt-0.5">{subtitle}</p>
       </div>
     </div>
   )
@@ -63,11 +63,11 @@ function InfoCard({ title, children, color = 'slate' }: { title: string, childre
 function FormulSatir({ label, formula, aciklama }: { label: string, formula: string, aciklama: string }) {
   return (
     <div className="mb-4 last:mb-0">
-      <p className="text-slate-400 text-xs mb-1">{label}</p>
+      <p className="text-slate-200 text-xs mb-1">{label}</p>
       <code className="block bg-slate-900/70 border border-slate-700/50 rounded-lg px-4 py-2.5 text-emerald-400 font-mono text-xs mb-1.5 leading-relaxed overflow-x-auto whitespace-pre-wrap break-words">
         {formula}
       </code>
-      <p className="text-slate-400 text-xs leading-relaxed pl-1">{aciklama}</p>
+      <p className="text-slate-200 text-xs leading-relaxed pl-1">{aciklama}</p>
     </div>
   )
 }
@@ -82,9 +82,9 @@ function Accordion({ title, icon: Icon, defaultOpen = false, children }: {
         onClick={() => setOpen(o => !o)}
         className="w-full flex items-center gap-3 px-5 py-4 text-left hover:bg-slate-700/30 transition-colors"
       >
-        <Icon size={17} className="text-slate-400 flex-shrink-0" />
+        <Icon size={17} className="text-slate-200 flex-shrink-0" />
         <span className="text-white font-semibold text-sm flex-1">{title}</span>
-        {open ? <ChevronDown size={16} className="text-slate-400" /> : <ChevronRight size={16} className="text-slate-400" />}
+        {open ? <ChevronDown size={16} className="text-slate-200" /> : <ChevronRight size={16} className="text-slate-200" />}
       </button>
       {open && <div className="px-5 pb-5 pt-1">{children}</div>}
     </div>
@@ -122,7 +122,7 @@ export default function Ozet() {
           <h1 className="text-3xl font-black text-white leading-tight mb-3">
             Otomotiv Bayi Araç Dağıtım Sistemi
           </h1>
-          <p className="text-slate-300 text-base leading-relaxed max-w-3xl">
+          <p className="text-white text-base leading-relaxed max-w-3xl">
             Bir otomotiv markasının SUV segmentindeki araçlarını, 28 bayiye adil ve veri odaklı biçimde
             dağıtmayı otomatize eden, Endüstri Mühendisliği bitirme tezi kapsamında geliştirilen karar destek sistemi.
             2026 Ocak itibarıyla aylık çalışacak şekilde tasarlanmıştır.
@@ -136,7 +136,7 @@ export default function Ozet() {
             ].map(({ val, lbl }) => (
               <div key={lbl} className="bg-slate-800/60 rounded-xl px-4 py-3 text-center">
                 <p className="text-2xl font-black text-blue-400">{val}</p>
-                <p className="text-slate-400 text-xs mt-0.5">{lbl}</p>
+                <p className="text-slate-200 text-xs mt-0.5">{lbl}</p>
               </div>
             ))}
           </div>
@@ -148,24 +148,24 @@ export default function Ozet() {
         <SectionHeader icon={BookOpen} title="1. Problem Tanımı ve Akademik Çerçeve" subtitle="Neden bu problemi çözüyoruz, literatürdeki yeri nedir?" color="blue" />
         <div className="grid md:grid-cols-2 gap-4 mb-4">
           <InfoCard title="Vehicle Allocation Problem (VAP)" color="blue">
-            <p className="text-slate-300 text-sm leading-relaxed">
+            <p className="text-white text-sm leading-relaxed">
               VAP, kısıtlı sayıda birbirinden farklı ürünü (araçları) birden çok lokasyona (bayilere) atama
               problemidir. Klasik atama probleminin genelleştirilmiş hali olup NP-Hard kategorisindedir.
               Burada;
             </p>
-            <ul className="mt-2 space-y-1 text-slate-300 text-sm">
+            <ul className="mt-2 space-y-1 text-white text-sm">
               <li className="flex items-start gap-2"><ArrowRight size={13} className="text-blue-400 mt-0.5 flex-shrink-0" />Ürünler: model × versiyon × renk kombinasyonları</li>
               <li className="flex items-start gap-2"><ArrowRight size={13} className="text-blue-400 mt-0.5 flex-shrink-0" />Lokasyonlar: 28 bayi</li>
               <li className="flex items-start gap-2"><ArrowRight size={13} className="text-blue-400 mt-0.5 flex-shrink-0" />Kısıt: Aylık toplam envanter (300–1500 araç)</li>
             </ul>
           </InfoCard>
           <InfoCard title="Neden otomasyona ihtiyaç var?" color="violet">
-            <p className="text-slate-300 text-sm leading-relaxed">
+            <p className="text-white text-sm leading-relaxed">
               Manuel dağıtımda üst yönetim kararları kişisel deneyime dayanır; sezgisel kararlar çoğunlukla
               yüksek satış potansiyelli bayilerin göz ardı edilmesine ya da stok dengesizliğine yol açar.
               Sistemimiz şu soruları yanıtlar:
             </p>
-            <ul className="mt-2 space-y-1 text-slate-300 text-sm">
+            <ul className="mt-2 space-y-1 text-white text-sm">
               <li className="flex items-start gap-2"><CheckCircle size={13} className="text-emerald-400 mt-0.5 flex-shrink-0" />Hangi bayiye kaç araç verilmeli?</li>
               <li className="flex items-start gap-2"><CheckCircle size={13} className="text-emerald-400 mt-0.5 flex-shrink-0" />Hangi model/renk kombinasyonu o bayiye uygun?</li>
               <li className="flex items-start gap-2"><CheckCircle size={13} className="text-emerald-400 mt-0.5 flex-shrink-0" />Yıllık hedefe yakın kalınıyor mu?</li>
@@ -184,7 +184,7 @@ export default function Ozet() {
             ].map(({ kavram, aciklama }) => (
               <div key={kavram} className="bg-slate-900/60 rounded-xl p-4">
                 <p className="text-amber-300 font-bold text-sm mb-1.5">{kavram}</p>
-                <p className="text-slate-400 text-xs leading-relaxed">{aciklama}</p>
+                <p className="text-slate-200 text-xs leading-relaxed">{aciklama}</p>
               </div>
             ))}
           </div>
@@ -208,13 +208,13 @@ export default function Ozet() {
                 <FileText size={13} className="text-emerald-400 mt-0.5 flex-shrink-0" />
                 <div>
                   <code className="text-emerald-300 text-xs font-mono">{dosya}</code>
-                  <p className="text-slate-400 text-xs mt-0.5">{icerik}</p>
+                  <p className="text-slate-200 text-xs mt-0.5">{icerik}</p>
                 </div>
               </div>
             ))}
           </InfoCard>
           <InfoCard title="SQLite Şeması (arac_dagitim.db)" color="slate">
-            <p className="text-slate-400 text-xs mb-3">
+            <p className="text-slate-200 text-xs mb-3">
               CSV'lerden türetilen normalize edilmiş ilişkisel şema. Boyut tabloları (dim_) ve
               olgu tabloları (fact_) ayrımı yapılmıştır; star schema mimarisi.
             </p>
@@ -228,13 +228,13 @@ export default function Ozet() {
             ].map(({ tablo, alan }) => (
               <div key={tablo} className="flex items-start gap-2 py-1.5 border-b border-slate-700/40 last:border-0">
                 <code className="text-sky-300 text-xs font-mono w-28 flex-shrink-0 break-all">{tablo}</code>
-                <code className="text-slate-400 text-xs font-mono leading-relaxed break-words">{alan}</code>
+                <code className="text-slate-200 text-xs font-mono leading-relaxed break-words">{alan}</code>
               </div>
             ))}
           </InfoCard>
         </div>
         <InfoCard title="Neden anonimleştirme yapıldı?" color="amber">
-          <p className="text-slate-300 text-sm leading-relaxed">
+          <p className="text-white text-sm leading-relaxed">
             Gerçek bayi isimleri ticari sır kapsamındadır. Tüm bayiler "Bayi 01" – "Bayi 30" formatına
             dönüştürülmüş; marka adı kodda parametrik tutulmuştur (<code className="text-amber-300 text-xs">config.py → BRAND_NAME</code>).
             Dashboard'da <code className="text-amber-300 text-xs">DEMO_MODE=True</code> ile çalışır. Bu yaklaşım hem
@@ -248,30 +248,55 @@ export default function Ozet() {
         <SectionHeader icon={Target} title="3. Pazar Hedefleri Modülü" subtitle="Bayinin 2026 pazar payı hedefi nasıl hesaplanıyor?" color="violet" />
         <div className="space-y-3">
           <Accordion title="Formül ve matematiksel arka plan" icon={Code2} defaultOpen>
+            <div className="mb-4 bg-blue-950/40 border border-blue-800/40 rounded-xl px-4 py-3">
+              <p className="text-blue-200 text-xs font-semibold mb-1">Yöntem</p>
+              <p className="text-white text-xs leading-relaxed">
+                Hibrit Pazar Payı Formülü — MCDM çerçevesinde <span className="text-amber-300 font-semibold">iki kriter</span>:{' '}
+                <span className="text-emerald-300">%50 geçmiş marka performansı</span> (2025 satış payı) +{' '}
+                <span className="text-violet-300">%50 pazar kapasitesi</span> (TÜİK il bazlı araç stoku).
+              </p>
+            </div>
             <FormulSatir
               label="Bayinin yıllık hedef araç payı:"
-              formula={"share_i = α × PenetrasyanPayı_i\n         + β × (UpperMainstream_il(i) / BayiSayısı_il(i))"}
-              aciklama="α = β = 0.50 · PenetrasyanPayı, bayinin 2025 yılındaki toplam marka satışları içindeki payı. UpperMainstream, bayinin bulunduğu ildeki rakip + marka araç stoğunun toplam çekim alanıdır (rakip satış verisiyle ölçülür). Formül, geçmiş performansı ve coğrafi potansiyeli eşit ağırlıkla birleştirir."
+              formula={"share_i = 0.50 × SatışPayı_i(2025)\n         + 0.50 × (TÜİKStok_il(i) / BayiSayısı_il(i))"}
+              aciklama="SatışPayı: bayinin 2025'te toplam marka satışları içindeki payı. TÜİKStok: bayinin bulunduğu ilde TÜİK verisinden elde edilen il bazlı toplam araç stok çekim alanı. İl kotası o ildeki bayi sayısına eşit bölünür."
             />
             <FormulSatir
               label="Yıllık araç hedefi:"
-              formula="Hedef_i = share_i × ToplamHedef   →   Toplam = 10.000 araç"
-              aciklama="share_i değerleri tüm bayiler arasında normalize edildiğinden toplamları 1'e eşittir; böylece hiç bir araç 'kaybolmaz' ya da 'çift sayılmaz'."
+              formula="Hedef_i = share_i × 10.000   (share toplamı = 1 olacak şekilde normalize edilir)"
+              aciklama="Normalizasyon, toplam dağıtılacak araç sayısının her koşulda 10.000'e eşit kalmasını garantiler."
             />
+            <div className="mt-3 bg-amber-950/40 border border-amber-700/40 rounded-xl px-4 py-3">
+              <p className="text-amber-300 text-xs font-semibold mb-1">Yeni bayi özel kuralı</p>
+              <p className="text-white text-xs leading-relaxed">
+                2025 satış verisi bulunmayan yeni bayiler için SatışPayı = 0 olur ve formül tamamen
+                kapasite bazlı çalışır: <code className="text-emerald-400">share_i = TÜİKStok_il(i) / BayiSayısı_il(i)</code>.
+                Bu, yeni bayinin bulunduğu ilin potansiyelini baz alan bir "başlangıç kotası" sağlar.
+              </p>
+            </div>
           </Accordion>
           <Accordion title="Neden %50 / %50 ağırlık?" icon={Settings}>
-            <p className="text-slate-300 text-sm leading-relaxed">
-              Tamamen geçmiş performansa dayalı bir ağırlık (α=1) sıfır büyüme varsayımıyla yeni bayileri
-              cezalandırır. Tamamen coğrafi potansiyele dayalı bir ağırlık (β=1) ise satış kapasitesi
-              sınırlı küçük il bayilerini aşırı ödüllendirebilir. Eşit ağırlık, ikisini dengeler. Bu parametre
-              kolayca değiştirilebilecek şekilde <code className="text-emerald-400 text-xs">config.py</code>'de saklanmaktadır.
+            <p className="text-white text-sm leading-relaxed mb-3">
+              Tamamen geçmiş performansa dayalı bir ağırlık (α=1), sıfır büyüme varsayımıyla yeni bayileri
+              cezalandırır — hiç satışı olmayan yeni bayi sıfır kota alır. Tamamen coğrafi kapasiteye dayalı
+              (β=1) ise köklü, yüksek satışlı bayileri görmezden gelir. Eşit ağırlık ikisini dengeler.
+            </p>
+            <p className="text-slate-200 text-xs">
+              Bu parametre <code className="text-emerald-400">config.py</code>'de kolayca değiştirilebilir.
+              Gelecekte farklı α/β denemeleri için duyarlılık analizi yapılabilir.
             </p>
           </Accordion>
-          <Accordion title="Rakip veri (UpperMainstream) neden dahil edildi?" icon={Activity}>
-            <p className="text-slate-300 text-sm leading-relaxed">
-              Sadece kendi satış verimize bakarsak yüksek potansiyelli ama düşük kotada bırakılmış bayileri
-              tespit edemeyiz. Rakip satış verisi, bir ilin SUV pazarını ne kadar "çektiğini" gösterir. Bu veri,
-              piyasa büyüklüğünü temsil eden bir proxy değişken olarak modele dahil edilmiştir.
+          <Accordion title="TÜİK il bazlı araç stoku neden kullanıldı?" icon={Activity}>
+            <p className="text-white text-sm leading-relaxed mb-3">
+              Sadece kendi satış verimize bakarsak yüksek potansiyelli ama düşük kotada bırakılmış
+              bayileri tespit edemeyiz. TÜİK'in il bazlı araç stok verisi, bir ilin motorlu taşıt
+              "çekim alanını" nesnel biçimde ölçer — satın alma gücü, nüfus yoğunluğu ve otomobil
+              sahiplik oranını dolaylı olarak yansıtır.
+            </p>
+            <p className="text-slate-200 text-xs">
+              Bu veri, rakip marka satışlarını da kapsayan üst-ana-akım (upper mainstream) segmentin
+              proxy değişkeni olarak modele dahil edilmiştir. Rakip verisi ayrıca <code className="text-emerald-400">competitor_sales.csv</code>'de
+              tutulmaktadır.
             </p>
           </Accordion>
         </div>
@@ -282,7 +307,7 @@ export default function Ozet() {
         <SectionHeader icon={TrendingUp} title="4. Tahmin & Plan Modülü" subtitle="2026 aylık satış tahmini nasıl yapılıyor?" color="sky" />
         <div className="space-y-3">
           <Accordion title="STL Decomposition — neden bu yöntem?" icon={BarChart2} defaultOpen>
-            <p className="text-slate-300 text-sm leading-relaxed mb-3">
+            <p className="text-white text-sm leading-relaxed mb-3">
               Otomotiv satışları güçlü bir mevsimsellik içerir (yıl sonu kampanyaları, plaka değişimi).
               STL (Seasonal-Trend decomposition using Loess), bu mevsimselliği trend'den temizleyerek
               ayrı ayrı modellenebilir bileşenler üretir:
@@ -293,7 +318,7 @@ export default function Ozet() {
             <div className="space-y-3">
               <div className="bg-slate-900/60 border border-slate-700/30 rounded-xl p-4">
                 <p className="text-sky-300 text-sm font-bold mb-1">Trend (T)</p>
-                <p className="text-slate-300 text-xs leading-relaxed">
+                <p className="text-white text-xs leading-relaxed">
                   Satış serisinin uzun dönem yönü. Otomotiv pazarında ekonomik büyüme, nüfus artışı ve
                   markanın pazar payı değişimini yansıtır. Örneğin 2024→2025 arasında pazar %8 büyüdüyse
                   trend bileşeni bunu yakalar.
@@ -301,7 +326,7 @@ export default function Ozet() {
               </div>
               <div className="bg-slate-900/60 border border-slate-700/30 rounded-xl p-4">
                 <p className="text-sky-300 text-sm font-bold mb-1">Mevsimsellik (S)</p>
-                <p className="text-slate-300 text-xs leading-relaxed mb-2">
+                <p className="text-white text-xs leading-relaxed mb-2">
                   Her yıl aynı aylarda tekrar eden örüntüler. Türkiye otomotiv pazarında Ocak–Şubat
                   düşük, Mart–Nisan ve Ekim–Kasım yüksek satış dönemleridir (plaka sonu, kampanya
                   dönemleri). Her bayi için ayrı bir Seasonal Index (SI) hesaplanır:
@@ -309,13 +334,13 @@ export default function Ozet() {
                 <code className="block bg-slate-950 rounded-lg px-3 py-2 text-emerald-400 font-mono text-xs">
                   SI_i_ay = (Bayinin o aydaki ortalama satışı) / (Bayinin yıllık ortalama aylık satışı)
                 </code>
-                <p className="text-slate-400 text-xs mt-2">
+                <p className="text-slate-200 text-xs mt-2">
                   SI {'>'} 1 → o ay bayi için iyi bir ay · SI {'<'} 1 → zayıf bir ay
                 </p>
               </div>
               <div className="bg-slate-900/60 border border-slate-700/30 rounded-xl p-4">
                 <p className="text-sky-300 text-sm font-bold mb-1">Kalıntı / Artık (R)</p>
-                <p className="text-slate-300 text-xs leading-relaxed mb-2">
+                <p className="text-white text-xs leading-relaxed mb-2">
                   Trend ve mevsimsellik çıkarıldıktan sonra geriye kalan açıklanamayan varyasyon.
                   Kalıntı = Gerçek Satış / (Trend × Mevsimsellik) formülüyle hesaplanır.
                   Kalıntı bileşeni iki şeyi temsil eder:
@@ -323,7 +348,7 @@ export default function Ozet() {
                 <div className="space-y-2">
                   <div className="flex items-start gap-2">
                     <span className="text-amber-400 font-bold text-xs mt-0.5 flex-shrink-0">1.</span>
-                    <p className="text-slate-300 text-xs leading-relaxed">
+                    <p className="text-white text-xs leading-relaxed">
                       <span className="text-amber-300 font-semibold">Gerçek rassal şoklar:</span> Ani
                       ekonomik kriz, yakıt fiyatı artışı, COVID gibi öngörülemeyen dış olaylar.
                       Bu kısım modelin kontrol edemeyeceği gürültüdür.
@@ -331,7 +356,7 @@ export default function Ozet() {
                   </div>
                   <div className="flex items-start gap-2">
                     <span className="text-amber-400 font-bold text-xs mt-0.5 flex-shrink-0">2.</span>
-                    <p className="text-slate-300 text-xs leading-relaxed">
+                    <p className="text-white text-xs leading-relaxed">
                       <span className="text-amber-300 font-semibold">Model kalite göstergesi:</span> Kalıntının
                       standart sapması küçükse model veriyi iyi açıklıyor demektir. Büyükse
                       yakalanamamış bir örüntü var demektir (mevsim periyodu yanlış veya başka bir değişken eksik).
@@ -339,8 +364,8 @@ export default function Ozet() {
                   </div>
                 </div>
                 <div className="mt-3 bg-slate-950 border border-slate-700/50 rounded-lg px-3 py-2">
-                  <p className="text-slate-400 text-xs">
-                    <span className="text-slate-300 font-semibold">Bu projede kalıntı nasıl kullanılıyor?</span>
+                  <p className="text-slate-200 text-xs">
+                    <span className="text-white font-semibold">Bu projede kalıntı nasıl kullanılıyor?</span>
                     {' '}Tahmin aşamasında kalıntı görmezden gelinir (sıfır gürültü varsayımı).
                     Ancak kalıntının büyüklüğü model seçimini doğrulamak için izlenir:
                     kalıntı standart sapması toplam varyasyonun %15'inden fazlaysa model
@@ -351,7 +376,7 @@ export default function Ozet() {
             </div>
           </Accordion>
           <Accordion title="Prophet — neden STL'e ek olarak?" icon={TrendingUp}>
-            <p className="text-slate-300 text-sm leading-relaxed">
+            <p className="text-white text-sm leading-relaxed">
               STL tek başına gelecek tahmininde güçsüzdür; geriye dönük olarak ayrıştırır, ileriye
               ekstrapolasyon yapmaz. Prophet (Facebook/Meta), dışsal olayları (tatiller, kampanyalar) ve
               doğrusal olmayan trendi modelleyerek 12 aylık projeksiyonu güvenilir biçimde üretir.
@@ -360,7 +385,7 @@ export default function Ozet() {
             </p>
           </Accordion>
           <Accordion title="Hiyerarşik yapı — bayiden toplama reconciliation" icon={GitBranch}>
-            <p className="text-slate-300 text-sm leading-relaxed">
+            <p className="text-white text-sm leading-relaxed">
               Önce toplam pazar (28 bayi toplamı) tahmin edilir, ardından bayi bazına indirgenir.
               Bu top-down yaklaşım, alt seviye tahminlerin birbirine eklenmesiyle toplam hedefi
               aşma riskini ortadan kaldırır. Alternatif bottom-up tahmin, bayi başına aşırı
@@ -369,7 +394,7 @@ export default function Ozet() {
             </p>
           </Accordion>
           <Accordion title="Lansman boostı (×1.11) nereden geliyor?" icon={Zap}>
-            <p className="text-slate-300 text-sm leading-relaxed">
+            <p className="text-white text-sm leading-relaxed">
               2026, yeni model yılı lansmanını içeriyor. Sektör verilerine göre lansman yılında
               satışlar ortalama %10-15 artış gösteriyor. Sistemde bu, tahmin edilen bazeline
               ×1.11 çarpanı uygulanarak modellendi. Bu katsayı <code className="text-emerald-400 text-xs">config.py</code>'de
@@ -396,31 +421,31 @@ export default function Ozet() {
                     <p className={`font-bold text-sm ${renk}`}>{kriter}</p>
                     <span className="bg-slate-700 text-white text-xs px-2 py-0.5 rounded-full font-bold">{agirlik}</span>
                   </div>
-                  <code className="block text-xs text-slate-300 font-mono mb-2 leading-relaxed overflow-x-auto whitespace-pre-wrap break-words">{formul}</code>
-                  <p className="text-slate-400 text-xs leading-relaxed">{neden}</p>
+                  <code className="block text-xs text-white font-mono mb-2 leading-relaxed overflow-x-auto whitespace-pre-wrap break-words">{formul}</code>
+                  <p className="text-slate-200 text-xs leading-relaxed">{neden}</p>
                 </div>
               ))}
             </div>
             <div className="bg-slate-900/60 rounded-xl px-4 py-3">
-              <p className="text-slate-400 text-xs mb-1">Birleşik skor:</p>
+              <p className="text-slate-200 text-xs mb-1">Birleşik skor:</p>
               <code className="block text-emerald-400 font-mono text-xs overflow-x-auto whitespace-pre-wrap break-words">
                 Score_i = 0.25×P_i + 0.35×LP_i + 0.20×S_i + 0.20×H_i
               </code>
-              <p className="text-slate-400 text-xs mt-2">
+              <p className="text-slate-200 text-xs mt-2">
                 Bu skor, bayinin o ayki "araç alma hakkının" ağırlığını temsil eder. Aylık toplam kota,
                 Score_i değerlerine orantılı dağıtılır.
               </p>
             </div>
           </Accordion>
           <Accordion title="Neden Üstel Ağırlıklı (EW) ortalama?" icon={TrendingUp}>
-            <p className="text-slate-300 text-sm leading-relaxed">
+            <p className="text-white text-sm leading-relaxed">
               Basit ortalama, 12 ayı eşit önemde sayar. Oysa son 3 ayın performansı, 12 ay öncekinden
               daha öngörücüdür. Üstel ağırlık (λ=0.85 önerilen) son aylara daha yüksek ağırlık vererek
               bayinin güncel durumunu yansıtır. λ parametresi config'den ayarlanabilir.
             </p>
           </Accordion>
           <Accordion title="±%20 kısıtı neden var?" icon={AlertCircle}>
-            <p className="text-slate-300 text-sm leading-relaxed">
+            <p className="text-white text-sm leading-relaxed">
               Saf bir MCDM skoru bazen bir bayiye geçen yılın 3 katı araç verebilir; bu operasyonel
               olarak imkânsızdır (showroom kapasitesi, satış ekibi). ±%20 kısıtı, tahmin edilen aylık
               hedefe gore alt/üst sınır koyar. Bu, soft constraint olarak formüle edilmiştir:
@@ -454,27 +479,27 @@ export default function Ozet() {
             </div>
           </Accordion>
           <Accordion title="A Grubu / B Grubu ayrımı — neden?" icon={Layers}>
-            <p className="text-slate-300 text-sm leading-relaxed mb-2">
+            <p className="text-white text-sm leading-relaxed mb-2">
               SUV segmentinde iki farklı platform bulunuyor:
             </p>
             <div className="grid grid-cols-2 gap-3">
               <div className="bg-blue-950/40 border border-blue-800/40 rounded-xl p-4">
                 <p className="text-blue-300 font-bold text-sm mb-1">A Grubu</p>
-                <p className="text-slate-400 text-xs">Kompakt SUV (A2, A3 modelleri). Şehir içi, genç segment. Kent bayileri için daha uygun.</p>
+                <p className="text-slate-200 text-xs">Kompakt SUV (A2, A3 modelleri). Şehir içi, genç segment. Kent bayileri için daha uygun.</p>
               </div>
               <div className="bg-violet-950/40 border border-violet-800/40 rounded-xl p-4">
                 <p className="text-violet-300 font-bold text-sm mb-1">B Grubu</p>
-                <p className="text-slate-400 text-xs">Büyük SUV (B1, B2 modelleri). Aile / premium segment. Kırsal ve banliyö bayileri için daha uygun.</p>
+                <p className="text-slate-200 text-xs">Büyük SUV (B1, B2 modelleri). Aile / premium segment. Kırsal ve banliyö bayileri için daha uygun.</p>
               </div>
             </div>
-            <p className="text-slate-400 text-xs mt-3 leading-relaxed">
+            <p className="text-slate-200 text-xs mt-3 leading-relaxed">
               Gruplar bağımsız havuzlardan dağıtılır. Her bayiye A ve B hedefi ayrı girilir;
               allocate() fonksiyonu her grup için bağımsız çalıştırılır. Bu, A araçlarının yanlışlıkla
               B kotasından sayılmasını engeller.
             </p>
           </Accordion>
           <Accordion title="PuLP + CBC solver seçimi" icon={Cpu}>
-            <p className="text-slate-300 text-sm leading-relaxed">
+            <p className="text-white text-sm leading-relaxed">
               <span className="text-emerald-400 font-semibold">PuLP</span>, Python için açık kaynak LP/MIP modelleme kütüphanesidir.
               Üretim ortamında Gurobi veya CPLEX daha hızlıdır; ancak akademik/demo bağlamında
               ücretsiz olan <span className="text-emerald-400 font-semibold">CBC (COIN-OR Branch and Cut)</span> solver yeterlidir.
@@ -483,7 +508,7 @@ export default function Ozet() {
             </p>
           </Accordion>
           <Accordion title="Renk ve versiyon dağılımı — soft constraint" icon={Settings}>
-            <p className="text-slate-300 text-sm leading-relaxed">
+            <p className="text-white text-sm leading-relaxed">
               Bayinin geçmiş satışlarından elde edilen renk vektörü (örn. %40 beyaz, %30 siyah, %20 gri)
               ile atanan araçların renk dağılımı arasındaki fark, amaç fonksiyonuna küçük bir ceza
               olarak eklenir. Bu sayede optimize edici tercihen bayinin sattığı renkleri öne çıkarır;
@@ -499,21 +524,21 @@ export default function Ozet() {
         <SectionHeader icon={Globe} title="7. Diğer Modüller" subtitle="Geçmiş Analiz, Mevsimsellik, Bayi Harita" color="teal" />
         <div className="grid md:grid-cols-3 gap-4">
           <InfoCard title="Geçmiş Analiz" color="slate">
-            <p className="text-slate-400 text-sm leading-relaxed">
+            <p className="text-slate-200 text-sm leading-relaxed">
               2024-2025 satış verisinin EDA (Exploratory Data Analysis) katmanı. Recharts ile
               bayi × model × renk bazında interaktif grafikler sunar. Sezonalite ve trend
               görselleştirme; outlier bayiler renkle vurgulanır.
             </p>
           </InfoCard>
           <InfoCard title="Mevsimsellik" color="slate">
-            <p className="text-slate-400 text-sm leading-relaxed">
+            <p className="text-slate-200 text-sm leading-relaxed">
               STL çıktısının görsel sunumu. Bayilerin aylık seasonal_index değerleri ısı haritası
               ile gösterilir. Hangi ayda hangi bayinin satış hızlandığı, dağıtım zamanlamasını
               optimize etmek için kullanılır.
             </p>
           </InfoCard>
           <InfoCard title="Bayi Harita" color="slate">
-            <p className="text-slate-400 text-sm leading-relaxed">
+            <p className="text-slate-200 text-sm leading-relaxed">
               Folium + Leaflet tabanlı interaktif harita. Bayiler pin ile gösterilir; renk,
               hedef gerçekleşme yüzdesini kodlar (yeşil ≥ %100, sarı %80-100, kırmızı &lt; %80).
               Coğrafi yoğunlaşma ve beyaz noktalar (bayi olmayan il) izlenebilir.
@@ -535,13 +560,13 @@ export default function Ozet() {
               ].map(({ tech, neden }) => (
                 <div key={tech} className="bg-slate-900/60 rounded-xl p-4">
                   <p className="text-indigo-300 font-bold text-sm mb-1">{tech}</p>
-                  <p className="text-slate-400 text-xs leading-relaxed">{neden}</p>
+                  <p className="text-slate-200 text-xs leading-relaxed">{neden}</p>
                 </div>
               ))}
             </div>
           </Accordion>
           <Accordion title="Tailwind CSS — neden CSS framework?" icon={Layers}>
-            <p className="text-slate-300 text-sm leading-relaxed">
+            <p className="text-white text-sm leading-relaxed">
               Utility-first yaklaşımı, prototiplemeyi hızlandırır; akademik projede tasarım zamanı
               kısıtlıdır. MUI/Ant Design gibi komponent kütüphaneleri daha ağır bundle üretir ve
               özelleştirmesi zordur. Tailwind, dark-mode ile tutarlı bir fintech estetiği sunar.
@@ -550,7 +575,7 @@ export default function Ozet() {
             </p>
           </Accordion>
           <Accordion title="Recharts — neden bu grafik kütüphanesi?" icon={BarChart2}>
-            <p className="text-slate-300 text-sm leading-relaxed">
+            <p className="text-white text-sm leading-relaxed">
               D3.js çok düşük seviyeli; her grafik için yüzlerce satır kod gerektirir.
               Chart.js React entegrasyonu daha az esnek. Recharts, React-native component API'si
               sunar; TypeScript desteği güçlüdür; SVG tabanlıdır (high-DPI ekranlarda net görünür).
@@ -566,7 +591,7 @@ export default function Ozet() {
               ].map(({ tech, neden }) => (
                 <div key={tech} className="bg-slate-900/60 rounded-xl p-4">
                   <p className="text-sky-300 font-bold text-sm mb-1">{tech}</p>
-                  <p className="text-slate-400 text-xs leading-relaxed">{neden}</p>
+                  <p className="text-slate-200 text-xs leading-relaxed">{neden}</p>
                 </div>
               ))}
             </div>
@@ -581,7 +606,7 @@ export default function Ozet() {
               ].map(({ katman, aciklama }) => (
                 <div key={katman} className="bg-slate-900/60 rounded-xl p-4">
                   <p className="text-teal-300 font-bold text-sm mb-1">{katman}</p>
-                  <p className="text-slate-400 text-xs leading-relaxed">{aciklama}</p>
+                  <p className="text-slate-200 text-xs leading-relaxed">{aciklama}</p>
                 </div>
               ))}
             </div>
@@ -617,7 +642,7 @@ export default function Ozet() {
                   </div>
                   <div className="pb-2">
                     <p className="text-white font-semibold text-sm">{title}</p>
-                    <p className="text-slate-400 text-xs mt-0.5 leading-relaxed">{detail}</p>
+                    <p className="text-slate-200 text-xs mt-0.5 leading-relaxed">{detail}</p>
                   </div>
                 </div>
               )
@@ -640,7 +665,7 @@ export default function Ozet() {
             ].map(k => (
               <div key={k} className="flex items-start gap-2 py-1.5 border-b border-slate-700/40 last:border-0">
                 <AlertCircle size={13} className="text-rose-400 mt-0.5 flex-shrink-0" />
-                <p className="text-slate-300 text-xs leading-relaxed">{k}</p>
+                <p className="text-white text-xs leading-relaxed">{k}</p>
               </div>
             ))}
           </InfoCard>
@@ -655,7 +680,7 @@ export default function Ozet() {
             ].map(k => (
               <div key={k} className="flex items-start gap-2 py-1.5 border-b border-slate-700/40 last:border-0">
                 <CheckCircle size={13} className="text-emerald-400 mt-0.5 flex-shrink-0" />
-                <p className="text-slate-300 text-xs leading-relaxed">{k}</p>
+                <p className="text-white text-xs leading-relaxed">{k}</p>
               </div>
             ))}
           </InfoCard>
@@ -664,7 +689,7 @@ export default function Ozet() {
 
       {/* ── Footer ── */}
       <div className="text-center py-6 border-t border-slate-800">
-        <p className="text-slate-400 text-xs">
+        <p className="text-slate-200 text-xs">
           Endüstri Mühendisliği Bitirme Projesi · 2026 · Demo Modu
         </p>
         <p className="text-slate-500 text-xs mt-1">
