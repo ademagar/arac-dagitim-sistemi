@@ -103,7 +103,7 @@ function StepBadge({ num }: { num: number }) {
 
 export default function Ozet() {
   return (
-    <div className="max-w-5xl mx-auto pb-16 space-y-12">
+    <div className="max-w-5xl mx-auto pb-16 space-y-12 bg-slate-950 rounded-2xl p-6 -m-2 min-h-screen">
 
       {/* ── Hero ── */}
       <div className="relative bg-gradient-to-br from-slate-900 via-blue-950/40 to-slate-900 border border-blue-900/40 rounded-3xl px-8 py-10 overflow-hidden">
@@ -228,7 +228,7 @@ export default function Ozet() {
             ].map(({ tablo, alan }) => (
               <div key={tablo} className="flex items-start gap-2 py-1.5 border-b border-slate-700/40 last:border-0">
                 <code className="text-sky-300 text-xs font-mono w-28 flex-shrink-0 break-all">{tablo}</code>
-                <code className="text-slate-500 text-xs font-mono leading-relaxed break-words">{alan}</code>
+                <code className="text-slate-400 text-xs font-mono leading-relaxed break-words">{alan}</code>
               </div>
             ))}
           </InfoCard>
@@ -614,10 +614,10 @@ export default function Ozet() {
 
       {/* ── Footer ── */}
       <div className="text-center py-6 border-t border-slate-800">
-        <p className="text-slate-500 text-xs">
+        <p className="text-slate-400 text-xs">
           Endüstri Mühendisliği Bitirme Projesi · 2026 · Demo Modu
         </p>
-        <p className="text-slate-600 text-xs mt-1">
+        <p className="text-slate-500 text-xs mt-1">
           Vehicle Allocation Problem · MCDM · MILP · STL + Prophet · Collaborative Filtering
         </p>
       </div>
