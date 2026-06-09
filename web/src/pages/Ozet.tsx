@@ -411,7 +411,7 @@ export default function Ozet() {
           <Accordion title="4 Kriter ve ağırlıkları" icon={Layers} defaultOpen>
             <div className="grid md:grid-cols-2 gap-3 mb-3">
               {[
-                { kriter: 'P — Performans Skoru', agirlik: 'w = 0.25', formul: 'EW ortalama (W=6, α=0.286) → son 6 ay aylık hedef gerçekleştirme oranı', renk: 'text-blue-400', neden: 'Geçmişte yüksek gerçekleşme oranı olan bayi gelecekte de daha fazla araç satar. W=6 aylık pencere, 2024–2025 verisi üzerinde MAE=10.89 ile en iyi tahmini veriyor.' },
+                { kriter: 'P — Performans Skoru', agirlik: 'w = 0.25', formul: 'EW ortalama (W=5, α=0.333) → son 5 ay aylık hedef gerçekleştirme oranı', renk: 'text-blue-400', neden: 'Geçmişte yüksek gerçekleşme oranı olan bayi gelecekte de daha fazla araç satar. W=5 yıl bazında en tutarlı pencere: 2024 MAE=10.97 / 2025 MAE=11.93, yıllar arası fark sadece 0.96.' },
                 { kriter: 'LP — Lokasyon-Ürün Uyum', agirlik: 'w = 0.35', formul: 'Cosine similarity: bayinin geçmiş model vektörü ile envanter vektörü arası benzerlik', renk: 'text-violet-400', neden: 'En yüksek ağırlık. Bayinin satabileceği modeli gönderiyoruz; yanlış model göndermek stok çürümesine neden olur.' },
                 { kriter: 'S — Mevsimsel Uyum', agirlik: 'w = 0.20', formul: 'seasonal_index = (bayi_ay_ort) / (bayi_yıl_ort)', renk: 'text-emerald-400', neden: 'Bazı bayiler yaz aylarında, bazıları kış aylarında daha fazla satar. Yanlış zamanlama, iade veya sıfıra düşen stok demektir.' },
                 { kriter: 'H — Hedef Yakınlık', agirlik: 'w = 0.20', formul: 'gecikme = max(0, beklenen_ytd − gerçek_ytd) / yıllık_hedef\nH = 1 + gecikme', renk: 'text-amber-400', neden: 'Asimetrik: hedefin gerisindeki bayi ekstra araç alır (H > 1). Hedefini tutturan ya da geçen bayi ne cezalanır ne ekstra alır (H = 1).' },
@@ -437,7 +437,7 @@ export default function Ozet() {
               </p>
             </div>
           </Accordion>
-          <Accordion title="EW pencere analizi — W=6 neden seçildi?" icon={TrendingUp} defaultOpen>
+          <Accordion title="EW pencere analizi — W=5 neden seçildi?" icon={TrendingUp} defaultOpen>
             <p className="text-white text-sm leading-relaxed mb-3">
               2024–2025 gerçekleşme verisi (24 ay) üzerinde, W=3'ten W=19'a kadar her pencere boyutu için
               rolling tahmin testi yapıldı. Her W için α = 2/(W+1) alındı. Ölçüt: Ortalama Mutlak Hata (MAE).
@@ -446,42 +446,77 @@ export default function Ozet() {
               <table className="w-full text-xs font-mono">
                 <thead>
                   <tr className="border-b border-slate-700">
-                    <th className="text-slate-300 text-left py-1.5 pr-4">W</th>
-                    <th className="text-slate-300 text-left py-1.5 pr-4">α</th>
-                    <th className="text-slate-300 text-left py-1.5 pr-4">MAE</th>
-                    <th className="text-slate-300 text-left py-1.5">RMSE</th>
+                    <th className="text-slate-300 text-left py-1.5 pr-3">W</th>
+                    <th className="text-slate-300 text-left py-1.5 pr-3">α</th>
+                    <th className="text-slate-300 text-left py-1.5 pr-3">MAE 2024</th>
+                    <th className="text-slate-300 text-left py-1.5 pr-3">MAE 2025</th>
+                    <th className="text-slate-300 text-left py-1.5 pr-3">Fark</th>
+                    <th className="text-slate-300 text-left py-1.5">MAE tüm</th>
                   </tr>
                 </thead>
                 <tbody>
                   {[
-                    [3,  '0.500', '12.65', '15.38'],
-                    [4,  '0.400', '11.48', '14.02'],
-                    [5,  '0.333', '11.29', '13.77'],
-                    [6,  '0.286', '10.89', '13.07'],
-                    [7,  '0.250', '11.28', '13.45'],
-                    [8,  '0.222', '11.75', '13.94'],
-                    [9,  '0.200', '11.95', '14.08'],
-                    [10, '0.182', '12.94', '14.69'],
-                    [12, '0.154', '12.82', '14.37'],
-                    [15, '0.125', '14.50', '16.12'],
-                    [19, '0.100', '13.44', '16.17'],
-                  ].map(([w, a, mae, rmse]) => (
-                    <tr key={String(w)} className={`border-b border-slate-800 ${w === 6 ? 'bg-emerald-900/30' : ''}`}>
-                      <td className={`py-1.5 pr-4 font-bold ${w === 6 ? 'text-emerald-400' : 'text-white'}`}>{w}{w === 6 ? ' ◄' : ''}</td>
-                      <td className="text-slate-300 py-1.5 pr-4">{a}</td>
-                      <td className={`py-1.5 pr-4 font-bold ${w === 6 ? 'text-emerald-400' : 'text-white'}`}>{mae}</td>
-                      <td className="text-slate-300 py-1.5">{rmse}</td>
-                    </tr>
-                  ))}
+                    [3,  '0.500', '13.39', '12.14', '1.25', '12.65'],
+                    [4,  '0.400', '11.31', '12.39', '1.08', '11.48'],
+                    [5,  '0.333', '10.97', '11.93', '0.96', '11.29'],
+                    [6,  '0.286',  '9.05', '12.68', '3.63', '10.89'],
+                    [7,  '0.250',  '9.65', '13.11', '3.46', '11.28'],
+                    [8,  '0.222', '10.53', '14.85', '4.32', '11.75'],
+                    [9,  '0.200', '10.77', '12.17', '1.40', '11.95'],
+                    [10, '0.182', '15.65', '14.54', '1.11', '12.94'],
+                    [11, '0.167', '24.52',  '5.18','19.34', '13.65'],
+                  ].map(([w, a, m24, m25, fark, mall]) => {
+                    const best = w === 5
+                    const warn = Number(String(fark)) > 3
+                    return (
+                      <tr key={String(w)} className={`border-b border-slate-800 ${best ? 'bg-emerald-900/30' : warn ? 'bg-rose-950/30' : ''}`}>
+                        <td className={`py-1.5 pr-3 font-bold ${best ? 'text-emerald-400' : 'text-white'}`}>{w}{best ? ' ◄' : ''}</td>
+                        <td className="text-slate-300 py-1.5 pr-3">{a}</td>
+                        <td className="text-white py-1.5 pr-3">{m24}</td>
+                        <td className="text-white py-1.5 pr-3">{m25}</td>
+                        <td className={`py-1.5 pr-3 font-bold ${warn ? 'text-rose-400' : 'text-emerald-400'}`}>{fark}</td>
+                        <td className={`py-1.5 font-bold ${best ? 'text-emerald-400' : 'text-white'}`}>{mall}</td>
+                      </tr>
+                    )
+                  })}
                 </tbody>
               </table>
             </div>
-            <div className="bg-emerald-950/40 border border-emerald-700/40 rounded-xl px-4 py-3">
-              <p className="text-emerald-300 text-xs font-semibold mb-1">Sonuç: W = 6 ay (α = 0.286)</p>
+            <div className="bg-emerald-950/40 border border-emerald-700/40 rounded-xl px-4 py-3 mb-2">
+              <p className="text-emerald-300 text-xs font-semibold mb-1">Seçilen: W = 5 ay (α = 0.333)</p>
               <p className="text-white text-xs leading-relaxed">
-                6 aylık pencere en düşük MAE (10.89 puan) ve RMSE (13.07) değerini verdi.
-                Kısa pencereler (W≤5) gürültüye duyarlı; uzun pencereler (W≥10) eski veriyi
-                çok ağırlandırıp güncel trendi kaçırıyor. W=6 bu ikisi arasındaki optimum nokta.
+                W=6 birleşik MAE'de en iyi görünüyor (10.89) ancak yıllar arası tutarsız:
+                2024'te MAE=9.05 iken 2025'te 12.68'e çıkıyor (fark=3.63). W=5 her iki yılda da
+                benzer hata veriyor (fark sadece 0.96) — daha güvenilir genellenebilirlik.
+              </p>
+            </div>
+            <div className="bg-rose-950/30 border border-rose-700/30 rounded-xl px-4 py-2 mb-2">
+              <p className="text-rose-300 text-xs leading-relaxed">
+                W=6–8 arası kırmızı: 2025'te hata belirgin artıyor çünkü 2025 güçlü yukarı trend
+                içeriyor (pct: 79→131), uzun pencere bu trendi yavaş takip ediyor.
+                W=11: 2024'te 24.52, 2025'te 5.18 — yalnızca 1 test noktası olduğu için güvenilmez.
+              </p>
+            </div>
+            <div className="bg-slate-900/60 border border-slate-700/40 rounded-xl px-4 py-3">
+              <p className="text-slate-200 text-xs font-semibold mb-2">MAE mi, MAPE mi?</p>
+              <p className="text-white text-xs leading-relaxed mb-2">
+                W=3–11 için her iki metrik de aynı pencere sıralamasını veriyor — W=5 her ikisinde de
+                kazanıyor (MAE=11.29, MAPE=%11.09). Metrik seçimi bu veri setinde sonucu değiştirmiyor.
+              </p>
+              <p className="text-white text-xs leading-relaxed mb-2">
+                <span className="text-emerald-300 font-semibold">MAE</span> → "ortalama X puan sapma" (hedef
+                gerçekleşme oranı zaten % olduğu için MAE doğrudan anlamlı: ~11 puanlık tahmin hatası).
+              </p>
+              <p className="text-white text-xs leading-relaxed mb-2">
+                <span className="text-emerald-300 font-semibold">MAPE</span> → birimsiz, farklı ölçeklerdeki
+                bayilerle karşılaştırmada daha uygun. Gerçekleşme oranı sıfıra yaklaştığında
+                (bölme problemi) yanıltıcı olabilir — bu veri setinde minimum %70, risk yok.
+              </p>
+              <p className="text-slate-300 text-xs leading-relaxed">
+                <span className="text-amber-300 font-semibold">2025 Aralık özel notu:</span> Tüm pencereler
+                Aralık'ı düşük tahmin etti (W=5: tahmin=105.9, gerçek=113.3, hata=−7.4). Önceki 3 ay
+                zayıf gidişat gösteriyordu (107→88→113), model bu düşüşü taşıdı. W=8–9 Aralık'ta daha
+                yakın çıktı (−4.2) ama tek aya göre pencere seçmek overfitting'dir — W=5 tercih edildi.
               </p>
             </div>
           </Accordion>
