@@ -287,17 +287,67 @@ export default function Ozet() {
               STL (Seasonal-Trend decomposition using Loess), bu mevsimselliği trend'den temizleyerek
               ayrı ayrı modellenebilir bileşenler üretir:
             </p>
-            <div className="grid grid-cols-3 gap-3">
-              {[
-                { comp: 'Trend (T)', aciklama: 'Uzun dönem artış/azalış, pazar büyümesi' },
-                { comp: 'Seasonal (S)', aciklama: 'Yıl içi tekrar eden örüntüler, bayi bazında seasonal_index üretilir' },
-                { comp: 'Residual (R)', aciklama: 'Açıklanamayan varyasyon, model kalite göstergesi' },
-              ].map(({ comp, aciklama }) => (
-                <div key={comp} className="bg-slate-900/60 rounded-lg p-3">
-                  <p className="text-sky-300 text-sm font-bold mb-1">{comp}</p>
-                  <p className="text-slate-400 text-xs leading-relaxed">{aciklama}</p>
+            <code className="block bg-slate-900 border border-slate-700/50 rounded-lg px-4 py-2.5 text-emerald-400 font-mono text-xs mb-4 text-center tracking-wide">
+              Satış = Trend × Mevsimsellik × Kalıntı
+            </code>
+            <div className="space-y-3">
+              <div className="bg-slate-900/60 border border-slate-700/30 rounded-xl p-4">
+                <p className="text-sky-300 text-sm font-bold mb-1">Trend (T)</p>
+                <p className="text-slate-300 text-xs leading-relaxed">
+                  Satış serisinin uzun dönem yönü. Otomotiv pazarında ekonomik büyüme, nüfus artışı ve
+                  markanın pazar payı değişimini yansıtır. Örneğin 2024→2025 arasında pazar %8 büyüdüyse
+                  trend bileşeni bunu yakalar.
+                </p>
+              </div>
+              <div className="bg-slate-900/60 border border-slate-700/30 rounded-xl p-4">
+                <p className="text-sky-300 text-sm font-bold mb-1">Mevsimsellik (S)</p>
+                <p className="text-slate-300 text-xs leading-relaxed mb-2">
+                  Her yıl aynı aylarda tekrar eden örüntüler. Türkiye otomotiv pazarında Ocak–Şubat
+                  düşük, Mart–Nisan ve Ekim–Kasım yüksek satış dönemleridir (plaka sonu, kampanya
+                  dönemleri). Her bayi için ayrı bir Seasonal Index (SI) hesaplanır:
+                </p>
+                <code className="block bg-slate-950 rounded-lg px-3 py-2 text-emerald-400 font-mono text-xs">
+                  SI_i_ay = (Bayinin o aydaki ortalama satışı) / (Bayinin yıllık ortalama aylık satışı)
+                </code>
+                <p className="text-slate-400 text-xs mt-2">
+                  SI {'>'} 1 → o ay bayi için iyi bir ay · SI {'<'} 1 → zayıf bir ay
+                </p>
+              </div>
+              <div className="bg-slate-900/60 border border-slate-700/30 rounded-xl p-4">
+                <p className="text-sky-300 text-sm font-bold mb-1">Kalıntı / Artık (R)</p>
+                <p className="text-slate-300 text-xs leading-relaxed mb-2">
+                  Trend ve mevsimsellik çıkarıldıktan sonra geriye kalan açıklanamayan varyasyon.
+                  Kalıntı = Gerçek Satış / (Trend × Mevsimsellik) formülüyle hesaplanır.
+                  Kalıntı bileşeni iki şeyi temsil eder:
+                </p>
+                <div className="space-y-2">
+                  <div className="flex items-start gap-2">
+                    <span className="text-amber-400 font-bold text-xs mt-0.5 flex-shrink-0">1.</span>
+                    <p className="text-slate-300 text-xs leading-relaxed">
+                      <span className="text-amber-300 font-semibold">Gerçek rassal şoklar:</span> Ani
+                      ekonomik kriz, yakıt fiyatı artışı, COVID gibi öngörülemeyen dış olaylar.
+                      Bu kısım modelin kontrol edemeyeceği gürültüdür.
+                    </p>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <span className="text-amber-400 font-bold text-xs mt-0.5 flex-shrink-0">2.</span>
+                    <p className="text-slate-300 text-xs leading-relaxed">
+                      <span className="text-amber-300 font-semibold">Model kalite göstergesi:</span> Kalıntının
+                      standart sapması küçükse model veriyi iyi açıklıyor demektir. Büyükse
+                      yakalanamamış bir örüntü var demektir (mevsim periyodu yanlış veya başka bir değişken eksik).
+                    </p>
+                  </div>
                 </div>
-              ))}
+                <div className="mt-3 bg-slate-950 border border-slate-700/50 rounded-lg px-3 py-2">
+                  <p className="text-slate-400 text-xs">
+                    <span className="text-slate-300 font-semibold">Bu projede kalıntı nasıl kullanılıyor?</span>
+                    {' '}Tahmin aşamasında kalıntı görmezden gelinir (sıfır gürültü varsayımı).
+                    Ancak kalıntının büyüklüğü model seçimini doğrulamak için izlenir:
+                    kalıntı standart sapması toplam varyasyonun %15'inden fazlaysa model
+                    gözden geçirilmelidir.
+                  </p>
+                </div>
+              </div>
             </div>
           </Accordion>
           <Accordion title="Prophet — neden STL'e ek olarak?" icon={TrendingUp}>
