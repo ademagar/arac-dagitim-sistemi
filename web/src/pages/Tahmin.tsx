@@ -187,6 +187,12 @@ interface BayiAylikModelHedef {
 
 interface BayiHedef {
   tier: 'A' | 'B' | 'C'
+  il?: string
+  ilce?: string
+  brand_pay_2025?: number
+  target_pay_2026?: number
+  catchment_pay?: number
+  capacity_per_dealer?: number
   yeni_bayi?: boolean
   aylik: BayiAylikModelHedef[]
   yillik_toplam: number
@@ -198,9 +204,41 @@ interface BayiAylikHedefler {
   [dealer: string]: BayiHedef
 }
 
+interface PazarKapasiteSatiri {
+  dealer: string
+  il: string
+  ilce: string
+  il_kendi_pay: number
+  komsular: { il: string; pay: number }[]
+  catchment_pay: number
+  n_il: number
+  capacity_per_dealer: number
+  brand_pay_2025: number
+  target_pay_2026: number
+  yeni_bayi: boolean
+  hedef_8500: number
+  hedef_10000: number
+}
+
+interface PazarKapasitesiMetodoloji {
+  baslik: string
+  formul: string
+  aciklama: string
+  kaynak: string
+  kaynak_url: string
+  toplam_stok: number
+  aciklama_catchment: string
+}
+
+interface PazarKapasitesi {
+  metodoloji: PazarKapasitesiMetodoloji
+  tablo: PazarKapasiteSatiri[]
+}
+
 interface TahminData {
   aralik_tahmin: AralikTahmin
   plan_2026: Plan2026
+  pazar_kapasitesi?: PazarKapasitesi
   bayi_aylik_hedefler: {
     senaryo_8500: BayiAylikHedefler
     senaryo_10000: BayiAylikHedefler
@@ -1779,6 +1817,371 @@ function BayiHedefleriTab({ data }: {
 }
 
 // ---------------------------------------------------------------------------
+// Sekme 0: Pazar Kapasitesi Bazlı Hedef Dağıtımı
+// ---------------------------------------------------------------------------
+
+function FormulKutusu() {
+  return (
+    <div className="bg-slate-900 rounded-2xl border border-slate-700 p-6">
+      <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-5">
+        Hibrit Hedef Dağıtım Formülü
+      </p>
+      <div className="text-center mb-6">
+        <div className="inline-block bg-slate-800 rounded-xl px-6 py-5 border border-slate-600 w-full max-w-2xl">
+          <p className="text-base md:text-lg font-mono text-white leading-relaxed">
+            <span className="text-blue-400 font-bold">target_pay</span>
+            <span className="text-slate-400"> = </span>
+            <span className="text-emerald-400 font-bold">0.5</span>
+            <span className="text-slate-400"> × </span>
+            <span className="text-amber-400">brand_pay_2025</span>
+            <span className="text-slate-400"> + </span>
+            <span className="text-emerald-400 font-bold">0.5</span>
+            <span className="text-slate-400"> × </span>
+            <span className="text-rose-400">(catchment_pay / n_bayis_in_il)</span>
+          </p>
+          <p className="text-xs text-slate-500 mt-2">
+            → normalize edilir: Σ target_pay = 100%
+          </p>
+        </div>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="bg-amber-900/30 rounded-xl border border-amber-800/40 p-4">
+          <p className="text-amber-300 font-semibold text-sm mb-2">brand_pay_2025 — %50 ağırlık</p>
+          <p className="text-amber-200/75 text-xs leading-relaxed">
+            Bayinin 2025 yılı markalı araç satışlarında sahip olduğu pay. Geçmiş performansı ödüllendirir,
+            başarılı bayilerin güçlü konumunu korur. Yeni bayilerde (Dealer 23–28) = 0 — tamamen pazar
+            kapasitesine göre başlarlar.
+          </p>
+        </div>
+        <div className="bg-rose-900/30 rounded-xl border border-rose-800/40 p-4">
+          <p className="text-rose-300 font-semibold text-sm mb-2">catchment_pay / n_il — %50 ağırlık</p>
+          <p className="text-rose-200/75 text-xs leading-relaxed">
+            İlin hizmet alanı (kendi TÜİK araç payı + komşu illerin katkısı), o ildeki bayi sayısına bölünür.
+            Pazarın gerçek büyüklüğüyle orantılı, nesnel bir başlangıç noktası sağlar.
+            Kaynak: TÜİK Motorlu Kara Taşıtları Aralık 2024 (31,3M araç).
+          </p>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function PazarKapasitesiTab({ data }: { data?: PazarKapasitesi }) {
+  if (!data) {
+    return (
+      <div className="bg-amber-50 border border-amber-200 rounded-xl p-6 text-center">
+        <p className="text-amber-700 font-medium">Pazar kapasitesi verisi henüz hesaplanmamış.</p>
+        <p className="text-amber-600 text-xs mt-1">gen_tahmin.py çalıştırılarak tahmin.json güncellenmelidir.</p>
+      </div>
+    )
+  }
+
+  const { tablo } = data
+  const iller = [...new Set(tablo.map(r => r.il))].sort()
+
+  return (
+    <div className="space-y-8">
+
+      {/* === ANLATI BÖLÜMÜ === */}
+      <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl border border-slate-700 p-8 text-white">
+        <div className="max-w-3xl">
+          <p className="text-xs font-semibold text-blue-400 uppercase tracking-widest mb-3">
+            Metodoloji — Neden Pazar Kapasitesi Bazlı Dağıtım?
+          </p>
+          <h2 className="text-2xl font-bold text-white mb-6 leading-snug">
+            Tarihsel veri tek başına yeterli değildir.
+          </h2>
+
+          <div className="space-y-5 text-sm text-slate-300 leading-relaxed">
+            <p>
+              Geleneksel araç dağıtım sistemlerinde bayilere bir önceki dönemin satış
+              performansı baz alınarak hedef verilir. Bu yaklaşım ilk bakışta mantıklı
+              görünse de zamanla bir kısır döngü oluşturur:{' '}
+              <strong className="text-white">
+                yüksek potansiyelli ama az desteklenen bayiler kısıtlı stokla çalışmaya
+                mahkum kalırken, köklü bayiler avantajlı konumlarını korur.
+              </strong>
+            </p>
+
+            <p>
+              Daha da kritik bir sorun,{' '}
+              <strong className="text-white">
+                yeni bayilerin bu sistemde hiçbir geçmiş performans verisi olmadığı için
+                sıfırdan başlamasıdır.
+              </strong>{' '}
+              2026 yılında ağımıza katılan 6 yeni bayi (Dealer 23–28), geçmiş satış
+              verisine dayanılarak oluşturulan dağıtım modelinde görünmez kalır. Oysa
+              bu bayilerin bulundukları pazarlar — Bursa, Samsun, İstanbul, Tekirdağ
+              ve Sivas — kendi başlarına önemli potansiyel taşımaktadır.
+            </p>
+
+            <p>
+              Bu sorunun çözümü için{' '}
+              <strong className="text-white">iki boyutlu bir yaklaşım</strong> geliştirildi.
+              Geçmiş performansın yarısını koruyan, geri kalan yarısını ise{' '}
+              <em>nesnel pazar büyüklüğüne</em> bağlayan bir hibrit formül uygulandı.
+              Pazar büyüklüğü ölçümünde TÜİK'in Aralık 2024 araç stok verisi kullanıldı:
+              Türkiye genelinde kayıtlı{' '}
+              <strong className="text-white">31,3 milyon araç</strong>, il bazında
+              hesaplanan paylarla kıyaslandı.
+            </p>
+
+            <p>
+              <strong className="text-white">Yakalama Alanı (Catchment Area)</strong>{' '}
+              kavramı, gerçek dünya bayi davranışını modele dahil eder. Bir bayi yalnızca
+              kendi ilini değil, komşu illerdeki müşterileri de çekebilir. Örneğin
+              İstanbul bayileri Tekirdağ ve Kırklareli pazarından; Ankara bayileri
+              Eskişehir ve Çankırı'dan faydalanabilir. Her ilin catchment alanı, il
+              kendi payına komşu illerin ağırlıklı katkısı eklenerek hesaplandı.
+            </p>
+
+            <p>
+              <strong className="text-white">Aynı ilde birden fazla bayi</strong>{' '}
+              olduğunda (İstanbul'da 7, Ankara'da 2, İzmir'de 2, Bursa'da 2,
+              Tekirdağ'da 2), ilin catchment payı eşit bölüştürülür. Bu, rekabetin
+              zaten yüksek olduğu büyük pazarlarda aşırı tahsisin önüne geçer.
+            </p>
+
+            <p>
+              Son olarak, formülden çıkan ham paylar normalize edilir: 28 bayinin
+              paylarının toplamı her zaman{' '}
+              <strong className="text-white">%100</strong> olacak şekilde ölçeklenir.
+              Bu normalizasyon, pazar payı verilerindeki küçük ölçüm farklılıklarına
+              rağmen sistemin tutarlı sonuç üretmesini sağlar.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* === FORMÜL KUTUSU === */}
+      <FormulKutusu />
+
+      {/* === VERİ KAYNAKLARI === */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="bg-blue-50 rounded-xl border border-blue-200 p-4">
+          <p className="text-xs font-semibold text-blue-800 mb-1">TÜİK — Araç Stok Verisi</p>
+          <p className="text-xs text-blue-700 mb-2">
+            Motorlu Kara Taşıtları İstatistikleri, Aralık 2024. Toplam
+            31.301.389 kayıtlı araç. İl bazında catchment payı hesabında kullanıldı.
+          </p>
+          <p className="text-xs text-blue-500 font-mono">TÜİK Bülten No: 53463</p>
+        </div>
+        <div className="bg-emerald-50 rounded-xl border border-emerald-200 p-4">
+          <p className="text-xs font-semibold text-emerald-800 mb-1">ODMD — Segment Verisi</p>
+          <p className="text-xs text-emerald-700 mb-2">
+            2024 yılı toplam 980.341 araç satışı. SUV segmenti: %56,8 (556.548 adet).
+            B+C segment: %85,2 · D+E+F: %14,3.
+          </p>
+          <p className="text-xs text-emerald-500 font-mono">ODMD Ocak 2025 Basın Bülteni</p>
+        </div>
+        <div className="bg-amber-50 rounded-xl border border-amber-200 p-4">
+          <p className="text-xs font-semibold text-amber-800 mb-1">Pazar Yoğunlaşması</p>
+          <p className="text-xs text-amber-700 mb-2">
+            İstanbul: yeni araç kayıtlarının %25,1'i (651.282 / 2.598.816).
+            Ankara: %7,0 (181.655). Doğrulama kaynağı: TÜİK / Emniyet Trafik 2024.
+          </p>
+          <p className="text-xs text-amber-500 font-mono">TÜİK / Emniyet Genel Müdürlüğü</p>
+        </div>
+      </div>
+
+      {/* === 28 BAYİ HEDEF TABLOSU === */}
+      <div>
+        <div className="flex items-center gap-3 mb-4 flex-wrap">
+          <h3 className="text-sm font-semibold text-slate-700 uppercase tracking-wide">
+            28 Bayi — Pazar Kapasitesi Bazlı 2026 Hedef Tablosu
+          </h3>
+          <span className="text-xs bg-emerald-100 text-emerald-700 border border-emerald-200 px-2.5 py-0.5 rounded-full font-medium">
+            {tablo.filter(r => r.yeni_bayi).length} yeni bayi
+          </span>
+          <span className="text-xs bg-slate-100 text-slate-500 px-2.5 py-0.5 rounded-full">
+            {iller.length} il
+          </span>
+        </div>
+        <div className="overflow-x-auto rounded-xl border border-slate-200 shadow-sm">
+          <table className="w-full text-xs border-collapse">
+            <thead>
+              <tr className="bg-slate-800 text-white">
+                <th className="text-left py-3 px-3 font-semibold sticky left-0 bg-slate-800 z-10 min-w-[110px]">
+                  Bayi
+                </th>
+                <th className="text-left py-3 px-3 font-semibold min-w-[130px]">İl / İlçe</th>
+                <th className="text-right py-3 px-3 font-semibold min-w-[90px] bg-blue-900"
+                  title="İlin TÜİK araç payı + komşu il katkıları">
+                  Catchment %
+                </th>
+                <th className="text-right py-3 px-3 font-semibold min-w-[55px]">n İl</th>
+                <th className="text-right py-3 px-3 font-semibold min-w-[90px] bg-indigo-900">
+                  Cap/Bayi %
+                </th>
+                <th className="text-right py-3 px-3 font-semibold min-w-[85px] bg-amber-900">
+                  2025 Marka %
+                </th>
+                <th className="text-right py-3 px-3 font-semibold min-w-[85px] bg-emerald-900 border-r border-slate-600">
+                  2026 Hedef %
+                </th>
+                <th className="text-right py-3 px-3 font-semibold min-w-[80px] bg-slate-700">
+                  8.500 araç
+                </th>
+                <th className="text-right py-3 px-3 font-semibold min-w-[80px] bg-slate-600">
+                  10.000 araç
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {tablo.map((row, idx) => (
+                <tr
+                  key={row.dealer}
+                  className={`border-b border-slate-100 transition-colors ${
+                    row.yeni_bayi
+                      ? 'bg-emerald-50/60 hover:bg-emerald-50'
+                      : idx % 2 === 0
+                      ? 'bg-white hover:bg-blue-50/30'
+                      : 'bg-slate-50/30 hover:bg-blue-50/30'
+                  }`}
+                >
+                  <td className="py-2.5 px-3 sticky left-0 z-10 font-semibold text-slate-700 bg-inherit">
+                    <div className="flex items-center gap-1.5">
+                      {row.dealer}
+                      {row.yeni_bayi && (
+                        <span className="text-xs bg-emerald-600 text-white px-1.5 py-0.5 rounded font-medium">
+                          YENİ
+                        </span>
+                      )}
+                    </div>
+                  </td>
+                  <td className="py-2.5 px-3 text-slate-600">
+                    <span className="font-semibold text-slate-700">{row.il}</span>
+                    <span className="text-slate-400"> / {row.ilce}</span>
+                  </td>
+                  <td className="py-2.5 px-3 text-right font-mono text-blue-700 font-semibold">
+                    {row.catchment_pay.toFixed(2)}%
+                  </td>
+                  <td className="py-2.5 px-3 text-right font-mono text-slate-500">
+                    {row.n_il}
+                  </td>
+                  <td className="py-2.5 px-3 text-right font-mono text-indigo-700">
+                    {row.capacity_per_dealer.toFixed(3)}%
+                  </td>
+                  <td className={`py-2.5 px-3 text-right font-mono ${
+                    row.yeni_bayi ? 'text-slate-400 italic' : 'text-amber-700 font-semibold'
+                  }`}>
+                    {row.yeni_bayi ? '—' : `${row.brand_pay_2025.toFixed(3)}%`}
+                  </td>
+                  <td className="py-2.5 px-3 text-right font-mono text-emerald-700 font-bold border-r border-slate-200">
+                    {row.target_pay_2026.toFixed(3)}%
+                  </td>
+                  <td className="py-2.5 px-3 text-right font-mono font-bold text-slate-800">
+                    {row.hedef_8500.toLocaleString('tr')}
+                  </td>
+                  <td className="py-2.5 px-3 text-right font-mono font-bold text-blue-700">
+                    {row.hedef_10000.toLocaleString('tr')}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+            <tfoot>
+              <tr className="bg-slate-100 border-t-2 border-slate-300 font-bold">
+                <td className="py-3 px-3 text-slate-800 sticky left-0 bg-slate-100 z-10" colSpan={2}>
+                  TOPLAM
+                </td>
+                <td className="py-3 px-3 text-right font-mono text-slate-500 text-xs">—</td>
+                <td className="py-3 px-3" />
+                <td className="py-3 px-3 text-right font-mono text-slate-500 text-xs">—</td>
+                <td className="py-3 px-3 text-right font-mono text-amber-700">
+                  {tablo
+                    .filter(r => !r.yeni_bayi)
+                    .reduce((s, r) => s + r.brand_pay_2025, 0)
+                    .toFixed(2)}%
+                  <span className="block text-xs font-normal text-slate-400">mevcut bayiler</span>
+                </td>
+                <td className="py-3 px-3 text-right font-mono text-emerald-700 border-r border-slate-300">
+                  {tablo.reduce((s, r) => s + r.target_pay_2026, 0).toFixed(2)}%
+                </td>
+                <td className="py-3 px-3 text-right font-mono text-slate-800">
+                  {tablo.reduce((s, r) => s + r.hedef_8500, 0).toLocaleString('tr')}
+                </td>
+                <td className="py-3 px-3 text-right font-mono text-blue-700">
+                  {tablo.reduce((s, r) => s + r.hedef_10000, 0).toLocaleString('tr')}
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+        <div className="flex flex-wrap gap-x-6 gap-y-1.5 mt-3 text-xs text-slate-500">
+          <span>
+            <span className="inline-block w-3 h-3 rounded bg-emerald-100 border border-emerald-300 mr-1 align-middle" />
+            YENİ = 2026'da ağa katılan, geçmiş satış verisi yok
+          </span>
+          <span>Catchment = İl payı + komşu iller (TÜİK 2024)</span>
+          <span>n İl = Aynı ilde kaç bayi var</span>
+          <span>Cap/Bayi = Catchment ÷ n il</span>
+          <span>2026 Hedef = normalize edilmiş hibrit pay</span>
+        </div>
+      </div>
+
+      {/* === İL BAZLI KAPASİTE KARTLARI === */}
+      <div>
+        <h3 className="text-sm font-semibold text-slate-700 uppercase tracking-wide mb-4">
+          İl Bazlı Pazar Kapasitesi — Bayi Dağılımı
+        </h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          {iller.map(il => {
+            const ilDealers = tablo.filter(r => r.il === il)
+            const firstRow = ilDealers[0]
+            if (!firstRow) return null
+            const toplam8500 = ilDealers.reduce((s, d) => s + d.hedef_8500, 0)
+            return (
+              <div
+                key={il}
+                className="bg-white rounded-xl border border-slate-200 p-4 hover:border-blue-300 hover:shadow-sm transition-all"
+              >
+                <div className="flex items-start justify-between mb-3">
+                  <div>
+                    <p className="text-sm font-bold text-slate-800">{il}</p>
+                    <p className="text-xs text-slate-400">
+                      {ilDealers.length} bayi ·{' '}
+                      <span className="text-blue-600">%{firstRow.catchment_pay.toFixed(2)} catchment</span>
+                    </p>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-xs text-slate-400">8.500'de</p>
+                    <p className="text-sm font-bold text-slate-700">{toplam8500} araç</p>
+                  </div>
+                </div>
+                <div className="space-y-1.5">
+                  {ilDealers.map(d => (
+                    <div key={d.dealer} className="flex items-center justify-between text-xs">
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-slate-600">{d.dealer}</span>
+                        {d.yeni_bayi && (
+                          <span className="text-emerald-600 font-semibold">YENİ</span>
+                        )}
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-slate-400 font-mono">{d.hedef_8500}</span>
+                        <span className="font-mono font-semibold text-emerald-700">
+                          %{d.target_pay_2026.toFixed(2)}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-2.5 pt-2 border-t border-slate-100 text-xs text-slate-400 flex justify-between">
+                  <span>Cap/bayi: %{firstRow.capacity_per_dealer.toFixed(3)}</span>
+                  <span className="text-slate-300">|</span>
+                  <span>İl payı: %{firstRow.il_kendi_pay.toFixed(2)}</span>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+
+    </div>
+  )
+}
+
+// ---------------------------------------------------------------------------
 // Ana bileşen
 // ---------------------------------------------------------------------------
 
@@ -1805,19 +2208,25 @@ export default function Tahmin() {
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-slate-900">Tahmin & Plan</h1>
         <p className="text-slate-500 text-sm mt-1">
-          Aralık 2025 tier bazlı geriye dönük doğrulama · 2026 yıllık plan (8500 / 10000 araç) · Ocak–Aralık model bazlı hedefler · Bayi bazlı aylık hedefler
+          Pazar kapasitesi bazlı bayi hedef dağıtımı · Aralık 2025 doğrulaması · 2026 yıllık plan · Bayi bazlı hedefler
         </p>
       </div>
 
       <TabBar
-        tabs={['Aralık 2025 Tahmini', '2026 Yıllık Plan & Model Hedefleri', 'Bayi Bazlı Hedefler (Oca–Ara)']}
+        tabs={[
+          'Pazar Bazlı Hedef Dağıtımı',
+          'Aralık 2025 Tahmini',
+          '2026 Yıllık Plan & Model Hedefleri',
+          'Bayi Bazlı Hedefler (Oca–Ara)',
+        ]}
         active={tab}
         onChange={setTab}
       />
 
-      {tab === 0 && <AralikTab data={data.aralik_tahmin} />}
-      {tab === 1 && <Plan2026Tab data={data.plan_2026} />}
-      {tab === 2 && data.bayi_aylik_hedefler && (
+      {tab === 0 && <PazarKapasitesiTab data={data.pazar_kapasitesi} />}
+      {tab === 1 && <AralikTab data={data.aralik_tahmin} />}
+      {tab === 2 && <Plan2026Tab data={data.plan_2026} />}
+      {tab === 3 && data.bayi_aylik_hedefler && (
         <BayiHedefleriTab data={data.bayi_aylik_hedefler} />
       )}
     </div>

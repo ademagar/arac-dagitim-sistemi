@@ -80,6 +80,67 @@ TIER_ACIKLAMALAR = {
     "C": "Güneydoğu Anadolu + Karadeniz",
 }
 
+# ---------------------------------------------------------------------------
+# Pazar Kapasitesi — Bayi il/ilçe verisi ve il bazında catchment payları
+# ---------------------------------------------------------------------------
+
+# Kullanıcıdan doğrulanan bayi lokasyon verisi (28 bayi)
+BAYI_IL_ILCE: dict[str, tuple[str, str]] = {
+    "DEALER 1":  ("ANKARA",         "ETİMESGUT"),
+    "DEALER 2":  ("İZMİR",          "GAZİEMİR"),
+    "DEALER 3":  ("ADANA",          "SEYHAN"),
+    "DEALER 4":  ("MERSİN",         "TOROSLAR"),
+    "DEALER 5":  ("KOCAELİ",        "GEBZE"),
+    "DEALER 6":  ("İZMİR",          "BAYRAKLI"),
+    "DEALER 7":  ("İSTANBUL",       "BAHÇELİEVLER"),
+    "DEALER 8":  ("TEKİRDAĞ",       "MERKEZ"),
+    "DEALER 9":  ("KAYSERİ",        "KOCASİNAN"),
+    "DEALER 10": ("KONYA",          "KARATAY"),
+    "DEALER 11": ("KAHRAMANMARAŞ",  "DULKADİROĞLU"),
+    "DEALER 12": ("BURSA",          "OSMANGAZİ"),
+    "DEALER 13": ("İSTANBUL",       "ATAŞEHİR"),
+    "DEALER 14": ("ANKARA",         "YENİMAHALLE"),
+    "DEALER 15": ("ANTALYA",        "KEPEZ"),
+    "DEALER 16": ("İSTANBUL",       "BEYLİKDÜZÜ"),
+    "DEALER 17": ("İSTANBUL",       "SARIYER"),
+    "DEALER 18": ("İSTANBUL",       "SUADİYE"),
+    "DEALER 19": ("GAZİANTEP",      "ŞEHİTKAMİL"),
+    "DEALER 20": ("TRABZON",        "AKÇAABAT"),
+    "DEALER 21": ("MUĞLA",          "MİLAS"),
+    "DEALER 22": ("DENİZLİ",        "MERKEZEFENDİ"),
+    "DEALER 23": ("BURSA",          "NİLÜFER"),
+    "DEALER 24": ("SAMSUN",         "TEKKEKÖY"),
+    "DEALER 25": ("İSTANBUL",       "BAĞCILAR"),
+    "DEALER 26": ("TEKİRDAĞ",       "ÇORLU"),
+    "DEALER 27": ("İSTANBUL",       "EYÜPSULTAN"),
+    "DEALER 28": ("SİVAS",          "MERKEZEFENDİ"),
+}
+
+# İl pazar kapasitesi — TÜİK Motorlu Kara Taşıtları Aralık 2024 verisi
+# Toplam Türkiye araç stoğu: 31.301.389 (tüm türler, proxy olarak kullanılmaktadır).
+# Catchment: il + en yakın komşu iller (pazar erişim alanı).
+# Kaynak: https://data.tuik.gov.tr/Bulten/Index?p=Road-Motor-Vehicles-December-2024-53463
+IL_PAZAR_KAPASITE: dict[str, dict] = {
+    "İSTANBUL":      {"kendi_pay": 18.66, "komsular": [("TEKİRDAĞ",1.17),("KIRKLARELİ",0.48)]},
+    "ANKARA":        {"kendi_pay": 8.89,  "komsular": [("ESKİŞEHİR",1.02),("KIRIKKALECHANKIRI",0.50)]},
+    "İZMİR":         {"kendi_pay": 5.75,  "komsular": [("MANİSA",1.30),("ÇANAKKALE",0.50)]},
+    "ANTALYA":       {"kendi_pay": 4.63,  "komsular": [("ISPARTA",0.43),("BURDUR",0.32)]},
+    "BURSA":         {"kendi_pay": 3.71,  "komsular": [("YALOVA",0.48),("BALIKESİR",0.98)]},
+    "KOCAELİ":       {"kendi_pay": 2.38,  "komsular": [("SAKARYA",0.88),("DÜZCE",0.32),("BOLU",0.38)]},
+    "GAZİANTEP":     {"kendi_pay": 2.32,  "komsular": [("KİLİS",0.12),("ADIYAMAN",0.40),("ŞANLIURFA",0.52)]},
+    "ADANA":         {"kendi_pay": 1.95,  "komsular": [("OSMANİYE",0.32)]},
+    "MERSİN":        {"kendi_pay": 1.69,  "komsular": [("KARAMAN",0.38),("NİĞDE",0.29)]},
+    "KAYSERİ":       {"kendi_pay": 1.32,  "komsular": [("NEVŞEHİR",0.38),("YOZGAT",0.29),("NİĞDE",0.28)]},
+    "KONYA":         {"kendi_pay": 1.84,  "komsular": [("AKSARAY",0.40),("KARAMAN",0.38),("NİĞDE",0.29)]},
+    "SAMSUN":        {"kendi_pay": 1.21,  "komsular": [("ORDU",0.50),("SİNOP",0.19),("AMASYA",0.30)]},
+    "TEKİRDAĞ":      {"kendi_pay": 1.17,  "komsular": [("EDİRNE",0.40),("KIRKLARELİ",0.48)]},
+    "MUĞLA":         {"kendi_pay": 1.37,  "komsular": [("AYDIN",1.08)]},
+    "DENİZLİ":       {"kendi_pay": 1.02,  "komsular": [("AFYONKARAHİSAR",0.52),("UŞAK",0.30)]},
+    "KAHRAMANMARAŞ": {"kendi_pay": 0.86,  "komsular": [("MALATYA",0.70),("ADIYAMAN",0.40)]},
+    "TRABZON":       {"kendi_pay": 0.65,  "komsular": [("RİZE",0.30),("ARTVİN",0.11),("GİRESUN",0.38),("ORDU",0.50)]},
+    "SİVAS":         {"kendi_pay": 0.43,  "komsular": [("TOKAT",0.48),("ERZİNCAN",0.21)]},
+}
+
 PERFORMANS_DOSYALAR = {
     m: DATA_RAW / f"NORTHSTAR_2025_{m}_Bayinin_Aylık_Model_Bazlı_Araç_Satışı_Hedef_Gerçekleştirmesi.csv"
     for m in [
@@ -265,22 +326,83 @@ def compute_lansman_boost_justifikasyon(
 # Yeni fonksiyon: Bayi aylık model hedefleri
 # ---------------------------------------------------------------------------
 
+def compute_pazar_bazli_dealer_paylari(df: pd.DataFrame) -> dict[str, dict]:
+    """Pazar kapasitesi bazlı hibrit bayi pay hesabı.
+
+    Formül: target_pay[D] = 0.5 × brand_pay_2025[D] + 0.5 × (catchment[il(D)] / n_bayis_in_il(D))
+    Yeni bayiler (2025 satışı = 0): tamamen pazar kapasitesi bazlı (brand_pay = 0).
+    Tüm paylar normalize edilerek toplamları %100'e eşitlenir.
+
+    Kaynak: TÜİK Motorlu Kara Taşıtları Aralık 2024 bülteni — Toplam stok 31.301.389
+    URL: https://data.tuik.gov.tr/Bulten/Index?p=Road-Motor-Vehicles-December-2024-53463
+    """
+    from collections import Counter
+
+    df_2025 = df[df["year"] == 2025].copy()
+    total_2025 = len(df_2025)
+    dealer_satis_2025: dict[str, int] = df_2025.groupby("Dealer Name").size().to_dict()
+
+    il_bayi_sayisi: Counter[str] = Counter(v[0] for v in BAYI_IL_ILCE.values())
+
+    il_catchment: dict[str, float] = {
+        il: veri["kendi_pay"] + sum(p for _, p in veri["komsular"])
+        for il, veri in IL_PAZAR_KAPASITE.items()
+    }
+
+    sonuc: dict[str, dict] = {}
+    for dealer, (il, ilce) in BAYI_IL_ILCE.items():
+        brand_pay_2025 = (
+            dealer_satis_2025.get(dealer, 0) / total_2025 * 100
+            if total_2025 > 0 else 0.0
+        )
+        catchment = il_catchment.get(il, 1.0)
+        n_il = il_bayi_sayisi.get(il, 1)
+        capacity_per_dealer = catchment / n_il
+        ham_skor = 0.5 * brand_pay_2025 + 0.5 * capacity_per_dealer
+        yeni = dealer_satis_2025.get(dealer, 0) == 0
+
+        sonuc[dealer] = {
+            "il": il,
+            "ilce": ilce,
+            "brand_pay_2025": round(brand_pay_2025, 3),
+            "catchment_pay": round(catchment, 2),
+            "n_il": n_il,
+            "capacity_per_dealer": round(capacity_per_dealer, 3),
+            "ham_skor": ham_skor,
+            "yeni_bayi": yeni,
+        }
+
+    toplam_skor = sum(v["ham_skor"] for v in sonuc.values())
+    for dealer in sonuc:
+        sonuc[dealer]["target_pay_2026"] = round(
+            sonuc[dealer]["ham_skor"] / toplam_skor * 100, 3
+        )
+
+    return sonuc
+
+
 def compute_bayi_aylik_model_hedefleri(
     df: pd.DataFrame,
     plan_sonuc: dict,
+    pazar_paylari: dict[str, dict] | None = None,
 ) -> dict:
     """Her bayi için Ocak–Aralık aylık model bazlı hedefleri hesaplar.
 
     Yöntem:
-    - Her model için bayi paylarını son 12 ay (2024-12 ile 2025-11) verisiyle hesapla
-    - Her ayın model toplam hedefini bu paylara çarp
-    - Sonuç: her bayi için 12 ay × 7 model matris
+    - pazar_paylari sağlanırsa: hibrit formül ile bayi yıllık hacmi belirlenir,
+      model dağılımı bayi bazlı tarihsel model mix ile yapılır (daha adil).
+    - pazar_paylari yoksa: eski davranış (her model için ayrı bayi payı).
+    - Sonuç: her bayi için 12 ay × model matris
 
     Returns:
         {
             "senaryo_8500": {
                 "DEALER 1": {
                     "tier": "A",
+                    "il": "ANKARA",
+                    "ilce": "ETİMESGUT",
+                    "brand_pay_2025": 9.33,
+                    "target_pay_2026": 8.095,
                     "aylik": [...],
                     "yillik_toplam": int,
                     "yillik_modeller": {...},
@@ -349,15 +471,32 @@ def compute_bayi_aylik_model_hedefleri(
 
         model_dealer_share[model] = shares
 
+    # --- Bayi bazlı tarihsel model mix (her bayi için hangi modelden ne kadar sattı) ---
+    # Hibrit formül aktifse toplam hacim buradan değil, target_pay'den gelir.
+    dealer_hist_model_mix: dict[str, dict[str, float]] = {}
+    last12_hist = last12[last12["model_desc"].isin(bilinen_modeller)]
+    ortalama_mix: dict[str, float] = {}
+    if len(last12_hist) > 0:
+        cnt_genel = last12_hist.groupby("model_desc").size()
+        ortalama_mix = (cnt_genel / cnt_genel.sum()).to_dict()
+    for dealer in aktif_bayiler:
+        d_df = last12_hist[last12_hist["Dealer Name"] == dealer]
+        if len(d_df) > 0:
+            cnt = d_df.groupby("model_desc").size()
+            dealer_hist_model_mix[dealer] = (cnt / cnt.sum()).to_dict()
+        else:
+            dealer_hist_model_mix[dealer] = dict(ortalama_mix)
+
     result: dict[str, dict] = {}
 
     for hedef in PLAN_HEDEFLER:
         key = f"senaryo_{hedef}"
         senaryo = plan_sonuc[key]
 
-        # Model_aylik verisi: ay → model → adet
+        # Model_aylik verisi: ay → model → adet (toplam tüm bayiler)
         model_aylik_data = senaryo.get("model_aylik", [])
         ay_model_hedef: dict[int, dict[str, int]] = {}
+        ay_toplam_hedef: dict[int, int] = {}
         for ay_row in model_aylik_data:
             ay_no = ay_row["ay"]
             ay_model_hedef[ay_no] = {}
@@ -365,20 +504,32 @@ def compute_bayi_aylik_model_hedefleri(
                 m_adi = m_row["model"]
                 if m_adi in MODELLER_2026:
                     ay_model_hedef[ay_no][m_adi] = m_row["adet"]
+            ay_toplam_hedef[ay_no] = sum(ay_model_hedef[ay_no].values())
 
         bayi_sonuc: dict[str, dict] = {}
         for dealer in aktif_bayiler:
             tier = dealer_tiers.get(dealer, "C")
             is_yeni = dealer in yeni_bayiler
+            pazar_info = pazar_paylari.get(dealer, {}) if pazar_paylari else {}
+            target_pay = pazar_info.get("target_pay_2026", 0.0) if pazar_paylari else None
+            d_model_mix = dealer_hist_model_mix.get(dealer, ortalama_mix)
             aylik_liste = []
 
             for ay in range(1, 13):
                 ay_modeller: dict[str, int] = {}
-                for model in bilinen_modeller:
-                    model_hedef_ay = ay_model_hedef.get(ay, {}).get(model, 0)
-                    dealer_pay = model_dealer_share.get(model, {}).get(dealer, 0.0)
-                    adet_float = model_hedef_ay * dealer_pay
-                    ay_modeller[model] = round(adet_float)
+
+                if pazar_paylari and target_pay is not None:
+                    # Hibrit: bayinin bu aydaki hacmi = ay_toplam × target_pay
+                    bayi_ay_toplam_float = ay_toplam_hedef.get(ay, 0) * target_pay / 100.0
+                    for model in bilinen_modeller:
+                        mix_pay = d_model_mix.get(model, 0.0)
+                        ay_modeller[model] = round(bayi_ay_toplam_float * mix_pay)
+                else:
+                    # Eski yöntem: model bazlı paylar
+                    for model in bilinen_modeller:
+                        model_hedef_ay = ay_model_hedef.get(ay, {}).get(model, 0)
+                        dealer_pay = model_dealer_share.get(model, {}).get(dealer, 0.0)
+                        ay_modeller[model] = round(model_hedef_ay * dealer_pay)
 
                 toplam = sum(ay_modeller.values())
                 aylik_liste.append({
@@ -388,14 +539,12 @@ def compute_bayi_aylik_model_hedefleri(
                     "modeller": ay_modeller,
                 })
 
-            # Yıllık toplamlar
             yillik_modeller: dict[str, int] = {m: 0 for m in bilinen_modeller}
             for ay_entry in aylik_liste:
                 for m, adet in ay_entry["modeller"].items():
                     yillik_modeller[m] = yillik_modeller.get(m, 0) + adet
             yillik_toplam = sum(yillik_modeller.values())
 
-            # Segment toplamları
             yillik_segmentler: dict[str, int] = {}
             for m, adet in yillik_modeller.items():
                 seg = MODEL_SEGMENT.get(m, "Diğer")
@@ -403,6 +552,12 @@ def compute_bayi_aylik_model_hedefleri(
 
             bayi_sonuc[dealer] = {
                 "tier": tier,
+                "il": pazar_info.get("il", BAYI_IL_ILCE.get(dealer, ("", ""))[0]),
+                "ilce": pazar_info.get("ilce", BAYI_IL_ILCE.get(dealer, ("", ""))[1]),
+                "brand_pay_2025": pazar_info.get("brand_pay_2025", 0.0),
+                "target_pay_2026": pazar_info.get("target_pay_2026", 0.0),
+                "catchment_pay": pazar_info.get("catchment_pay", 0.0),
+                "capacity_per_dealer": pazar_info.get("capacity_per_dealer", 0.0),
                 "yeni_bayi": is_yeni,
                 "aylik": aylik_liste,
                 "yillik_toplam": yillik_toplam,
@@ -1286,8 +1441,16 @@ def main() -> None:
     print(f"  Pay farkı (restore beklentisi): +%{boost_just['pay_farki']*100:.1f} puan")
     print(f"  Veri bazlı alt sınır: {boost_just['hesaplanan_boost']}, Uygulanan: {boost_just['uygulanan_boost']}")
 
-    print("\nBayi aylık model hedefleri hesaplanıyor...")
-    bayi_hedefler = compute_bayi_aylik_model_hedefleri(df, plan_sonuc)
+    print("\nPazar kapasitesi bazlı bayi payları hesaplanıyor (hibrit formül)...")
+    pazar_paylari = compute_pazar_bazli_dealer_paylari(df)
+    for d in sorted(pazar_paylari.keys(), key=lambda x: int(x.split()[-1])):
+        p = pazar_paylari[d]
+        yeni = " 🆕" if p["yeni_bayi"] else ""
+        print(f"  {d}: {p['il']}/{p['ilce']} | 2025 pay=%{p['brand_pay_2025']:.2f} | "
+              f"capacity={p['capacity_per_dealer']:.2f} | 2026 hedef=%{p['target_pay_2026']:.3f}{yeni}")
+
+    print("\nBayi aylık model hedefleri hesaplanıyor (pazar bazlı hibrit)...")
+    bayi_hedefler = compute_bayi_aylik_model_hedefleri(df, plan_sonuc, pazar_paylari)
     for hedef in PLAN_HEDEFLER:
         key = f"senaryo_{hedef}"
         toplam_bayi = len(bayi_hedefler[key])
@@ -1295,6 +1458,28 @@ def main() -> None:
 
     stratejik_baglamlar = _build_stratejik_baglamlar(plan_sonuc, boost_just)
     veri_kaynaklari = _build_veri_kaynaklari()
+
+    # Pazar kapasitesi tablosu (JSON çıktısı için düzleştir)
+    pazar_kapasite_tablosu = []
+    for dealer in sorted(pazar_paylari.keys(), key=lambda x: int(x.split()[-1])):
+        p = pazar_paylari[dealer]
+        il = p["il"]
+        il_veri = IL_PAZAR_KAPASITE.get(il, {"kendi_pay": 0, "komsular": []})
+        pazar_kapasite_tablosu.append({
+            "dealer": dealer,
+            "il": p["il"],
+            "ilce": p["ilce"],
+            "il_kendi_pay": il_veri["kendi_pay"],
+            "komsular": [{"il": k, "pay": v} for k, v in il_veri["komsular"]],
+            "catchment_pay": p["catchment_pay"],
+            "n_il": p["n_il"],
+            "capacity_per_dealer": p["capacity_per_dealer"],
+            "brand_pay_2025": p["brand_pay_2025"],
+            "target_pay_2026": p["target_pay_2026"],
+            "yeni_bayi": p["yeni_bayi"],
+            "hedef_8500": round(p["target_pay_2026"] / 100 * 8500),
+            "hedef_10000": round(p["target_pay_2026"] / 100 * 10000),
+        })
 
     # --- JSON çıktısı ---
     cikti = {
@@ -1310,6 +1495,28 @@ def main() -> None:
         "plan_2026": {
             **plan_sonuc,
             "stratejik_baglamlar": stratejik_baglamlar,
+        },
+        "pazar_kapasitesi": {
+            "metodoloji": {
+                "baslik": "Pazar Kapasitesi Bazlı Hibrit Bayi Hedef Dağıtımı",
+                "formul": "target_pay = 0.5 × brand_pay_2025 + 0.5 × (catchment_pay / n_bayis_in_il)",
+                "aciklama": (
+                    "Geleneksel yaklaşım bayileri yalnızca geçmiş performanslarına göre "
+                    "sıralar; ancak bu yöntem pazar büyüklüğünü görmezden gelir. "
+                    "Örneğin Ankara'da tek bir bayi olan bölgede iki bayi olan İstanbul "
+                    "bölgesine kıyasla daha geniş bir pazar havuzuna erişim hakkı vardır. "
+                    "Hibrit formül %50 geçmiş performans + %50 pazar kapasitesini dengeler. "
+                    "Yeni bayiler (2025 satışı = 0) için formül tamamen pazar kapasitesine dayanır."
+                ),
+                "kaynak": "TÜİK Motorlu Kara Taşıtları Aralık 2024 Bülteni",
+                "kaynak_url": "https://data.tuik.gov.tr/Bulten/Index?p=Road-Motor-Vehicles-December-2024-53463",
+                "toplam_stok": 31301389,
+                "aciklama_catchment": (
+                    "Catchment (hizmet alanı): Bayinin bulunduğu il + coğrafi komşu iller. "
+                    "Müşteriler yalnızca kendi illerinden değil, yakın çevre illerden de gelir."
+                ),
+            },
+            "tablo": pazar_kapasite_tablosu,
         },
         "bayi_aylik_hedefler": bayi_hedefler,
     }
