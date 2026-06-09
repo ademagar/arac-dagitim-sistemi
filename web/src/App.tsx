@@ -7,6 +7,7 @@ import Dagitim from './pages/Dagitim'
 import Tahmin from './pages/Tahmin'
 import PazarHedefleri from './pages/PazarHedefleri'
 import AylikBayiHedef from './pages/AylikBayiHedef'
+import Ozet from './pages/Ozet'
 
 export default function App() {
   return (
@@ -22,6 +23,7 @@ export default function App() {
           <Route path="/tahmin"           element={<Tahmin />} />
           <Route path="/pazar-hedefleri"  element={<PazarHedefleri />} />
           <Route path="/aylik-bayi-hedef" element={<AylikBayiHedef />} />
+          <Route path="/ozet"            element={<Ozet />} />
         </Routes>
       </main>
     </div>

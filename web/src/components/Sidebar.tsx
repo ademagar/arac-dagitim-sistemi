@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom'
-import { BarChart2, Calendar, Map, TrendingUp, Truck, LineChart, Target, BookOpen } from 'lucide-react'
+import { BarChart2, Calendar, Map, TrendingUp, Truck, LineChart, Target, BookOpen, FileText } from 'lucide-react'
 
 const NAV = [
   { to: '/gecmis-analiz',    label: 'Geçmiş Analiz',    icon: BarChart2  },
@@ -9,6 +9,7 @@ const NAV = [
   { to: '/tahmin',           label: 'Tahmin & Plan',     icon: LineChart  },
   { to: '/pazar-hedefleri',  label: 'Pazar Hedefleri',  icon: Target     },
   { to: '/aylik-bayi-hedef', label: 'Aylık Bayi Hedef', icon: BookOpen   },
+  { to: '/ozet',             label: 'Sistem Özeti',      icon: FileText   },
 ]
 
 export default function Sidebar() {
