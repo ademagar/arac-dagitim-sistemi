@@ -411,10 +411,10 @@ export default function Ozet() {
           <Accordion title="4 Kriter ve ağırlıkları" icon={Layers} defaultOpen>
             <div className="grid md:grid-cols-2 gap-3 mb-3">
               {[
-                { kriter: 'P — Performans Skoru', agirlik: 'w = 0.25', formul: 'EW ortalama → son 12 ay aylık hedef gerçekleştirme oranı', renk: 'text-blue-400', neden: 'Geçmişte yüksek gerçekleşme oranı olan bayi gelecekte de daha fazla araç satar; piyasa ödül mekanizması.' },
+                { kriter: 'P — Performans Skoru', agirlik: 'w = 0.25', formul: 'EW ortalama (W=6, α=0.286) → son 6 ay aylık hedef gerçekleştirme oranı', renk: 'text-blue-400', neden: 'Geçmişte yüksek gerçekleşme oranı olan bayi gelecekte de daha fazla araç satar. W=6 aylık pencere, 2024–2025 verisi üzerinde MAE=10.89 ile en iyi tahmini veriyor.' },
                 { kriter: 'LP — Lokasyon-Ürün Uyum', agirlik: 'w = 0.35', formul: 'Cosine similarity: bayinin geçmiş model vektörü ile envanter vektörü arası benzerlik', renk: 'text-violet-400', neden: 'En yüksek ağırlık. Bayinin satabileceği modeli gönderiyoruz; yanlış model göndermek stok çürümesine neden olur.' },
-                { kriter: 'S — Mevsimsel Uyum', agirlik: 'w = 0.20', formul: 'STL\'den üretilen bayi bazında seasonal_index: seasonal_index = (bayi_ay_ort) / (bayi_yıl_ort)', renk: 'text-emerald-400', neden: 'Bazı bayiler yaz aylarında, bazıları kış aylarında daha fazla satar. Yanlış zamanlama, iade veya sıfıra düşen stok demektir.' },
-                { kriter: 'H — Hedef Yakınlık', agirlik: 'w = 0.20', formul: 'gap_ratio = (yıllık_hedef - ytd_satış) / yıllık_hedef → skor = 1 - |gap_ratio - 1/12|', renk: 'text-amber-400', neden: 'Yıl sonunda tüm bayiler hedeflerine yakın olmalı. Yıl ortasında geri kalan bayi daha fazla alır, ileriden giden daha az.' },
+                { kriter: 'S — Mevsimsel Uyum', agirlik: 'w = 0.20', formul: 'seasonal_index = (bayi_ay_ort) / (bayi_yıl_ort)', renk: 'text-emerald-400', neden: 'Bazı bayiler yaz aylarında, bazıları kış aylarında daha fazla satar. Yanlış zamanlama, iade veya sıfıra düşen stok demektir.' },
+                { kriter: 'H — Hedef Yakınlık', agirlik: 'w = 0.20', formul: 'gecikme = max(0, beklenen_ytd − gerçek_ytd) / yıllık_hedef\nH = 1 + gecikme', renk: 'text-amber-400', neden: 'Asimetrik: hedefin gerisindeki bayi ekstra araç alır (H > 1). Hedefini tutturan ya da geçen bayi ne cezalanır ne ekstra alır (H = 1).' },
               ].map(({ kriter, agirlik, formul, renk, neden }) => (
                 <div key={kriter} className="bg-slate-900/60 rounded-xl p-4">
                   <div className="flex items-center justify-between mb-1">
@@ -437,19 +437,79 @@ export default function Ozet() {
               </p>
             </div>
           </Accordion>
-          <Accordion title="Neden Üstel Ağırlıklı (EW) ortalama?" icon={TrendingUp}>
-            <p className="text-white text-sm leading-relaxed">
-              Basit ortalama, 12 ayı eşit önemde sayar. Oysa son 3 ayın performansı, 12 ay öncekinden
-              daha öngörücüdür. Üstel ağırlık (λ=0.85 önerilen) son aylara daha yüksek ağırlık vererek
-              bayinin güncel durumunu yansıtır. λ parametresi config'den ayarlanabilir.
+          <Accordion title="EW pencere analizi — W=6 neden seçildi?" icon={TrendingUp} defaultOpen>
+            <p className="text-white text-sm leading-relaxed mb-3">
+              2024–2025 gerçekleşme verisi (24 ay) üzerinde, W=3'ten W=19'a kadar her pencere boyutu için
+              rolling tahmin testi yapıldı. Her W için α = 2/(W+1) alındı. Ölçüt: Ortalama Mutlak Hata (MAE).
             </p>
+            <div className="overflow-x-auto mb-3">
+              <table className="w-full text-xs font-mono">
+                <thead>
+                  <tr className="border-b border-slate-700">
+                    <th className="text-slate-300 text-left py-1.5 pr-4">W</th>
+                    <th className="text-slate-300 text-left py-1.5 pr-4">α</th>
+                    <th className="text-slate-300 text-left py-1.5 pr-4">MAE</th>
+                    <th className="text-slate-300 text-left py-1.5">RMSE</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {[
+                    [3,  '0.500', '12.65', '15.38'],
+                    [4,  '0.400', '11.48', '14.02'],
+                    [5,  '0.333', '11.29', '13.77'],
+                    [6,  '0.286', '10.89', '13.07'],
+                    [7,  '0.250', '11.28', '13.45'],
+                    [8,  '0.222', '11.75', '13.94'],
+                    [9,  '0.200', '11.95', '14.08'],
+                    [10, '0.182', '12.94', '14.69'],
+                    [12, '0.154', '12.82', '14.37'],
+                    [15, '0.125', '14.50', '16.12'],
+                    [19, '0.100', '13.44', '16.17'],
+                  ].map(([w, a, mae, rmse]) => (
+                    <tr key={String(w)} className={`border-b border-slate-800 ${w === 6 ? 'bg-emerald-900/30' : ''}`}>
+                      <td className={`py-1.5 pr-4 font-bold ${w === 6 ? 'text-emerald-400' : 'text-white'}`}>{w}{w === 6 ? ' ◄' : ''}</td>
+                      <td className="text-slate-300 py-1.5 pr-4">{a}</td>
+                      <td className={`py-1.5 pr-4 font-bold ${w === 6 ? 'text-emerald-400' : 'text-white'}`}>{mae}</td>
+                      <td className="text-slate-300 py-1.5">{rmse}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="bg-emerald-950/40 border border-emerald-700/40 rounded-xl px-4 py-3">
+              <p className="text-emerald-300 text-xs font-semibold mb-1">Sonuç: W = 6 ay (α = 0.286)</p>
+              <p className="text-white text-xs leading-relaxed">
+                6 aylık pencere en düşük MAE (10.89 puan) ve RMSE (13.07) değerini verdi.
+                Kısa pencereler (W≤5) gürültüye duyarlı; uzun pencereler (W≥10) eski veriyi
+                çok ağırlandırıp güncel trendi kaçırıyor. W=6 bu ikisi arasındaki optimum nokta.
+              </p>
+            </div>
+          </Accordion>
+          <Accordion title="H skoru neden asimetrik?" icon={AlertCircle}>
+            <p className="text-white text-sm leading-relaxed mb-2">
+              Hedefini tutturan ya da geçen bayi cezalandırılmamalı — istediği kadar satsın.
+              Sorun sadece geride kalanlarda. Dolayısıyla:
+            </p>
+            <code className="block bg-slate-900 rounded-lg px-4 py-3 text-emerald-400 font-mono text-xs mb-3 whitespace-pre-wrap">
+{`beklenen_ytd = yıllık_hedef × (ay_no / 12)
+gecikme      = max(0,  beklenen_ytd − gerçek_ytd)  / yıllık_hedef
+H            = 1 + gecikme
+
+Örnek (Haziran, ay=6):
+  Yıllık hedef = 120, beklenen YTD = 60, gerçek YTD = 45
+  gecikme = max(0, 60−45)/120 = 0.125
+  H = 1.125  →  Temmuz'da ekstra araç alır
+
+Hedefte ya da ileride:
+  gerçek YTD = 65 ≥ 60  →  gecikme = max(0, −5)/120 = 0
+  H = 1.0  →  ne penaltı ne ekstra`}
+            </code>
           </Accordion>
           <Accordion title="±%20 kısıtı neden var?" icon={AlertCircle}>
             <p className="text-white text-sm leading-relaxed">
               Saf bir MCDM skoru bazen bir bayiye geçen yılın 3 katı araç verebilir; bu operasyonel
               olarak imkânsızdır (showroom kapasitesi, satış ekibi). ±%20 kısıtı, tahmin edilen aylık
-              hedefe gore alt/üst sınır koyar. Bu, soft constraint olarak formüle edilmiştir:
-              ihlal edilebilir fakat ceza fonksiyonunda büyük maliyet atar.
+              hedefe gore alt/üst sınır koyar.
             </p>
           </Accordion>
         </div>
