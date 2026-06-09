@@ -57,8 +57,8 @@ function FormulKutusu() {
         Hibrit Hedef Dağıtım Formülü
       </p>
 
-      {/* Ana formül */}
-      <div className="text-center mb-6">
+      {/* Teknik formül */}
+      <div className="text-center mb-3">
         <div className="inline-block bg-slate-800 rounded-xl px-6 py-5 border border-slate-600 w-full max-w-2xl">
           <p className="text-sm md:text-base font-mono text-white leading-relaxed">
             <span className="text-blue-400 font-bold">target_pay</span>
@@ -77,34 +77,56 @@ function FormulKutusu() {
         </div>
       </div>
 
+      {/* Türkçe okunuş */}
+      <div className="bg-blue-950/50 border border-blue-800/40 rounded-xl px-5 py-3 mb-6 text-center">
+        <p className="text-xs text-blue-300 leading-relaxed">
+          <span className="text-blue-200 font-semibold">Türkçe okunuş: </span>
+          Bayinin 2026 hedef araç payı =
+          {' '}<span className="text-amber-300 font-semibold">%50 × bayinin 2025'te markanın toplam satışlarındaki payı</span>
+          {' '}+
+          {' '}<span className="text-rose-300 font-semibold">%50 × (bayinin bulunduğu ilin araç stok çekim alanı payı ÷ o ildeki bayi sayısı)</span>
+        </p>
+      </div>
+
       {/* Bileşen açıklamaları */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="bg-amber-900/30 rounded-xl border border-amber-800/40 p-4">
-          <p className="text-amber-300 font-semibold text-xs mb-2 uppercase tracking-wide">
+          <p className="text-amber-300 font-semibold text-xs mb-0.5 uppercase tracking-wide">
             brand_pay_2025 — %50
           </p>
+          <p className="text-amber-200 text-xs font-medium mb-2 italic">
+            Bayinin 2025 marka penetrasyon oranı
+          </p>
           <p className="text-amber-200/75 text-xs leading-relaxed">
-            Bayinin 2025 yılında markalı araç satışlarındaki payı.
+            Bayinin 2025 yılında, markanın tüm bayileri arasındaki araç satış payı.
             Geçmiş performansı ödüllendirir. Yeni bayilerde (Dealer 23–28) = 0,
             tamamen pazar kapasitesine göre başlarlar.
           </p>
         </div>
         <div className="bg-rose-900/30 rounded-xl border border-rose-800/40 p-4">
-          <p className="text-rose-300 font-semibold text-xs mb-2 uppercase tracking-wide">
+          <p className="text-rose-300 font-semibold text-xs mb-0.5 uppercase tracking-wide">
             catchment_pay — %50 (payda)
           </p>
+          <p className="text-rose-200 text-xs font-medium mb-2 italic">
+            İlin toplam araç stok çekim alanı payı (Türkiye = %100)
+          </p>
           <p className="text-rose-200/75 text-xs leading-relaxed">
-            İlin hizmet alanı pazar payı: il'in kendi TÜİK araç stok payı +
-            komşu illerin ağırlıklı katkısı. Gerçek müşteri çekim alanını temsil eder.
+            Bayinin bulunduğu ilin TÜİK araç stoğundaki ağırlığı + komşu illerin
+            mesafeye göre ağırlıklı katkısı. Müşterinin gerçekte nereden geldiğini temsil eder.
+            Kaynak: TÜİK Bülten 53463, Aralık 2024.
           </p>
         </div>
         <div className="bg-indigo-900/30 rounded-xl border border-indigo-800/40 p-4">
-          <p className="text-indigo-300 font-semibold text-xs mb-2 uppercase tracking-wide">
+          <p className="text-indigo-300 font-semibold text-xs mb-0.5 uppercase tracking-wide">
             n_bayis_in_il — bölücü
           </p>
+          <p className="text-indigo-200 text-xs font-medium mb-2 italic">
+            Aynı ilde faaliyet gösteren markanın bayi sayısı
+          </p>
           <p className="text-indigo-200/75 text-xs leading-relaxed">
-            Aynı ildeki bayi sayısı. İstanbul'da 7, Ankara'da 2, İzmir'de 2,
-            Bursa'da 2, Tekirdağ'da 2 bayi. Catchment payı eşit paylaştırılır.
+            İstanbul 7, Ankara 2, İzmir 2, Bursa 2, Tekirdağ 2, diğerleri 1.
+            İl payı o ildeki bayiler arasında eşit bölüşülür — aynı şehirde birden fazla
+            bayi varsa her biri daha küçük pazar diliminden başlar.
           </p>
         </div>
       </div>

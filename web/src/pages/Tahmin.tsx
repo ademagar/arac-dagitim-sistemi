@@ -1776,7 +1776,8 @@ function FormulKutusu() {
       <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-5">
         Hibrit Hedef Dağıtım Formülü
       </p>
-      <div className="text-center mb-6">
+      {/* Teknik formül */}
+      <div className="text-center mb-3">
         <div className="inline-block bg-slate-800 rounded-xl px-6 py-5 border border-slate-600 w-full max-w-2xl">
           <p className="text-base md:text-lg font-mono text-white leading-relaxed">
             <span className="text-blue-400 font-bold">target_pay</span>
@@ -1794,21 +1795,37 @@ function FormulKutusu() {
           </p>
         </div>
       </div>
+      {/* Türkçe okunuş */}
+      <div className="bg-blue-950/50 border border-blue-800/40 rounded-xl px-5 py-3 mb-6 text-center">
+        <p className="text-xs text-blue-300 leading-relaxed">
+          <span className="text-blue-200 font-semibold">Türkçe okunuş: </span>
+          Bayinin 2026 hedef araç payı =
+          {' '}<span className="text-amber-300 font-semibold">%50 × bayinin 2025'te markanın toplam satışlarındaki payı</span>
+          {' '}+
+          {' '}<span className="text-rose-300 font-semibold">%50 × (bayinin bulunduğu ilin araç stok çekim alanı payı ÷ o ildeki bayi sayısı)</span>
+        </p>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="bg-amber-900/30 rounded-xl border border-amber-800/40 p-4">
-          <p className="text-amber-300 font-semibold text-sm mb-2">brand_pay_2025 — %50 ağırlık</p>
+          <p className="text-amber-300 font-semibold text-sm mb-0.5">brand_pay_2025 — %50 ağırlık</p>
+          <p className="text-amber-200 text-xs font-medium mb-2 italic">
+            Bayinin 2025 marka penetrasyon oranı (tüm bayiler içindeki satış payı)
+          </p>
           <p className="text-amber-200/75 text-xs leading-relaxed">
-            Bayinin 2025 yılı markalı araç satışlarında sahip olduğu pay. Geçmiş performansı ödüllendirir,
-            başarılı bayilerin güçlü konumunu korur. Yeni bayilerde (Dealer 23–28) = 0 — tamamen pazar
-            kapasitesine göre başlarlar.
+            Bayinin 2025 yılında markanın tüm satışları içindeki yüzdesi.
+            Geçmiş performansı ödüllendirir; başarılı bayilerin konumunu korur.
+            Yeni bayilerde (Dealer 23–28) = 0 — tamamen pazar kapasitesine göre başlarlar.
           </p>
         </div>
         <div className="bg-rose-900/30 rounded-xl border border-rose-800/40 p-4">
-          <p className="text-rose-300 font-semibold text-sm mb-2">catchment_pay / n_il — %50 ağırlık</p>
+          <p className="text-rose-300 font-semibold text-sm mb-0.5">catchment_pay / n_il — %50 ağırlık</p>
+          <p className="text-rose-200 text-xs font-medium mb-2 italic">
+            İlin araç stok çekim alanı payı ÷ o ildeki bayi sayısı
+          </p>
           <p className="text-rose-200/75 text-xs leading-relaxed">
-            İlin hizmet alanı (kendi TÜİK araç payı + komşu illerin katkısı), o ildeki bayi sayısına bölünür.
-            Pazarın gerçek büyüklüğüyle orantılı, nesnel bir başlangıç noktası sağlar.
-            Kaynak: TÜİK Motorlu Kara Taşıtları Aralık 2024 (31,3M araç).
+            İlin TÜİK araç stoğundaki ağırlığı + komşu illerin mesafeye göre katkısı,
+            o ildeki bayi sayısına bölünür. Pazar büyüklüğüyle orantılı, nesnel başlangıç noktası.
+            Kaynak: TÜİK Bülten 53463, Aralık 2024 (31,3M araç).
           </p>
         </div>
       </div>

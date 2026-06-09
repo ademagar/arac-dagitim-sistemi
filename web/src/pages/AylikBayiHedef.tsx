@@ -372,13 +372,13 @@ export default function AylikBayiHedef() {
             </p>
             <div className="flex flex-col md:flex-row items-start md:items-center gap-3 text-sm">
               {[
-                ['Yıllık Toplam', '10.000 araç (2026 planı)', 'bg-blue-600'],
+                ['Yıllık Toplam', '10.000 araç · 2026 yıllık hedefi', 'bg-blue-600'],
                 ['→'],
-                ['Aylık Toplam', 'Yıllık × SI(tier, ay)', 'bg-indigo-600'],
+                ['Aylık Toplam', 'Yıllık hedef × mevsimsel indeks (SI)', 'bg-indigo-600'],
                 ['→'],
-                ['Bayi Payı', 'target_pay × Aylık Toplam', 'bg-violet-600'],
+                ['Bayi Payı', 'Aylık toplam × bayinin hedef payı (target_pay)', 'bg-violet-600'],
                 ['→'],
-                ['Model Mix', 'Bayi tarihsel model oranı', 'bg-purple-600'],
+                ['Model Hedefi', 'Bayi aylık hedefi × bayinin tarihsel model satış oranı', 'bg-purple-600'],
               ].map((item, i) =>
                 item.length === 1 ? (
                   <span key={i} className="text-slate-400 text-lg hidden md:block">→</span>
@@ -401,8 +401,9 @@ export default function AylikBayiHedef() {
                 aciklama: `Her ayın hedefi = Yıllık hedef × SI(tier, ay) / Σ SI  formülüyle bulunur.
 SI değerleri 2024–2025 satış verisinden hesaplanır: SI(ay) = o ayın ortalama satışı / yıllık aylık ortalama.
 Tier bazlı SI kullanılır çünkü İstanbul bayilerinin Aralık'taki mevsimsel sıçraması, Sivas bayisinin iki katıdır.
-Mart'a ek ×1.15 lansman boostı uygulanır (B1 yeni versiyon lansmanı, istatistiksel gerekçesiyle).`,
+Mart'a ek ×1.11 lansman boostı uygulanır (B segmenti Mart 2024/2025 pay analizi: 1 + (0.557−0.445) = 1.112).`,
                 kod: 'aylik_hedef(D, m) = yillik_hedef(D) × SI(tier(D), m) / Σ_m SI',
+                okunus: 'Bayi D\'nin m. ay hedefi = D\'nin yıllık hedefi × D\'nin tier grubuna ait m. ayın mevsimsel indeksi ÷ tüm aylardaki SI değerlerinin toplamı',
               },
               {
                 adim: 'Adım 2 — Bayi Payı (Hibrit MCDM Formülü)',
@@ -412,6 +413,7 @@ target_pay(D) = 0.5 × brand_pay_2025(D) + 0.5 × (catchment_pay(il(D)) / n_bayi
 Bu pay, tüm bayiler normalize edilerek toplam = %100 yapılır.
 Her aylık model toplamını bu pay oranında bayi bazına indirgemek mümkündür.`,
                 kod: 'target_pay(D) = 0.5 × brand_pay_2025 + 0.5 × (catchment / n_il)',
+                okunus: 'Bayi D\'nin hedef payı = %50 × bayinin 2025\'teki marka satış penetrasyonu + %50 × (bayinin bulunduğu ilin araç stok çekim alanı payı ÷ o ildeki bayi sayısı)',
               },
               {
                 adim: 'Adım 3 — Model Dağılımı (Collaborative Filtering)',
@@ -422,14 +424,21 @@ Bu profil, aylık hedefe uygulanarak model bazlı hedef üretilir.
 Yeni bayilerde (satış verisi olmayan) tier ortalaması kullanılır (%60 ağırlık, muhafazakâr başlangıç).
 Bu yaklaşım collaborative filtering mantığına benzer: benzer profilden bilgi taşıma.`,
                 kod: 'model_hedef(D, M, m) = aylik_hedef(D, m) × mix(D, M)',
+                okunus: 'Bayi D\'nin M modeli için m. ay hedefi = D\'nin o aydaki toplam araç hedefi × D\'nin son 12 ayda M modelini satma oranı',
               },
             ].map(a => (
               <div key={a.adim} className="bg-white rounded-xl border border-slate-200 p-5">
                 <p className="text-sm font-bold text-slate-800 mb-1">{a.adim}</p>
                 <p className="text-xs font-semibold text-blue-600 mb-3">{a.yontem}</p>
                 <p className="text-xs text-slate-600 leading-relaxed whitespace-pre-line mb-3">{a.aciklama}</p>
-                <div className="bg-slate-800 rounded-lg px-4 py-2.5">
+                {/* Teknik formül */}
+                <div className="bg-slate-800 rounded-lg px-4 py-2.5 mb-2">
                   <code className="text-xs font-mono text-emerald-400">{a.kod}</code>
+                </div>
+                {/* Türkçe okunuş */}
+                <div className="bg-blue-50 border border-blue-200 rounded-lg px-4 py-2.5">
+                  <p className="text-xs text-blue-600 font-semibold mb-0.5">Türkçe okunuş:</p>
+                  <p className="text-xs text-blue-800 leading-relaxed">{a.okunus}</p>
                 </div>
               </div>
             ))}
