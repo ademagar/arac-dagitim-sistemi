@@ -64,7 +64,7 @@ function FormulSatir({ label, formula, aciklama }: { label: string, formula: str
   return (
     <div className="mb-4 last:mb-0">
       <p className="text-slate-400 text-xs mb-1">{label}</p>
-      <code className="block bg-slate-900/70 border border-slate-700/50 rounded-lg px-4 py-2.5 text-emerald-400 font-mono text-sm mb-1.5 leading-relaxed">
+      <code className="block bg-slate-900/70 border border-slate-700/50 rounded-lg px-4 py-2.5 text-emerald-400 font-mono text-xs mb-1.5 leading-relaxed overflow-x-auto whitespace-pre-wrap break-words">
         {formula}
       </code>
       <p className="text-slate-400 text-xs leading-relaxed pl-1">{aciklama}</p>
@@ -227,8 +227,8 @@ export default function Ozet() {
               { tablo: 'dim_rakip_satis', alan: 'il, ay_yil, marka, adet' },
             ].map(({ tablo, alan }) => (
               <div key={tablo} className="flex items-start gap-2 py-1.5 border-b border-slate-700/40 last:border-0">
-                <code className="text-sky-300 text-xs font-mono w-36 flex-shrink-0">{tablo}</code>
-                <code className="text-slate-500 text-xs font-mono leading-relaxed">{alan}</code>
+                <code className="text-sky-300 text-xs font-mono w-28 flex-shrink-0 break-all">{tablo}</code>
+                <code className="text-slate-500 text-xs font-mono leading-relaxed break-words">{alan}</code>
               </div>
             ))}
           </InfoCard>
@@ -250,7 +250,7 @@ export default function Ozet() {
           <Accordion title="Formül ve matematiksel arka plan" icon={Code2} defaultOpen>
             <FormulSatir
               label="Bayinin yıllık hedef araç payı:"
-              formula="share_i = α × PenetrasyanPayı_i + β × (UpperMainstream_il(i) / BayiSayısı_il(i))"
+              formula={"share_i = α × PenetrasyanPayı_i\n         + β × (UpperMainstream_il(i) / BayiSayısı_il(i))"}
               aciklama="α = β = 0.50 · PenetrasyanPayı, bayinin 2025 yılındaki toplam marka satışları içindeki payı. UpperMainstream, bayinin bulunduğu ildeki rakip + marka araç stoğunun toplam çekim alanıdır (rakip satış verisiyle ölçülür). Formül, geçmiş performansı ve coğrafi potansiyeli eşit ağırlıkla birleştirir."
             />
             <FormulSatir
@@ -346,14 +346,14 @@ export default function Ozet() {
                     <p className={`font-bold text-sm ${renk}`}>{kriter}</p>
                     <span className="bg-slate-700 text-white text-xs px-2 py-0.5 rounded-full font-bold">{agirlik}</span>
                   </div>
-                  <code className="block text-xs text-slate-300 font-mono mb-2 leading-relaxed">{formul}</code>
+                  <code className="block text-xs text-slate-300 font-mono mb-2 leading-relaxed overflow-x-auto whitespace-pre-wrap break-words">{formul}</code>
                   <p className="text-slate-400 text-xs leading-relaxed">{neden}</p>
                 </div>
               ))}
             </div>
             <div className="bg-slate-900/60 rounded-xl px-4 py-3">
               <p className="text-slate-400 text-xs mb-1">Birleşik skor:</p>
-              <code className="text-emerald-400 font-mono text-sm">
+              <code className="block text-emerald-400 font-mono text-xs overflow-x-auto whitespace-pre-wrap break-words">
                 Score_i = 0.25×P_i + 0.35×LP_i + 0.20×S_i + 0.20×H_i
               </code>
               <p className="text-slate-400 text-xs mt-2">
@@ -398,7 +398,7 @@ export default function Ozet() {
               />
               <FormulSatir
                 label="Kısıtlar:"
-                formula="∑_d x[v][d] ≤ 1  (her araç en fazla bir bayiye)  |  ∑_v x[v][d] ≤ kapasite_d"
+                formula={"∑_d x[v][d] ≤ 1  (her araç en fazla bir bayiye)\n∑_v x[v][d] ≤ kapasite_d"}
                 aciklama="Stok kapasitesi kısıtı bu projede aktif değil (aylık 1000'den az araç). İlerde eklenebilir."
               />
             </div>
