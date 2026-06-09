@@ -435,9 +435,9 @@ Bu yaklaşım collaborative filtering mantığına benzer: benzer profilden bilg
                 <div className="bg-slate-800 rounded-lg px-4 py-2.5 mb-2">
                   <code className="text-xs font-mono text-emerald-400">{a.kod}</code>
                 </div>
-                {/* Türkçe okunuş */}
+                {/* Açıklama */}
                 <div className="bg-blue-50 border border-blue-200 rounded-lg px-4 py-2.5">
-                  <p className="text-xs text-blue-600 font-semibold mb-0.5">Türkçe okunuş:</p>
+                  <p className="text-xs text-blue-600 font-semibold mb-0.5">Açıklama:</p>
                   <p className="text-xs text-blue-800 leading-relaxed">{a.okunus}</p>
                 </div>
               </div>

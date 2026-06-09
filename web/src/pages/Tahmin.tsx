@@ -1795,10 +1795,10 @@ function FormulKutusu() {
           </p>
         </div>
       </div>
-      {/* Türkçe okunuş */}
+      {/* Açıklama */}
       <div className="bg-blue-950/50 border border-blue-800/40 rounded-xl px-5 py-3 mb-6 text-center">
         <p className="text-xs text-blue-300 leading-relaxed">
-          <span className="text-blue-200 font-semibold">Türkçe okunuş: </span>
+          <span className="text-blue-200 font-semibold">Açıklama: </span>
           Bayinin 2026 hedef araç payı =
           {' '}<span className="text-amber-300 font-semibold">%50 × bayinin 2025'te markanın toplam satışlarındaki payı</span>
           {' '}+
