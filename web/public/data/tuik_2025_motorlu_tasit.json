@@ -1,0 +1,494 @@
+{
+  "kaynak": "TÜİK — İllere Göre Motorlu Kara Taşıtları Sayısı",
+  "donem": "2025-12 (Aralık 2025)",
+  "guncelleme": "2026-06-12",
+  "turkiye_toplam_otomobil": 17373581,
+  "iller": [
+    {
+      "il": "Adana",
+      "otomobil": 452772,
+      "toplam_arac": 957614,
+      "otomobil_pay_pct": 2.6061
+    },
+    {
+      "il": "Adıyaman",
+      "otomobil": 70341,
+      "toplam_arac": 162221,
+      "otomobil_pay_pct": 0.4049
+    },
+    {
+      "il": "Afyonkarahisar",
+      "otomobil": 117442,
+      "toplam_arac": 324363,
+      "otomobil_pay_pct": 0.676
+    },
+    {
+      "il": "Aksaray",
+      "otomobil": 87831,
+      "toplam_arac": 183032,
+      "otomobil_pay_pct": 0.5055
+    },
+    {
+      "il": "Amasya",
+      "otomobil": 76301,
+      "toplam_arac": 163905,
+      "otomobil_pay_pct": 0.4392
+    },
+    {
+      "il": "Ankara",
+      "otomobil": 2168210,
+      "toplam_arac": 3013521,
+      "otomobil_pay_pct": 12.4799
+    },
+    {
+      "il": "Antalya",
+      "otomobil": 756254,
+      "toplam_arac": 1682992,
+      "otomobil_pay_pct": 4.3529
+    },
+    {
+      "il": "Ardahan",
+      "otomobil": 5017,
+      "toplam_arac": 22289,
+      "otomobil_pay_pct": 0.0289
+    },
+    {
+      "il": "Artvin",
+      "otomobil": 21480,
+      "toplam_arac": 50292,
+      "otomobil_pay_pct": 0.1236
+    },
+    {
+      "il": "Aydın",
+      "otomobil": 239892,
+      "toplam_arac": 668889,
+      "otomobil_pay_pct": 1.3808
+    },
+    {
+      "il": "Ağrı",
+      "otomobil": 11326,
+      "toplam_arac": 36984,
+      "otomobil_pay_pct": 0.0652
+    },
+    {
+      "il": "Balıkesir",
+      "otomobil": 278341,
+      "toplam_arac": 691863,
+      "otomobil_pay_pct": 1.6021
+    },
+    {
+      "il": "Bartın",
+      "otomobil": 35376,
+      "toplam_arac": 69291,
+      "otomobil_pay_pct": 0.2036
+    },
+    {
+      "il": "Batman",
+      "otomobil": 24288,
+      "toplam_arac": 69059,
+      "otomobil_pay_pct": 0.1398
+    },
+    {
+      "il": "Bayburt",
+      "otomobil": 8968,
+      "toplam_arac": 20763,
+      "otomobil_pay_pct": 0.0516
+    },
+    {
+      "il": "Bilecik",
+      "otomobil": 42984,
+      "toplam_arac": 95819,
+      "otomobil_pay_pct": 0.2474
+    },
+    {
+      "il": "Bingöl",
+      "otomobil": 13732,
+      "toplam_arac": 25576,
+      "otomobil_pay_pct": 0.079
+    },
+    {
+      "il": "Bitlis",
+      "otomobil": 11811,
+      "toplam_arac": 30035,
+      "otomobil_pay_pct": 0.068
+    },
+    {
+      "il": "Bolu",
+      "otomobil": 72970,
+      "toplam_arac": 156600,
+      "otomobil_pay_pct": 0.42
+    },
+    {
+      "il": "Burdur",
+      "otomobil": 68775,
+      "toplam_arac": 185933,
+      "otomobil_pay_pct": 0.3959
+    },
+    {
+      "il": "Bursa",
+      "otomobil": 720750,
+      "toplam_arac": 1334294,
+      "otomobil_pay_pct": 4.1485
+    },
+    {
+      "il": "Denizli",
+      "otomobil": 260714,
+      "toplam_arac": 583680,
+      "otomobil_pay_pct": 1.5006
+    },
+    {
+      "il": "Diyarbakır",
+      "otomobil": 89301,
+      "toplam_arac": 189497,
+      "otomobil_pay_pct": 0.514
+    },
+    {
+      "il": "Düzce",
+      "otomobil": 74129,
+      "toplam_arac": 161742,
+      "otomobil_pay_pct": 0.4267
+    },
+    {
+      "il": "Edirne",
+      "otomobil": 87041,
+      "toplam_arac": 208834,
+      "otomobil_pay_pct": 0.501
+    },
+    {
+      "il": "Elazığ",
+      "otomobil": 102449,
+      "toplam_arac": 178153,
+      "otomobil_pay_pct": 0.5897
+    },
+    {
+      "il": "Erzincan",
+      "otomobil": 37184,
+      "toplam_arac": 83609,
+      "otomobil_pay_pct": 0.214
+    },
+    {
+      "il": "Erzurum",
+      "otomobil": 78330,
+      "toplam_arac": 152682,
+      "otomobil_pay_pct": 0.4509
+    },
+    {
+      "il": "Eskişehir",
+      "otomobil": 217866,
+      "toplam_arac": 394051,
+      "otomobil_pay_pct": 1.254
+    },
+    {
+      "il": "Gaziantep",
+      "otomobil": 323598,
+      "toplam_arac": 766873,
+      "otomobil_pay_pct": 1.8626
+    },
+    {
+      "il": "Giresun",
+      "otomobil": 57481,
+      "toplam_arac": 124750,
+      "otomobil_pay_pct": 0.3309
+    },
+    {
+      "il": "Gümüşhane",
+      "otomobil": 14410,
+      "toplam_arac": 32876,
+      "otomobil_pay_pct": 0.0829
+    },
+    {
+      "il": "Hakkari",
+      "otomobil": 3336,
+      "toplam_arac": 11859,
+      "otomobil_pay_pct": 0.0192
+    },
+    {
+      "il": "Hatay",
+      "otomobil": 281040,
+      "toplam_arac": 707237,
+      "otomobil_pay_pct": 1.6176
+    },
+    {
+      "il": "Isparta",
+      "otomobil": 105540,
+      "toplam_arac": 245625,
+      "otomobil_pay_pct": 0.6075
+    },
+    {
+      "il": "Iğdır",
+      "otomobil": 8278,
+      "toplam_arac": 38754,
+      "otomobil_pay_pct": 0.0476
+    },
+    {
+      "il": "Kahramanmaraş",
+      "otomobil": 194207,
+      "toplam_arac": 353894,
+      "otomobil_pay_pct": 1.1178
+    },
+    {
+      "il": "Karabük",
+      "otomobil": 48243,
+      "toplam_arac": 85632,
+      "otomobil_pay_pct": 0.2777
+    },
+    {
+      "il": "Karaman",
+      "otomobil": 46095,
+      "toplam_arac": 119202,
+      "otomobil_pay_pct": 0.2653
+    },
+    {
+      "il": "Kars",
+      "otomobil": 15995,
+      "toplam_arac": 54850,
+      "otomobil_pay_pct": 0.0921
+    },
+    {
+      "il": "Kastamonu",
+      "otomobil": 77824,
+      "toplam_arac": 172884,
+      "otomobil_pay_pct": 0.4479
+    },
+    {
+      "il": "Kayseri",
+      "otomobil": 314473,
+      "toplam_arac": 519403,
+      "otomobil_pay_pct": 1.8101
+    },
+    {
+      "il": "Kilis",
+      "otomobil": 13991,
+      "toplam_arac": 70269,
+      "otomobil_pay_pct": 0.0805
+    },
+    {
+      "il": "Kocaeli",
+      "otomobil": 357443,
+      "toplam_arac": 637618,
+      "otomobil_pay_pct": 2.0574
+    },
+    {
+      "il": "Konya",
+      "otomobil": 468309,
+      "toplam_arac": 992879,
+      "otomobil_pay_pct": 2.6955
+    },
+    {
+      "il": "Kütahya",
+      "otomobil": 129000,
+      "toplam_arac": 283350,
+      "otomobil_pay_pct": 0.7425
+    },
+    {
+      "il": "Kırklareli",
+      "otomobil": 76604,
+      "toplam_arac": 178621,
+      "otomobil_pay_pct": 0.4409
+    },
+    {
+      "il": "Kırıkkale",
+      "otomobil": 47311,
+      "toplam_arac": 87532,
+      "otomobil_pay_pct": 0.2723
+    },
+    {
+      "il": "Kırşehir",
+      "otomobil": 47969,
+      "toplam_arac": 89538,
+      "otomobil_pay_pct": 0.2761
+    },
+    {
+      "il": "Malatya",
+      "otomobil": 132524,
+      "toplam_arac": 251434,
+      "otomobil_pay_pct": 0.7628
+    },
+    {
+      "il": "Manisa",
+      "otomobil": 276321,
+      "toplam_arac": 845207,
+      "otomobil_pay_pct": 1.5905
+    },
+    {
+      "il": "Mardin",
+      "otomobil": 36876,
+      "toplam_arac": 112046,
+      "otomobil_pay_pct": 0.2123
+    },
+    {
+      "il": "Mersin",
+      "otomobil": 386240,
+      "toplam_arac": 893485,
+      "otomobil_pay_pct": 2.2231
+    },
+    {
+      "il": "Muğla",
+      "otomobil": 283911,
+      "toplam_arac": 768233,
+      "otomobil_pay_pct": 1.6342
+    },
+    {
+      "il": "Muş",
+      "otomobil": 13438,
+      "toplam_arac": 42795,
+      "otomobil_pay_pct": 0.0773
+    },
+    {
+      "il": "Nevşehir",
+      "otomobil": 72386,
+      "toplam_arac": 173705,
+      "otomobil_pay_pct": 0.4166
+    },
+    {
+      "il": "Niğde",
+      "otomobil": 64286,
+      "toplam_arac": 151840,
+      "otomobil_pay_pct": 0.37
+    },
+    {
+      "il": "Ordu",
+      "otomobil": 109801,
+      "toplam_arac": 206471,
+      "otomobil_pay_pct": 0.632
+    },
+    {
+      "il": "Osmaniye",
+      "otomobil": 111993,
+      "toplam_arac": 244610,
+      "otomobil_pay_pct": 0.6446
+    },
+    {
+      "il": "Rize",
+      "otomobil": 47795,
+      "toplam_arac": 107390,
+      "otomobil_pay_pct": 0.2751
+    },
+    {
+      "il": "Sakarya",
+      "otomobil": 208757,
+      "toplam_arac": 433437,
+      "otomobil_pay_pct": 1.2016
+    },
+    {
+      "il": "Samsun",
+      "otomobil": 258422,
+      "toplam_arac": 536631,
+      "otomobil_pay_pct": 1.4874
+    },
+    {
+      "il": "Siirt",
+      "otomobil": 9990,
+      "toplam_arac": 30523,
+      "otomobil_pay_pct": 0.0575
+    },
+    {
+      "il": "Sinop",
+      "otomobil": 39369,
+      "toplam_arac": 84684,
+      "otomobil_pay_pct": 0.2266
+    },
+    {
+      "il": "Sivas",
+      "otomobil": 112579,
+      "toplam_arac": 217026,
+      "otomobil_pay_pct": 0.648
+    },
+    {
+      "il": "Tekirdağ",
+      "otomobil": 191766,
+      "toplam_arac": 384344,
+      "otomobil_pay_pct": 1.1038
+    },
+    {
+      "il": "Tokat",
+      "otomobil": 111159,
+      "toplam_arac": 253430,
+      "otomobil_pay_pct": 0.6398
+    },
+    {
+      "il": "Trabzon",
+      "otomobil": 162726,
+      "toplam_arac": 292063,
+      "otomobil_pay_pct": 0.9366
+    },
+    {
+      "il": "Tunceli",
+      "otomobil": 5646,
+      "toplam_arac": 14029,
+      "otomobil_pay_pct": 0.0325
+    },
+    {
+      "il": "Uşak",
+      "otomobil": 85288,
+      "toplam_arac": 189789,
+      "otomobil_pay_pct": 0.4909
+    },
+    {
+      "il": "Van",
+      "otomobil": 37570,
+      "toplam_arac": 95456,
+      "otomobil_pay_pct": 0.2162
+    },
+    {
+      "il": "Yalova",
+      "otomobil": 49181,
+      "toplam_arac": 99840,
+      "otomobil_pay_pct": 0.2831
+    },
+    {
+      "il": "Yozgat",
+      "otomobil": 58829,
+      "toplam_arac": 137824,
+      "otomobil_pay_pct": 0.3386
+    },
+    {
+      "il": "Zonguldak",
+      "otomobil": 115753,
+      "toplam_arac": 208264,
+      "otomobil_pay_pct": 0.6663
+    },
+    {
+      "il": "Çanakkale",
+      "otomobil": 128422,
+      "toplam_arac": 339418,
+      "otomobil_pay_pct": 0.7392
+    },
+    {
+      "il": "Çankırı",
+      "otomobil": 27047,
+      "toplam_arac": 74830,
+      "otomobil_pay_pct": 0.1557
+    },
+    {
+      "il": "Çorum",
+      "otomobil": 100751,
+      "toplam_arac": 225570,
+      "otomobil_pay_pct": 0.5799
+    },
+    {
+      "il": "İstanbul",
+      "otomobil": 4059586,
+      "toplam_arac": 6246012,
+      "otomobil_pay_pct": 23.3664
+    },
+    {
+      "il": "İzmir",
+      "otomobil": 1086293,
+      "toplam_arac": 2098244,
+      "otomobil_pay_pct": 6.2526
+    },
+    {
+      "il": "Şanlıurfa",
+      "otomobil": 116701,
+      "toplam_arac": 342163,
+      "otomobil_pay_pct": 0.6717
+    },
+    {
+      "il": "Şırnak",
+      "otomobil": 9153,
+      "toplam_arac": 40628,
+      "otomobil_pay_pct": 0.0527
+    }
+  ]
+}

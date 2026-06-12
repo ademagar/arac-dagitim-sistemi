@@ -2277,9 +2277,9 @@
       "baslik": "Pazar Kapasitesi Bazlı Hibrit Bayi Hedef Dağıtımı",
       "formul": "target_pay = 0.5 × brand_pay_2025 + 0.5 × (catchment_pay / n_bayis_in_il)",
       "aciklama": "Geleneksel yaklaşım bayileri yalnızca geçmiş performanslarına göre sıralar; ancak bu yöntem pazar büyüklüğünü görmezden gelir. Örneğin Ankara'da tek bir bayi olan bölgede iki bayi olan İstanbul bölgesine kıyasla daha geniş bir pazar havuzuna erişim hakkı vardır. Hibrit formül %50 geçmiş performans + %50 pazar kapasitesini dengeler. Yeni bayiler (2025 satışı = 0) için formül tamamen pazar kapasitesine dayanır.",
-      "kaynak": "TÜİK Motorlu Kara Taşıtları Aralık 2024 Bülteni",
+      "kaynak": "TÜİK Motorlu Kara Taşıtları Aralık 2025 — Otomobil sütunu",
       "kaynak_url": "https://data.tuik.gov.tr/Bulten/Index?p=Road-Motor-Vehicles-December-2024-53463",
-      "toplam_stok": 31301389,
+      "toplam_stok": 17373581,
       "aciklama_catchment": "Catchment (hizmet alanı): Bayinin bulunduğu il + coğrafi komşu iller. Müşteriler yalnızca kendi illerinden değil, yakın çevre illerden de gelir."
     },
     "tablo": [
@@ -2287,22 +2287,22 @@
         "dealer": "DEALER 1",
         "il": "ANKARA",
         "ilce": "ETİMESGUT",
-        "il_kendi_pay": 8.89,
+        "il_kendi_pay": 12.4799,
         "komsular": [
           {
             "il": "ESKİŞEHİR",
-            "pay": 1.02
+            "pay": 1.254
           },
           {
             "il": "KIRIKKALECHANKIRI",
-            "pay": 0.5
+            "pay": 0.2723
           }
         ],
-        "catchment_pay": 10.41,
+        "catchment_pay": 14.0062,
         "n_il": 2,
-        "capacity_per_dealer": 5.205,
+        "capacity_per_dealer": 7.0031,
         "brand_pay_2025": 9.333,
-        "target_pay_2026": 8.099,
+        "target_pay_2026": 8.1681,
         "yeni_bayi": false,
         "hedef_8500": 688,
         "hedef_10000": 810
@@ -2311,22 +2311,22 @@
         "dealer": "DEALER 2",
         "il": "İZMİR",
         "ilce": "GAZİEMİR",
-        "il_kendi_pay": 5.75,
+        "il_kendi_pay": 6.2526,
         "komsular": [
           {
             "il": "MANİSA",
-            "pay": 1.3
+            "pay": 1.5905
           },
           {
             "il": "ÇANAKKALE",
-            "pay": 0.5
+            "pay": 0.7392
           }
         ],
-        "catchment_pay": 7.55,
+        "catchment_pay": 8.5823,
         "n_il": 2,
-        "capacity_per_dealer": 3.775,
+        "capacity_per_dealer": 4.2912,
         "brand_pay_2025": 3.92,
-        "target_pay_2026": 4.287,
+        "target_pay_2026": 4.1056,
         "yeni_bayi": false,
         "hedef_8500": 364,
         "hedef_10000": 429
@@ -2335,18 +2335,18 @@
         "dealer": "DEALER 3",
         "il": "ADANA",
         "ilce": "SEYHAN",
-        "il_kendi_pay": 1.95,
+        "il_kendi_pay": 2.6061,
         "komsular": [
           {
             "il": "OSMANİYE",
-            "pay": 0.32
+            "pay": 0.6446
           }
         ],
-        "catchment_pay": 2.27,
+        "catchment_pay": 3.2507,
         "n_il": 1,
-        "capacity_per_dealer": 2.27,
+        "capacity_per_dealer": 3.2507,
         "brand_pay_2025": 4.154,
-        "target_pay_2026": 3.579,
+        "target_pay_2026": 3.7024,
         "yeni_bayi": false,
         "hedef_8500": 304,
         "hedef_10000": 358
@@ -2355,22 +2355,22 @@
         "dealer": "DEALER 4",
         "il": "MERSİN",
         "ilce": "TOROSLAR",
-        "il_kendi_pay": 1.69,
+        "il_kendi_pay": 2.2231,
         "komsular": [
           {
             "il": "KARAMAN",
-            "pay": 0.38
+            "pay": 0.2653
           },
           {
             "il": "NİĞDE",
-            "pay": 0.29
+            "pay": 0.37
           }
         ],
-        "catchment_pay": 2.36,
+        "catchment_pay": 2.8584,
         "n_il": 1,
-        "capacity_per_dealer": 2.36,
+        "capacity_per_dealer": 2.8584,
         "brand_pay_2025": 3.833,
-        "target_pay_2026": 3.45,
+        "target_pay_2026": 3.3457,
         "yeni_bayi": false,
         "hedef_8500": 293,
         "hedef_10000": 345
@@ -2379,26 +2379,26 @@
         "dealer": "DEALER 5",
         "il": "KOCAELİ",
         "ilce": "GEBZE",
-        "il_kendi_pay": 2.38,
+        "il_kendi_pay": 2.0574,
         "komsular": [
           {
             "il": "SAKARYA",
-            "pay": 0.88
+            "pay": 1.2016
           },
           {
             "il": "DÜZCE",
-            "pay": 0.32
+            "pay": 0.4267
           },
           {
             "il": "BOLU",
-            "pay": 0.38
+            "pay": 0.42
           }
         ],
-        "catchment_pay": 3.96,
+        "catchment_pay": 4.1057,
         "n_il": 1,
-        "capacity_per_dealer": 3.96,
+        "capacity_per_dealer": 4.1057,
         "brand_pay_2025": 3.013,
-        "target_pay_2026": 3.885,
+        "target_pay_2026": 3.5593,
         "yeni_bayi": false,
         "hedef_8500": 330,
         "hedef_10000": 388
@@ -2407,22 +2407,22 @@
         "dealer": "DEALER 6",
         "il": "İZMİR",
         "ilce": "BAYRAKLI",
-        "il_kendi_pay": 5.75,
+        "il_kendi_pay": 6.2526,
         "komsular": [
           {
             "il": "MANİSA",
-            "pay": 1.3
+            "pay": 1.5905
           },
           {
             "il": "ÇANAKKALE",
-            "pay": 0.5
+            "pay": 0.7392
           }
         ],
-        "catchment_pay": 7.55,
+        "catchment_pay": 8.5823,
         "n_il": 2,
-        "capacity_per_dealer": 3.775,
+        "capacity_per_dealer": 4.2912,
         "brand_pay_2025": 5.734,
-        "target_pay_2026": 5.297,
+        "target_pay_2026": 5.0126,
         "yeni_bayi": false,
         "hedef_8500": 450,
         "hedef_10000": 530
@@ -2431,22 +2431,22 @@
         "dealer": "DEALER 7",
         "il": "İSTANBUL",
         "ilce": "BAHÇELİEVLER",
-        "il_kendi_pay": 18.66,
+        "il_kendi_pay": 23.3664,
         "komsular": [
           {
             "il": "TEKİRDAĞ",
-            "pay": 1.17
+            "pay": 1.1038
           },
           {
             "il": "KIRKLARELİ",
-            "pay": 0.48
+            "pay": 0.4409
           }
         ],
-        "catchment_pay": 20.31,
+        "catchment_pay": 24.9111,
         "n_il": 7,
-        "capacity_per_dealer": 2.901,
+        "capacity_per_dealer": 3.5587,
         "brand_pay_2025": 8.923,
-        "target_pay_2026": 6.587,
+        "target_pay_2026": 6.2409,
         "yeni_bayi": false,
         "hedef_8500": 560,
         "hedef_10000": 659
@@ -2455,22 +2455,22 @@
         "dealer": "DEALER 8",
         "il": "TEKİRDAĞ",
         "ilce": "MERKEZ",
-        "il_kendi_pay": 1.17,
+        "il_kendi_pay": 1.1038,
         "komsular": [
           {
             "il": "EDİRNE",
-            "pay": 0.4
+            "pay": 0.501
           },
           {
             "il": "KIRKLARELİ",
-            "pay": 0.48
+            "pay": 0.4409
           }
         ],
-        "catchment_pay": 2.05,
+        "catchment_pay": 2.0457,
         "n_il": 2,
-        "capacity_per_dealer": 1.025,
+        "capacity_per_dealer": 1.0229,
         "brand_pay_2025": 3.54,
-        "target_pay_2026": 2.543,
+        "target_pay_2026": 2.2814,
         "yeni_bayi": false,
         "hedef_8500": 216,
         "hedef_10000": 254
@@ -2479,26 +2479,26 @@
         "dealer": "DEALER 9",
         "il": "KAYSERİ",
         "ilce": "KOCASİNAN",
-        "il_kendi_pay": 1.32,
+        "il_kendi_pay": 1.8101,
         "komsular": [
           {
             "il": "NEVŞEHİR",
-            "pay": 0.38
+            "pay": 0.4166
           },
           {
             "il": "YOZGAT",
-            "pay": 0.29
+            "pay": 0.3386
           },
           {
             "il": "NİĞDE",
-            "pay": 0.28
+            "pay": 0.37
           }
         ],
-        "catchment_pay": 2.27,
+        "catchment_pay": 2.9353,
         "n_il": 1,
-        "capacity_per_dealer": 2.27,
+        "capacity_per_dealer": 2.9353,
         "brand_pay_2025": 0.936,
-        "target_pay_2026": 1.786,
+        "target_pay_2026": 1.9356,
         "yeni_bayi": false,
         "hedef_8500": 152,
         "hedef_10000": 179
@@ -2507,26 +2507,26 @@
         "dealer": "DEALER 10",
         "il": "KONYA",
         "ilce": "KARATAY",
-        "il_kendi_pay": 1.84,
+        "il_kendi_pay": 2.6955,
         "komsular": [
           {
             "il": "AKSARAY",
-            "pay": 0.4
+            "pay": 0.5055
           },
           {
             "il": "KARAMAN",
-            "pay": 0.38
+            "pay": 0.2653
           },
           {
             "il": "NİĞDE",
-            "pay": 0.29
+            "pay": 0.37
           }
         ],
-        "catchment_pay": 2.91,
+        "catchment_pay": 3.8363,
         "n_il": 1,
-        "capacity_per_dealer": 2.91,
+        "capacity_per_dealer": 3.8363,
         "brand_pay_2025": 2.516,
-        "target_pay_2026": 3.023,
+        "target_pay_2026": 3.1761,
         "yeni_bayi": false,
         "hedef_8500": 257,
         "hedef_10000": 302
@@ -2535,22 +2535,22 @@
         "dealer": "DEALER 11",
         "il": "KAHRAMANMARAŞ",
         "ilce": "DULKADİROĞLU",
-        "il_kendi_pay": 0.86,
+        "il_kendi_pay": 1.1178,
         "komsular": [
           {
             "il": "MALATYA",
-            "pay": 0.7
+            "pay": 0.7628
           },
           {
             "il": "ADIYAMAN",
-            "pay": 0.4
+            "pay": 0.4049
           }
         ],
-        "catchment_pay": 1.96,
+        "catchment_pay": 2.2855,
         "n_il": 1,
-        "capacity_per_dealer": 1.96,
+        "capacity_per_dealer": 2.2855,
         "brand_pay_2025": 1.17,
-        "target_pay_2026": 1.744,
+        "target_pay_2026": 1.7277,
         "yeni_bayi": false,
         "hedef_8500": 148,
         "hedef_10000": 174
@@ -2559,22 +2559,22 @@
         "dealer": "DEALER 12",
         "il": "BURSA",
         "ilce": "OSMANGAZİ",
-        "il_kendi_pay": 3.71,
+        "il_kendi_pay": 4.1485,
         "komsular": [
           {
             "il": "YALOVA",
-            "pay": 0.48
+            "pay": 0.2831
           },
           {
             "il": "BALIKESİR",
-            "pay": 0.98
+            "pay": 1.6021
           }
         ],
-        "catchment_pay": 5.17,
+        "catchment_pay": 6.0337,
         "n_il": 2,
-        "capacity_per_dealer": 2.585,
+        "capacity_per_dealer": 3.0169,
         "brand_pay_2025": 2.867,
-        "target_pay_2026": 3.037,
+        "target_pay_2026": 2.942,
         "yeni_bayi": false,
         "hedef_8500": 258,
         "hedef_10000": 304
@@ -2583,22 +2583,22 @@
         "dealer": "DEALER 13",
         "il": "İSTANBUL",
         "ilce": "ATAŞEHİR",
-        "il_kendi_pay": 18.66,
+        "il_kendi_pay": 23.3664,
         "komsular": [
           {
             "il": "TEKİRDAĞ",
-            "pay": 1.17
+            "pay": 1.1038
           },
           {
             "il": "KIRKLARELİ",
-            "pay": 0.48
+            "pay": 0.4409
           }
         ],
-        "catchment_pay": 20.31,
+        "catchment_pay": 24.9111,
         "n_il": 7,
-        "capacity_per_dealer": 2.901,
+        "capacity_per_dealer": 3.5587,
         "brand_pay_2025": 6.495,
-        "target_pay_2026": 5.235,
+        "target_pay_2026": 5.0268,
         "yeni_bayi": false,
         "hedef_8500": 445,
         "hedef_10000": 524
@@ -2607,22 +2607,22 @@
         "dealer": "DEALER 14",
         "il": "ANKARA",
         "ilce": "YENİMAHALLE",
-        "il_kendi_pay": 8.89,
+        "il_kendi_pay": 12.4799,
         "komsular": [
           {
             "il": "ESKİŞEHİR",
-            "pay": 1.02
+            "pay": 1.254
           },
           {
             "il": "KIRIKKALECHANKIRI",
-            "pay": 0.5
+            "pay": 0.2723
           }
         ],
-        "catchment_pay": 10.41,
+        "catchment_pay": 14.0062,
         "n_il": 2,
-        "capacity_per_dealer": 5.205,
+        "capacity_per_dealer": 7.0031,
         "brand_pay_2025": 5.208,
-        "target_pay_2026": 5.801,
+        "target_pay_2026": 6.1056,
         "yeni_bayi": false,
         "hedef_8500": 493,
         "hedef_10000": 580
@@ -2631,22 +2631,22 @@
         "dealer": "DEALER 15",
         "il": "ANTALYA",
         "ilce": "KEPEZ",
-        "il_kendi_pay": 4.63,
+        "il_kendi_pay": 4.3529,
         "komsular": [
           {
             "il": "ISPARTA",
-            "pay": 0.43
+            "pay": 0.6075
           },
           {
             "il": "BURDUR",
-            "pay": 0.32
+            "pay": 0.3959
           }
         ],
-        "catchment_pay": 5.38,
+        "catchment_pay": 5.3563,
         "n_il": 1,
-        "capacity_per_dealer": 5.38,
+        "capacity_per_dealer": 5.3563,
         "brand_pay_2025": 5.998,
-        "target_pay_2026": 6.338,
+        "target_pay_2026": 5.6772,
         "yeni_bayi": false,
         "hedef_8500": 539,
         "hedef_10000": 634
@@ -2655,22 +2655,22 @@
         "dealer": "DEALER 16",
         "il": "İSTANBUL",
         "ilce": "BEYLİKDÜZÜ",
-        "il_kendi_pay": 18.66,
+        "il_kendi_pay": 23.3664,
         "komsular": [
           {
             "il": "TEKİRDAĞ",
-            "pay": 1.17
+            "pay": 1.1038
           },
           {
             "il": "KIRKLARELİ",
-            "pay": 0.48
+            "pay": 0.4409
           }
         ],
-        "catchment_pay": 20.31,
+        "catchment_pay": 24.9111,
         "n_il": 7,
-        "capacity_per_dealer": 2.901,
+        "capacity_per_dealer": 3.5587,
         "brand_pay_2025": 5.939,
-        "target_pay_2026": 4.925,
+        "target_pay_2026": 4.7489,
         "yeni_bayi": false,
         "hedef_8500": 419,
         "hedef_10000": 492
@@ -2679,22 +2679,22 @@
         "dealer": "DEALER 17",
         "il": "İSTANBUL",
         "ilce": "SARIYER",
-        "il_kendi_pay": 18.66,
+        "il_kendi_pay": 23.3664,
         "komsular": [
           {
             "il": "TEKİRDAĞ",
-            "pay": 1.17
+            "pay": 1.1038
           },
           {
             "il": "KIRKLARELİ",
-            "pay": 0.48
+            "pay": 0.4409
           }
         ],
-        "catchment_pay": 20.31,
+        "catchment_pay": 24.9111,
         "n_il": 7,
-        "capacity_per_dealer": 2.901,
+        "capacity_per_dealer": 3.5587,
         "brand_pay_2025": 11.527,
-        "target_pay_2026": 8.038,
+        "target_pay_2026": 7.5428,
         "yeni_bayi": false,
         "hedef_8500": 683,
         "hedef_10000": 804
@@ -2703,22 +2703,22 @@
         "dealer": "DEALER 18",
         "il": "İSTANBUL",
         "ilce": "SUADİYE",
-        "il_kendi_pay": 18.66,
+        "il_kendi_pay": 23.3664,
         "komsular": [
           {
             "il": "TEKİRDAĞ",
-            "pay": 1.17
+            "pay": 1.1038
           },
           {
             "il": "KIRKLARELİ",
-            "pay": 0.48
+            "pay": 0.4409
           }
         ],
-        "catchment_pay": 20.31,
+        "catchment_pay": 24.9111,
         "n_il": 7,
-        "capacity_per_dealer": 2.901,
+        "capacity_per_dealer": 3.5587,
         "brand_pay_2025": 5.53,
-        "target_pay_2026": 4.697,
+        "target_pay_2026": 4.5443,
         "yeni_bayi": false,
         "hedef_8500": 399,
         "hedef_10000": 470
@@ -2727,26 +2727,26 @@
         "dealer": "DEALER 19",
         "il": "GAZİANTEP",
         "ilce": "ŞEHİTKAMİL",
-        "il_kendi_pay": 2.32,
+        "il_kendi_pay": 1.8626,
         "komsular": [
           {
             "il": "KİLİS",
-            "pay": 0.12
+            "pay": 0.0805
           },
           {
             "il": "ADIYAMAN",
-            "pay": 0.4
+            "pay": 0.4049
           },
           {
             "il": "ŞANLIURFA",
-            "pay": 0.52
+            "pay": 0.6717
           }
         ],
-        "catchment_pay": 3.36,
+        "catchment_pay": 3.0197,
         "n_il": 1,
-        "capacity_per_dealer": 3.36,
+        "capacity_per_dealer": 3.0197,
         "brand_pay_2025": 2.838,
-        "target_pay_2026": 3.453,
+        "target_pay_2026": 2.9288,
         "yeni_bayi": false,
         "hedef_8500": 294,
         "hedef_10000": 345
@@ -2755,30 +2755,30 @@
         "dealer": "DEALER 20",
         "il": "TRABZON",
         "ilce": "AKÇAABAT",
-        "il_kendi_pay": 0.65,
+        "il_kendi_pay": 0.9366,
         "komsular": [
           {
             "il": "RİZE",
-            "pay": 0.3
+            "pay": 0.2751
           },
           {
             "il": "ARTVİN",
-            "pay": 0.11
+            "pay": 0.1236
           },
           {
             "il": "GİRESUN",
-            "pay": 0.38
+            "pay": 0.3309
           },
           {
             "il": "ORDU",
-            "pay": 0.5
+            "pay": 0.632
           }
         ],
-        "catchment_pay": 1.94,
+        "catchment_pay": 2.2982,
         "n_il": 1,
-        "capacity_per_dealer": 1.94,
+        "capacity_per_dealer": 2.2982,
         "brand_pay_2025": 1.317,
-        "target_pay_2026": 1.814,
+        "target_pay_2026": 1.8076,
         "yeni_bayi": false,
         "hedef_8500": 154,
         "hedef_10000": 181
@@ -2787,18 +2787,18 @@
         "dealer": "DEALER 21",
         "il": "MUĞLA",
         "ilce": "MİLAS",
-        "il_kendi_pay": 1.37,
+        "il_kendi_pay": 1.6342,
         "komsular": [
           {
             "il": "AYDIN",
-            "pay": 1.08
+            "pay": 1.3808
           }
         ],
-        "catchment_pay": 2.45,
+        "catchment_pay": 3.015,
         "n_il": 1,
-        "capacity_per_dealer": 2.45,
+        "capacity_per_dealer": 3.015,
         "brand_pay_2025": 2.633,
-        "target_pay_2026": 2.832,
+        "target_pay_2026": 2.824,
         "yeni_bayi": false,
         "hedef_8500": 241,
         "hedef_10000": 283
@@ -2807,22 +2807,22 @@
         "dealer": "DEALER 22",
         "il": "DENİZLİ",
         "ilce": "MERKEZEFENDİ",
-        "il_kendi_pay": 1.02,
+        "il_kendi_pay": 1.5006,
         "komsular": [
           {
             "il": "AFYONKARAHİSAR",
-            "pay": 0.52
+            "pay": 0.676
           },
           {
             "il": "UŞAK",
-            "pay": 0.3
+            "pay": 0.4909
           }
         ],
-        "catchment_pay": 1.84,
+        "catchment_pay": 2.6675,
         "n_il": 1,
-        "capacity_per_dealer": 1.84,
+        "capacity_per_dealer": 2.6675,
         "brand_pay_2025": 2.575,
-        "target_pay_2026": 2.459,
+        "target_pay_2026": 2.6212,
         "yeni_bayi": false,
         "hedef_8500": 209,
         "hedef_10000": 246
@@ -2831,22 +2831,22 @@
         "dealer": "DEALER 23",
         "il": "BURSA",
         "ilce": "NİLÜFER",
-        "il_kendi_pay": 3.71,
+        "il_kendi_pay": 4.1485,
         "komsular": [
           {
             "il": "YALOVA",
-            "pay": 0.48
+            "pay": 0.2831
           },
           {
             "il": "BALIKESİR",
-            "pay": 0.98
+            "pay": 1.6021
           }
         ],
-        "catchment_pay": 5.17,
+        "catchment_pay": 6.0337,
         "n_il": 2,
-        "capacity_per_dealer": 2.585,
+        "capacity_per_dealer": 3.0169,
         "brand_pay_2025": 0.0,
-        "target_pay_2026": 1.44,
+        "target_pay_2026": 1.5085,
         "yeni_bayi": true,
         "hedef_8500": 122,
         "hedef_10000": 144
@@ -2855,26 +2855,26 @@
         "dealer": "DEALER 24",
         "il": "SAMSUN",
         "ilce": "TEKKEKÖY",
-        "il_kendi_pay": 1.21,
+        "il_kendi_pay": 1.4874,
         "komsular": [
           {
             "il": "ORDU",
-            "pay": 0.5
+            "pay": 0.632
           },
           {
             "il": "SİNOP",
-            "pay": 0.19
+            "pay": 0.2266
           },
           {
             "il": "AMASYA",
-            "pay": 0.3
+            "pay": 0.4392
           }
         ],
-        "catchment_pay": 2.2,
+        "catchment_pay": 2.7852,
         "n_il": 1,
-        "capacity_per_dealer": 2.2,
+        "capacity_per_dealer": 2.7852,
         "brand_pay_2025": 0.0,
-        "target_pay_2026": 1.226,
+        "target_pay_2026": 1.3926,
         "yeni_bayi": true,
         "hedef_8500": 104,
         "hedef_10000": 123
@@ -2883,22 +2883,22 @@
         "dealer": "DEALER 25",
         "il": "İSTANBUL",
         "ilce": "BAĞCILAR",
-        "il_kendi_pay": 18.66,
+        "il_kendi_pay": 23.3664,
         "komsular": [
           {
             "il": "TEKİRDAĞ",
-            "pay": 1.17
+            "pay": 1.1038
           },
           {
             "il": "KIRKLARELİ",
-            "pay": 0.48
+            "pay": 0.4409
           }
         ],
-        "catchment_pay": 20.31,
+        "catchment_pay": 24.9111,
         "n_il": 7,
-        "capacity_per_dealer": 2.901,
+        "capacity_per_dealer": 3.5587,
         "brand_pay_2025": 0.0,
-        "target_pay_2026": 1.616,
+        "target_pay_2026": 1.7793,
         "yeni_bayi": true,
         "hedef_8500": 137,
         "hedef_10000": 162
@@ -2907,22 +2907,22 @@
         "dealer": "DEALER 26",
         "il": "TEKİRDAĞ",
         "ilce": "ÇORLU",
-        "il_kendi_pay": 1.17,
+        "il_kendi_pay": 1.1038,
         "komsular": [
           {
             "il": "EDİRNE",
-            "pay": 0.4
+            "pay": 0.501
           },
           {
             "il": "KIRKLARELİ",
-            "pay": 0.48
+            "pay": 0.4409
           }
         ],
-        "catchment_pay": 2.05,
+        "catchment_pay": 2.0457,
         "n_il": 2,
-        "capacity_per_dealer": 1.025,
+        "capacity_per_dealer": 1.0229,
         "brand_pay_2025": 0.0,
-        "target_pay_2026": 0.571,
+        "target_pay_2026": 0.5114,
         "yeni_bayi": true,
         "hedef_8500": 49,
         "hedef_10000": 57
@@ -2931,22 +2931,22 @@
         "dealer": "DEALER 27",
         "il": "İSTANBUL",
         "ilce": "EYÜPSULTAN",
-        "il_kendi_pay": 18.66,
+        "il_kendi_pay": 23.3664,
         "komsular": [
           {
             "il": "TEKİRDAĞ",
-            "pay": 1.17
+            "pay": 1.1038
           },
           {
             "il": "KIRKLARELİ",
-            "pay": 0.48
+            "pay": 0.4409
           }
         ],
-        "catchment_pay": 20.31,
+        "catchment_pay": 24.9111,
         "n_il": 7,
-        "capacity_per_dealer": 2.901,
+        "capacity_per_dealer": 3.5587,
         "brand_pay_2025": 0.0,
-        "target_pay_2026": 1.616,
+        "target_pay_2026": 1.7793,
         "yeni_bayi": true,
         "hedef_8500": 137,
         "hedef_10000": 162
@@ -2955,22 +2955,22 @@
         "dealer": "DEALER 28",
         "il": "SİVAS",
         "ilce": "MERKEZEFENDİ",
-        "il_kendi_pay": 0.43,
+        "il_kendi_pay": 0.648,
         "komsular": [
           {
             "il": "TOKAT",
-            "pay": 0.48
+            "pay": 0.6398
           },
           {
             "il": "ERZİNCAN",
-            "pay": 0.21
+            "pay": 0.214
           }
         ],
-        "catchment_pay": 1.12,
+        "catchment_pay": 1.5018,
         "n_il": 1,
-        "capacity_per_dealer": 1.12,
+        "capacity_per_dealer": 1.5018,
         "brand_pay_2025": 0.0,
-        "target_pay_2026": 0.624,
+        "target_pay_2026": 0.7509,
         "yeni_bayi": true,
         "hedef_8500": 53,
         "hedef_10000": 62
