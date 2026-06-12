@@ -1381,9 +1381,7 @@ function Plan2026Tab({ data }: { data: Plan2026 }) {
 
 const SEGMENT_MODELLER: Record<string, string[]> = {
   A: ['A1', 'A2', 'A3'],
-  B: ['B1', 'B2'],
-  C: ['C1'],
-  D: ['D1'],
+  B: ['B1'],
 }
 
 const SEGMENT_RENK: Record<string, string> = {
@@ -1411,8 +1409,8 @@ function BayiHedefleriTab({ data }: {
 
   const bayiHedef: BayiHedef | null = senaryoData[secilenBayi] ?? null
 
-  // 2026 aktif modeller — A1, C1, D1 üretimden kalktı
-  const BILINEN_MODELLER = ['A2', 'A3', 'B1', 'B2']
+  // 2026 aktif modeller — C1, D1, B2 üretimden kalktı; A1V01 aktif
+  const BILINEN_MODELLER = ['A1', 'A2', 'A3', 'B1']
   const LANSMAN_AY = 3
 
   return (
@@ -1428,9 +1426,9 @@ function BayiHedefleriTab({ data }: {
           bayi bazına indirgendi.
         </p>
         <p>
-          <strong>2026 Model Kadrosu:</strong> A1, C1 ve D1 modelleri 2025 sonu itibarıyla
-          üretimden kalkmıştır. 2026 yılında yalnızca <strong>A2, A3, B1, B2</strong> aktiftir.
-          A2/A3 aynı A Segmenti aracının versiyonlarıdır; B1/B2 aynı B Segmenti aracının versiyonlarıdır.
+          <strong>2026 Model Kadrosu:</strong> C1, D1 ve B2 modelleri 2025 sonu itibarıyla
+          üretimden kalkmıştır. 2026 yılında aktif modeller: <strong>A1V01, A2V02, A3V02, B1V01</strong>.
+          A1/A2/A3 aynı A Segmenti aracının versiyonlarıdır; B1 B Segmenti büyük SUV'dur.
         </p>
         <p>
           <strong>Yeni Bayiler:</strong> Tarihsel satış verisi bulunmayan yeni bayiler (Bayi 23–28),
