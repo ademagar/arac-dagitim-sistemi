@@ -580,11 +580,11 @@ Hedefte ya da ileride:
             <div className="grid grid-cols-2 gap-3">
               <div className="bg-blue-950/40 border border-blue-800/40 rounded-xl p-4">
                 <p className="text-blue-300 font-bold text-sm mb-1">A Grubu</p>
-                <p className="text-slate-200 text-xs">Kompakt SUV (A2, A3 modelleri). Şehir içi, genç segment. Kent bayileri için daha uygun.</p>
+                <p className="text-slate-200 text-xs">Kompakt SUV (A1V01, A2V02, A3V02 modelleri). Şehir içi, genç segment. Kent bayileri için daha uygun.</p>
               </div>
               <div className="bg-violet-950/40 border border-violet-800/40 rounded-xl p-4">
                 <p className="text-violet-300 font-bold text-sm mb-1">B Grubu</p>
-                <p className="text-slate-200 text-xs">Büyük SUV (B1, B2 modelleri). Aile / premium segment. Kırsal ve banliyö bayileri için daha uygun.</p>
+                <p className="text-slate-200 text-xs">Büyük SUV (B1V01 modeli). Aile / premium segment. Kırsal ve banliyö bayileri için daha uygun.</p>
               </div>
             </div>
             <p className="text-slate-200 text-xs mt-3 leading-relaxed">
@@ -717,7 +717,7 @@ Hedefte ya da ileride:
             {[
               { num: 1, title: 'Veri Yükleme', detail: 'Her ay sonunda geçmiş satış CSV\'si, aylık gerçekleşme ve yeni envanter dosyası sisteme yüklenir. Python pipeline CSV\'leri SQLite\'a aktarır.', color: 'blue' },
               { num: 2, title: 'SI Hesaplama (STL)', detail: 'Her bayinin 2024–2025 aylık satış serisi Trend × Mevsimsellik × Kalıntı olarak ayrıştırılır. Her bayi × ay kombinasyonu için Seasonal Index (SI) elde edilir. SI > 1 o ay güçlü, SI < 1 zayıf demektir.', color: 'violet' },
-              { num: 3, title: 'Bayi Satış Profili', detail: 'Her bayinin 2024–2025 satışları model bazında ayrıştırılır: A2 / A3 / B1 oranları hesaplanır. Bu "profil vektörü" hem LP skorunda hem aylık model grubu dağılımında kullanılır.', color: 'sky' },
+              { num: 3, title: 'Bayi Satış Profili', detail: 'Her bayinin 2024–2025 satışları model bazında ayrıştırılır: A1V01 / A2V02 / A3V02 / B1V01 oranları hesaplanır. Bu "profil vektörü" hem LP skorunda hem aylık model grubu dağılımında kullanılır.', color: 'sky' },
               { num: 4, title: 'Yıllık Pazar Payı', detail: '%50 bayinin 2025 satış payı + %50 TÜİK il bazlı araç stoku formülüyle her bayinin 10.000 araç içindeki yıllık hedef payı belirlenir. Yeni bayiler tamamen kapasite bazlı başlar.', color: 'amber' },
               { num: 5, title: 'Aylık Tahmin (Prophet)', detail: 'Hiyerarşik yapıda toplam pazar için 12 aylık projeksiyon üretilir, ardından bayi bazına indirgenir. Lansman yılı için ×1.11 boost uygulanır.', color: 'indigo' },
               { num: 6, title: 'LP Skoru (Cosine Similarity)', detail: 'Adım 3\'teki bayi profil vektörü ile o ayki envanter vektörü arasındaki cosine similarity hesaplanır. Bayinin sattığı modeller stoğa ne kadar benziyorsa LP skoru o kadar yüksek çıkar.', color: 'sky' },
