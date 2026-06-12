@@ -109,36 +109,6 @@
       "dealer": "DEALER 22",
       "code": "BA-3-EGE-04",
       "target": 6
-    },
-    {
-      "dealer": "DEALER 23",
-      "code": "BA-3-ICA-05",
-      "target": null
-    },
-    {
-      "dealer": "DEALER 24",
-      "code": "BA-3-MAR-09",
-      "target": null
-    },
-    {
-      "dealer": "DEALER 25",
-      "code": "BA-3-KAR-02",
-      "target": null
-    },
-    {
-      "dealer": "DEALER 26",
-      "code": "BA-3-MAR-10",
-      "target": null
-    },
-    {
-      "dealer": "DEALER 27",
-      "code": "BA-3-MAR-11",
-      "target": null
-    },
-    {
-      "dealer": "DEALER 28",
-      "code": "BA-3-MAR-12",
-      "target": null
     }
   ],
   "Şubat": [
@@ -196,11 +166,6 @@
       "dealer": "DEALER 11",
       "code": "BA-3-AKD-03",
       "target": 4
-    },
-    {
-      "dealer": "DEALER 12",
-      "code": "BA-3-MAR-04",
-      "target": 0
     },
     {
       "dealer": "DEALER 13",
@@ -273,11 +238,6 @@
       "target": 4
     },
     {
-      "dealer": "DEALER 27",
-      "code": "BA-3-MAR-11",
-      "target": 1
-    },
-    {
       "dealer": "DEALER 28",
       "code": "BA-3-MAR-12",
       "target": 4
@@ -338,11 +298,6 @@
       "dealer": "DEALER 11",
       "code": "BA-3-AKD-03",
       "target": 9
-    },
-    {
-      "dealer": "DEALER 12",
-      "code": "BA-3-MAR-04",
-      "target": 0
     },
     {
       "dealer": "DEALER 13",
@@ -415,11 +370,6 @@
       "target": 8
     },
     {
-      "dealer": "DEALER 27",
-      "code": "BA-3-MAR-11",
-      "target": 0
-    },
-    {
       "dealer": "DEALER 28",
       "code": "BA-3-MAR-12",
       "target": 8
@@ -480,11 +430,6 @@
       "dealer": "DEALER 11",
       "code": "BA-3-AKD-03",
       "target": 9
-    },
-    {
-      "dealer": "DEALER 12",
-      "code": "BA-3-MAR-04",
-      "target": 0
     },
     {
       "dealer": "DEALER 13",
@@ -557,11 +502,6 @@
       "target": 23
     },
     {
-      "dealer": "DEALER 27",
-      "code": "BA-3-MAR-11",
-      "target": 0
-    },
-    {
       "dealer": "DEALER 28",
       "code": "BA-3-MAR-12",
       "target": 23
@@ -604,11 +544,6 @@
       "target": 47
     },
     {
-      "dealer": "DEALER 8",
-      "code": "BA-3-MAR-03",
-      "target": 0
-    },
-    {
       "dealer": "DEALER 9",
       "code": "BA-3-ICA-02",
       "target": 13
@@ -622,11 +557,6 @@
       "dealer": "DEALER 11",
       "code": "BA-3-AKD-03",
       "target": 11
-    },
-    {
-      "dealer": "DEALER 12",
-      "code": "BA-3-MAR-04",
-      "target": 0
     },
     {
       "dealer": "DEALER 13",
