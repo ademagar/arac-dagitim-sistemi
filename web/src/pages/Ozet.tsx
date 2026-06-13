@@ -120,7 +120,7 @@ export default function Ozet() {
             <AkademikBadge label="Assortment Optimization" />
           </div>
           <h1 className="text-3xl font-black text-white leading-tight mb-3">
-            Otomotiv Bayi Araç Dağıtım Sistemi
+            Otomotiv Bayi Satış Destek Sistemi
           </h1>
           <p className="text-white text-base leading-relaxed max-w-3xl">
             Bir otomotiv markasının SUV segmentindeki araçlarını, 28 bayiye adil ve veri odaklı biçimde

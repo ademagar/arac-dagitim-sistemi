@@ -1,4 +1,4 @@
-"""Araç Dağıtım Sistemi — Ana Sayfa."""
+"""Satış Destek Sistemi — Ana Sayfa."""
 
 from pathlib import Path
 
@@ -6,7 +6,7 @@ import pandas as pd
 import streamlit as st
 
 st.set_page_config(
-    page_title="Araç Dağıtım Sistemi",
+    page_title="Satış Destek Sistemi",
     page_icon="🚗",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -84,7 +84,7 @@ col_logo, col_title = st.columns([1, 8])
 with col_logo:
     st.markdown("## 🚗")
 with col_title:
-    st.markdown("# Araç Dağıtım Sistemi")
+    st.markdown("# Satış Destek Sistemi")
     st.caption("Otomotiv Bayi Araç Dağıtım Optimizasyon Platformu · Ocak 2026")
 
 st.divider()

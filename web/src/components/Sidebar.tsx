@@ -19,7 +19,7 @@ export default function Sidebar() {
         <div className="flex items-center gap-2">
           <TrendingUp className="text-blue-400" size={22} />
           <div>
-            <p className="text-white font-bold text-sm leading-tight">Araç Dağıtım</p>
+            <p className="text-white font-bold text-sm leading-tight">Satış Destek</p>
             <p className="text-slate-400 text-xs">Sistemi</p>
           </div>
         </div>
