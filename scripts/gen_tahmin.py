@@ -40,10 +40,19 @@ AKTIFLIK_FILE = DATA_RAW / "Bayi-Aktiflik-Durumu.csv"
 # ---------------------------------------------------------------------------
 LANSMAN_AY = 3        # Mart lansmanı
 LANSMAN_BOOST = 1.11  # Mart+ çarpanı — B seg Mart 2024/2025 restore analizi bazlı
-LANSMAN_MODEL = "B1"  # Yeni versiyon lansmanı yapılacak model
+LANSMAN_MODEL = "B1"  # Yeni versiyon lansmanı yapılacak model (CSV'deki kısa ad)
 
 # B Segmenti tüm versiyonları lansmandan yararlanır (B1 yeni versiyon + B2 yan etki)
 LANSMAN_SEGMENT: frozenset[str] = frozenset({"B1", "B2"})
+
+# CSV'deki kısa model adından → JSON çıktısında kullanılacak versiyon koduna eşleşme
+MODEL_VERSION_RENAME: dict[str, str] = {
+    "A1": "A1V01",
+    "A2": "A2V02",
+    "A3": "A3V02",
+    "B1": "B1V01",
+    "B2": "B2V01",
+}
 
 # B Segmenti model mix boost — aya göre: lansman ayı peak, sonra kademeli normalize
 # Veri: tarihsel B payı Mart'ta zaten %50, H2'de %13-27 → yeni versiyon bunu yukarı çeker
@@ -1442,6 +1451,20 @@ def _build_veri_kaynaklari() -> list[dict]:
 # Ana akış
 # ---------------------------------------------------------------------------
 
+
+def _rename_model_keys(obj: object) -> object:
+    """JSON çıktısındaki kısa model adlarını (A1, A2…) versiyon kodlarına (A1V01, A2V02…) dönüştürür."""
+    if isinstance(obj, dict):
+        return {MODEL_VERSION_RENAME.get(k, k): _rename_model_keys(v) for k, v in obj.items()}
+    if isinstance(obj, list):
+        return [_rename_model_keys(i) for i in obj]
+    if isinstance(obj, str):
+        return MODEL_VERSION_RENAME.get(obj, obj)
+    return obj
+
+
+# ---------------------------------------------------------------------------
+
 def main() -> None:
     print("Veri yükleniyor...")
     df = load_sales()
@@ -1573,6 +1596,8 @@ def main() -> None:
         },
         "bayi_aylik_hedefler": bayi_hedefler,
     }
+
+    cikti = _rename_model_keys(cikti)
 
     OUT_JSON.parent.mkdir(parents=True, exist_ok=True)
     with OUT_JSON.open("w", encoding="utf-8") as f:

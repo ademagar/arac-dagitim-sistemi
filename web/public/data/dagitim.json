@@ -7,463 +7,463 @@
   "allocation": [
     {
       "dealer": "DEALER 1",
-      "model": "A1",
+      "model": "A1V01",
       "color": "Model target mix",
       "quantity": 1
     },
     {
       "dealer": "DEALER 1",
-      "model": "A2",
+      "model": "A2V02",
       "color": "Model target mix",
       "quantity": 20
     },
     {
       "dealer": "DEALER 1",
-      "model": "A3",
+      "model": "A3V02",
       "color": "Model target mix",
       "quantity": 6
     },
     {
       "dealer": "DEALER 1",
-      "model": "B1",
+      "model": "B1V01",
       "color": "Model target mix",
       "quantity": 13
     },
     {
       "dealer": "DEALER 2",
-      "model": "A1",
+      "model": "A1V01",
       "color": "Model target mix",
       "quantity": 1
     },
     {
       "dealer": "DEALER 2",
-      "model": "A2",
+      "model": "A2V02",
       "color": "Model target mix",
       "quantity": 11
     },
     {
       "dealer": "DEALER 2",
-      "model": "A3",
+      "model": "A3V02",
       "color": "Model target mix",
       "quantity": 5
     },
     {
       "dealer": "DEALER 2",
-      "model": "B1",
+      "model": "B1V01",
       "color": "Model target mix",
       "quantity": 5
     },
     {
       "dealer": "DEALER 3",
-      "model": "A2",
+      "model": "A2V02",
       "color": "Model target mix",
       "quantity": 8
     },
     {
       "dealer": "DEALER 3",
-      "model": "A3",
+      "model": "A3V02",
       "color": "Model target mix",
       "quantity": 4
     },
     {
       "dealer": "DEALER 3",
-      "model": "B1",
+      "model": "B1V01",
       "color": "Model target mix",
       "quantity": 6
     },
     {
       "dealer": "DEALER 4",
-      "model": "A2",
+      "model": "A2V02",
       "color": "Model target mix",
       "quantity": 6
     },
     {
       "dealer": "DEALER 4",
-      "model": "A3",
+      "model": "A3V02",
       "color": "Model target mix",
       "quantity": 3
     },
     {
       "dealer": "DEALER 4",
-      "model": "B1",
+      "model": "B1V01",
       "color": "Model target mix",
       "quantity": 7
     },
     {
       "dealer": "DEALER 5",
-      "model": "A2",
+      "model": "A2V02",
       "color": "Model target mix",
       "quantity": 9
     },
     {
       "dealer": "DEALER 5",
-      "model": "A3",
+      "model": "A3V02",
       "color": "Model target mix",
       "quantity": 2
     },
     {
       "dealer": "DEALER 5",
-      "model": "B1",
+      "model": "B1V01",
       "color": "Model target mix",
       "quantity": 8
     },
     {
       "dealer": "DEALER 6",
-      "model": "A1",
+      "model": "A1V01",
       "color": "Model target mix",
       "quantity": 1
     },
     {
       "dealer": "DEALER 6",
-      "model": "A2",
+      "model": "A2V02",
       "color": "Model target mix",
       "quantity": 11
     },
     {
       "dealer": "DEALER 6",
-      "model": "A3",
+      "model": "A3V02",
       "color": "Model target mix",
       "quantity": 4
     },
     {
       "dealer": "DEALER 6",
-      "model": "B1",
+      "model": "B1V01",
       "color": "Model target mix",
       "quantity": 10
     },
     {
       "dealer": "DEALER 7",
-      "model": "A2",
+      "model": "A2V02",
       "color": "Model target mix",
       "quantity": 16
     },
     {
       "dealer": "DEALER 7",
-      "model": "A3",
+      "model": "A3V02",
       "color": "Model target mix",
       "quantity": 4
     },
     {
       "dealer": "DEALER 7",
-      "model": "B1",
+      "model": "B1V01",
       "color": "Model target mix",
       "quantity": 12
     },
     {
       "dealer": "DEALER 8",
-      "model": "A2",
+      "model": "A2V02",
       "color": "Model target mix",
       "quantity": 6
     },
     {
       "dealer": "DEALER 8",
-      "model": "A3",
+      "model": "A3V02",
       "color": "Model target mix",
       "quantity": 2
     },
     {
       "dealer": "DEALER 8",
-      "model": "B1",
+      "model": "B1V01",
       "color": "Model target mix",
       "quantity": 4
     },
     {
       "dealer": "DEALER 9",
-      "model": "A2",
+      "model": "A2V02",
       "color": "Model target mix",
       "quantity": 5
     },
     {
       "dealer": "DEALER 9",
-      "model": "A3",
+      "model": "A3V02",
       "color": "Model target mix",
       "quantity": 2
     },
     {
       "dealer": "DEALER 9",
-      "model": "B1",
+      "model": "B1V01",
       "color": "Model target mix",
       "quantity": 2
     },
     {
       "dealer": "DEALER 10",
-      "model": "A2",
+      "model": "A2V02",
       "color": "Model target mix",
       "quantity": 10
     },
     {
       "dealer": "DEALER 10",
-      "model": "A3",
+      "model": "A3V02",
       "color": "Model target mix",
       "quantity": 2
     },
     {
       "dealer": "DEALER 10",
-      "model": "B1",
+      "model": "B1V01",
       "color": "Model target mix",
       "quantity": 3
     },
     {
       "dealer": "DEALER 11",
-      "model": "A2",
+      "model": "A2V02",
       "color": "Model target mix",
       "quantity": 4
     },
     {
       "dealer": "DEALER 11",
-      "model": "A3",
+      "model": "A3V02",
       "color": "Model target mix",
       "quantity": 2
     },
     {
       "dealer": "DEALER 11",
-      "model": "B1",
+      "model": "B1V01",
       "color": "Model target mix",
       "quantity": 2
     },
     {
       "dealer": "DEALER 12",
-      "model": "A1",
+      "model": "A1V01",
       "color": "Model target mix",
       "quantity": 1
     },
     {
       "dealer": "DEALER 12",
-      "model": "A2",
+      "model": "A2V02",
       "color": "Model target mix",
       "quantity": 8
     },
     {
       "dealer": "DEALER 12",
-      "model": "A3",
+      "model": "A3V02",
       "color": "Model target mix",
       "quantity": 2
     },
     {
       "dealer": "DEALER 12",
-      "model": "B1",
+      "model": "B1V01",
       "color": "Model target mix",
       "quantity": 5
     },
     {
       "dealer": "DEALER 13",
-      "model": "A1",
+      "model": "A1V01",
       "color": "Model target mix",
       "quantity": 1
     },
     {
       "dealer": "DEALER 13",
-      "model": "A2",
+      "model": "A2V02",
       "color": "Model target mix",
       "quantity": 13
     },
     {
       "dealer": "DEALER 13",
-      "model": "A3",
+      "model": "A3V02",
       "color": "Model target mix",
       "quantity": 4
     },
     {
       "dealer": "DEALER 13",
-      "model": "B1",
+      "model": "B1V01",
       "color": "Model target mix",
       "quantity": 8
     },
     {
       "dealer": "DEALER 14",
-      "model": "A1",
+      "model": "A1V01",
       "color": "Model target mix",
       "quantity": 1
     },
     {
       "dealer": "DEALER 14",
-      "model": "A2",
+      "model": "A2V02",
       "color": "Model target mix",
       "quantity": 16
     },
     {
       "dealer": "DEALER 14",
-      "model": "A3",
+      "model": "A3V02",
       "color": "Model target mix",
       "quantity": 6
     },
     {
       "dealer": "DEALER 14",
-      "model": "B1",
+      "model": "B1V01",
       "color": "Model target mix",
       "quantity": 7
     },
     {
       "dealer": "DEALER 15",
-      "model": "A1",
+      "model": "A1V01",
       "color": "Model target mix",
       "quantity": 1
     },
     {
       "dealer": "DEALER 15",
-      "model": "A2",
+      "model": "A2V02",
       "color": "Model target mix",
       "quantity": 15
     },
     {
       "dealer": "DEALER 15",
-      "model": "A3",
+      "model": "A3V02",
       "color": "Model target mix",
       "quantity": 7
     },
     {
       "dealer": "DEALER 15",
-      "model": "B1",
+      "model": "B1V01",
       "color": "Model target mix",
       "quantity": 9
     },
     {
       "dealer": "DEALER 16",
-      "model": "A1",
+      "model": "A1V01",
       "color": "Model target mix",
       "quantity": 1
     },
     {
       "dealer": "DEALER 16",
-      "model": "A2",
+      "model": "A2V02",
       "color": "Model target mix",
       "quantity": 10
     },
     {
       "dealer": "DEALER 16",
-      "model": "A3",
+      "model": "A3V02",
       "color": "Model target mix",
       "quantity": 4
     },
     {
       "dealer": "DEALER 16",
-      "model": "B1",
+      "model": "B1V01",
       "color": "Model target mix",
       "quantity": 9
     },
     {
       "dealer": "DEALER 17",
-      "model": "A1",
+      "model": "A1V01",
       "color": "Model target mix",
       "quantity": 1
     },
     {
       "dealer": "DEALER 17",
-      "model": "A2",
+      "model": "A2V02",
       "color": "Model target mix",
       "quantity": 26
     },
     {
       "dealer": "DEALER 17",
-      "model": "A3",
+      "model": "A3V02",
       "color": "Model target mix",
       "quantity": 5
     },
     {
       "dealer": "DEALER 17",
-      "model": "B1",
+      "model": "B1V01",
       "color": "Model target mix",
       "quantity": 8
     },
     {
       "dealer": "DEALER 18",
-      "model": "A1",
+      "model": "A1V01",
       "color": "Model target mix",
       "quantity": 1
     },
     {
       "dealer": "DEALER 18",
-      "model": "A2",
+      "model": "A2V02",
       "color": "Model target mix",
       "quantity": 12
     },
     {
       "dealer": "DEALER 18",
-      "model": "A3",
+      "model": "A3V02",
       "color": "Model target mix",
       "quantity": 3
     },
     {
       "dealer": "DEALER 18",
-      "model": "B1",
+      "model": "B1V01",
       "color": "Model target mix",
       "quantity": 8
     },
     {
       "dealer": "DEALER 19",
-      "model": "A2",
+      "model": "A2V02",
       "color": "Model target mix",
       "quantity": 7
     },
     {
       "dealer": "DEALER 19",
-      "model": "A3",
+      "model": "A3V02",
       "color": "Model target mix",
       "quantity": 4
     },
     {
       "dealer": "DEALER 19",
-      "model": "B1",
+      "model": "B1V01",
       "color": "Model target mix",
       "quantity": 7
     },
     {
       "dealer": "DEALER 20",
-      "model": "A1",
+      "model": "A1V01",
       "color": "Model target mix",
       "quantity": 1
     },
     {
       "dealer": "DEALER 20",
-      "model": "A2",
+      "model": "A2V02",
       "color": "Model target mix",
       "quantity": 6
     },
     {
       "dealer": "DEALER 20",
-      "model": "A3",
+      "model": "A3V02",
       "color": "Model target mix",
       "quantity": 1
     },
     {
       "dealer": "DEALER 20",
-      "model": "B1",
+      "model": "B1V01",
       "color": "Model target mix",
       "quantity": 2
     },
     {
       "dealer": "DEALER 21",
-      "model": "A2",
+      "model": "A2V02",
       "color": "Model target mix",
       "quantity": 8
     },
     {
       "dealer": "DEALER 21",
-      "model": "A3",
+      "model": "A3V02",
       "color": "Model target mix",
       "quantity": 2
     },
     {
       "dealer": "DEALER 21",
-      "model": "B1",
+      "model": "B1V01",
       "color": "Model target mix",
       "quantity": 3
     },
     {
       "dealer": "DEALER 22",
-      "model": "A2",
+      "model": "A2V02",
       "color": "Model target mix",
       "quantity": 5
     },
     {
       "dealer": "DEALER 22",
-      "model": "A3",
+      "model": "A3V02",
       "color": "Model target mix",
       "quantity": 3
     },
     {
       "dealer": "DEALER 22",
-      "model": "B1",
+      "model": "B1V01",
       "color": "Model target mix",
       "quantity": 4
     }
@@ -804,7 +804,7 @@
   ],
   "inventory": [
     {
-      "model": "A1",
+      "model": "A1V01",
       "color": "All colors",
       "total": 35,
       "used": 11,
@@ -812,7 +812,7 @@
       "usage_rate": 31.4
     },
     {
-      "model": "A2",
+      "model": "A2V02",
       "color": "All colors",
       "total": 291,
       "used": 232,
@@ -820,7 +820,7 @@
       "usage_rate": 79.7
     },
     {
-      "model": "A3",
+      "model": "A3V02",
       "color": "All colors",
       "total": 97,
       "used": 77,
@@ -828,7 +828,7 @@
       "usage_rate": 79.4
     },
     {
-      "model": "B1",
+      "model": "B1V01",
       "color": "All colors",
       "total": 180,
       "used": 142,

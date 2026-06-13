@@ -785,11 +785,11 @@ function AralikTab({ data }: { data: AralikTahmin }) {
 // ---------------------------------------------------------------------------
 
 const MODEL_BG: Record<string, string> = {
-  A1: 'bg-violet-100 text-violet-800',
-  A2: 'bg-blue-100 text-blue-800',
-  A3: 'bg-sky-100 text-sky-800',
-  B1: 'bg-amber-100 text-amber-800',
-  B2: 'bg-orange-100 text-orange-800',
+  A1V01: 'bg-violet-100 text-violet-800',
+  A2V02: 'bg-blue-100 text-blue-800',
+  A3V02: 'bg-sky-100 text-sky-800',
+  B1V01: 'bg-amber-100 text-amber-800',
+  B2V01: 'bg-orange-100 text-orange-800',
   C1: 'bg-rose-100 text-rose-800',
   D1: 'bg-slate-100 text-slate-600',
   'Diğer': 'bg-slate-100 text-slate-500',
@@ -857,7 +857,7 @@ function AylikModelTablosu({
           const info = modelAylik[0]?.model_dagilim.find(md => md.model === m)
           return (
             <div key={m} className={`px-2 py-1 rounded-lg text-xs font-medium flex items-center gap-1.5 ${MODEL_BG[m] ?? 'bg-slate-100 text-slate-600'}`}>
-              {(m === 'B1' || m === 'B2') && <span className="text-xs">🚀</span>}
+              {(m === 'B1V01' || m === 'B2V01') && <span className="text-xs">🚀</span>}
               <span className="font-bold">{m}</span>
               {info?.aciklama && <span className="opacity-70">{info.aciklama}</span>}
               <span className="font-bold">— {(modelTotals[m] || 0).toLocaleString('tr')} araç/yıl</span>
@@ -878,7 +878,7 @@ function AylikModelTablosu({
               </th>
               {sortedModels.map(m => (
                 <th key={m} className={`text-right py-3 px-3 font-semibold min-w-[75px] ${
-                  (m === 'B1' || m === 'B2') ? 'bg-amber-900' : ''
+                  (m === 'B1V01' || m === 'B2V01') ? 'bg-amber-900' : ''
                 }`}>
                   {m}
                 </th>
@@ -916,7 +916,7 @@ function AylikModelTablosu({
                   </td>
                   {sortedModels.map(m => {
                     const adet = getAdet(ay, m)
-                    const isLansmanModelCol = m === 'B1' || m === 'B2'
+                    const isLansmanModelCol = m === 'B1V01' || m === 'B2V01'
                     return (
                       <td key={m} className={`py-2.5 px-3 text-right font-mono ${
                         isLansmanModelCol && adet > 0 ? 'text-violet-700 font-semibold' :
@@ -938,7 +938,7 @@ function AylikModelTablosu({
               </td>
               {sortedModels.map(m => (
                 <td key={m} className={`py-3 px-3 text-right font-mono ${
-                  (m === 'B1' || m === 'B2') ? 'text-amber-700' : 'text-slate-700'
+                  (m === 'B1V01' || m === 'B2V01') ? 'text-amber-700' : 'text-slate-700'
                 }`}>
                   {(modelTotals[m] || 0).toLocaleString('tr')}
                   <span className="block text-xs font-normal text-slate-400">
@@ -1380,8 +1380,8 @@ function Plan2026Tab({ data }: { data: Plan2026 }) {
 // ---------------------------------------------------------------------------
 
 const SEGMENT_MODELLER: Record<string, string[]> = {
-  A: ['A1', 'A2', 'A3'],
-  B: ['B1'],
+  A: ['A1V01', 'A2V02', 'A3V02'],
+  B: ['B1V01'],
 }
 
 const SEGMENT_RENK: Record<string, string> = {
@@ -1410,7 +1410,7 @@ function BayiHedefleriTab({ data }: {
   const bayiHedef: BayiHedef | null = senaryoData[secilenBayi] ?? null
 
   // 2026 aktif modeller — C1, D1, B2 üretimden kalktı; A1V01 aktif
-  const BILINEN_MODELLER = ['A1', 'A2', 'A3', 'B1']
+  const BILINEN_MODELLER = ['A1V01', 'A2V02', 'A3V02', 'B1V01']
   const LANSMAN_AY = 3
 
   return (
@@ -1585,7 +1585,7 @@ function BayiHedefleriTab({ data }: {
                                 isLastInSeg ? 'border-r border-slate-200' : ''
                               } ${
                                 isNoSale ? 'text-slate-300' :
-                                m === 'B1' ? 'text-amber-700 font-semibold' :
+                                m === 'B1V01' ? 'text-amber-700 font-semibold' :
                                 m.startsWith('A') ? 'text-blue-700' :
                                 m === 'C1' ? 'text-rose-700' :
                                 'text-slate-600'

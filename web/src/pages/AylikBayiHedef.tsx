@@ -107,10 +107,11 @@ const TIER_ACIKLAMA = {
 }
 
 const MODEL_RENK: Record<string, string> = {
-  A2: 'bg-blue-100 text-blue-800',
-  A3: 'bg-sky-100 text-sky-800',
-  B1: 'bg-amber-100 text-amber-800',
-  B2: 'bg-orange-100 text-orange-800',
+  A1V01: 'bg-violet-100 text-violet-800',
+  A2V02: 'bg-blue-100 text-blue-800',
+  A3V02: 'bg-sky-100 text-sky-800',
+  B1V01: 'bg-amber-100 text-amber-800',
+  B2V01: 'bg-orange-100 text-orange-800',
 }
 
 // ---------------------------------------------------------------------------
@@ -143,7 +144,7 @@ export default function AylikBayiHedef() {
   const senaryoData = bayi_aylik_hedefler.senaryo_10000
   const bayiler = Object.keys(senaryoData).sort((a, b) => parseInt(a.split(' ')[1]) - parseInt(b.split(' ')[1]))
   const bayiHedef = senaryoData[secili]
-  const BILINEN = ['A2', 'A3', 'B1', 'B2']
+  const BILINEN = ['A1V01', 'A2V02', 'A3V02', 'B1V01']
 
   return (
     <div className="max-w-6xl mx-auto space-y-14">
@@ -506,7 +507,7 @@ Bu yaklaşım collaborative filtering mantığına benzer: benzer profilden bilg
                   <th className="sticky left-0 bg-slate-700 z-10" />
                   <th className="border-r border-slate-600" />
                   {BILINEN.map(m => (
-                    <th key={m} className={`py-2 px-3 text-right font-semibold min-w-[65px] ${m === 'A3' ? 'border-r border-slate-600' : ''}`}>
+                    <th key={m} className={`py-2 px-3 text-right font-semibold min-w-[65px] ${m === 'A3V02' ? 'border-r border-slate-600' : ''}`}>
                       <span className={`px-1.5 py-0.5 rounded ${MODEL_RENK[m] ?? 'bg-slate-600 text-white'}`}>{m}</span>
                     </th>
                   ))}
@@ -533,7 +534,7 @@ Bu yaklaşım collaborative filtering mantığına benzer: benzer profilden bilg
                       </td>
                       {BILINEN.map(m => {
                         const adet = row.modeller[m] ?? 0
-                        const isLastA = m === 'A3'
+                        const isLastA = m === 'A3V02'
                         return (
                           <td key={m}
                             className={`py-2.5 px-3 text-right font-mono ${isLastA ? 'border-r border-slate-200' : ''} ${
@@ -558,7 +559,7 @@ Bu yaklaşım collaborative filtering mantığına benzer: benzer profilden bilg
                   </td>
                   {BILINEN.map(m => {
                     const adet = bayiHedef.yillik_modeller[m] ?? 0
-                    const isLastA = m === 'A3'
+                    const isLastA = m === 'A3V02'
                     return (
                       <td key={m} className={`py-3 px-3 text-right font-mono ${isLastA ? 'border-r border-slate-300' : ''} ${adet === 0 ? 'text-slate-300' : 'text-slate-700'}`}>
                         {adet > 0 ? adet.toLocaleString('tr') : '—'}
