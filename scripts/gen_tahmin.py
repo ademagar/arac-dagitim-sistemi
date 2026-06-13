@@ -33,6 +33,7 @@ SALES_FILE = DATA_RAW / "2024&2025-ALL-SALES-CSV-FILE.csv"
 SI_FILE = SEASONALITY_DIR / "04_FINAL_si.csv"
 DEALER_TARGETS_FILE = DATA_RAW / "dealer_target_january26.csv"
 BAYI_KOD_FILE = DATA_RAW / "Bayi-Adi-Kodu.csv"
+AKTIFLIK_FILE = DATA_RAW / "Bayi-Aktiflik-Durumu.csv"
 
 # ---------------------------------------------------------------------------
 # Sabitler
@@ -437,6 +438,24 @@ def compute_bayi_aylik_model_hedefleri(
         dealer_tiers.keys(),
         key=lambda x: int(x.split()[-1]) if x.split()[-1].isdigit() else 99,
     )
+
+    # Bayi-ay aktiflik haritası: dealer -> {ay_no -> bool}
+    _AKTIFLIK_AY = {"Oca.26": 1, "Şub.26": 2, "Mar.26": 3, "Nis.26": 4, "May.26": 5}
+    dealer_ay_aktif: dict[str, dict[int, bool]] = {}
+    if AKTIFLIK_FILE.exists():
+        ak_df = pd.read_csv(AKTIFLIK_FILE, sep=";", encoding="utf-8-sig")
+        ak_df.columns = ak_df.columns.str.strip()
+        name_col = ak_df.columns[0]
+        for _, row in ak_df.iterrows():
+            dealer_name = str(row[name_col]).strip()
+            dealer_ay_aktif[dealer_name] = {}
+            for col, ay_no in _AKTIFLIK_AY.items():
+                if col in ak_df.columns:
+                    dealer_ay_aktif[dealer_name][ay_no] = str(row[col]).strip() == "AKTİF"
+            # Aylar 6-12: son bilinen durumu devam ettir (KAPANDI ise kapalı kalır)
+            last_status = dealer_ay_aktif[dealer_name].get(5, True)
+            for ay_no in range(6, 13):
+                dealer_ay_aktif[dealer_name][ay_no] = last_status
     tarihsel_bayiler = set(last12["Dealer Name"].unique().tolist())
     yeni_bayiler = set(aktif_bayiler) - tarihsel_bayiler
 
@@ -522,6 +541,16 @@ def compute_bayi_aylik_model_hedefleri(
 
             for ay in range(1, 13):
                 ay_modeller: dict[str, int] = {}
+
+                # Bayi bu ayda aktif değilse hedef = 0
+                if dealer in dealer_ay_aktif and not dealer_ay_aktif[dealer].get(ay, True):
+                    aylik_liste.append({
+                        "ay": ay,
+                        "ay_adi": AY_ADLARI[ay - 1],
+                        "toplam": 0,
+                        "modeller": {m: 0 for m in bilinen_modeller},
+                    })
+                    continue
 
                 if pazar_paylari and target_pay is not None:
                     # Hibrit: bayinin bu aydaki hacmi = ay_toplam × target_pay
