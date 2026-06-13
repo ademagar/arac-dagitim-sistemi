@@ -1,3331 +1,627 @@
 {
   "month": "Ocak 2026",
-  "total_inventory": 741,
-  "total_allocated": 741,
+  "scenario": "10000",
+  "total_inventory": 603,
+  "total_target": 462,
+  "total_allocated": 462,
   "allocation": [
     {
       "dealer": "DEALER 1",
       "model": "A1",
-      "color": "Grey3",
-      "quantity": 1,
-      "composite_score": 0.538,
-      "p_score": 0.806,
-      "s_score": 0.326,
-      "h_score": 0.413,
-      "lp_score": 0.538
+      "color": "Model target mix",
+      "quantity": 1
     },
     {
       "dealer": "DEALER 1",
       "model": "A2",
-      "color": "Grey3",
-      "quantity": 4,
-      "composite_score": 0.538,
-      "p_score": 0.806,
-      "s_score": 0.326,
-      "h_score": 0.413,
-      "lp_score": 0.538
-    },
-    {
-      "dealer": "DEALER 1",
-      "model": "A2",
-      "color": "Grey2",
-      "quantity": 3,
-      "composite_score": 0.538,
-      "p_score": 0.806,
-      "s_score": 0.326,
-      "h_score": 0.413,
-      "lp_score": 0.538
-    },
-    {
-      "dealer": "DEALER 1",
-      "model": "A2",
-      "color": "Black1",
-      "quantity": 3,
-      "composite_score": 0.538,
-      "p_score": 0.806,
-      "s_score": 0.326,
-      "h_score": 0.413,
-      "lp_score": 0.538
-    },
-    {
-      "dealer": "DEALER 1",
-      "model": "A2",
-      "color": "Black2",
-      "quantity": 3,
-      "composite_score": 0.538,
-      "p_score": 0.806,
-      "s_score": 0.326,
-      "h_score": 0.413,
-      "lp_score": 0.538
+      "color": "Model target mix",
+      "quantity": 20
     },
     {
       "dealer": "DEALER 1",
       "model": "A3",
-      "color": "Grey3",
-      "quantity": 2,
-      "composite_score": 0.538,
-      "p_score": 0.806,
-      "s_score": 0.326,
-      "h_score": 0.413,
-      "lp_score": 0.538
-    },
-    {
-      "dealer": "DEALER 1",
-      "model": "A3",
-      "color": "Grey2",
-      "quantity": 1,
-      "composite_score": 0.538,
-      "p_score": 0.806,
-      "s_score": 0.326,
-      "h_score": 0.413,
-      "lp_score": 0.538
-    },
-    {
-      "dealer": "DEALER 1",
-      "model": "A3",
-      "color": "Black1",
-      "quantity": 1,
-      "composite_score": 0.538,
-      "p_score": 0.806,
-      "s_score": 0.326,
-      "h_score": 0.413,
-      "lp_score": 0.538
-    },
-    {
-      "dealer": "DEALER 1",
-      "model": "A3",
-      "color": "Black2",
-      "quantity": 1,
-      "composite_score": 0.538,
-      "p_score": 0.806,
-      "s_score": 0.326,
-      "h_score": 0.413,
-      "lp_score": 0.538
+      "color": "Model target mix",
+      "quantity": 6
     },
     {
       "dealer": "DEALER 1",
       "model": "B1",
-      "color": "Grey3",
-      "quantity": 2,
-      "composite_score": 0.538,
-      "p_score": 0.806,
-      "s_score": 0.326,
-      "h_score": 0.413,
-      "lp_score": 0.538
-    },
-    {
-      "dealer": "DEALER 1",
-      "model": "B1",
-      "color": "Grey2",
-      "quantity": 2,
-      "composite_score": 0.538,
-      "p_score": 0.806,
-      "s_score": 0.326,
-      "h_score": 0.413,
-      "lp_score": 0.538
-    },
-    {
-      "dealer": "DEALER 1",
-      "model": "B1",
-      "color": "Black1",
-      "quantity": 2,
-      "composite_score": 0.538,
-      "p_score": 0.806,
-      "s_score": 0.326,
-      "h_score": 0.413,
-      "lp_score": 0.538
-    },
-    {
-      "dealer": "DEALER 1",
-      "model": "B1",
-      "color": "Black2",
-      "quantity": 2,
-      "composite_score": 0.538,
-      "p_score": 0.806,
-      "s_score": 0.326,
-      "h_score": 0.413,
-      "lp_score": 0.538
+      "color": "Model target mix",
+      "quantity": 13
     },
     {
       "dealer": "DEALER 2",
       "model": "A1",
-      "color": "Grey3",
-      "quantity": 1,
-      "composite_score": 0.616,
-      "p_score": 0.639,
-      "s_score": 0.223,
-      "h_score": 0.768,
-      "lp_score": 0.738
+      "color": "Model target mix",
+      "quantity": 1
     },
     {
       "dealer": "DEALER 2",
       "model": "A2",
-      "color": "Grey3",
-      "quantity": 4,
-      "composite_score": 0.616,
-      "p_score": 0.639,
-      "s_score": 0.223,
-      "h_score": 0.768,
-      "lp_score": 0.738
-    },
-    {
-      "dealer": "DEALER 2",
-      "model": "A2",
-      "color": "Grey2",
-      "quantity": 3,
-      "composite_score": 0.616,
-      "p_score": 0.639,
-      "s_score": 0.223,
-      "h_score": 0.768,
-      "lp_score": 0.738
-    },
-    {
-      "dealer": "DEALER 2",
-      "model": "A2",
-      "color": "Black1",
-      "quantity": 3,
-      "composite_score": 0.616,
-      "p_score": 0.639,
-      "s_score": 0.223,
-      "h_score": 0.768,
-      "lp_score": 0.738
-    },
-    {
-      "dealer": "DEALER 2",
-      "model": "A2",
-      "color": "Black2",
-      "quantity": 3,
-      "composite_score": 0.616,
-      "p_score": 0.639,
-      "s_score": 0.223,
-      "h_score": 0.768,
-      "lp_score": 0.738
+      "color": "Model target mix",
+      "quantity": 11
     },
     {
       "dealer": "DEALER 2",
       "model": "A3",
-      "color": "Grey3",
-      "quantity": 2,
-      "composite_score": 0.616,
-      "p_score": 0.639,
-      "s_score": 0.223,
-      "h_score": 0.768,
-      "lp_score": 0.738
-    },
-    {
-      "dealer": "DEALER 2",
-      "model": "A3",
-      "color": "Grey2",
-      "quantity": 2,
-      "composite_score": 0.616,
-      "p_score": 0.639,
-      "s_score": 0.223,
-      "h_score": 0.768,
-      "lp_score": 0.738
-    },
-    {
-      "dealer": "DEALER 2",
-      "model": "A3",
-      "color": "Black1",
-      "quantity": 2,
-      "composite_score": 0.616,
-      "p_score": 0.639,
-      "s_score": 0.223,
-      "h_score": 0.768,
-      "lp_score": 0.738
-    },
-    {
-      "dealer": "DEALER 2",
-      "model": "A3",
-      "color": "Black2",
-      "quantity": 2,
-      "composite_score": 0.616,
-      "p_score": 0.639,
-      "s_score": 0.223,
-      "h_score": 0.768,
-      "lp_score": 0.738
+      "color": "Model target mix",
+      "quantity": 5
     },
     {
       "dealer": "DEALER 2",
       "model": "B1",
-      "color": "Grey3",
-      "quantity": 3,
-      "composite_score": 0.616,
-      "p_score": 0.639,
-      "s_score": 0.223,
-      "h_score": 0.768,
-      "lp_score": 0.738
-    },
-    {
-      "dealer": "DEALER 2",
-      "model": "B1",
-      "color": "Grey2",
-      "quantity": 2,
-      "composite_score": 0.616,
-      "p_score": 0.639,
-      "s_score": 0.223,
-      "h_score": 0.768,
-      "lp_score": 0.738
-    },
-    {
-      "dealer": "DEALER 2",
-      "model": "B1",
-      "color": "Black1",
-      "quantity": 2,
-      "composite_score": 0.616,
-      "p_score": 0.639,
-      "s_score": 0.223,
-      "h_score": 0.768,
-      "lp_score": 0.738
-    },
-    {
-      "dealer": "DEALER 2",
-      "model": "B1",
-      "color": "Black2",
-      "quantity": 2,
-      "composite_score": 0.616,
-      "p_score": 0.639,
-      "s_score": 0.223,
-      "h_score": 0.768,
-      "lp_score": 0.738
-    },
-    {
-      "dealer": "DEALER 3",
-      "model": "A1",
-      "color": "Grey3",
-      "quantity": 1,
-      "composite_score": 0.637,
-      "p_score": 0.907,
-      "s_score": 0.539,
-      "h_score": 0.443,
-      "lp_score": 0.611
+      "color": "Model target mix",
+      "quantity": 5
     },
     {
       "dealer": "DEALER 3",
       "model": "A2",
-      "color": "Grey3",
-      "quantity": 5,
-      "composite_score": 0.637,
-      "p_score": 0.907,
-      "s_score": 0.539,
-      "h_score": 0.443,
-      "lp_score": 0.611
-    },
-    {
-      "dealer": "DEALER 3",
-      "model": "A2",
-      "color": "Grey2",
-      "quantity": 4,
-      "composite_score": 0.637,
-      "p_score": 0.907,
-      "s_score": 0.539,
-      "h_score": 0.443,
-      "lp_score": 0.611
-    },
-    {
-      "dealer": "DEALER 3",
-      "model": "A2",
-      "color": "Black1",
-      "quantity": 4,
-      "composite_score": 0.637,
-      "p_score": 0.907,
-      "s_score": 0.539,
-      "h_score": 0.443,
-      "lp_score": 0.611
-    },
-    {
-      "dealer": "DEALER 3",
-      "model": "A2",
-      "color": "Black2",
-      "quantity": 4,
-      "composite_score": 0.637,
-      "p_score": 0.907,
-      "s_score": 0.539,
-      "h_score": 0.443,
-      "lp_score": 0.611
+      "color": "Model target mix",
+      "quantity": 8
     },
     {
       "dealer": "DEALER 3",
       "model": "A3",
-      "color": "Grey3",
-      "quantity": 2,
-      "composite_score": 0.637,
-      "p_score": 0.907,
-      "s_score": 0.539,
-      "h_score": 0.443,
-      "lp_score": 0.611
-    },
-    {
-      "dealer": "DEALER 3",
-      "model": "A3",
-      "color": "Grey2",
-      "quantity": 2,
-      "composite_score": 0.637,
-      "p_score": 0.907,
-      "s_score": 0.539,
-      "h_score": 0.443,
-      "lp_score": 0.611
-    },
-    {
-      "dealer": "DEALER 3",
-      "model": "A3",
-      "color": "Black1",
-      "quantity": 2,
-      "composite_score": 0.637,
-      "p_score": 0.907,
-      "s_score": 0.539,
-      "h_score": 0.443,
-      "lp_score": 0.611
-    },
-    {
-      "dealer": "DEALER 3",
-      "model": "A3",
-      "color": "Black2",
-      "quantity": 2,
-      "composite_score": 0.637,
-      "p_score": 0.907,
-      "s_score": 0.539,
-      "h_score": 0.443,
-      "lp_score": 0.611
+      "color": "Model target mix",
+      "quantity": 4
     },
     {
       "dealer": "DEALER 3",
       "model": "B1",
-      "color": "Grey3",
-      "quantity": 3,
-      "composite_score": 0.637,
-      "p_score": 0.907,
-      "s_score": 0.539,
-      "h_score": 0.443,
-      "lp_score": 0.611
-    },
-    {
-      "dealer": "DEALER 3",
-      "model": "B1",
-      "color": "Grey2",
-      "quantity": 2,
-      "composite_score": 0.637,
-      "p_score": 0.907,
-      "s_score": 0.539,
-      "h_score": 0.443,
-      "lp_score": 0.611
-    },
-    {
-      "dealer": "DEALER 3",
-      "model": "B1",
-      "color": "Black1",
-      "quantity": 2,
-      "composite_score": 0.637,
-      "p_score": 0.907,
-      "s_score": 0.539,
-      "h_score": 0.443,
-      "lp_score": 0.611
-    },
-    {
-      "dealer": "DEALER 3",
-      "model": "B1",
-      "color": "Black2",
-      "quantity": 2,
-      "composite_score": 0.637,
-      "p_score": 0.907,
-      "s_score": 0.539,
-      "h_score": 0.443,
-      "lp_score": 0.611
-    },
-    {
-      "dealer": "DEALER 4",
-      "model": "A1",
-      "color": "Grey3",
-      "quantity": 1,
-      "composite_score": 0.524,
-      "p_score": 0.562,
-      "s_score": 0.267,
-      "h_score": 0.509,
-      "lp_score": 0.653
+      "color": "Model target mix",
+      "quantity": 6
     },
     {
       "dealer": "DEALER 4",
       "model": "A2",
-      "color": "Grey3",
-      "quantity": 4,
-      "composite_score": 0.524,
-      "p_score": 0.562,
-      "s_score": 0.267,
-      "h_score": 0.509,
-      "lp_score": 0.653
-    },
-    {
-      "dealer": "DEALER 4",
-      "model": "A2",
-      "color": "Grey2",
-      "quantity": 3,
-      "composite_score": 0.524,
-      "p_score": 0.562,
-      "s_score": 0.267,
-      "h_score": 0.509,
-      "lp_score": 0.653
-    },
-    {
-      "dealer": "DEALER 4",
-      "model": "A2",
-      "color": "Black1",
-      "quantity": 3,
-      "composite_score": 0.524,
-      "p_score": 0.562,
-      "s_score": 0.267,
-      "h_score": 0.509,
-      "lp_score": 0.653
-    },
-    {
-      "dealer": "DEALER 4",
-      "model": "A2",
-      "color": "Black2",
-      "quantity": 3,
-      "composite_score": 0.524,
-      "p_score": 0.562,
-      "s_score": 0.267,
-      "h_score": 0.509,
-      "lp_score": 0.653
+      "color": "Model target mix",
+      "quantity": 6
     },
     {
       "dealer": "DEALER 4",
       "model": "A3",
-      "color": "Grey3",
-      "quantity": 2,
-      "composite_score": 0.524,
-      "p_score": 0.562,
-      "s_score": 0.267,
-      "h_score": 0.509,
-      "lp_score": 0.653
-    },
-    {
-      "dealer": "DEALER 4",
-      "model": "A3",
-      "color": "Grey2",
-      "quantity": 2,
-      "composite_score": 0.524,
-      "p_score": 0.562,
-      "s_score": 0.267,
-      "h_score": 0.509,
-      "lp_score": 0.653
-    },
-    {
-      "dealer": "DEALER 4",
-      "model": "A3",
-      "color": "Black1",
-      "quantity": 2,
-      "composite_score": 0.524,
-      "p_score": 0.562,
-      "s_score": 0.267,
-      "h_score": 0.509,
-      "lp_score": 0.653
-    },
-    {
-      "dealer": "DEALER 4",
-      "model": "A3",
-      "color": "Black2",
-      "quantity": 2,
-      "composite_score": 0.524,
-      "p_score": 0.562,
-      "s_score": 0.267,
-      "h_score": 0.509,
-      "lp_score": 0.653
+      "color": "Model target mix",
+      "quantity": 3
     },
     {
       "dealer": "DEALER 4",
       "model": "B1",
-      "color": "Grey3",
-      "quantity": 3,
-      "composite_score": 0.524,
-      "p_score": 0.562,
-      "s_score": 0.267,
-      "h_score": 0.509,
-      "lp_score": 0.653
-    },
-    {
-      "dealer": "DEALER 4",
-      "model": "B1",
-      "color": "Grey2",
-      "quantity": 2,
-      "composite_score": 0.524,
-      "p_score": 0.562,
-      "s_score": 0.267,
-      "h_score": 0.509,
-      "lp_score": 0.653
-    },
-    {
-      "dealer": "DEALER 4",
-      "model": "B1",
-      "color": "Black1",
-      "quantity": 2,
-      "composite_score": 0.524,
-      "p_score": 0.562,
-      "s_score": 0.267,
-      "h_score": 0.509,
-      "lp_score": 0.653
-    },
-    {
-      "dealer": "DEALER 4",
-      "model": "B1",
-      "color": "Black2",
-      "quantity": 2,
-      "composite_score": 0.524,
-      "p_score": 0.562,
-      "s_score": 0.267,
-      "h_score": 0.509,
-      "lp_score": 0.653
-    },
-    {
-      "dealer": "DEALER 5",
-      "model": "A1",
-      "color": "Grey3",
-      "quantity": 1,
-      "composite_score": 0.525,
-      "p_score": 0.561,
-      "s_score": 0.156,
-      "h_score": 0.499,
-      "lp_score": 0.725
+      "color": "Model target mix",
+      "quantity": 7
     },
     {
       "dealer": "DEALER 5",
       "model": "A2",
-      "color": "Grey3",
-      "quantity": 4,
-      "composite_score": 0.525,
-      "p_score": 0.561,
-      "s_score": 0.156,
-      "h_score": 0.499,
-      "lp_score": 0.725
-    },
-    {
-      "dealer": "DEALER 5",
-      "model": "A2",
-      "color": "Grey2",
-      "quantity": 3,
-      "composite_score": 0.525,
-      "p_score": 0.561,
-      "s_score": 0.156,
-      "h_score": 0.499,
-      "lp_score": 0.725
-    },
-    {
-      "dealer": "DEALER 5",
-      "model": "A2",
-      "color": "Black1",
-      "quantity": 3,
-      "composite_score": 0.525,
-      "p_score": 0.561,
-      "s_score": 0.156,
-      "h_score": 0.499,
-      "lp_score": 0.725
-    },
-    {
-      "dealer": "DEALER 5",
-      "model": "A2",
-      "color": "Black2",
-      "quantity": 3,
-      "composite_score": 0.525,
-      "p_score": 0.561,
-      "s_score": 0.156,
-      "h_score": 0.499,
-      "lp_score": 0.725
+      "color": "Model target mix",
+      "quantity": 9
     },
     {
       "dealer": "DEALER 5",
       "model": "A3",
-      "color": "Grey3",
-      "quantity": 2,
-      "composite_score": 0.525,
-      "p_score": 0.561,
-      "s_score": 0.156,
-      "h_score": 0.499,
-      "lp_score": 0.725
-    },
-    {
-      "dealer": "DEALER 5",
-      "model": "A3",
-      "color": "Grey2",
-      "quantity": 2,
-      "composite_score": 0.525,
-      "p_score": 0.561,
-      "s_score": 0.156,
-      "h_score": 0.499,
-      "lp_score": 0.725
-    },
-    {
-      "dealer": "DEALER 5",
-      "model": "A3",
-      "color": "Black1",
-      "quantity": 2,
-      "composite_score": 0.525,
-      "p_score": 0.561,
-      "s_score": 0.156,
-      "h_score": 0.499,
-      "lp_score": 0.725
-    },
-    {
-      "dealer": "DEALER 5",
-      "model": "A3",
-      "color": "Black2",
-      "quantity": 2,
-      "composite_score": 0.525,
-      "p_score": 0.561,
-      "s_score": 0.156,
-      "h_score": 0.499,
-      "lp_score": 0.725
+      "color": "Model target mix",
+      "quantity": 2
     },
     {
       "dealer": "DEALER 5",
       "model": "B1",
-      "color": "Grey3",
-      "quantity": 2,
-      "composite_score": 0.525,
-      "p_score": 0.561,
-      "s_score": 0.156,
-      "h_score": 0.499,
-      "lp_score": 0.725
-    },
-    {
-      "dealer": "DEALER 5",
-      "model": "B1",
-      "color": "Grey2",
-      "quantity": 2,
-      "composite_score": 0.525,
-      "p_score": 0.561,
-      "s_score": 0.156,
-      "h_score": 0.499,
-      "lp_score": 0.725
-    },
-    {
-      "dealer": "DEALER 5",
-      "model": "B1",
-      "color": "Black1",
-      "quantity": 2,
-      "composite_score": 0.525,
-      "p_score": 0.561,
-      "s_score": 0.156,
-      "h_score": 0.499,
-      "lp_score": 0.725
-    },
-    {
-      "dealer": "DEALER 5",
-      "model": "B1",
-      "color": "Black2",
-      "quantity": 2,
-      "composite_score": 0.525,
-      "p_score": 0.561,
-      "s_score": 0.156,
-      "h_score": 0.499,
-      "lp_score": 0.725
+      "color": "Model target mix",
+      "quantity": 8
     },
     {
       "dealer": "DEALER 6",
       "model": "A1",
-      "color": "Grey3",
-      "quantity": 1,
-      "composite_score": 0.618,
-      "p_score": 0.768,
-      "s_score": 0.404,
-      "h_score": 0.51,
-      "lp_score": 0.695
+      "color": "Model target mix",
+      "quantity": 1
     },
     {
       "dealer": "DEALER 6",
       "model": "A2",
-      "color": "Grey3",
-      "quantity": 5,
-      "composite_score": 0.618,
-      "p_score": 0.768,
-      "s_score": 0.404,
-      "h_score": 0.51,
-      "lp_score": 0.695
-    },
-    {
-      "dealer": "DEALER 6",
-      "model": "A2",
-      "color": "Grey2",
-      "quantity": 4,
-      "composite_score": 0.618,
-      "p_score": 0.768,
-      "s_score": 0.404,
-      "h_score": 0.51,
-      "lp_score": 0.695
-    },
-    {
-      "dealer": "DEALER 6",
-      "model": "A2",
-      "color": "Black1",
-      "quantity": 4,
-      "composite_score": 0.618,
-      "p_score": 0.768,
-      "s_score": 0.404,
-      "h_score": 0.51,
-      "lp_score": 0.695
-    },
-    {
-      "dealer": "DEALER 6",
-      "model": "A2",
-      "color": "Black2",
-      "quantity": 4,
-      "composite_score": 0.618,
-      "p_score": 0.768,
-      "s_score": 0.404,
-      "h_score": 0.51,
-      "lp_score": 0.695
+      "color": "Model target mix",
+      "quantity": 11
     },
     {
       "dealer": "DEALER 6",
       "model": "A3",
-      "color": "Grey3",
-      "quantity": 3,
-      "composite_score": 0.618,
-      "p_score": 0.768,
-      "s_score": 0.404,
-      "h_score": 0.51,
-      "lp_score": 0.695
-    },
-    {
-      "dealer": "DEALER 6",
-      "model": "A3",
-      "color": "Grey2",
-      "quantity": 2,
-      "composite_score": 0.618,
-      "p_score": 0.768,
-      "s_score": 0.404,
-      "h_score": 0.51,
-      "lp_score": 0.695
-    },
-    {
-      "dealer": "DEALER 6",
-      "model": "A3",
-      "color": "Black1",
-      "quantity": 2,
-      "composite_score": 0.618,
-      "p_score": 0.768,
-      "s_score": 0.404,
-      "h_score": 0.51,
-      "lp_score": 0.695
-    },
-    {
-      "dealer": "DEALER 6",
-      "model": "A3",
-      "color": "Black2",
-      "quantity": 2,
-      "composite_score": 0.618,
-      "p_score": 0.768,
-      "s_score": 0.404,
-      "h_score": 0.51,
-      "lp_score": 0.695
+      "color": "Model target mix",
+      "quantity": 4
     },
     {
       "dealer": "DEALER 6",
       "model": "B1",
-      "color": "Grey3",
-      "quantity": 3,
-      "composite_score": 0.618,
-      "p_score": 0.768,
-      "s_score": 0.404,
-      "h_score": 0.51,
-      "lp_score": 0.695
-    },
-    {
-      "dealer": "DEALER 6",
-      "model": "B1",
-      "color": "Grey2",
-      "quantity": 3,
-      "composite_score": 0.618,
-      "p_score": 0.768,
-      "s_score": 0.404,
-      "h_score": 0.51,
-      "lp_score": 0.695
-    },
-    {
-      "dealer": "DEALER 6",
-      "model": "B1",
-      "color": "Black1",
-      "quantity": 3,
-      "composite_score": 0.618,
-      "p_score": 0.768,
-      "s_score": 0.404,
-      "h_score": 0.51,
-      "lp_score": 0.695
-    },
-    {
-      "dealer": "DEALER 6",
-      "model": "B1",
-      "color": "Black2",
-      "quantity": 2,
-      "composite_score": 0.618,
-      "p_score": 0.768,
-      "s_score": 0.404,
-      "h_score": 0.51,
-      "lp_score": 0.695
-    },
-    {
-      "dealer": "DEALER 7",
-      "model": "A1",
-      "color": "Grey3",
-      "quantity": 1,
-      "composite_score": 0.622,
-      "p_score": 0.874,
-      "s_score": 0.211,
-      "h_score": 0.403,
-      "lp_score": 0.803
+      "color": "Model target mix",
+      "quantity": 10
     },
     {
       "dealer": "DEALER 7",
       "model": "A2",
-      "color": "Grey3",
-      "quantity": 4,
-      "composite_score": 0.622,
-      "p_score": 0.874,
-      "s_score": 0.211,
-      "h_score": 0.403,
-      "lp_score": 0.803
-    },
-    {
-      "dealer": "DEALER 7",
-      "model": "A2",
-      "color": "Grey2",
-      "quantity": 3,
-      "composite_score": 0.622,
-      "p_score": 0.874,
-      "s_score": 0.211,
-      "h_score": 0.403,
-      "lp_score": 0.803
-    },
-    {
-      "dealer": "DEALER 7",
-      "model": "A2",
-      "color": "Black1",
-      "quantity": 3,
-      "composite_score": 0.622,
-      "p_score": 0.874,
-      "s_score": 0.211,
-      "h_score": 0.403,
-      "lp_score": 0.803
-    },
-    {
-      "dealer": "DEALER 7",
-      "model": "A2",
-      "color": "Black2",
-      "quantity": 3,
-      "composite_score": 0.622,
-      "p_score": 0.874,
-      "s_score": 0.211,
-      "h_score": 0.403,
-      "lp_score": 0.803
+      "color": "Model target mix",
+      "quantity": 16
     },
     {
       "dealer": "DEALER 7",
       "model": "A3",
-      "color": "Grey3",
-      "quantity": 2,
-      "composite_score": 0.622,
-      "p_score": 0.874,
-      "s_score": 0.211,
-      "h_score": 0.403,
-      "lp_score": 0.803
-    },
-    {
-      "dealer": "DEALER 7",
-      "model": "A3",
-      "color": "Grey2",
-      "quantity": 2,
-      "composite_score": 0.622,
-      "p_score": 0.874,
-      "s_score": 0.211,
-      "h_score": 0.403,
-      "lp_score": 0.803
-    },
-    {
-      "dealer": "DEALER 7",
-      "model": "A3",
-      "color": "Black1",
-      "quantity": 2,
-      "composite_score": 0.622,
-      "p_score": 0.874,
-      "s_score": 0.211,
-      "h_score": 0.403,
-      "lp_score": 0.803
-    },
-    {
-      "dealer": "DEALER 7",
-      "model": "A3",
-      "color": "Black2",
-      "quantity": 2,
-      "composite_score": 0.622,
-      "p_score": 0.874,
-      "s_score": 0.211,
-      "h_score": 0.403,
-      "lp_score": 0.803
+      "color": "Model target mix",
+      "quantity": 4
     },
     {
       "dealer": "DEALER 7",
       "model": "B1",
-      "color": "Grey3",
-      "quantity": 3,
-      "composite_score": 0.622,
-      "p_score": 0.874,
-      "s_score": 0.211,
-      "h_score": 0.403,
-      "lp_score": 0.803
-    },
-    {
-      "dealer": "DEALER 7",
-      "model": "B1",
-      "color": "Grey2",
-      "quantity": 2,
-      "composite_score": 0.622,
-      "p_score": 0.874,
-      "s_score": 0.211,
-      "h_score": 0.403,
-      "lp_score": 0.803
-    },
-    {
-      "dealer": "DEALER 7",
-      "model": "B1",
-      "color": "Black1",
-      "quantity": 2,
-      "composite_score": 0.622,
-      "p_score": 0.874,
-      "s_score": 0.211,
-      "h_score": 0.403,
-      "lp_score": 0.803
-    },
-    {
-      "dealer": "DEALER 7",
-      "model": "B1",
-      "color": "Black2",
-      "quantity": 2,
-      "composite_score": 0.622,
-      "p_score": 0.874,
-      "s_score": 0.211,
-      "h_score": 0.403,
-      "lp_score": 0.803
-    },
-    {
-      "dealer": "DEALER 8",
-      "model": "A1",
-      "color": "Grey3",
-      "quantity": 1,
-      "composite_score": 0.553,
-      "p_score": 0.829,
-      "s_score": 0.321,
-      "h_score": 0.57,
-      "lp_score": 0.478
+      "color": "Model target mix",
+      "quantity": 12
     },
     {
       "dealer": "DEALER 8",
       "model": "A2",
-      "color": "Grey3",
-      "quantity": 4,
-      "composite_score": 0.553,
-      "p_score": 0.829,
-      "s_score": 0.321,
-      "h_score": 0.57,
-      "lp_score": 0.478
-    },
-    {
-      "dealer": "DEALER 8",
-      "model": "A2",
-      "color": "Grey2",
-      "quantity": 3,
-      "composite_score": 0.553,
-      "p_score": 0.829,
-      "s_score": 0.321,
-      "h_score": 0.57,
-      "lp_score": 0.478
-    },
-    {
-      "dealer": "DEALER 8",
-      "model": "A2",
-      "color": "Black1",
-      "quantity": 3,
-      "composite_score": 0.553,
-      "p_score": 0.829,
-      "s_score": 0.321,
-      "h_score": 0.57,
-      "lp_score": 0.478
-    },
-    {
-      "dealer": "DEALER 8",
-      "model": "A2",
-      "color": "Black2",
-      "quantity": 3,
-      "composite_score": 0.553,
-      "p_score": 0.829,
-      "s_score": 0.321,
-      "h_score": 0.57,
-      "lp_score": 0.478
+      "color": "Model target mix",
+      "quantity": 6
     },
     {
       "dealer": "DEALER 8",
       "model": "A3",
-      "color": "Grey3",
-      "quantity": 2,
-      "composite_score": 0.553,
-      "p_score": 0.829,
-      "s_score": 0.321,
-      "h_score": 0.57,
-      "lp_score": 0.478
-    },
-    {
-      "dealer": "DEALER 8",
-      "model": "A3",
-      "color": "Grey2",
-      "quantity": 2,
-      "composite_score": 0.553,
-      "p_score": 0.829,
-      "s_score": 0.321,
-      "h_score": 0.57,
-      "lp_score": 0.478
-    },
-    {
-      "dealer": "DEALER 8",
-      "model": "A3",
-      "color": "Black1",
-      "quantity": 2,
-      "composite_score": 0.553,
-      "p_score": 0.829,
-      "s_score": 0.321,
-      "h_score": 0.57,
-      "lp_score": 0.478
-    },
-    {
-      "dealer": "DEALER 8",
-      "model": "A3",
-      "color": "Black2",
-      "quantity": 2,
-      "composite_score": 0.553,
-      "p_score": 0.829,
-      "s_score": 0.321,
-      "h_score": 0.57,
-      "lp_score": 0.478
+      "color": "Model target mix",
+      "quantity": 2
     },
     {
       "dealer": "DEALER 8",
       "model": "B1",
-      "color": "Grey3",
-      "quantity": 2,
-      "composite_score": 0.553,
-      "p_score": 0.829,
-      "s_score": 0.321,
-      "h_score": 0.57,
-      "lp_score": 0.478
-    },
-    {
-      "dealer": "DEALER 8",
-      "model": "B1",
-      "color": "Grey2",
-      "quantity": 2,
-      "composite_score": 0.553,
-      "p_score": 0.829,
-      "s_score": 0.321,
-      "h_score": 0.57,
-      "lp_score": 0.478
-    },
-    {
-      "dealer": "DEALER 8",
-      "model": "B1",
-      "color": "Black1",
-      "quantity": 2,
-      "composite_score": 0.553,
-      "p_score": 0.829,
-      "s_score": 0.321,
-      "h_score": 0.57,
-      "lp_score": 0.478
-    },
-    {
-      "dealer": "DEALER 8",
-      "model": "B1",
-      "color": "Black2",
-      "quantity": 2,
-      "composite_score": 0.553,
-      "p_score": 0.829,
-      "s_score": 0.321,
-      "h_score": 0.57,
-      "lp_score": 0.478
-    },
-    {
-      "dealer": "DEALER 9",
-      "model": "A1",
-      "color": "Grey3",
-      "quantity": 1,
-      "composite_score": 0.641,
-      "p_score": 0.933,
-      "s_score": 0.692,
-      "h_score": 0.568,
-      "lp_score": 0.446
+      "color": "Model target mix",
+      "quantity": 4
     },
     {
       "dealer": "DEALER 9",
       "model": "A2",
-      "color": "Grey3",
-      "quantity": 5,
-      "composite_score": 0.641,
-      "p_score": 0.933,
-      "s_score": 0.692,
-      "h_score": 0.568,
-      "lp_score": 0.446
-    },
-    {
-      "dealer": "DEALER 9",
-      "model": "A2",
-      "color": "Grey2",
-      "quantity": 4,
-      "composite_score": 0.641,
-      "p_score": 0.933,
-      "s_score": 0.692,
-      "h_score": 0.568,
-      "lp_score": 0.446
-    },
-    {
-      "dealer": "DEALER 9",
-      "model": "A2",
-      "color": "Black1",
-      "quantity": 4,
-      "composite_score": 0.641,
-      "p_score": 0.933,
-      "s_score": 0.692,
-      "h_score": 0.568,
-      "lp_score": 0.446
-    },
-    {
-      "dealer": "DEALER 9",
-      "model": "A2",
-      "color": "Black2",
-      "quantity": 4,
-      "composite_score": 0.641,
-      "p_score": 0.933,
-      "s_score": 0.692,
-      "h_score": 0.568,
-      "lp_score": 0.446
+      "color": "Model target mix",
+      "quantity": 5
     },
     {
       "dealer": "DEALER 9",
       "model": "A3",
-      "color": "Grey3",
-      "quantity": 3,
-      "composite_score": 0.641,
-      "p_score": 0.933,
-      "s_score": 0.692,
-      "h_score": 0.568,
-      "lp_score": 0.446
-    },
-    {
-      "dealer": "DEALER 9",
-      "model": "A3",
-      "color": "Grey2",
-      "quantity": 2,
-      "composite_score": 0.641,
-      "p_score": 0.933,
-      "s_score": 0.692,
-      "h_score": 0.568,
-      "lp_score": 0.446
-    },
-    {
-      "dealer": "DEALER 9",
-      "model": "A3",
-      "color": "Black1",
-      "quantity": 2,
-      "composite_score": 0.641,
-      "p_score": 0.933,
-      "s_score": 0.692,
-      "h_score": 0.568,
-      "lp_score": 0.446
-    },
-    {
-      "dealer": "DEALER 9",
-      "model": "A3",
-      "color": "Black2",
-      "quantity": 2,
-      "composite_score": 0.641,
-      "p_score": 0.933,
-      "s_score": 0.692,
-      "h_score": 0.568,
-      "lp_score": 0.446
+      "color": "Model target mix",
+      "quantity": 2
     },
     {
       "dealer": "DEALER 9",
       "model": "B1",
-      "color": "Grey3",
-      "quantity": 3,
-      "composite_score": 0.641,
-      "p_score": 0.933,
-      "s_score": 0.692,
-      "h_score": 0.568,
-      "lp_score": 0.446
-    },
-    {
-      "dealer": "DEALER 9",
-      "model": "B1",
-      "color": "Grey2",
-      "quantity": 3,
-      "composite_score": 0.641,
-      "p_score": 0.933,
-      "s_score": 0.692,
-      "h_score": 0.568,
-      "lp_score": 0.446
-    },
-    {
-      "dealer": "DEALER 9",
-      "model": "B1",
-      "color": "Black1",
-      "quantity": 3,
-      "composite_score": 0.641,
-      "p_score": 0.933,
-      "s_score": 0.692,
-      "h_score": 0.568,
-      "lp_score": 0.446
-    },
-    {
-      "dealer": "DEALER 9",
-      "model": "B1",
-      "color": "Black2",
-      "quantity": 2,
-      "composite_score": 0.641,
-      "p_score": 0.933,
-      "s_score": 0.692,
-      "h_score": 0.568,
-      "lp_score": 0.446
-    },
-    {
-      "dealer": "DEALER 10",
-      "model": "A1",
-      "color": "Grey3",
-      "quantity": 1,
-      "composite_score": 0.655,
-      "p_score": 0.589,
-      "s_score": 0.486,
-      "h_score": 0.824,
-      "lp_score": 0.702
+      "color": "Model target mix",
+      "quantity": 2
     },
     {
       "dealer": "DEALER 10",
       "model": "A2",
-      "color": "Grey3",
-      "quantity": 4,
-      "composite_score": 0.655,
-      "p_score": 0.589,
-      "s_score": 0.486,
-      "h_score": 0.824,
-      "lp_score": 0.702
-    },
-    {
-      "dealer": "DEALER 10",
-      "model": "A2",
-      "color": "Grey2",
-      "quantity": 4,
-      "composite_score": 0.655,
-      "p_score": 0.589,
-      "s_score": 0.486,
-      "h_score": 0.824,
-      "lp_score": 0.702
-    },
-    {
-      "dealer": "DEALER 10",
-      "model": "A2",
-      "color": "Black1",
-      "quantity": 4,
-      "composite_score": 0.655,
-      "p_score": 0.589,
-      "s_score": 0.486,
-      "h_score": 0.824,
-      "lp_score": 0.702
-    },
-    {
-      "dealer": "DEALER 10",
-      "model": "A2",
-      "color": "Black2",
-      "quantity": 3,
-      "composite_score": 0.655,
-      "p_score": 0.589,
-      "s_score": 0.486,
-      "h_score": 0.824,
-      "lp_score": 0.702
+      "color": "Model target mix",
+      "quantity": 10
     },
     {
       "dealer": "DEALER 10",
       "model": "A3",
-      "color": "Grey3",
-      "quantity": 2,
-      "composite_score": 0.655,
-      "p_score": 0.589,
-      "s_score": 0.486,
-      "h_score": 0.824,
-      "lp_score": 0.702
-    },
-    {
-      "dealer": "DEALER 10",
-      "model": "A3",
-      "color": "Grey2",
-      "quantity": 2,
-      "composite_score": 0.655,
-      "p_score": 0.589,
-      "s_score": 0.486,
-      "h_score": 0.824,
-      "lp_score": 0.702
-    },
-    {
-      "dealer": "DEALER 10",
-      "model": "A3",
-      "color": "Black1",
-      "quantity": 2,
-      "composite_score": 0.655,
-      "p_score": 0.589,
-      "s_score": 0.486,
-      "h_score": 0.824,
-      "lp_score": 0.702
-    },
-    {
-      "dealer": "DEALER 10",
-      "model": "A3",
-      "color": "Black2",
-      "quantity": 2,
-      "composite_score": 0.655,
-      "p_score": 0.589,
-      "s_score": 0.486,
-      "h_score": 0.824,
-      "lp_score": 0.702
+      "color": "Model target mix",
+      "quantity": 2
     },
     {
       "dealer": "DEALER 10",
       "model": "B1",
-      "color": "Grey3",
-      "quantity": 3,
-      "composite_score": 0.655,
-      "p_score": 0.589,
-      "s_score": 0.486,
-      "h_score": 0.824,
-      "lp_score": 0.702
-    },
-    {
-      "dealer": "DEALER 10",
-      "model": "B1",
-      "color": "Grey2",
-      "quantity": 2,
-      "composite_score": 0.655,
-      "p_score": 0.589,
-      "s_score": 0.486,
-      "h_score": 0.824,
-      "lp_score": 0.702
-    },
-    {
-      "dealer": "DEALER 10",
-      "model": "B1",
-      "color": "Black1",
-      "quantity": 2,
-      "composite_score": 0.655,
-      "p_score": 0.589,
-      "s_score": 0.486,
-      "h_score": 0.824,
-      "lp_score": 0.702
-    },
-    {
-      "dealer": "DEALER 10",
-      "model": "B1",
-      "color": "Black2",
-      "quantity": 2,
-      "composite_score": 0.655,
-      "p_score": 0.589,
-      "s_score": 0.486,
-      "h_score": 0.824,
-      "lp_score": 0.702
-    },
-    {
-      "dealer": "DEALER 11",
-      "model": "A1",
-      "color": "Grey3",
-      "quantity": 1,
-      "composite_score": 0.745,
-      "p_score": 0.873,
-      "s_score": 0.702,
-      "h_score": 0.765,
-      "lp_score": 0.668
-    },
-    {
-      "dealer": "DEALER 11",
-      "model": "A1",
-      "color": "Grey2",
-      "quantity": 1,
-      "composite_score": 0.745,
-      "p_score": 0.873,
-      "s_score": 0.702,
-      "h_score": 0.765,
-      "lp_score": 0.668
-    },
-    {
-      "dealer": "DEALER 11",
-      "model": "A1",
-      "color": "Black1",
-      "quantity": 1,
-      "composite_score": 0.745,
-      "p_score": 0.873,
-      "s_score": 0.702,
-      "h_score": 0.765,
-      "lp_score": 0.668
-    },
-    {
-      "dealer": "DEALER 11",
-      "model": "A1",
-      "color": "Black2",
-      "quantity": 1,
-      "composite_score": 0.745,
-      "p_score": 0.873,
-      "s_score": 0.702,
-      "h_score": 0.765,
-      "lp_score": 0.668
+      "color": "Model target mix",
+      "quantity": 3
     },
     {
       "dealer": "DEALER 11",
       "model": "A2",
-      "color": "Grey3",
-      "quantity": 6,
-      "composite_score": 0.745,
-      "p_score": 0.873,
-      "s_score": 0.702,
-      "h_score": 0.765,
-      "lp_score": 0.668
-    },
-    {
-      "dealer": "DEALER 11",
-      "model": "A2",
-      "color": "Grey2",
-      "quantity": 5,
-      "composite_score": 0.745,
-      "p_score": 0.873,
-      "s_score": 0.702,
-      "h_score": 0.765,
-      "lp_score": 0.668
-    },
-    {
-      "dealer": "DEALER 11",
-      "model": "A2",
-      "color": "Black1",
-      "quantity": 5,
-      "composite_score": 0.745,
-      "p_score": 0.873,
-      "s_score": 0.702,
-      "h_score": 0.765,
-      "lp_score": 0.668
-    },
-    {
-      "dealer": "DEALER 11",
-      "model": "A2",
-      "color": "Black2",
-      "quantity": 4,
-      "composite_score": 0.745,
-      "p_score": 0.873,
-      "s_score": 0.702,
-      "h_score": 0.765,
-      "lp_score": 0.668
+      "color": "Model target mix",
+      "quantity": 4
     },
     {
       "dealer": "DEALER 11",
       "model": "A3",
-      "color": "Grey3",
-      "quantity": 3,
-      "composite_score": 0.745,
-      "p_score": 0.873,
-      "s_score": 0.702,
-      "h_score": 0.765,
-      "lp_score": 0.668
-    },
-    {
-      "dealer": "DEALER 11",
-      "model": "A3",
-      "color": "Grey2",
-      "quantity": 2,
-      "composite_score": 0.745,
-      "p_score": 0.873,
-      "s_score": 0.702,
-      "h_score": 0.765,
-      "lp_score": 0.668
-    },
-    {
-      "dealer": "DEALER 11",
-      "model": "A3",
-      "color": "Black1",
-      "quantity": 2,
-      "composite_score": 0.745,
-      "p_score": 0.873,
-      "s_score": 0.702,
-      "h_score": 0.765,
-      "lp_score": 0.668
-    },
-    {
-      "dealer": "DEALER 11",
-      "model": "A3",
-      "color": "Black2",
-      "quantity": 2,
-      "composite_score": 0.745,
-      "p_score": 0.873,
-      "s_score": 0.702,
-      "h_score": 0.765,
-      "lp_score": 0.668
+      "color": "Model target mix",
+      "quantity": 2
     },
     {
       "dealer": "DEALER 11",
       "model": "B1",
-      "color": "Grey3",
-      "quantity": 4,
-      "composite_score": 0.745,
-      "p_score": 0.873,
-      "s_score": 0.702,
-      "h_score": 0.765,
-      "lp_score": 0.668
-    },
-    {
-      "dealer": "DEALER 11",
-      "model": "B1",
-      "color": "Grey2",
-      "quantity": 3,
-      "composite_score": 0.745,
-      "p_score": 0.873,
-      "s_score": 0.702,
-      "h_score": 0.765,
-      "lp_score": 0.668
-    },
-    {
-      "dealer": "DEALER 11",
-      "model": "B1",
-      "color": "Black1",
-      "quantity": 3,
-      "composite_score": 0.745,
-      "p_score": 0.873,
-      "s_score": 0.702,
-      "h_score": 0.765,
-      "lp_score": 0.668
-    },
-    {
-      "dealer": "DEALER 11",
-      "model": "B1",
-      "color": "Black2",
-      "quantity": 3,
-      "composite_score": 0.745,
-      "p_score": 0.873,
-      "s_score": 0.702,
-      "h_score": 0.765,
-      "lp_score": 0.668
+      "color": "Model target mix",
+      "quantity": 2
     },
     {
       "dealer": "DEALER 12",
       "model": "A1",
-      "color": "Grey3",
-      "quantity": 1,
-      "composite_score": 0.712,
-      "p_score": 0.939,
-      "s_score": 0.615,
-      "h_score": 0.589,
-      "lp_score": 0.676
+      "color": "Model target mix",
+      "quantity": 1
     },
     {
       "dealer": "DEALER 12",
       "model": "A2",
-      "color": "Grey3",
-      "quantity": 4,
-      "composite_score": 0.712,
-      "p_score": 0.939,
-      "s_score": 0.615,
-      "h_score": 0.589,
-      "lp_score": 0.676
-    },
-    {
-      "dealer": "DEALER 12",
-      "model": "A2",
-      "color": "Grey2",
-      "quantity": 4,
-      "composite_score": 0.712,
-      "p_score": 0.939,
-      "s_score": 0.615,
-      "h_score": 0.589,
-      "lp_score": 0.676
-    },
-    {
-      "dealer": "DEALER 12",
-      "model": "A2",
-      "color": "Black1",
-      "quantity": 4,
-      "composite_score": 0.712,
-      "p_score": 0.939,
-      "s_score": 0.615,
-      "h_score": 0.589,
-      "lp_score": 0.676
-    },
-    {
-      "dealer": "DEALER 12",
-      "model": "A2",
-      "color": "Black2",
-      "quantity": 3,
-      "composite_score": 0.712,
-      "p_score": 0.939,
-      "s_score": 0.615,
-      "h_score": 0.589,
-      "lp_score": 0.676
+      "color": "Model target mix",
+      "quantity": 8
     },
     {
       "dealer": "DEALER 12",
       "model": "A3",
-      "color": "Grey3",
-      "quantity": 2,
-      "composite_score": 0.712,
-      "p_score": 0.939,
-      "s_score": 0.615,
-      "h_score": 0.589,
-      "lp_score": 0.676
-    },
-    {
-      "dealer": "DEALER 12",
-      "model": "A3",
-      "color": "Grey2",
-      "quantity": 2,
-      "composite_score": 0.712,
-      "p_score": 0.939,
-      "s_score": 0.615,
-      "h_score": 0.589,
-      "lp_score": 0.676
-    },
-    {
-      "dealer": "DEALER 12",
-      "model": "A3",
-      "color": "Black1",
-      "quantity": 2,
-      "composite_score": 0.712,
-      "p_score": 0.939,
-      "s_score": 0.615,
-      "h_score": 0.589,
-      "lp_score": 0.676
-    },
-    {
-      "dealer": "DEALER 12",
-      "model": "A3",
-      "color": "Black2",
-      "quantity": 2,
-      "composite_score": 0.712,
-      "p_score": 0.939,
-      "s_score": 0.615,
-      "h_score": 0.589,
-      "lp_score": 0.676
+      "color": "Model target mix",
+      "quantity": 2
     },
     {
       "dealer": "DEALER 12",
       "model": "B1",
-      "color": "Grey3",
-      "quantity": 3,
-      "composite_score": 0.712,
-      "p_score": 0.939,
-      "s_score": 0.615,
-      "h_score": 0.589,
-      "lp_score": 0.676
-    },
-    {
-      "dealer": "DEALER 12",
-      "model": "B1",
-      "color": "Grey2",
-      "quantity": 2,
-      "composite_score": 0.712,
-      "p_score": 0.939,
-      "s_score": 0.615,
-      "h_score": 0.589,
-      "lp_score": 0.676
-    },
-    {
-      "dealer": "DEALER 12",
-      "model": "B1",
-      "color": "Black1",
-      "quantity": 2,
-      "composite_score": 0.712,
-      "p_score": 0.939,
-      "s_score": 0.615,
-      "h_score": 0.589,
-      "lp_score": 0.676
-    },
-    {
-      "dealer": "DEALER 12",
-      "model": "B1",
-      "color": "Black2",
-      "quantity": 2,
-      "composite_score": 0.712,
-      "p_score": 0.939,
-      "s_score": 0.615,
-      "h_score": 0.589,
-      "lp_score": 0.676
+      "color": "Model target mix",
+      "quantity": 5
     },
     {
       "dealer": "DEALER 13",
       "model": "A1",
-      "color": "Grey3",
-      "quantity": 1,
-      "composite_score": 0.73,
-      "p_score": 0.882,
-      "s_score": 0.382,
-      "h_score": 0.709,
-      "lp_score": 0.831
+      "color": "Model target mix",
+      "quantity": 1
     },
     {
       "dealer": "DEALER 13",
       "model": "A2",
-      "color": "Grey3",
-      "quantity": 5,
-      "composite_score": 0.73,
-      "p_score": 0.882,
-      "s_score": 0.382,
-      "h_score": 0.709,
-      "lp_score": 0.831
-    },
-    {
-      "dealer": "DEALER 13",
-      "model": "A2",
-      "color": "Grey2",
-      "quantity": 4,
-      "composite_score": 0.73,
-      "p_score": 0.882,
-      "s_score": 0.382,
-      "h_score": 0.709,
-      "lp_score": 0.831
-    },
-    {
-      "dealer": "DEALER 13",
-      "model": "A2",
-      "color": "Black1",
-      "quantity": 4,
-      "composite_score": 0.73,
-      "p_score": 0.882,
-      "s_score": 0.382,
-      "h_score": 0.709,
-      "lp_score": 0.831
-    },
-    {
-      "dealer": "DEALER 13",
-      "model": "A2",
-      "color": "Black2",
-      "quantity": 4,
-      "composite_score": 0.73,
-      "p_score": 0.882,
-      "s_score": 0.382,
-      "h_score": 0.709,
-      "lp_score": 0.831
+      "color": "Model target mix",
+      "quantity": 13
     },
     {
       "dealer": "DEALER 13",
       "model": "A3",
-      "color": "Grey3",
-      "quantity": 3,
-      "composite_score": 0.73,
-      "p_score": 0.882,
-      "s_score": 0.382,
-      "h_score": 0.709,
-      "lp_score": 0.831
-    },
-    {
-      "dealer": "DEALER 13",
-      "model": "A3",
-      "color": "Grey2",
-      "quantity": 2,
-      "composite_score": 0.73,
-      "p_score": 0.882,
-      "s_score": 0.382,
-      "h_score": 0.709,
-      "lp_score": 0.831
-    },
-    {
-      "dealer": "DEALER 13",
-      "model": "A3",
-      "color": "Black1",
-      "quantity": 2,
-      "composite_score": 0.73,
-      "p_score": 0.882,
-      "s_score": 0.382,
-      "h_score": 0.709,
-      "lp_score": 0.831
-    },
-    {
-      "dealer": "DEALER 13",
-      "model": "A3",
-      "color": "Black2",
-      "quantity": 2,
-      "composite_score": 0.73,
-      "p_score": 0.882,
-      "s_score": 0.382,
-      "h_score": 0.709,
-      "lp_score": 0.831
+      "color": "Model target mix",
+      "quantity": 4
     },
     {
       "dealer": "DEALER 13",
       "model": "B1",
-      "color": "Grey3",
-      "quantity": 3,
-      "composite_score": 0.73,
-      "p_score": 0.882,
-      "s_score": 0.382,
-      "h_score": 0.709,
-      "lp_score": 0.831
-    },
-    {
-      "dealer": "DEALER 13",
-      "model": "B1",
-      "color": "Grey2",
-      "quantity": 3,
-      "composite_score": 0.73,
-      "p_score": 0.882,
-      "s_score": 0.382,
-      "h_score": 0.709,
-      "lp_score": 0.831
-    },
-    {
-      "dealer": "DEALER 13",
-      "model": "B1",
-      "color": "Black1",
-      "quantity": 3,
-      "composite_score": 0.73,
-      "p_score": 0.882,
-      "s_score": 0.382,
-      "h_score": 0.709,
-      "lp_score": 0.831
-    },
-    {
-      "dealer": "DEALER 13",
-      "model": "B1",
-      "color": "Black2",
-      "quantity": 2,
-      "composite_score": 0.73,
-      "p_score": 0.882,
-      "s_score": 0.382,
-      "h_score": 0.709,
-      "lp_score": 0.831
+      "color": "Model target mix",
+      "quantity": 8
     },
     {
       "dealer": "DEALER 14",
       "model": "A1",
-      "color": "Grey3",
-      "quantity": 1,
-      "composite_score": 0.602,
-      "p_score": 0.781,
-      "s_score": 0.543,
-      "h_score": 0.752,
-      "lp_score": 0.423
+      "color": "Model target mix",
+      "quantity": 1
     },
     {
       "dealer": "DEALER 14",
       "model": "A2",
-      "color": "Grey3",
-      "quantity": 5,
-      "composite_score": 0.602,
-      "p_score": 0.781,
-      "s_score": 0.543,
-      "h_score": 0.752,
-      "lp_score": 0.423
-    },
-    {
-      "dealer": "DEALER 14",
-      "model": "A2",
-      "color": "Grey2",
-      "quantity": 4,
-      "composite_score": 0.602,
-      "p_score": 0.781,
-      "s_score": 0.543,
-      "h_score": 0.752,
-      "lp_score": 0.423
-    },
-    {
-      "dealer": "DEALER 14",
-      "model": "A2",
-      "color": "Black1",
-      "quantity": 4,
-      "composite_score": 0.602,
-      "p_score": 0.781,
-      "s_score": 0.543,
-      "h_score": 0.752,
-      "lp_score": 0.423
-    },
-    {
-      "dealer": "DEALER 14",
-      "model": "A2",
-      "color": "Black2",
-      "quantity": 4,
-      "composite_score": 0.602,
-      "p_score": 0.781,
-      "s_score": 0.543,
-      "h_score": 0.752,
-      "lp_score": 0.423
+      "color": "Model target mix",
+      "quantity": 16
     },
     {
       "dealer": "DEALER 14",
       "model": "A3",
-      "color": "Grey3",
-      "quantity": 2,
-      "composite_score": 0.602,
-      "p_score": 0.781,
-      "s_score": 0.543,
-      "h_score": 0.752,
-      "lp_score": 0.423
-    },
-    {
-      "dealer": "DEALER 14",
-      "model": "A3",
-      "color": "Grey2",
-      "quantity": 2,
-      "composite_score": 0.602,
-      "p_score": 0.781,
-      "s_score": 0.543,
-      "h_score": 0.752,
-      "lp_score": 0.423
-    },
-    {
-      "dealer": "DEALER 14",
-      "model": "A3",
-      "color": "Black1",
-      "quantity": 2,
-      "composite_score": 0.602,
-      "p_score": 0.781,
-      "s_score": 0.543,
-      "h_score": 0.752,
-      "lp_score": 0.423
-    },
-    {
-      "dealer": "DEALER 14",
-      "model": "A3",
-      "color": "Black2",
-      "quantity": 2,
-      "composite_score": 0.602,
-      "p_score": 0.781,
-      "s_score": 0.543,
-      "h_score": 0.752,
-      "lp_score": 0.423
+      "color": "Model target mix",
+      "quantity": 6
     },
     {
       "dealer": "DEALER 14",
       "model": "B1",
-      "color": "Grey3",
-      "quantity": 3,
-      "composite_score": 0.602,
-      "p_score": 0.781,
-      "s_score": 0.543,
-      "h_score": 0.752,
-      "lp_score": 0.423
+      "color": "Model target mix",
+      "quantity": 7
     },
     {
-      "dealer": "DEALER 14",
-      "model": "B1",
-      "color": "Grey2",
-      "quantity": 2,
-      "composite_score": 0.602,
-      "p_score": 0.781,
-      "s_score": 0.543,
-      "h_score": 0.752,
-      "lp_score": 0.423
-    },
-    {
-      "dealer": "DEALER 14",
-      "model": "B1",
-      "color": "Black1",
-      "quantity": 2,
-      "composite_score": 0.602,
-      "p_score": 0.781,
-      "s_score": 0.543,
-      "h_score": 0.752,
-      "lp_score": 0.423
-    },
-    {
-      "dealer": "DEALER 14",
-      "model": "B1",
-      "color": "Black2",
-      "quantity": 2,
-      "composite_score": 0.602,
-      "p_score": 0.781,
-      "s_score": 0.543,
-      "h_score": 0.752,
-      "lp_score": 0.423
+      "dealer": "DEALER 15",
+      "model": "A1",
+      "color": "Model target mix",
+      "quantity": 1
     },
     {
       "dealer": "DEALER 15",
       "model": "A2",
-      "color": "Grey3",
-      "quantity": 3,
-      "composite_score": 0.498,
-      "p_score": 0.641,
-      "s_score": 0.374,
-      "h_score": 0.545,
-      "lp_score": 0.44
-    },
-    {
-      "dealer": "DEALER 15",
-      "model": "A2",
-      "color": "Grey2",
-      "quantity": 3,
-      "composite_score": 0.498,
-      "p_score": 0.641,
-      "s_score": 0.374,
-      "h_score": 0.545,
-      "lp_score": 0.44
-    },
-    {
-      "dealer": "DEALER 15",
-      "model": "A2",
-      "color": "Black1",
-      "quantity": 3,
-      "composite_score": 0.498,
-      "p_score": 0.641,
-      "s_score": 0.374,
-      "h_score": 0.545,
-      "lp_score": 0.44
-    },
-    {
-      "dealer": "DEALER 15",
-      "model": "A2",
-      "color": "Black2",
-      "quantity": 2,
-      "composite_score": 0.498,
-      "p_score": 0.641,
-      "s_score": 0.374,
-      "h_score": 0.545,
-      "lp_score": 0.44
+      "color": "Model target mix",
+      "quantity": 15
     },
     {
       "dealer": "DEALER 15",
       "model": "A3",
-      "color": "Grey3",
-      "quantity": 2,
-      "composite_score": 0.498,
-      "p_score": 0.641,
-      "s_score": 0.374,
-      "h_score": 0.545,
-      "lp_score": 0.44
-    },
-    {
-      "dealer": "DEALER 15",
-      "model": "A3",
-      "color": "Grey2",
-      "quantity": 1,
-      "composite_score": 0.498,
-      "p_score": 0.641,
-      "s_score": 0.374,
-      "h_score": 0.545,
-      "lp_score": 0.44
-    },
-    {
-      "dealer": "DEALER 15",
-      "model": "A3",
-      "color": "Black1",
-      "quantity": 1,
-      "composite_score": 0.498,
-      "p_score": 0.641,
-      "s_score": 0.374,
-      "h_score": 0.545,
-      "lp_score": 0.44
-    },
-    {
-      "dealer": "DEALER 15",
-      "model": "A3",
-      "color": "Black2",
-      "quantity": 1,
-      "composite_score": 0.498,
-      "p_score": 0.641,
-      "s_score": 0.374,
-      "h_score": 0.545,
-      "lp_score": 0.44
+      "color": "Model target mix",
+      "quantity": 7
     },
     {
       "dealer": "DEALER 15",
       "model": "B1",
-      "color": "Grey3",
-      "quantity": 2,
-      "composite_score": 0.498,
-      "p_score": 0.641,
-      "s_score": 0.374,
-      "h_score": 0.545,
-      "lp_score": 0.44
-    },
-    {
-      "dealer": "DEALER 15",
-      "model": "B1",
-      "color": "Grey2",
-      "quantity": 2,
-      "composite_score": 0.498,
-      "p_score": 0.641,
-      "s_score": 0.374,
-      "h_score": 0.545,
-      "lp_score": 0.44
-    },
-    {
-      "dealer": "DEALER 15",
-      "model": "B1",
-      "color": "Black1",
-      "quantity": 2,
-      "composite_score": 0.498,
-      "p_score": 0.641,
-      "s_score": 0.374,
-      "h_score": 0.545,
-      "lp_score": 0.44
-    },
-    {
-      "dealer": "DEALER 15",
-      "model": "B1",
-      "color": "Black2",
-      "quantity": 2,
-      "composite_score": 0.498,
-      "p_score": 0.641,
-      "s_score": 0.374,
-      "h_score": 0.545,
-      "lp_score": 0.44
+      "color": "Model target mix",
+      "quantity": 9
     },
     {
       "dealer": "DEALER 16",
       "model": "A1",
-      "color": "Grey3",
-      "quantity": 1,
-      "composite_score": 0.529,
-      "p_score": 0.643,
-      "s_score": 0.446,
-      "h_score": 0.451,
-      "lp_score": 0.539
+      "color": "Model target mix",
+      "quantity": 1
     },
     {
       "dealer": "DEALER 16",
       "model": "A2",
-      "color": "Grey3",
-      "quantity": 4,
-      "composite_score": 0.529,
-      "p_score": 0.643,
-      "s_score": 0.446,
-      "h_score": 0.451,
-      "lp_score": 0.539
-    },
-    {
-      "dealer": "DEALER 16",
-      "model": "A2",
-      "color": "Grey2",
-      "quantity": 3,
-      "composite_score": 0.529,
-      "p_score": 0.643,
-      "s_score": 0.446,
-      "h_score": 0.451,
-      "lp_score": 0.539
-    },
-    {
-      "dealer": "DEALER 16",
-      "model": "A2",
-      "color": "Black1",
-      "quantity": 3,
-      "composite_score": 0.529,
-      "p_score": 0.643,
-      "s_score": 0.446,
-      "h_score": 0.451,
-      "lp_score": 0.539
-    },
-    {
-      "dealer": "DEALER 16",
-      "model": "A2",
-      "color": "Black2",
-      "quantity": 3,
-      "composite_score": 0.529,
-      "p_score": 0.643,
-      "s_score": 0.446,
-      "h_score": 0.451,
-      "lp_score": 0.539
+      "color": "Model target mix",
+      "quantity": 10
     },
     {
       "dealer": "DEALER 16",
       "model": "A3",
-      "color": "Grey3",
-      "quantity": 2,
-      "composite_score": 0.529,
-      "p_score": 0.643,
-      "s_score": 0.446,
-      "h_score": 0.451,
-      "lp_score": 0.539
-    },
-    {
-      "dealer": "DEALER 16",
-      "model": "A3",
-      "color": "Grey2",
-      "quantity": 2,
-      "composite_score": 0.529,
-      "p_score": 0.643,
-      "s_score": 0.446,
-      "h_score": 0.451,
-      "lp_score": 0.539
-    },
-    {
-      "dealer": "DEALER 16",
-      "model": "A3",
-      "color": "Black1",
-      "quantity": 2,
-      "composite_score": 0.529,
-      "p_score": 0.643,
-      "s_score": 0.446,
-      "h_score": 0.451,
-      "lp_score": 0.539
-    },
-    {
-      "dealer": "DEALER 16",
-      "model": "A3",
-      "color": "Black2",
-      "quantity": 2,
-      "composite_score": 0.529,
-      "p_score": 0.643,
-      "s_score": 0.446,
-      "h_score": 0.451,
-      "lp_score": 0.539
+      "color": "Model target mix",
+      "quantity": 4
     },
     {
       "dealer": "DEALER 16",
       "model": "B1",
-      "color": "Grey3",
-      "quantity": 3,
-      "composite_score": 0.529,
-      "p_score": 0.643,
-      "s_score": 0.446,
-      "h_score": 0.451,
-      "lp_score": 0.539
-    },
-    {
-      "dealer": "DEALER 16",
-      "model": "B1",
-      "color": "Grey2",
-      "quantity": 2,
-      "composite_score": 0.529,
-      "p_score": 0.643,
-      "s_score": 0.446,
-      "h_score": 0.451,
-      "lp_score": 0.539
-    },
-    {
-      "dealer": "DEALER 16",
-      "model": "B1",
-      "color": "Black1",
-      "quantity": 2,
-      "composite_score": 0.529,
-      "p_score": 0.643,
-      "s_score": 0.446,
-      "h_score": 0.451,
-      "lp_score": 0.539
-    },
-    {
-      "dealer": "DEALER 16",
-      "model": "B1",
-      "color": "Black2",
-      "quantity": 2,
-      "composite_score": 0.529,
-      "p_score": 0.643,
-      "s_score": 0.446,
-      "h_score": 0.451,
-      "lp_score": 0.539
+      "color": "Model target mix",
+      "quantity": 9
     },
     {
       "dealer": "DEALER 17",
       "model": "A1",
-      "color": "Grey3",
-      "quantity": 1,
-      "composite_score": 0.595,
-      "p_score": 0.804,
-      "s_score": 0.364,
-      "h_score": 0.582,
-      "lp_score": 0.585
+      "color": "Model target mix",
+      "quantity": 1
     },
     {
       "dealer": "DEALER 17",
       "model": "A2",
-      "color": "Grey3",
-      "quantity": 5,
-      "composite_score": 0.595,
-      "p_score": 0.804,
-      "s_score": 0.364,
-      "h_score": 0.582,
-      "lp_score": 0.585
-    },
-    {
-      "dealer": "DEALER 17",
-      "model": "A2",
-      "color": "Grey2",
-      "quantity": 4,
-      "composite_score": 0.595,
-      "p_score": 0.804,
-      "s_score": 0.364,
-      "h_score": 0.582,
-      "lp_score": 0.585
-    },
-    {
-      "dealer": "DEALER 17",
-      "model": "A2",
-      "color": "Black1",
-      "quantity": 4,
-      "composite_score": 0.595,
-      "p_score": 0.804,
-      "s_score": 0.364,
-      "h_score": 0.582,
-      "lp_score": 0.585
-    },
-    {
-      "dealer": "DEALER 17",
-      "model": "A2",
-      "color": "Black2",
-      "quantity": 4,
-      "composite_score": 0.595,
-      "p_score": 0.804,
-      "s_score": 0.364,
-      "h_score": 0.582,
-      "lp_score": 0.585
+      "color": "Model target mix",
+      "quantity": 26
     },
     {
       "dealer": "DEALER 17",
       "model": "A3",
-      "color": "Grey3",
-      "quantity": 3,
-      "composite_score": 0.595,
-      "p_score": 0.804,
-      "s_score": 0.364,
-      "h_score": 0.582,
-      "lp_score": 0.585
-    },
-    {
-      "dealer": "DEALER 17",
-      "model": "A3",
-      "color": "Grey2",
-      "quantity": 2,
-      "composite_score": 0.595,
-      "p_score": 0.804,
-      "s_score": 0.364,
-      "h_score": 0.582,
-      "lp_score": 0.585
-    },
-    {
-      "dealer": "DEALER 17",
-      "model": "A3",
-      "color": "Black1",
-      "quantity": 2,
-      "composite_score": 0.595,
-      "p_score": 0.804,
-      "s_score": 0.364,
-      "h_score": 0.582,
-      "lp_score": 0.585
-    },
-    {
-      "dealer": "DEALER 17",
-      "model": "A3",
-      "color": "Black2",
-      "quantity": 2,
-      "composite_score": 0.595,
-      "p_score": 0.804,
-      "s_score": 0.364,
-      "h_score": 0.582,
-      "lp_score": 0.585
+      "color": "Model target mix",
+      "quantity": 5
     },
     {
       "dealer": "DEALER 17",
       "model": "B1",
-      "color": "Grey3",
-      "quantity": 3,
-      "composite_score": 0.595,
-      "p_score": 0.804,
-      "s_score": 0.364,
-      "h_score": 0.582,
-      "lp_score": 0.585
-    },
-    {
-      "dealer": "DEALER 17",
-      "model": "B1",
-      "color": "Grey2",
-      "quantity": 3,
-      "composite_score": 0.595,
-      "p_score": 0.804,
-      "s_score": 0.364,
-      "h_score": 0.582,
-      "lp_score": 0.585
-    },
-    {
-      "dealer": "DEALER 17",
-      "model": "B1",
-      "color": "Black1",
-      "quantity": 3,
-      "composite_score": 0.595,
-      "p_score": 0.804,
-      "s_score": 0.364,
-      "h_score": 0.582,
-      "lp_score": 0.585
-    },
-    {
-      "dealer": "DEALER 17",
-      "model": "B1",
-      "color": "Black2",
-      "quantity": 2,
-      "composite_score": 0.595,
-      "p_score": 0.804,
-      "s_score": 0.364,
-      "h_score": 0.582,
-      "lp_score": 0.585
+      "color": "Model target mix",
+      "quantity": 8
     },
     {
       "dealer": "DEALER 18",
       "model": "A1",
-      "color": "Grey3",
-      "quantity": 1,
-      "composite_score": 0.655,
-      "p_score": 0.634,
-      "s_score": 0.431,
-      "h_score": 0.533,
-      "lp_score": 0.868
+      "color": "Model target mix",
+      "quantity": 1
     },
     {
       "dealer": "DEALER 18",
       "model": "A2",
-      "color": "Grey3",
-      "quantity": 4,
-      "composite_score": 0.655,
-      "p_score": 0.634,
-      "s_score": 0.431,
-      "h_score": 0.533,
-      "lp_score": 0.868
-    },
-    {
-      "dealer": "DEALER 18",
-      "model": "A2",
-      "color": "Grey2",
-      "quantity": 4,
-      "composite_score": 0.655,
-      "p_score": 0.634,
-      "s_score": 0.431,
-      "h_score": 0.533,
-      "lp_score": 0.868
-    },
-    {
-      "dealer": "DEALER 18",
-      "model": "A2",
-      "color": "Black1",
-      "quantity": 4,
-      "composite_score": 0.655,
-      "p_score": 0.634,
-      "s_score": 0.431,
-      "h_score": 0.533,
-      "lp_score": 0.868
-    },
-    {
-      "dealer": "DEALER 18",
-      "model": "A2",
-      "color": "Black2",
-      "quantity": 3,
-      "composite_score": 0.655,
-      "p_score": 0.634,
-      "s_score": 0.431,
-      "h_score": 0.533,
-      "lp_score": 0.868
+      "color": "Model target mix",
+      "quantity": 12
     },
     {
       "dealer": "DEALER 18",
       "model": "A3",
-      "color": "Grey3",
-      "quantity": 2,
-      "composite_score": 0.655,
-      "p_score": 0.634,
-      "s_score": 0.431,
-      "h_score": 0.533,
-      "lp_score": 0.868
-    },
-    {
-      "dealer": "DEALER 18",
-      "model": "A3",
-      "color": "Grey2",
-      "quantity": 2,
-      "composite_score": 0.655,
-      "p_score": 0.634,
-      "s_score": 0.431,
-      "h_score": 0.533,
-      "lp_score": 0.868
-    },
-    {
-      "dealer": "DEALER 18",
-      "model": "A3",
-      "color": "Black1",
-      "quantity": 2,
-      "composite_score": 0.655,
-      "p_score": 0.634,
-      "s_score": 0.431,
-      "h_score": 0.533,
-      "lp_score": 0.868
-    },
-    {
-      "dealer": "DEALER 18",
-      "model": "A3",
-      "color": "Black2",
-      "quantity": 2,
-      "composite_score": 0.655,
-      "p_score": 0.634,
-      "s_score": 0.431,
-      "h_score": 0.533,
-      "lp_score": 0.868
+      "color": "Model target mix",
+      "quantity": 3
     },
     {
       "dealer": "DEALER 18",
       "model": "B1",
-      "color": "Grey3",
-      "quantity": 3,
-      "composite_score": 0.655,
-      "p_score": 0.634,
-      "s_score": 0.431,
-      "h_score": 0.533,
-      "lp_score": 0.868
-    },
-    {
-      "dealer": "DEALER 18",
-      "model": "B1",
-      "color": "Grey2",
-      "quantity": 2,
-      "composite_score": 0.655,
-      "p_score": 0.634,
-      "s_score": 0.431,
-      "h_score": 0.533,
-      "lp_score": 0.868
-    },
-    {
-      "dealer": "DEALER 18",
-      "model": "B1",
-      "color": "Black1",
-      "quantity": 2,
-      "composite_score": 0.655,
-      "p_score": 0.634,
-      "s_score": 0.431,
-      "h_score": 0.533,
-      "lp_score": 0.868
-    },
-    {
-      "dealer": "DEALER 18",
-      "model": "B1",
-      "color": "Black2",
-      "quantity": 2,
-      "composite_score": 0.655,
-      "p_score": 0.634,
-      "s_score": 0.431,
-      "h_score": 0.533,
-      "lp_score": 0.868
-    },
-    {
-      "dealer": "DEALER 19",
-      "model": "A1",
-      "color": "Grey3",
-      "quantity": 1,
-      "composite_score": 0.583,
-      "p_score": 0.809,
-      "s_score": 0.348,
-      "h_score": 0.705,
-      "lp_score": 0.486
+      "color": "Model target mix",
+      "quantity": 8
     },
     {
       "dealer": "DEALER 19",
       "model": "A2",
-      "color": "Grey3",
-      "quantity": 4,
-      "composite_score": 0.583,
-      "p_score": 0.809,
-      "s_score": 0.348,
-      "h_score": 0.705,
-      "lp_score": 0.486
-    },
-    {
-      "dealer": "DEALER 19",
-      "model": "A2",
-      "color": "Grey2",
-      "quantity": 4,
-      "composite_score": 0.583,
-      "p_score": 0.809,
-      "s_score": 0.348,
-      "h_score": 0.705,
-      "lp_score": 0.486
-    },
-    {
-      "dealer": "DEALER 19",
-      "model": "A2",
-      "color": "Black1",
-      "quantity": 4,
-      "composite_score": 0.583,
-      "p_score": 0.809,
-      "s_score": 0.348,
-      "h_score": 0.705,
-      "lp_score": 0.486
-    },
-    {
-      "dealer": "DEALER 19",
-      "model": "A2",
-      "color": "Black2",
-      "quantity": 3,
-      "composite_score": 0.583,
-      "p_score": 0.809,
-      "s_score": 0.348,
-      "h_score": 0.705,
-      "lp_score": 0.486
+      "color": "Model target mix",
+      "quantity": 7
     },
     {
       "dealer": "DEALER 19",
       "model": "A3",
-      "color": "Grey3",
-      "quantity": 2,
-      "composite_score": 0.583,
-      "p_score": 0.809,
-      "s_score": 0.348,
-      "h_score": 0.705,
-      "lp_score": 0.486
-    },
-    {
-      "dealer": "DEALER 19",
-      "model": "A3",
-      "color": "Grey2",
-      "quantity": 2,
-      "composite_score": 0.583,
-      "p_score": 0.809,
-      "s_score": 0.348,
-      "h_score": 0.705,
-      "lp_score": 0.486
-    },
-    {
-      "dealer": "DEALER 19",
-      "model": "A3",
-      "color": "Black1",
-      "quantity": 2,
-      "composite_score": 0.583,
-      "p_score": 0.809,
-      "s_score": 0.348,
-      "h_score": 0.705,
-      "lp_score": 0.486
-    },
-    {
-      "dealer": "DEALER 19",
-      "model": "A3",
-      "color": "Black2",
-      "quantity": 2,
-      "composite_score": 0.583,
-      "p_score": 0.809,
-      "s_score": 0.348,
-      "h_score": 0.705,
-      "lp_score": 0.486
+      "color": "Model target mix",
+      "quantity": 4
     },
     {
       "dealer": "DEALER 19",
       "model": "B1",
-      "color": "Grey3",
-      "quantity": 3,
-      "composite_score": 0.583,
-      "p_score": 0.809,
-      "s_score": 0.348,
-      "h_score": 0.705,
-      "lp_score": 0.486
-    },
-    {
-      "dealer": "DEALER 19",
-      "model": "B1",
-      "color": "Grey2",
-      "quantity": 2,
-      "composite_score": 0.583,
-      "p_score": 0.809,
-      "s_score": 0.348,
-      "h_score": 0.705,
-      "lp_score": 0.486
-    },
-    {
-      "dealer": "DEALER 19",
-      "model": "B1",
-      "color": "Black1",
-      "quantity": 2,
-      "composite_score": 0.583,
-      "p_score": 0.809,
-      "s_score": 0.348,
-      "h_score": 0.705,
-      "lp_score": 0.486
-    },
-    {
-      "dealer": "DEALER 19",
-      "model": "B1",
-      "color": "Black2",
-      "quantity": 2,
-      "composite_score": 0.583,
-      "p_score": 0.809,
-      "s_score": 0.348,
-      "h_score": 0.705,
-      "lp_score": 0.486
+      "color": "Model target mix",
+      "quantity": 7
     },
     {
       "dealer": "DEALER 20",
       "model": "A1",
-      "color": "Grey3",
-      "quantity": 1,
-      "composite_score": 0.603,
-      "p_score": 0.842,
-      "s_score": 0.447,
-      "h_score": 0.482,
-      "lp_score": 0.59
+      "color": "Model target mix",
+      "quantity": 1
     },
     {
       "dealer": "DEALER 20",
       "model": "A2",
-      "color": "Grey3",
-      "quantity": 4,
-      "composite_score": 0.603,
-      "p_score": 0.842,
-      "s_score": 0.447,
-      "h_score": 0.482,
-      "lp_score": 0.59
-    },
-    {
-      "dealer": "DEALER 20",
-      "model": "A2",
-      "color": "Grey2",
-      "quantity": 3,
-      "composite_score": 0.603,
-      "p_score": 0.842,
-      "s_score": 0.447,
-      "h_score": 0.482,
-      "lp_score": 0.59
-    },
-    {
-      "dealer": "DEALER 20",
-      "model": "A2",
-      "color": "Black1",
-      "quantity": 3,
-      "composite_score": 0.603,
-      "p_score": 0.842,
-      "s_score": 0.447,
-      "h_score": 0.482,
-      "lp_score": 0.59
-    },
-    {
-      "dealer": "DEALER 20",
-      "model": "A2",
-      "color": "Black2",
-      "quantity": 3,
-      "composite_score": 0.603,
-      "p_score": 0.842,
-      "s_score": 0.447,
-      "h_score": 0.482,
-      "lp_score": 0.59
+      "color": "Model target mix",
+      "quantity": 6
     },
     {
       "dealer": "DEALER 20",
       "model": "A3",
-      "color": "Grey3",
-      "quantity": 2,
-      "composite_score": 0.603,
-      "p_score": 0.842,
-      "s_score": 0.447,
-      "h_score": 0.482,
-      "lp_score": 0.59
-    },
-    {
-      "dealer": "DEALER 20",
-      "model": "A3",
-      "color": "Grey2",
-      "quantity": 2,
-      "composite_score": 0.603,
-      "p_score": 0.842,
-      "s_score": 0.447,
-      "h_score": 0.482,
-      "lp_score": 0.59
-    },
-    {
-      "dealer": "DEALER 20",
-      "model": "A3",
-      "color": "Black1",
-      "quantity": 2,
-      "composite_score": 0.603,
-      "p_score": 0.842,
-      "s_score": 0.447,
-      "h_score": 0.482,
-      "lp_score": 0.59
-    },
-    {
-      "dealer": "DEALER 20",
-      "model": "A3",
-      "color": "Black2",
-      "quantity": 2,
-      "composite_score": 0.603,
-      "p_score": 0.842,
-      "s_score": 0.447,
-      "h_score": 0.482,
-      "lp_score": 0.59
+      "color": "Model target mix",
+      "quantity": 1
     },
     {
       "dealer": "DEALER 20",
       "model": "B1",
-      "color": "Grey3",
-      "quantity": 3,
-      "composite_score": 0.603,
-      "p_score": 0.842,
-      "s_score": 0.447,
-      "h_score": 0.482,
-      "lp_score": 0.59
-    },
-    {
-      "dealer": "DEALER 20",
-      "model": "B1",
-      "color": "Grey2",
-      "quantity": 2,
-      "composite_score": 0.603,
-      "p_score": 0.842,
-      "s_score": 0.447,
-      "h_score": 0.482,
-      "lp_score": 0.59
-    },
-    {
-      "dealer": "DEALER 20",
-      "model": "B1",
-      "color": "Black1",
-      "quantity": 2,
-      "composite_score": 0.603,
-      "p_score": 0.842,
-      "s_score": 0.447,
-      "h_score": 0.482,
-      "lp_score": 0.59
-    },
-    {
-      "dealer": "DEALER 20",
-      "model": "B1",
-      "color": "Black2",
-      "quantity": 2,
-      "composite_score": 0.603,
-      "p_score": 0.842,
-      "s_score": 0.447,
-      "h_score": 0.482,
-      "lp_score": 0.59
-    },
-    {
-      "dealer": "DEALER 21",
-      "model": "A1",
-      "color": "Grey3",
-      "quantity": 1,
-      "composite_score": 0.693,
-      "p_score": 0.946,
-      "s_score": 0.377,
-      "h_score": 0.72,
-      "lp_score": 0.678
+      "color": "Model target mix",
+      "quantity": 2
     },
     {
       "dealer": "DEALER 21",
       "model": "A2",
-      "color": "Grey3",
-      "quantity": 5,
-      "composite_score": 0.693,
-      "p_score": 0.946,
-      "s_score": 0.377,
-      "h_score": 0.72,
-      "lp_score": 0.678
-    },
-    {
-      "dealer": "DEALER 21",
-      "model": "A2",
-      "color": "Grey2",
-      "quantity": 4,
-      "composite_score": 0.693,
-      "p_score": 0.946,
-      "s_score": 0.377,
-      "h_score": 0.72,
-      "lp_score": 0.678
-    },
-    {
-      "dealer": "DEALER 21",
-      "model": "A2",
-      "color": "Black1",
-      "quantity": 4,
-      "composite_score": 0.693,
-      "p_score": 0.946,
-      "s_score": 0.377,
-      "h_score": 0.72,
-      "lp_score": 0.678
-    },
-    {
-      "dealer": "DEALER 21",
-      "model": "A2",
-      "color": "Black2",
-      "quantity": 4,
-      "composite_score": 0.693,
-      "p_score": 0.946,
-      "s_score": 0.377,
-      "h_score": 0.72,
-      "lp_score": 0.678
+      "color": "Model target mix",
+      "quantity": 8
     },
     {
       "dealer": "DEALER 21",
       "model": "A3",
-      "color": "Grey3",
-      "quantity": 2,
-      "composite_score": 0.693,
-      "p_score": 0.946,
-      "s_score": 0.377,
-      "h_score": 0.72,
-      "lp_score": 0.678
-    },
-    {
-      "dealer": "DEALER 21",
-      "model": "A3",
-      "color": "Grey2",
-      "quantity": 2,
-      "composite_score": 0.693,
-      "p_score": 0.946,
-      "s_score": 0.377,
-      "h_score": 0.72,
-      "lp_score": 0.678
-    },
-    {
-      "dealer": "DEALER 21",
-      "model": "A3",
-      "color": "Black1",
-      "quantity": 2,
-      "composite_score": 0.693,
-      "p_score": 0.946,
-      "s_score": 0.377,
-      "h_score": 0.72,
-      "lp_score": 0.678
-    },
-    {
-      "dealer": "DEALER 21",
-      "model": "A3",
-      "color": "Black2",
-      "quantity": 2,
-      "composite_score": 0.693,
-      "p_score": 0.946,
-      "s_score": 0.377,
-      "h_score": 0.72,
-      "lp_score": 0.678
+      "color": "Model target mix",
+      "quantity": 2
     },
     {
       "dealer": "DEALER 21",
       "model": "B1",
-      "color": "Grey3",
-      "quantity": 3,
-      "composite_score": 0.693,
-      "p_score": 0.946,
-      "s_score": 0.377,
-      "h_score": 0.72,
-      "lp_score": 0.678
-    },
-    {
-      "dealer": "DEALER 21",
-      "model": "B1",
-      "color": "Grey2",
-      "quantity": 2,
-      "composite_score": 0.693,
-      "p_score": 0.946,
-      "s_score": 0.377,
-      "h_score": 0.72,
-      "lp_score": 0.678
-    },
-    {
-      "dealer": "DEALER 21",
-      "model": "B1",
-      "color": "Black1",
-      "quantity": 2,
-      "composite_score": 0.693,
-      "p_score": 0.946,
-      "s_score": 0.377,
-      "h_score": 0.72,
-      "lp_score": 0.678
-    },
-    {
-      "dealer": "DEALER 21",
-      "model": "B1",
-      "color": "Black2",
-      "quantity": 2,
-      "composite_score": 0.693,
-      "p_score": 0.946,
-      "s_score": 0.377,
-      "h_score": 0.72,
-      "lp_score": 0.678
-    },
-    {
-      "dealer": "DEALER 22",
-      "model": "A1",
-      "color": "Grey3",
-      "quantity": 1,
-      "composite_score": 0.682,
-      "p_score": 0.824,
-      "s_score": 0.179,
-      "h_score": 0.821,
-      "lp_score": 0.788
+      "color": "Model target mix",
+      "quantity": 3
     },
     {
       "dealer": "DEALER 22",
       "model": "A2",
-      "color": "Grey3",
-      "quantity": 5,
-      "composite_score": 0.682,
-      "p_score": 0.824,
-      "s_score": 0.179,
-      "h_score": 0.821,
-      "lp_score": 0.788
-    },
-    {
-      "dealer": "DEALER 22",
-      "model": "A2",
-      "color": "Grey2",
-      "quantity": 4,
-      "composite_score": 0.682,
-      "p_score": 0.824,
-      "s_score": 0.179,
-      "h_score": 0.821,
-      "lp_score": 0.788
-    },
-    {
-      "dealer": "DEALER 22",
-      "model": "A2",
-      "color": "Black1",
-      "quantity": 4,
-      "composite_score": 0.682,
-      "p_score": 0.824,
-      "s_score": 0.179,
-      "h_score": 0.821,
-      "lp_score": 0.788
-    },
-    {
-      "dealer": "DEALER 22",
-      "model": "A2",
-      "color": "Black2",
-      "quantity": 4,
-      "composite_score": 0.682,
-      "p_score": 0.824,
-      "s_score": 0.179,
-      "h_score": 0.821,
-      "lp_score": 0.788
+      "color": "Model target mix",
+      "quantity": 5
     },
     {
       "dealer": "DEALER 22",
       "model": "A3",
-      "color": "Grey3",
-      "quantity": 3,
-      "composite_score": 0.682,
-      "p_score": 0.824,
-      "s_score": 0.179,
-      "h_score": 0.821,
-      "lp_score": 0.788
-    },
-    {
-      "dealer": "DEALER 22",
-      "model": "A3",
-      "color": "Grey2",
-      "quantity": 2,
-      "composite_score": 0.682,
-      "p_score": 0.824,
-      "s_score": 0.179,
-      "h_score": 0.821,
-      "lp_score": 0.788
-    },
-    {
-      "dealer": "DEALER 22",
-      "model": "A3",
-      "color": "Black1",
-      "quantity": 2,
-      "composite_score": 0.682,
-      "p_score": 0.824,
-      "s_score": 0.179,
-      "h_score": 0.821,
-      "lp_score": 0.788
-    },
-    {
-      "dealer": "DEALER 22",
-      "model": "A3",
-      "color": "Black2",
-      "quantity": 2,
-      "composite_score": 0.682,
-      "p_score": 0.824,
-      "s_score": 0.179,
-      "h_score": 0.821,
-      "lp_score": 0.788
+      "color": "Model target mix",
+      "quantity": 3
     },
     {
       "dealer": "DEALER 22",
       "model": "B1",
-      "color": "Grey3",
-      "quantity": 4,
-      "composite_score": 0.682,
-      "p_score": 0.824,
-      "s_score": 0.179,
-      "h_score": 0.821,
-      "lp_score": 0.788
-    },
-    {
-      "dealer": "DEALER 22",
-      "model": "B1",
-      "color": "Grey2",
-      "quantity": 3,
-      "composite_score": 0.682,
-      "p_score": 0.824,
-      "s_score": 0.179,
-      "h_score": 0.821,
-      "lp_score": 0.788
-    },
-    {
-      "dealer": "DEALER 22",
-      "model": "B1",
-      "color": "Black1",
-      "quantity": 3,
-      "composite_score": 0.682,
-      "p_score": 0.824,
-      "s_score": 0.179,
-      "h_score": 0.821,
-      "lp_score": 0.788
-    },
-    {
-      "dealer": "DEALER 22",
-      "model": "B1",
-      "color": "Black2",
-      "quantity": 3,
-      "composite_score": 0.682,
-      "p_score": 0.824,
-      "s_score": 0.179,
-      "h_score": 0.821,
-      "lp_score": 0.788
+      "color": "Model target mix",
+      "quantity": 4
     }
   ],
   "summary": [
     {
       "dealer": "DEALER 1",
-      "target": 32,
-      "allocated": 30,
-      "gap": -2,
-      "fill_rate": 93.8
-    },
-    {
-      "dealer": "DEALER 2",
-      "target": 37,
-      "allocated": 36,
-      "gap": -1,
-      "fill_rate": 97.3
-    },
-    {
-      "dealer": "DEALER 3",
-      "target": 38,
-      "allocated": 41,
-      "gap": 3,
-      "fill_rate": 107.9
-    },
-    {
-      "dealer": "DEALER 4",
-      "target": 36,
-      "allocated": 35,
-      "gap": -1,
-      "fill_rate": 97.2
-    },
-    {
-      "dealer": "DEALER 5",
-      "target": 34,
-      "allocated": 33,
-      "gap": -1,
-      "fill_rate": 97.1
-    },
-    {
-      "dealer": "DEALER 6",
-      "target": 43,
-      "allocated": 43,
-      "gap": 0,
-      "fill_rate": 100.0
-    },
-    {
-      "dealer": "DEALER 7",
-      "target": 37,
-      "allocated": 36,
-      "gap": -1,
-      "fill_rate": 97.3
-    },
-    {
-      "dealer": "DEALER 8",
-      "target": 35,
-      "allocated": 34,
-      "gap": -1,
-      "fill_rate": 97.1
-    },
-    {
-      "dealer": "DEALER 9",
-      "target": 41,
-      "allocated": 44,
-      "gap": 3,
-      "fill_rate": 107.3
-    },
-    {
-      "dealer": "DEALER 10",
-      "target": 41,
-      "allocated": 39,
-      "gap": -2,
-      "fill_rate": 95.1
-    },
-    {
-      "dealer": "DEALER 11",
-      "target": 52,
-      "allocated": 52,
-      "gap": 0,
-      "fill_rate": 100.0
-    },
-    {
-      "dealer": "DEALER 12",
-      "target": 41,
-      "allocated": 38,
-      "gap": -3,
-      "fill_rate": 92.7
-    },
-    {
-      "dealer": "DEALER 13",
-      "target": 42,
-      "allocated": 43,
-      "gap": 1,
-      "fill_rate": 102.4
-    },
-    {
-      "dealer": "DEALER 14",
-      "target": 41,
-      "allocated": 40,
-      "gap": -1,
-      "fill_rate": 97.6
-    },
-    {
-      "dealer": "DEALER 15",
-      "target": 29,
-      "allocated": 28,
-      "gap": -1,
-      "fill_rate": 96.6
-    },
-    {
-      "dealer": "DEALER 16",
-      "target": 37,
-      "allocated": 37,
-      "gap": 0,
-      "fill_rate": 100.0
-    },
-    {
-      "dealer": "DEALER 17",
-      "target": 42,
-      "allocated": 44,
-      "gap": 2,
-      "fill_rate": 104.8
-    },
-    {
-      "dealer": "DEALER 18",
-      "target": 37,
-      "allocated": 38,
-      "gap": 1,
-      "fill_rate": 102.7
-    },
-    {
-      "dealer": "DEALER 19",
-      "target": 38,
-      "allocated": 38,
-      "gap": 0,
-      "fill_rate": 100.0
-    },
-    {
-      "dealer": "DEALER 20",
-      "target": 36,
-      "allocated": 37,
-      "gap": 1,
-      "fill_rate": 102.8
-    },
-    {
-      "dealer": "DEALER 21",
       "target": 40,
       "allocated": 40,
       "gap": 0,
       "fill_rate": 100.0
     },
     {
+      "dealer": "DEALER 2",
+      "target": 22,
+      "allocated": 22,
+      "gap": 0,
+      "fill_rate": 100.0
+    },
+    {
+      "dealer": "DEALER 3",
+      "target": 18,
+      "allocated": 18,
+      "gap": 0,
+      "fill_rate": 100.0
+    },
+    {
+      "dealer": "DEALER 4",
+      "target": 16,
+      "allocated": 16,
+      "gap": 0,
+      "fill_rate": 100.0
+    },
+    {
+      "dealer": "DEALER 5",
+      "target": 19,
+      "allocated": 19,
+      "gap": 0,
+      "fill_rate": 100.0
+    },
+    {
+      "dealer": "DEALER 6",
+      "target": 26,
+      "allocated": 26,
+      "gap": 0,
+      "fill_rate": 100.0
+    },
+    {
+      "dealer": "DEALER 7",
+      "target": 32,
+      "allocated": 32,
+      "gap": 0,
+      "fill_rate": 100.0
+    },
+    {
+      "dealer": "DEALER 8",
+      "target": 12,
+      "allocated": 12,
+      "gap": 0,
+      "fill_rate": 100.0
+    },
+    {
+      "dealer": "DEALER 9",
+      "target": 9,
+      "allocated": 9,
+      "gap": 0,
+      "fill_rate": 100.0
+    },
+    {
+      "dealer": "DEALER 10",
+      "target": 15,
+      "allocated": 15,
+      "gap": 0,
+      "fill_rate": 100.0
+    },
+    {
+      "dealer": "DEALER 11",
+      "target": 8,
+      "allocated": 8,
+      "gap": 0,
+      "fill_rate": 100.0
+    },
+    {
+      "dealer": "DEALER 12",
+      "target": 16,
+      "allocated": 16,
+      "gap": 0,
+      "fill_rate": 100.0
+    },
+    {
+      "dealer": "DEALER 13",
+      "target": 26,
+      "allocated": 26,
+      "gap": 0,
+      "fill_rate": 100.0
+    },
+    {
+      "dealer": "DEALER 14",
+      "target": 30,
+      "allocated": 30,
+      "gap": 0,
+      "fill_rate": 100.0
+    },
+    {
+      "dealer": "DEALER 15",
+      "target": 32,
+      "allocated": 32,
+      "gap": 0,
+      "fill_rate": 100.0
+    },
+    {
+      "dealer": "DEALER 16",
+      "target": 24,
+      "allocated": 24,
+      "gap": 0,
+      "fill_rate": 100.0
+    },
+    {
+      "dealer": "DEALER 17",
+      "target": 40,
+      "allocated": 40,
+      "gap": 0,
+      "fill_rate": 100.0
+    },
+    {
+      "dealer": "DEALER 18",
+      "target": 24,
+      "allocated": 24,
+      "gap": 0,
+      "fill_rate": 100.0
+    },
+    {
+      "dealer": "DEALER 19",
+      "target": 18,
+      "allocated": 18,
+      "gap": 0,
+      "fill_rate": 100.0
+    },
+    {
+      "dealer": "DEALER 20",
+      "target": 10,
+      "allocated": 10,
+      "gap": 0,
+      "fill_rate": 100.0
+    },
+    {
+      "dealer": "DEALER 21",
+      "target": 13,
+      "allocated": 13,
+      "gap": 0,
+      "fill_rate": 100.0
+    },
+    {
       "dealer": "DEALER 22",
-      "target": 43,
-      "allocated": 46,
-      "gap": 3,
-      "fill_rate": 107.0
+      "target": 12,
+      "allocated": 12,
+      "gap": 0,
+      "fill_rate": 100.0
     }
   ],
   "scores": [
@@ -3509,163 +805,35 @@
   "inventory": [
     {
       "model": "A1",
-      "color": "Grey3",
-      "total": 12,
-      "used": 12,
-      "remaining": 0,
-      "usage_rate": 100.0
-    },
-    {
-      "model": "A1",
-      "color": "Grey2",
-      "total": 10,
-      "used": 9,
-      "remaining": 1,
-      "usage_rate": 90.0
-    },
-    {
-      "model": "A1",
-      "color": "Black1",
-      "total": 10,
-      "used": 9,
-      "remaining": 1,
-      "usage_rate": 90.0
-    },
-    {
-      "model": "A1",
-      "color": "Black2",
-      "total": 10,
-      "used": 9,
-      "remaining": 1,
-      "usage_rate": 90.0
+      "color": "All colors",
+      "total": 35,
+      "used": 11,
+      "remaining": 24,
+      "usage_rate": 31.4
     },
     {
       "model": "A2",
-      "color": "Grey3",
+      "color": "All colors",
+      "total": 291,
+      "used": 232,
+      "remaining": 59,
+      "usage_rate": 79.7
+    },
+    {
+      "model": "A3",
+      "color": "All colors",
       "total": 97,
-      "used": 95,
-      "remaining": 2,
-      "usage_rate": 97.9
-    },
-    {
-      "model": "A2",
-      "color": "Grey2",
-      "total": 81,
-      "used": 78,
-      "remaining": 3,
-      "usage_rate": 96.3
-    },
-    {
-      "model": "A2",
-      "color": "Black1",
-      "total": 79,
-      "used": 69,
-      "remaining": 10,
-      "usage_rate": 87.3
-    },
-    {
-      "model": "A2",
-      "color": "Black2",
-      "total": 74,
-      "used": 69,
-      "remaining": 5,
-      "usage_rate": 93.2
-    },
-    {
-      "model": "A3",
-      "color": "Grey3",
-      "total": 50,
-      "used": 46,
-      "remaining": 4,
-      "usage_rate": 92.0
-    },
-    {
-      "model": "A3",
-      "color": "Grey2",
-      "total": 42,
-      "used": 36,
-      "remaining": 6,
-      "usage_rate": 85.7
-    },
-    {
-      "model": "A3",
-      "color": "Black1",
-      "total": 40,
-      "used": 38,
-      "remaining": 2,
-      "usage_rate": 95.0
-    },
-    {
-      "model": "A3",
-      "color": "Black2",
-      "total": 38,
-      "used": 35,
-      "remaining": 3,
-      "usage_rate": 92.1
+      "used": 77,
+      "remaining": 20,
+      "usage_rate": 79.4
     },
     {
       "model": "B1",
-      "color": "Grey3",
-      "total": 62,
-      "used": 59,
-      "remaining": 3,
-      "usage_rate": 95.2
-    },
-    {
-      "model": "B1",
-      "color": "Grey2",
-      "total": 52,
-      "used": 47,
-      "remaining": 5,
-      "usage_rate": 90.4
-    },
-    {
-      "model": "B1",
-      "color": "Black1",
-      "total": 51,
-      "used": 42,
-      "remaining": 9,
-      "usage_rate": 82.4
-    },
-    {
-      "model": "B1",
-      "color": "Black2",
-      "total": 48,
-      "used": 42,
-      "remaining": 6,
-      "usage_rate": 87.5
-    },
-    {
-      "model": "C1",
-      "color": "Grey3",
-      "total": 27,
-      "used": 22,
-      "remaining": 5,
-      "usage_rate": 81.5
-    },
-    {
-      "model": "C1",
-      "color": "Grey2",
-      "total": 23,
-      "used": 22,
-      "remaining": 1,
-      "usage_rate": 95.7
-    },
-    {
-      "model": "C1",
-      "color": "Black1",
-      "total": 22,
-      "used": 21,
-      "remaining": 1,
-      "usage_rate": 95.5
-    },
-    {
-      "model": "C1",
-      "color": "Black2",
-      "total": 21,
-      "used": 20,
-      "remaining": 1,
-      "usage_rate": 95.2
+      "color": "All colors",
+      "total": 180,
+      "used": 142,
+      "remaining": 38,
+      "usage_rate": 78.9
     }
   ]
 }

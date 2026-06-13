@@ -247,7 +247,7 @@ def write_introduction(doc: Document):
         "Six new dealers (Dealers 23–28) joined the network without historical sales data.",
         "A new product version (B1) launched in March 2026, requiring demand uplift modeling.",
         "Distributor policy requires each dealer's monthly allocation to remain within ±20% of its annual target.",
-        "The product portfolio changed at year-end 2025: models A1, C1, and D1 were discontinued; only A2, A3, B1, and B2 remained active in 2026.",
+        "The 2026 active product portfolio consists of A1, A2, A3, B1, and B2. C1 and D1 are outside the 2026 planning scope.",
     ]:
         p = doc.add_paragraph(style="List Bullet")
         p.add_run(item).font.name = "Times New Roman"

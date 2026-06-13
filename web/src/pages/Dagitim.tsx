@@ -225,6 +225,7 @@ export default function Dagitim() {
   const [dealers, setDealers]       = useState<Dealer[]>([])
   const [bayiHedef, setBayiHedef]   = useState<Record<string, BayiHedefRow[]>>({})
   const [targets, setTargets]       = useState<Record<string,Record<string,number>>>({})
+  const [modelTargets, setModelTargets] = useState<Record<string,Record<string,number>>>({})
   const [allocated, setAllocated]   = useState<AllocVehicle[]>([])
   const [summary, setSummary]       = useState<SummaryRow[]>([])
   const [resultTab, setResultTab]   = useState(0)
@@ -352,17 +353,25 @@ export default function Dagitim() {
   const overSupply  = totalTarget > rawPool.length
 
   function confirmAndCalculate() {
-    const groups = [...new Set(rawPool.map(v => modelGroup(v.model)))].sort()
     const allAllocated: AllocVehicle[] = []
     const summaryMap: Record<string, SummaryRow> = {}
 
-    groups.forEach(grp => {
-      const groupPool = rawPool.filter(v => modelGroup(v.model) === grp)
-      const tArr = Object.entries(targets)
-        .map(([dealer, grps]) => ({ dealer, target: grps[grp] ?? 0 }))
+    // Senaryo hedefleri yüklendiğinde model karmasını koru; manuel girişte
+    // mevcut A/B grup bazlı davranışı sürdür.
+    const dimensions = Object.keys(modelTargets).length > 0
+      ? [...new Set(rawPool.map(v => v.model))].sort()
+      : [...new Set(rawPool.map(v => modelGroup(v.model)))].sort()
+
+    dimensions.forEach(dimension => {
+      const dimensionPool = Object.keys(modelTargets).length > 0
+        ? rawPool.filter(v => v.model === dimension)
+        : rawPool.filter(v => modelGroup(v.model) === dimension)
+      const sourceTargets = Object.keys(modelTargets).length > 0 ? modelTargets : targets
+      const tArr = Object.entries(sourceTargets)
+        .map(([dealer, values]) => ({ dealer, target: values[dimension] ?? 0 }))
         .filter(t => t.target > 0)
-      if (tArr.length === 0 || groupPool.length === 0) return
-      const { allocated: a, summary: s } = allocate(groupPool, tArr)
+      if (tArr.length === 0 || dimensionPool.length === 0) return
+      const { allocated: a, summary: s } = allocate(dimensionPool, tArr)
       allAllocated.push(...a)
       s.forEach(row => {
         if (!summaryMap[row.dealer]) summaryMap[row.dealer] = { dealer: row.dealer, target: 0, allocated: 0, gap: 0, fill_rate: 0 }
@@ -389,7 +398,7 @@ export default function Dagitim() {
   function reset() {
     setStep(0); setRawPool([]); setRawRows([]); setFileName(''); setError('')
     const t: Record<string,Record<string,number>> = {}; dealers.forEach(d => { t[d.name]={} }); setTargets(t)
-    setAllocated([]); setSummary([])
+    setAllocated([]); setSummary([]); setModelTargets({})
     if (fileRef.current) fileRef.current.value = ''
   }
 
@@ -690,6 +699,7 @@ export default function Dagitim() {
             <button
               onClick={() => {
                 const ayNo = AY_NO[month]
+                const nextModelTargets: Record<string,Record<string,number>> = {}
                 setTargets(prev => {
                   const t = { ...prev }
                   Object.entries(tahmin10k).forEach(([dealer, hedef]) => {
@@ -702,16 +712,18 @@ export default function Dagitim() {
                       grpMap[grp] = (grpMap[grp] ?? 0) + (cnt as number)
                     })
                     t[dealer] = grpMap
+                    nextModelTargets[dealer] = { ...(row.modeller ?? {}) }
                   })
                   return t
                 })
+                setModelTargets(nextModelTargets)
               }}
               className="text-xs bg-blue-50 border border-blue-200 text-blue-700 hover:bg-blue-100 px-3 py-1.5 rounded-lg font-medium transition-colors"
             >
               📋 10.000 Senaryo Hedeflerini Yükle
             </button>
           )}
-          <button onClick={() => { const t: Record<string,Record<string,number>>= {}; dealers.forEach(d=>{t[d.name]={}}); setTargets(t) }}
+          <button onClick={() => { const t: Record<string,Record<string,number>>= {}; dealers.forEach(d=>{t[d.name]={}}); setTargets(t); setModelTargets({}) }}
             className="text-xs text-slate-400 hover:text-red-500 flex items-center gap-1">
             <RotateCcw size={12}/> Sıfırla
           </button>
@@ -734,7 +746,7 @@ export default function Dagitim() {
                   <p className="text-xs text-blue-600 font-semibold text-center mb-1">A Grubu</p>
                   <input type="number" min={0} max={500}
                     value={aVal===0?'':aVal} placeholder="0"
-                    onChange={e => setTargets(prev => ({ ...prev, [d.name]: { ...(prev[d.name]??{}), A: Math.max(0, parseInt(e.target.value)||0) } }))}
+                    onChange={e => { setModelTargets({}); setTargets(prev => ({ ...prev, [d.name]: { ...(prev[d.name]??{}), A: Math.max(0, parseInt(e.target.value)||0) } })) }}
                     className="w-full text-center text-base font-bold border border-blue-200 rounded-lg py-1 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400"
                   />
                 </div>
@@ -742,7 +754,7 @@ export default function Dagitim() {
                   <p className="text-xs text-purple-600 font-semibold text-center mb-1">B Grubu</p>
                   <input type="number" min={0} max={500}
                     value={bVal===0?'':bVal} placeholder="0"
-                    onChange={e => setTargets(prev => ({ ...prev, [d.name]: { ...(prev[d.name]??{}), B: Math.max(0, parseInt(e.target.value)||0) } }))}
+                    onChange={e => { setModelTargets({}); setTargets(prev => ({ ...prev, [d.name]: { ...(prev[d.name]??{}), B: Math.max(0, parseInt(e.target.value)||0) } })) }}
                     className="w-full text-center text-base font-bold border border-purple-200 rounded-lg py-1 bg-white focus:outline-none focus:ring-2 focus:ring-purple-400"
                   />
                 </div>

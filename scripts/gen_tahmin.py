@@ -61,8 +61,8 @@ B_SEGMENT_BOOST_BY_AY: dict[int, float] = {
 
 PLAN_HEDEFLER = [8500, 10000]  # İki senaryo
 
-# 2026'da aktif olacak modeller — A1, C1, D1 üretimden kalkıyor
-MODELLER_2026: frozenset[str] = frozenset({"A2", "A3", "B1", "B2"})
+# 2026'da aktif olacak modeller. A1 satışı devam ediyor; C1 ve D1 kapsam dışı.
+MODELLER_2026: frozenset[str] = frozenset({"A1", "A2", "A3", "B1", "B2"})
 
 AY_ADLARI = [
     "Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran",
@@ -168,7 +168,7 @@ PERFORMANS_AY_NO = {
 # NOT: A1/A2/A3 aynı A segmenti aracının versiyonlarıdır (ayrı model değil)
 # B1/B2 aynı B segmenti aracının versiyonlarıdır
 MODEL_ACIKLAMALAR = {
-    "A1": "A Segmenti — Versiyon 1 (2025 sonu itibarıyla üretimden kalktı)",
+    "A1": "A Segmenti — Versiyon 1 (2025 Q4 lansmanı, satışı devam ediyor)",
     "A2": "A Segmenti — Versiyon 2 (2026 ana hacim modeli)",
     "A3": "A Segmenti — Versiyon 3 (2026 ana hacim modeli)",
     "B1": "B Segmenti — Versiyon 1 (Mart 2026 yeni versiyon lansmanı)",
@@ -429,7 +429,7 @@ def compute_bayi_aylik_model_hedefleri(
     last12 = df[(df["period"] >= LAST12_START) & (df["period"] <= LAST12_END)].copy()
     last12["model_desc"] = last12["Model Description"].astype(str).str.strip()
 
-    # 2026'da aktif modeller (A1, C1, D1 üretimden kalktı)
+    # 2026'da aktif modeller (A1 dahil; C1 ve D1 kapsam dışı)
     bilinen_modeller = sorted(MODELLER_2026)
 
     # Tüm 28 bayi (CSV'den) — yeni bayiler tarihsel veri olmadan eklenir
@@ -877,6 +877,13 @@ def compute_model_aylik_hedefler(
 
     son6  = df_hist[df_hist["period"] >= SON6_START]
     geri  = df_hist[(df_hist["period"] >= GERI_START) & (df_hist["period"] <= GERI_END)]
+    son12 = df_hist[
+        (df_hist["period"] >= pd.Period("2024-12", freq="M"))
+        & (df_hist["period"] <= pd.Period("2025-11", freq="M"))
+        & (df_hist["model_desc"].isin(MODELLER_2026))
+    ]
+    son12_cnt = son12.groupby("model_desc").size()
+    son12_mix = (son12_cnt / son12_cnt.sum()).to_dict() if son12_cnt.sum() > 0 else {}
 
     def _ay_model_mix(ay: int) -> dict[str, float]:
         """Belirli bir takvim ayı için ağırlıklı model mix döndürür."""
@@ -889,7 +896,7 @@ def compute_model_aylik_hedefler(
         son6_sum  = son6_cnt.sum()
         geri_sum  = geri_cnt.sum()
 
-        # Yalnızca 2026'da aktif olan modeller dahil edilir (A1, C1, D1 üretimden kalktı)
+        # Yalnızca 2026'da aktif olan modeller dahil edilir (A1 dahil).
         tum_modeller = sorted(
             m for m in set(list(son6_cnt.index) + list(geri_cnt.index))
             if m in MODELLER_2026
@@ -899,6 +906,20 @@ def compute_model_aylik_hedefler(
             son6_pay = float(son6_cnt.get(m, 0)) / son6_sum if son6_sum > 0 else 0.0
             geri_pay = float(geri_cnt.get(m, 0)) / geri_sum if geri_sum > 0 else 0.0
             mix[m] = 0.60 * son6_pay + 0.40 * geri_pay
+
+        # A1 Eylül 2025'te satışa çıktığı için Ocak geçmişi yoktur. İlk tam yıllık
+        # döngü oluşana kadar son 12 aylık aktif-model payını yedek oran olarak kullan.
+        fallback_mix = {
+            model: son12_mix[model]
+            for model in MODELLER_2026
+            if mix.get(model, 0.0) == 0.0 and son12_mix.get(model, 0.0) > 0.0
+        }
+        fallback_total = sum(fallback_mix.values())
+        observed_total = sum(mix.values())
+        if fallback_mix and observed_total > 0 and fallback_total < 1.0:
+            observed_scale = (1.0 - fallback_total) / observed_total
+            mix = {model: pay * observed_scale for model, pay in mix.items()}
+            mix.update(fallback_mix)
 
         # Normalize
         toplam = sum(mix.values())
@@ -932,13 +953,11 @@ def compute_model_aylik_hedefler(
                 toplam_yeni = sum(mix.values())
                 mix = {k: v / toplam_yeni for k, v in mix.items()}
 
-            # %1.5'ten az modelleri "Diğer"'e topla
-            ESIK = 0.015
-            ana_mix = {k: v for k, v in mix.items() if v >= ESIK}
-            diger_pay = sum(v for k, v in mix.items() if v < ESIK)
+            # Aktif modeller düşük hacimli olsa da kendi adıyla gösterilir.
+            ana_mix = dict(mix)
+            diger_pay = 0.0
 
-            # Normalize ana_mix (diğer eklemeden önce)
-            ana_sum = sum(ana_mix.values()) + diger_pay
+            ana_sum = sum(ana_mix.values())
             if ana_sum > 0:
                 ana_mix = {k: v / ana_sum for k, v in ana_mix.items()}
                 diger_pay_norm = diger_pay / ana_sum
